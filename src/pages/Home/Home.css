@@ -1,0 +1,199 @@
+/* Parallax effect for background */
+.parallax {
+  background-attachment: fixed;
+  background-position: center;
+  transform: translateZ(0);
+}
+
+/* Custom border with gradient */
+.custom-border {
+  position: relative;
+  border: none;
+  padding: 10px;
+}
+
+.custom-border::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
+  z-index: -1;
+  border-radius: 12px;
+}
+
+/* Text gradient */
+.text-gradient {
+  background: linear-gradient(to right, #000000, #9b8862, #ccae73);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Custom button styles */
+.custom-button {
+  position: relative;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(to right, #000000, #9b8862, #ccae73);
+  overflow: hidden;
+}
+
+.custom-button::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(to right, #00c4cc, #ffd700); /* Teal to yellow gradient */
+  z-index: -1;
+  border-radius: 10px;
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+}
+
+.custom-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(to right, #1a1a1a, #a59770, #d9bc85);
+}
+
+.custom-button:hover::before {
+  opacity: 0.5;
+}
+
+.custom-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Animations */
+@keyframes fadeInSlideUp {
+  0% { opacity: 0; transform: translateY(60px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDelayed {
+  0% { opacity: 0; }
+  50% { opacity: 0; }
+  100% { opacity: 0.9; }
+}
+
+@keyframes scaleIn {
+  0% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes scaleInDelayed {
+  0% { opacity: 0; transform: scale(0.8); }
+  60% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes scaleInDelayed2 {
+  0% { opacity: 0; transform: scale(0.8); }
+  65% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes scaleInDelayed3 {
+  0% { opacity: 0; transform: scale(0.8); }
+  70% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulseButton {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.animate-fade-in-slide-up {
+  animation: fadeInSlideUp 1.2s ease-out forwards;
+}
+
+.animate-fade-in-delayed {
+  animation: fadeInDelayed 1.8s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 1.5s ease-out forwards;
+}
+
+.animate-scale-in-delayed {
+  animation: scaleInDelayed 1.5s ease-out forwards;
+}
+
+.animate-scale-in-delayed-2 {
+  animation: scaleInDelayed2 1.5s ease-out forwards;
+}
+
+.animate-scale-in-delayed-3 {
+  animation: scaleInDelayed3 1.5s ease-out forwards;
+}
+
+.animate-pulse-button {
+  animation: pulseButton 2s infinite;
+}
+
+/* General styles */
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.ant-card {
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ant-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.ant-input,
+.ant-btn,
+.ant-input-number {
+  font-size: 16px;
+  /* height: 40px; */
+}
+
+.ant-input-number-input {
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .ant-input,
+  .ant-btn,
+  .ant-input-number {
+    font-size: 14px;
+    height: 36px;
+  }
+
+  .custom-button {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  h1 {
+    font-size: 2.5rem !important;
+  }
+  p {
+    font-size: 1rem !important;
+    max-width: 90% !important;
+  }
+}

@@ -1,0 +1,114 @@
+.gradient-border-active {
+  position: relative;
+  border: none !important;
+}
+.gradient-border-active::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 6px;
+  padding: 1px;
+  background: linear-gradient(to right, #e1d9d9, #e7e7e7bd, #ffc628bf);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.parent {
+  perspective: 1200px;
+}
+.explore-card {
+  transition: all 0.6s ease-in-out;
+  transform-style: preserve-3d;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.2) 0px 4px 6px -2px;
+}
+.parent:hover .explore-card {
+  transform: rotate3d(1, -1, 0, 25deg);
+  background: #333;
+}
+.property-card-action-button:hover {
+  border: 1px solid #c99913 !important;
+}
+
+.property-card-action-button svg {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+@media (min-width: 640px) {
+  .property-card-action-button svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+}
+
+.property-card-action-button span {
+  font-weight: 500 !important;
+}
+
+@media (min-width: 640px) {
+  .property-card-action-button span {
+    font-size: 14px !important;
+  }
+}
+
+.text-area-contact {
+  &:focus {
+    border-color: #c99913 !important;
+    box-shadow: 0 0 0 2px rgba(201, 153, 19, 0.2) !important;
+    outline: 0;
+    background-color: #333 !important;
+    color: #c2c6cb !important;
+  }
+  &:hover {
+    border-color: #c99913 !important;
+  }
+}
+@media(max-width: 425px){
+  .mobile-tab-container{
+    padding: 10px;
+  }
+  .mobile-share-section{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 5px;
+  }
+  .contact-section-property-modal{
+    gap: 10px;
+  }
+}
+@media(max-width: 400px){
+  .mobile-text-price{
+    font-size: 15px;
+  }
+}

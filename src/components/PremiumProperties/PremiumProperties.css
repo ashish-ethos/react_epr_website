@@ -1,0 +1,189 @@
+.text-gradient {
+  background: linear-gradient(to right, #c2c6cb, #c99913, #c2c6cb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.premium-drawer .ant-drawer-mask {
+  background: rgba(17, 24, 39, 0.5) !important;
+}
+.premium-drawer .ant-drawer .ant-drawer-mask {
+  background: rgba(17, 24, 39, 0.5) !important;
+}
+
+.card-properties-details {
+  font-family: "Inter", sans-serif;
+  color: #c2c6cb;
+}
+
+.card-properties-details img {
+  transition: transform 0.3s ease;
+}
+
+.card-properties-details img:hover {
+  transform: scale(1.02);
+}
+
+.card-properties-details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.card-properties-details ul li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-properties-details ul li strong {
+  min-width: 120px;
+  color: #c2c6cb;
+}
+
+.card-properties-details .bg-white {
+  background: #333 !important;
+  border: 1px solid #ffffff38 !important;
+}
+
+@media (max-width: 768px) {
+  .premium-properties-main {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  .permium-properties-right {
+    padding: 10px;
+  }
+  .details-mobile {
+    justify-content: start;
+  }
+}
+
+.stat-card {
+  border-image: linear-gradient(45deg, #c99913, #474236, #333) 10;
+  border-image-slice: 10;
+  position: relative;
+  overflow: visible;
+}
+.stat-card::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 24px;
+  border: 4px solid transparent;
+  background: linear-gradient(45deg, #c99913, #474236, #333) border-box;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+  z-index: -1;
+}
+.stat-card:hover::before {
+  background: none;
+}
+
+@media (max-width: 425px) {
+  .carousel-card {
+    width: 96% !important;
+  }
+  .main-carousel {
+    width: 100% !important;
+  }
+  .content-mobile-price {
+    flex-direction: column;
+    align-items: start;
+  }
+  
+  .what-sets-text {
+    margin-bottom: 0px;
+  }
+  .mobile-premium-section{
+    margin-bottom: 10px;
+  }
+}
+
+
+/* CardPropertiesDetails.css */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #c99913 #333;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #333;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #c99913;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a17f0f;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px rgba(201, 153, 19, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(201, 153, 19, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(201, 153, 19, 0.2);
+  }
+}
+
+
+/* Ensure hover effects are consistent */
+button:hover,
+div:hover {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Contact Form overrides (assuming it may have light-themed defaults) */
+.contact-form {
+  background: #1f2937 !important;
+  color: #c2c6cb !important;
+  border: 1px solid #ffffff38 !important;
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+  background: #333 !important;
+  color: #c2c6cb !important;
+  border: 1px solid #ffffff38 !important;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+  outline: none !important;
+  box-shadow: 0 0 5px rgba(201, 153, 19, 0.3) !important;
+  border-color: #c99913 !important;
+}
+
+.contact-form button {
+  background: #333 !important;
+  color: #c2c6cb !important;
+  border: 1px solid #ffffff38 !important;
+}
+
+.contact-form button:hover {
+  background: #444 !important;
+  box-shadow: 0 0 10px rgba(201, 153, 19, 0.2) !important;
+}
+
+
+
+
+
+
+
+
+
+/* global.css or index.css */
+
