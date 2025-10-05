@@ -39,8 +39,8 @@ Coming soon...
 Clone the repository:
 
 ```bash
-git clone https://github.com/ashish-ethos/ethos_pro_realtors_website.git
-cd react_epr
+git clone https://github.com/ashish-ethos/react_epr_website.git
+cd react_epr_website
 
 ```
 ---
