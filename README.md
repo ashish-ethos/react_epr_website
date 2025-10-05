@@ -40,7 +40,7 @@ Clone the repository:
 
 ```bash
 git clone https://github.com/ashish-ethos/ethos_pro_realtors_website.git
-cd ethos-pro-realtors
+cd react_epr
 
 ```
 ---
