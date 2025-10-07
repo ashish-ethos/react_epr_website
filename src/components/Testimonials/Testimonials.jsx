@@ -12,6 +12,8 @@ const Testimonial = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [pause, setPause] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(3);
+  const [offset, setOffset] = useState(320);
 
   const testimonials = [
     {
@@ -76,17 +78,38 @@ const Testimonial = () => {
     return () => clearInterval(interval);
   }, [pause]);
 
+  useEffect(() => {
+    const updateVisible = () => {
+      if (window.innerWidth < 768) {
+        setVisibleCount(1);
+        setOffset(0);
+      } else if (window.innerWidth < 1024) {
+        setVisibleCount(2);
+        setOffset(280);
+      } else {
+        setVisibleCount(3);
+        setOffset(320);
+      }
+    };
+
+    updateVisible();
+    window.addEventListener('resize', updateVisible);
+    return () => window.removeEventListener('resize', updateVisible);
+  }, []);
+
   const getVisibleTestimonials = () => {
     const visible = [];
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < visibleCount; i++) {
       const index = (currentSlide + i) % testimonials.length;
       visible.push({ ...testimonials[index], position: i });
     }
     return visible;
   };
 
+  const centerPos = (visibleCount - 1) / 2;
+
   return (
-    <div className="min-h-screen bg-[#333] py-10 px-4 relative overflow-hidden laptop-mode-screen" id='testimonials'>
+    <div className=" bg-[#333] py-10 px-4 relative overflow-hidden laptop-mode-screen" id='testimonials'>
       {/* Background Orbs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-[#444]/50 to-[#c2c6cb]/20 rounded-full opacity-20 blur-3xl animate-pulse"></div>
@@ -98,22 +121,22 @@ const Testimonial = () => {
         {/* Header */}
         <div className="text-center mb-16 mobile-testimonial-section">
           <div className="inline-flex flex-col items-center justify-center space-x-2 mb-6">
-            <p className="text-3xl mobile-title-text font-[Montserrat] sm:text-xl md:text-5xl font-black mb-3 sm:mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent animate-pulse">
+            <p className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-[Montserrat] font-black mb-3 sm:mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent animate-pulse mobile-title-text">
               TESTIMONIALS
             </p>
             
-            <div className="h-1  w-full bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] rounded-full animate-pulse"></div>
+            <div className="h-1 w-full bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] rounded-full animate-pulse"></div>
           </div>
 
           <div className="flex justify-center mb-6">
             {[...Array(5)].map((_, i) => (
-              <Star key={i} className="w-6 h-6 text-[#c2c6cb] fill-current mx-0.5" />
+              <Star key={i} className="w-5 h-5 sm:w-6 sm:h-6 text-[#c2c6cb] fill-current mx-0.5" />
             ))}
           </div>
-          <h2 className="text-5xl md:text-6xl font-[Montserrat] font-bold bg-gradient-to-r from-[#c2c6cb] via-[#444] to-[#c2c6cb] bg-clip-text text-transparent mb-6 testimonial-text-content">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-[Montserrat] font-bold bg-gradient-to-r from-[#c2c6cb] via-[#444] to-[#c2c6cb] bg-clip-text text-transparent mb-6 testimonial-text-content">
             What Our Clients Have To Say About Us?
           </h2>
-          <p className="text-xl text-[#c2c6cb] max-w-3xl font-bebas mx-auto leading-relaxed testimonial-subtitle">
+          <p className="text-base sm:text-lg md:text-xl text-[#c2c6cb] max-w-3xl font-bebas mx-auto leading-relaxed testimonial-subtitle">
             Discover why our clients trust us for their real estate needs. Their success is our greatest achievement.
             Read their stories to see how we've helped them find their perfect property.
           </p>
@@ -125,39 +148,40 @@ const Testimonial = () => {
           onMouseEnter={() => setPause(true)}
           onMouseLeave={() => setPause(false)}
         >
-          <div className="flex justify-center items-start space-x-8 mb-12  mobile-testimonial-section">
+          <div className="flex justify-center items-start space-x-2 md:space-x-4 lg:space-x-8 mb-12 mobile-testimonial-section">
             {getVisibleTestimonials().map((testimonial, index) => (
               <div
                 key={testimonial.id}
-                className={`transition-all duration-700 ease-in-out ${index === 1
-                    ? 'scale-100 opacity-100 z-20'
-                    : 'scale-90 opacity-70 z-10'
-                  }`}
+                className={`transition-all duration-700 ease-in-out ${
+                  visibleCount === 3 && index !== 1
+                    ? 'scale-90 opacity-70 z-10'
+                    : 'scale-100 opacity-100 z-20'
+                }`}
                 style={{
-                  transform: `translateX(${(index - 1) * 320}px)`
+                  transform: `translateX(${(testimonial.position - centerPos) * offset}px)`
                 }}
               >
                 <div className="relative group">
                   <div className="absolute inset-0 bg-[#444]/40 backdrop-blur-xl rounded-3xl shadow-2xl border border-[#ffffff38] group-hover:bg-[#444]/50 transition-all duration-300" />
                   <div className="absolute inset-0 bg-gradient-to-br from-[#333]/20 to-transparent rounded-3xl" />
-                  <div className="relative z-10 p-8 h-full flex flex-col">
-                    <Quote className="w-8 h-8 text-[#c2c6cb] opacity-60 mb-4" />
-                    <p className="text-[#c2c6cb] text-sm leading-relaxed mb-4 fontFamily-bebas">
+                  <div className="relative z-10 p-6 sm:p-8 h-full flex flex-col">
+                    <Quote className="w-6 h-6 sm:w-8 sm:h-8 text-[#c2c6cb] opacity-60 mb-4" />
+                    <p className="text-xs sm:text-sm leading-relaxed mb-4 fontFamily-bebas text-[#c2c6cb] flex-grow testimonial-content">
                       {testimonial.content}
                     </p>
                     <div className="flex space-x-1 mb-4">
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 text-[#c2c6cb] fill-current" />
+                        <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 text-[#c2c6cb] fill-current" />
                       ))}
                     </div>
                     <div className="flex items-center space-x-4 mt-auto">
                       <div className="relative">
-                        <img src={testimonial.image} alt={testimonial.name} className="w-12 h-12 rounded-full object-cover ring-3 ring-[#ffffff38]" />
+                        <img src={testimonial.image} alt={testimonial.name} className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover ring-3 ring-[#ffffff38]" />
                         <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#c2c6cb]/20 to-[#444]/20"></div>
                       </div>
                       <div>
-                        <h4 className="font-bold bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent">{testimonial.name}</h4>
-                        <p className="text-sm text-[#c2c6cb]">{testimonial.role}</p>
+                        <h4 className="font-bold bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent text-sm sm:text-base">{testimonial.name}</h4>
+                        <p className="text-xs sm:text-sm text-[#c2c6cb]">{testimonial.role}</p>
                       </div>
                     </div>
                   </div>
@@ -171,16 +195,16 @@ const Testimonial = () => {
             <CustomButton
               onClick={prevSlide}
               disabled={isAnimating}
-              className="group relative cursor-pointer p-4 bg-[#333]/80 backdrop-blur-sm rounded-full "
+              className="group relative cursor-pointer p-3 sm:p-4 bg-[#333]/80 backdrop-blur-sm rounded-full "
             >
-              <ArrowLeft className="w-6 h-6 text-[#c2c6cb] group-hover:text-[#c2c6cb] transition-colors" />
+              <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 text-[#c2c6cb] group-hover:text-[#c2c6cb] transition-colors" />
             </CustomButton>
             <CustomButton
               onClick={nextSlide}
               disabled={isAnimating}
-              className="group relative cursor-pointer p-4 bg-[#333]/80 backdrop-blur-sm rounded-full "
+              className="group relative cursor-pointer p-3 sm:p-4 bg-[#333]/80 backdrop-blur-sm rounded-full "
             >
-              <ArrowRight className="w-6 h-6 text-[#c2c6cb] group-hover:text-[#c2c6cb] transition-colors" />
+              <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 text-[#c2c6cb] group-hover:text-[#c2c6cb] transition-colors" />
             </CustomButton>
           </div>
 
@@ -190,10 +214,11 @@ const Testimonial = () => {
               <button
                 key={index}
                 onClick={() => !isAnimating && setCurrentSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentSlide
-                    ? 'bg-[#c2c6cb] w-8'
+                className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
+                  index === currentSlide
+                    ? 'bg-[#c2c6cb] w-6 sm:w-8'
                     : 'bg-[#444] hover:bg-[#c2c6cb]/50'
-                  }`}
+                }`}
               />
             ))}
           </div>

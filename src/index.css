@@ -315,6 +315,7 @@ body {
   }
   .right-column-contact {
     margin-top: 10px;
+    min-width: 100%;
   }
   .contact-info-cards {
     padding: 15px !important;

@@ -100,7 +100,7 @@ const Contact = () => {
                         </div>
 
                         {/* Office Location */}
-                        <div className="bg-[#444]/70 rounded-3xl shadow-xl p-8 border border-[#ffffff38]">
+                        <div className="bg-[#444]/70 rounded-3xl shadow-xl p-8 border border-[#ffffff38] contact-info-cards">
                             <h2 className="text-2xl font-bold text-[#c2c6cb] mb-6">Visit Our Office</h2>
                             <div className="bg-gradient-to-r from-[#333]/50 to-[#444]/50 p-6 rounded-2xl border border-[#ffffff38]">
                                 <div className="flex items-start">
@@ -117,9 +117,9 @@ const Contact = () => {
                         </div>
 
                         {/* Social Media */}
-                        <div className="bg-[#444]/70 rounded-3xl shadow-xl p-8 border border-[#ffffff38]">
+                        <div className="bg-[#444]/70 rounded-3xl shadow-xl p-8 border border-[#ffffff38] contact-info-cards">
                             <h2 className="text-2xl font-bold text-[#c2c6cb] mb-6">Follow Us On</h2>
-                            <div className="flex space-x-4">
+                            <div className="flex space-x-4 ">
                                 <a
                                     href="https://www.facebook.com/ethosprorealtors/"
                                     target="_blank"

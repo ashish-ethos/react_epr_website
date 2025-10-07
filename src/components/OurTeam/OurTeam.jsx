@@ -162,7 +162,7 @@ const TeamCard = ({ member, index, isVisible, onViewProfile }) => {
 
   return (
     <div
-      className={`group relative w-[280px] h-[420px] perspective-1000 transform transition-all duration-700 flex-shrink-0`}
+      className={`group relative w-[280px] h-[420px] perspective-1000 transform transition-all duration-700 flex-shrink-0 mobile-screen-teamcard`}
       style={{ transitionDelay: `${index * 200}ms` }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

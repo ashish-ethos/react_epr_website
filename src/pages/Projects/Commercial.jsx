@@ -286,11 +286,11 @@ const Commercial = () => {
           </div>
           <div className="flex items-center justify-between mb-4  mobile-project-title ">
             <div>
-              <div className="text-2xl font-bold text-[#c2c6cb]">{property.price}</div>
+              <div className="text-2xl font-bold text-[#c2c6cb] mobile-property-price">{property.price}</div>
               <div className="text-sm text-[#c2c6cb]/80">{property.pricePerSqft}/sq ft</div>
             </div>
             <span
-              className={`px-3 py-1 rounded-full text-xs font-semibold bg-[#333]/50 text-[#c2c6cb] border border-[#ffffff38]`}
+              className={`px-3 py-1 rounded-full text-xs font-semibold bg-[#333]/50 text-[#c2c6cb] border border-[#ffffff38] mobile-project-type`}
             >
               {property.category.replace('_', ' ')}
             </span>

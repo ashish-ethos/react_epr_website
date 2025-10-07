@@ -282,7 +282,7 @@ const Residentials = () => {
               <span className="text-sm font-semibold text-[#c2c6cb]">{property.rating}</span>
             </div>
           </div>
-          <div className="flex items-center gap-4 mb-4 text-sm text-[#c2c6cb]/80">
+          <div className="flex items-center gap-4 mb-4 text-sm text-[#c2c6cb]/80 mobile-project-type">
             <span className="flex items-center gap-1">
               <Bed className="text-[#c2c6cb]" />
               {property.bedrooms} Bed

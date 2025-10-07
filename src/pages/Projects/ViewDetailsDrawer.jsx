@@ -168,7 +168,7 @@ const ViewDetailsDrawer = ({ open, onClose, project, isLiked = false, onToggleLi
   );
 
   const StatCard = ({ icon, label, value, color = 'blue' }) => (
-    <div className="text-center p-2">
+    <div className="text-center p-2 mobile-stat-grid">
       <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-${color}-100/20 text-${color}-600 mb-1 border-1`}>
         {icon}
       </div>
@@ -180,7 +180,7 @@ const ViewDetailsDrawer = ({ open, onClose, project, isLiked = false, onToggleLi
   const overviewContent = (
     <div className="space-y-6">
       {/* Hero Section */}
-      <PremiumCard gradient={true}>
+      <PremiumCard gradient={true} >
         <div className="flex justify-between items-start mb-4 hero-section-header">
           <div>
             <Title level={3} className="m-0 text-[#c2c6cb] fontFamily-bebas detail-project-name">{project?.name || 'Property'}</Title>
@@ -272,7 +272,7 @@ const ViewDetailsDrawer = ({ open, onClose, project, isLiked = false, onToggleLi
 
       {/* Key Statistics */}
       <PremiumCard>
-        <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-[#ffffff38]">
+        <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-[#ffffff38] mobile-stat-grid">
           <StatCard
             icon={<AreaChartOutlined className="text-[#c2c6cb]" />}
             label="Area"
@@ -343,7 +343,7 @@ const ViewDetailsDrawer = ({ open, onClose, project, isLiked = false, onToggleLi
             <ThunderboltOutlined className="mr-2 text-[#c2c6cb]" />
             Amenities & Features
           </Title>
-          <div className="grid grid-cols-2 mt-2 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 mt-2 sm:grid-cols-3 gap-4 mobile-amenities-grid">
             {project.amenities.map((amenity, i) => (
               <div key={i} className="flex items-center p-3 bg-[#333]/50 rounded-xl hover:bg-[#444]/50 transition-colors border border-[#ffffff38]">
                 <div className="mr-3 text-[#c2c6cb]">
