@@ -25,7 +25,7 @@ export const allProjectPropertyDetails = [
     id: 1,
     name: "Central Park Flower Valley The Room",
     location: "Central Park II, Sector 48, Gurugram, Haryana, India",
-    price: "₹On Request",
+    price: "₹3 crore*",
     priceValue: null, 
     pricePerSqft: "₹On Request",
     sqft: "2280 Sq Ft",

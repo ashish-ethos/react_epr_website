@@ -649,13 +649,13 @@ const Commercial = () => {
                     { value: 'INVESTMENT', label: 'Investment' },
                   ]}
                 />
-                <CustomButton
+                <button
                   onClick={() => setFilters({ priceRange: '', propertyType: '', bedrooms: '', category: '' })}
                   size="large"
-                  className=" max-w-[200px]"
+                  className="cancelButton rounded-md max-w-[200px]"
                 >
                   Clear Filters
-                </CustomButton>
+                </button>
               </div>
             </div>
           )}

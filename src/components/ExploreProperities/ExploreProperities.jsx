@@ -75,7 +75,7 @@ const ExploreProperties = ({ filters = {} }) => {
             name: 'AIPL Business Club',
             location: 'AIPL Business Club, Sector 62, Gurgaon, Haryana, India',
             size: '500 - 5000 Sq Ft',
-            price: '₹1.8 Cr - ₹6.2 Cr',
+            price: '₹1 Cr - ₹10 Cr',
             image: AIPLAutography,
             options: ['FOR RENT', 'FOR SALE'],
             rating: 4.6,
@@ -153,7 +153,7 @@ const ExploreProperties = ({ filters = {} }) => {
             name: 'Central Park Flower Valley The Room',
             location: 'The Room, Central Park II, Sector 48, Gurugram, Haryana, India',
             size: 'NA',
-            price: '₹85 L – ₹1.45 Cr',
+            price: '₹3 Cr*',
             image: CentralPark,
             options: ['FOR RENT', 'FOR SALE'],
             rating: 4.5,
@@ -179,7 +179,7 @@ const ExploreProperties = ({ filters = {} }) => {
             name: 'Krisumi Waterfall Residences',
             location: 'Krisumi Waterfall Residences, Sector 36A, Gurugram, Haryana, India',
             size: '1448 – 6569 Sq Ft',
-            price: '₹1.25 Cr – ₹6.5 Cr',
+            price: '₹1.50 Cr – ₹6.5 Cr',
             image: Krisumi,
             options: ['FEATURED', 'FOR RENT', 'FOR SALE', 'HOT OFFER'],
             rating: 4.6,
@@ -231,7 +231,7 @@ const ExploreProperties = ({ filters = {} }) => {
             name: 'AIPL Business Club',
             location: 'AIPL Business Club, Sector 62, Gurugram, Haryana, India',
             size: '500 – 20000 Sq Ft',
-            price: '₹ Price on Request',
+            price: '₹1 Cr - ₹5 Cr',
             image: AIPLBusinessClub,
             options: ['FOR RENT', 'FOR SALE'],
             rating: 4.6,
@@ -283,7 +283,7 @@ const ExploreProperties = ({ filters = {} }) => {
             name: 'M3M IFC',
             location: 'M3M IFC, Golf Course Extension Road, Badshahpur, Sector 66, Gurugram, Haryana, India',
             size: '500 – 18000 Sq Ft',
-            price: '₹ Price on Request',
+            price: '₹1.25Cr – ₹15Cr',
             image: M3MMansion,
             options: ['FOR RENT', 'FOR SALE', 'HOT OFFER'],
             rating: 4.7,
@@ -322,7 +322,7 @@ const ExploreProperties = ({ filters = {} }) => {
             name: 'AIPL Business Club',
             location: 'AIPL Business Club, Sector 62, Gurugram, Haryana, India',
             size: 'Size on Request',
-            price: '₹ Price on Request',
+            price: '₹1 Cr - ₹5 Cr',
             image: AIPLBusinessClub,
             options: ['FOR RENT', 'FOR SALE'],
             rating: 4.7,
@@ -844,7 +844,7 @@ const ExploreProperties = ({ filters = {} }) => {
                             <div className="left-side  rounded-xl shadow-md h-full sm:mr-6 sm:w-1/2">
                                 <ContactForm className="h-full" />
                             </div>
-                            <div className="right-side border border-[#ffffff38] p-4 sm:p-6 rounded-xl shadow-md sm:w-1/2">
+                            {/* <div className="right-side border border-[#ffffff38] p-4 sm:p-6 rounded-xl shadow-md sm:w-1/2">
                                 <h3 className="text-lg font-semibold text-[#c2c6cb] mb-4 fontFamily-bebas">Schedule a Tour</h3>
                                 <form className="space-y-4" onSubmit={handleTourSubmit}>
                                     <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
@@ -956,7 +956,7 @@ const ExploreProperties = ({ filters = {} }) => {
                                         </CustomButton>
                                     </div>
                                 </form>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
