@@ -154,6 +154,7 @@
 }
 .ant-drawer .ant-drawer-header{
   padding: 10px 15px !important;
+  border-bottom: 1px solid #ffffff38 !important;
 }
 .ant-tag .ant-tag-close-icon{
   color: #c2c6cb !important;

@@ -248,3 +248,10 @@
   width: 20px !important;
   height: 20px !important;
 }
+
+@media (min-width: 500px) and (max-width: 3124px) {
+  .continuous-marquee {
+    height: 200px;
+    border-radius: 10px;
+  }
+}

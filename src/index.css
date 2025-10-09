@@ -149,7 +149,7 @@ body {
 }
 
 .cancelButton {
-  border: 1px solid #ef4444;
+  border: 1px solid #ef4444 !important;
   color: #ef4444;
   background-color: transparent;
   transition: all 0.3s ease;

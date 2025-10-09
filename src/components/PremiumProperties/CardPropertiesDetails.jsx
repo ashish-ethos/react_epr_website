@@ -50,7 +50,7 @@ const CardPropertiesDetails = ({ property }) => {
   return (
     <div className="max-w-7xl mx-auto bg-[#333] shadow-sm border border-[#ffffff38] overflow-y-auto custom-scrollbar scrollbar-thin ">
       {/* Header Section */}
-      <div className="bg-[#1f2937] px-6 py-4 border-b border-[#ffffff38]">
+      <div className="bg-[#1b1b1b] px-6 py-4 border-b border-[#ffffff38]">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold text-[#c2c6cb]">{property.name}</h1>
           {property.featured && (
@@ -100,7 +100,7 @@ const CardPropertiesDetails = ({ property }) => {
         {/* Row 1: Property Details + Location Details */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
           {/* Property Details */}
-          <div className="bg-[#1f2937] rounded-lg p-3 border border-[#ffffff38]">
+          <div className="bg-[#1b1b1b] rounded-lg p-3 border border-[#ffffff38]">
             <h4 className="text-lg font-semibold text-[#c2c6cb] mb-4 flex items-center border-b border-[#ffffff38] pb-2">
               <Home className="w-5 h-5 mr-2 text-[#c99913]" />
               Property Details
@@ -135,7 +135,7 @@ const CardPropertiesDetails = ({ property }) => {
           </div>
 
           {/* Location Details */}
-          <div className="bg-[#1f2937] rounded-lg p-3 border border-[#ffffff38]">
+          <div className="bg-[#1b1b1b] rounded-lg p-3 border border-[#ffffff38]">
             <h4 className="text-lg font-semibold text-[#c2c6cb] mb-4 flex items-center border-b border-[#ffffff38] pb-2">
               <MapPin className="w-5 h-5 mr-2 text-[#c99913]" />
               Location Details
@@ -160,7 +160,7 @@ const CardPropertiesDetails = ({ property }) => {
           </div>
 
           {/* Amenities */}
-          <div className="bg-[#1f2937] rounded-lg p-3 border border-[#ffffff38]">
+          <div className="bg-[#1b1b1b] rounded-lg p-3 border border-[#ffffff38]">
             <h4 className="text-lg font-semibold text-[#c2c6cb] mb-4 flex items-center border-b border-[#ffffff38] pb-2">
               <Home className="w-5 h-5 mr-2 text-[#c99913]" />
               Amenities
@@ -178,7 +178,7 @@ const CardPropertiesDetails = ({ property }) => {
 
         {/* Row 2: Contact Form */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-[#1f2937] rounded-xl p-2 border border-[#ffffff38]">
+          <div className="bg-[#1b1b1b] rounded-xl p-2 border border-[#ffffff38]">
             <ContactForm propertyId={property.id} />
           </div>
         </div>

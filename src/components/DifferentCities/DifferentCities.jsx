@@ -178,7 +178,7 @@ function DifferentCities() {
             <div className="w-8 sm:w-12 h-0.5 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>
           </div>
 
-          <h1 className={`text-3xl sm:text-5xl lg:text-7xl font-black mb-6 sm:mb-8 transition-all duration-1200 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-black mb-6 sm:mb-8 transition-all duration-1200 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <span className="mobile-title-text bg-gradient-to-r font-[Montserrat] from-white via-yellow-200 to-yellow-400 bg-clip-text text-transparent animate-pulse">
               Popular Places
             </span>

@@ -150,14 +150,14 @@ const FAQPage = () => {
   };
 
   return (
-    <div className="mobile-faq-screen max-w-4xl mt-4 mb-4 mx-auto py-8 px-4 border-1 border-gray-200 dark:border-gray-400 rounded-lg shadow-lg bg-white dark:bg-[#333] hover:border-[#c08830] transition-colors duration-200">
-      <h1 className="mobile-faq-header text-4xl font-bold font-bebas text-center mb-6 text-gray-900 dark:text-[#c2c6cb]">
+    <div className="mobile-faq-screen max-w-4xl mt-4 mb-4 mx-auto py-8 px-4 border border-[#676869] rounded-lg shadow-lg bg-[#333] transition-colors duration-200">
+      <h1 className="mobile-faq-header text-4xl font-bold font-bebas text-center mb-6 text-[#c2c6cb]">
         Frequently Asked Questions
       </h1>
 
       {Object.entries(faqs).map(([category, items]) => (
         <div key={category} className="mb-10">
-          <h2 className="mobile-faq-title text-2xl text-center font-bebas font-semibold mb-6 capitalize text-gray-800 dark:text-[#c2c6cb] border-b pb-2 border-gray-300 dark:border-gray-600">
+          <h2 className="mobile-faq-title text-2xl text-center font-bebas font-semibold mb-6 capitalize text-[#c2c6cb] border-b pb-2 border-[#676869]">
             FAQs About {category}
           </h2>
 
@@ -169,15 +169,15 @@ const FAQPage = () => {
               return (
                 <div
                   key={key}
-                  className="border-gray-400 dark:border-gray-400 border-1 fontFamily-bebas rounded-xl shadow-sm overflow-hidden bg-white dark:bg-[#444] hover:border-[#c08830] transition-colors duration-200"
+                  className="border-[#676869] border fontFamily-bebas rounded-xl shadow-sm overflow-hidden bg-[#444] hover:border-[#c08830] transition-colors duration-200"
                 >
                   <button
                     onClick={() => toggleFAQ(key)}
                     className="flex justify-between items-center w-full px-6 py-2 text-left focus:outline-none"
                   >
-                    <span className="mobile-faq-question font-medium text-gray-900 dark:text-[#c2c6cb] fontFamily-bebas ">{faq.question}</span>
+                    <span className="mobile-faq-question font-medium text-[#c2c6cb] fontFamily-bebas">{faq.question}</span>
                     <ChevronDown
-                      className={`w-5 h-5 text-gray-500 fontFamily-Content  dark:text-[#c2c6cb] cursor-pointer transition-transform ${
+                      className={`w-5 h-5 text-[#c2c6cb] fontFamily-Content cursor-pointer transition-transform ${
                         isOpen ? "rotate-180" : ""
                       }`}
                     />
@@ -190,7 +190,7 @@ const FAQPage = () => {
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="px-6 pb-4 text-gray-600 dark:text-[#c2c6cb] fontFamily-Content mobile-faq-answer"
+                        className="px-6 pb-4 text-[#c2c6cb] fontFamily-Content mobile-faq-answer"
                       >
                         {faq.answer}
                       </motion.div>

@@ -512,7 +512,7 @@ const OurTeam = () => {
               Meet Our Team
             </h3>
             <div className="h-1 bg-gradient-to-r from-transparent via-[#c99913] to-transparent rounded-full animate-pulse"></div>
-            <p className="text-xl mobile-subtitle-text font-bebas md:text-2xl text-[#c2c6cb] font-light max-w-4xl mx-auto leading-relaxed whychoose-subtitle">
+            <p className="text-xl mt-1 mobile-subtitle-text font-bebas md:text-2xl text-[#c2c6cb] font-light max-w-4xl mx-auto leading-relaxed whychoose-subtitle">
               "Your Real Estate Experts, Ready to Serve"
             </p>
           </div>

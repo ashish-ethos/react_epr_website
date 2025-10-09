@@ -144,7 +144,7 @@ const ContactForm = ({ onSubmitSuccess }) => {
                                     onChange={handleChange}
                                     placeholder="Full Name"
                                     required
-                                    className="w-full px-4 py-2 border border-[#ffffff38] rounded-xl focus:border-[#c99913] focus:ring-4 focus:ring-[#c99913]/20 transition placeholder-[#c2c6cb] bg-[#333] text-[#c2c6cb]"
+                                    className="w-full px-4 py-2 border border-[#ffffff38] focus:border-[#c99913] focus:ring-4 focus:ring-[#c99913]/20 transition placeholder-[#c2c6cb] bg-[#333] text-[#c2c6cb]"
                                 />
                             </div>
                         </div>
@@ -176,7 +176,7 @@ const ContactForm = ({ onSubmitSuccess }) => {
                                 value={formData.email}
                                 onChange={handleChange}
                                 placeholder="Email Address"
-                                className="w-full px-4 py-2 border border-[#ffffff38] rounded-xl focus:border-[#c99913] focus:ring-4 focus:ring-[#c99913]/20 transition placeholder-[#c2c6cb] bg-[#333] text-[#c2c6cb]"
+                                className="w-full px-4 py-2 border border-[#ffffff38]  focus:border-[#c99913] focus:ring-4 focus:ring-[#c99913]/20 transition placeholder-[#c2c6cb] bg-[#333] text-[#c2c6cb]"
                             />
                         </div>
 
@@ -188,7 +188,7 @@ const ContactForm = ({ onSubmitSuccess }) => {
                                 onChange={handleChange}
                                 placeholder="Write your message..."
                                 rows={4}
-                                className="w-full px-4 py-3 border border-[#ffffff38] rounded-xl focus:border-[#c99913] focus:ring-4 focus:ring-[#c99913]/20 transition resize-none placeholder-[#c2c6cb] bg-[#333] text-[#c2c6cb]"
+                                className="w-full px-4 py-3 border border-[#ffffff38]  focus:border-[#c99913] focus:ring-4 focus:ring-[#c99913]/20 transition resize-none placeholder-[#c2c6cb] bg-[#333] text-[#c2c6cb]"
                             />
                         </div>
 

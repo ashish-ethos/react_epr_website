@@ -145,7 +145,7 @@ div:hover {
 
 /* Contact Form overrides (assuming it may have light-themed defaults) */
 .contact-form {
-  background: #1f2937 !important;
+  /* background: #1f2937 !important; */
   color: #c2c6cb !important;
   border: 1px solid #ffffff38 !important;
 }
