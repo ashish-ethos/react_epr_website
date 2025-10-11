@@ -1,9 +1,8 @@
-@import "./components/ui/AntDRemovable.css";  /* Keep custom imports */
+@import "./components/ui/AntDRemovable.css"; /* Keep custom imports */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 html,
 body {
@@ -121,8 +120,8 @@ body {
 }
 
 .property-card-action-button svg {
-  width: 12px !important;
-  height: 12px !important;
+  width: 12px;
+  height: 12px;
 }
 
 @media (min-width: 640px) {
@@ -230,16 +229,17 @@ body {
 }
 
 .font-bebas {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: "Acumin", sans-serif;
   letter-spacing: 1px;
   font-weight: 400;
 }
 .fontFamily-bebas {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: "Acumin", sans-serif;
   letter-spacing: 0.5px;
 }
 .fontFamily-Content {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: "Acumin", sans-serif;
+  text-transform: capitalize !important;
 }
 
 .react-tel-input .form-control {
@@ -280,8 +280,13 @@ body {
   .ourblog-card-mobile {
     padding: 15px !important;
   }
-  .mobile-logo-footer{
+  .mobile-logo-footer {
     justify-content: center !important;
+  }
+
+  .property-card-action-button svg {
+    width: auto !important;
+    height: auto !important;
   }
 }
 
@@ -422,12 +427,12 @@ body {
   background: transparent;
 }
 
-@media (min-width:1024px) and (max-width: 1280px) {
+@media (min-width: 1024px) and (max-width: 1280px) {
   .laptop-mode-screen {
     padding-left: 60px;
     padding-right: 60px;
   }
-  .laptop-about-banner{
+  .laptop-about-banner {
     height: 250px !important;
   }
 }

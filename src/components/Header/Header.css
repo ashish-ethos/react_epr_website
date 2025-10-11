@@ -216,3 +216,9 @@ header img {
     padding: 0px 10px;
   }
 }
+
+@media(max-width:425px){
+  .mobile-header-section{
+    background: #000 !important;
+  }
+}

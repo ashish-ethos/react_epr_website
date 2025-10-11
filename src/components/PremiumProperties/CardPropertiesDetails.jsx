@@ -73,32 +73,35 @@ const CardPropertiesDetails = ({ property }) => {
           <img
             src={property.image}
             alt={property.name}
-            className="w-full h-96 object-cover rounded-xl shadow-lg"
+            className="w-full h-64 md:h-96 object-cover rounded-xl shadow-lg"
           />
-          <div className="absolute top-4 left-4">
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-[#16a34a]/20 text-[#c2c6cb] backdrop-blur-sm">
-              {property.type}
-            </span>
-          </div>
-          <div className="absolute top-4 right-4">
-            <div className="flex items-center bg-[#333]/90 backdrop-blur-md rounded-full shadow-lg overflow-hidden border border-[#ffffff38]">
-              <div className="flex items-center gap-1 px-3 py-1 hover:bg-[#444]">
-                <Star className="w-4 h-4 text-[#c99913]" />
-                <span className="text-sm font-semibold text-[#c2c6cb]">{property.rating}</span>
-                <span className="text-[11px] text-[#c2c6cb]/80">Rating</span>
-              </div>
-              <div className="h-6 w-px bg-[#ffffff38]"></div>
-              <div className="flex items-center gap-1 px-3 py-1 hover:bg-[#444]">
-                <Eye className="w-4 h-4 text-[#c99913]" />
-                <span className="text-sm font-semibold text-[#c2c6cb]">{property.views}</span>
-                <span className="text-[11px] text-[#c2c6cb]/80">Views</span>
+
+          <div className="absolute inset-0 flex flex-col gap-2 p-2 md:p-4">
+            {/* Property Type */}
+            <div>
+              <span className="inline-flex items-center px-2 py-0.5 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-semibold bg-[#16a34a]/20 text-[#c2c6cb] backdrop-blur-sm">
+                {property.type}
+              </span>
+            </div>
+            {/* Rating & Views */}
+            <div>
+              <div className="flex flex-row items-center bg-[#333]/90 backdrop-blur-md rounded-full shadow-lg overflow-hidden border border-[#ffffff38]">
+                <div className="flex items-center gap-1 px-2 py-0.5 md:px-3 md:py-1 hover:bg-[#444]">
+                  <Star className="w-3 h-3 md:w-4 md:h-4 text-[#c99913]" />
+                  <span className="text-xs md:text-sm font-semibold text-[#c2c6cb]">{property.rating}</span>
+                  <span className="text-[10px] md:text-[11px] text-[#c2c6cb]/80">Rating</span>
+                </div>
+                <div className="h-px md:h-5 md:w-px bg-[#ffffff38] mx-2 md:mx-0"></div>
+                <div className="flex items-center gap-1 px-2 py-0.5 md:px-3 md:py-1 hover:bg-[#444]">
+                  <Eye className="w-3 h-3 md:w-4 md:h-4 text-[#c99913]" />
+                  <span className="text-xs md:text-sm font-semibold text-[#c2c6cb]">{property.views}</span>
+                  <span className="text-[10px] md:text-[11px] text-[#c2c6cb]/80">Views</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
-        {/* Row 1: Property Details + Location Details */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div className="flex flex-col gap-4 mb-4">
           {/* Property Details */}
           <div className="bg-[#1b1b1b] rounded-lg p-3 border border-[#ffffff38]">
             <h4 className="text-lg font-semibold text-[#c2c6cb] mb-4 flex items-center border-b border-[#ffffff38] pb-2">

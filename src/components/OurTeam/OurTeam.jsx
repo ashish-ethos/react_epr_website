@@ -303,7 +303,7 @@ const ProfileDrawer = ({ member, visible, onClose }) => {
           </div>
           <button
             onClick={onClose}
-            className="absolute cursor-pointer top-4 right-4 w-9 h-9 bg-[#333]/80 backdrop-blur-sm rounded-full flex items-center justify-center border-1 border-[#ffffff38] text-[#c2c6cb] hover:text-red-500 hover:border-red-500"
+            className="absolute cursor-pointer top-4 right-4 w-9 h-9 bg-[#333]/80 backdrop-blur-sm rounded-full flex items-center justify-center border border-[#ffffffd9] text-[#c2c6cb] hover:text-red-500 hover:border-red-500"
           >
             <CloseOutlined className="text-[#c2c6cb]" />
           </button>

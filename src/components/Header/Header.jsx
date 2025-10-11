@@ -55,7 +55,7 @@ function Header() {
 
   return (
     <header
-      className={`fixed w-full top-0 z-50 transition-all duration-500 ${
+      className={`mobile-header-section fixed w-full top-0 z-50 transition-all duration-500 ${
         scrolled ? "bg-gray-900 shadow-md" : "bg-black bg-opacity-80"
       }`}
     >
@@ -127,7 +127,7 @@ function Header() {
       </div>
 
       <div
-        className={`md:hidden bg-gray-900 shadow-lg fixed top-12 right-0 w-64 h-screen transition-transform duration-500 ${
+        className={`md:hidden bg-black shadow-lg fixed top-12 right-0 w-64 h-screen transition-transform duration-500 ${
           mobileOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

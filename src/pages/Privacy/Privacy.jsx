@@ -165,7 +165,7 @@ const Privacy = () => {
                             ].map((right, i) => (
                                 <div
                                     key={i}
-                                    className="flex items-start space-x-3 p-3 bg-[#444] rounded-lg hover:bg-[#333] transition-colors duration-200"
+                                    className="flex items-start space-x-3 p-3 bg-[#444] rounded-lg hover:bg-[#333] border-[#676869] border transition-colors duration-200"
                                 >
                                     <CheckCircle className="w-5 h-5 text-[#c2c6cb] mt-0.5" />
                                     <span className="text-[#c2c6cb] text-base fontFamily-Content  mobile-faq-question">{right}</span>

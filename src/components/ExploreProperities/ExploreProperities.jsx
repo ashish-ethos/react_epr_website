@@ -724,7 +724,7 @@ const ExploreProperties = ({ filters = {} }) => {
                             </div>
 
                             {isShareOpen && (
-                                <div className="absolute top-16 right-4 bg-[#333] rounded-lg shadow-xl p-2 z-50 w-48 border border-[#ffffff38]">
+                                <div className="absolute top-16 right-4 bg-[#333] rounded-lg shadow-xl p-2 z-50 w-48 border border-[#ffffff38] mobile-sharepopup">
                                     <button
                                         onClick={toggleSharePopup}
                                         className="absolute top-2 right-2 text-[#c2c6cb] cursor-pointer hover:text-red-500 transition-all"
