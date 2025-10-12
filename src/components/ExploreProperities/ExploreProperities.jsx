@@ -1,7 +1,8 @@
+// ExploreProperties.js
 import React, { useState, useEffect, useMemo } from 'react';
 import { Heart, MapPin, Ruler, Eye, Star, X, Share2, Printer } from 'lucide-react';
 import { FiPhone } from "react-icons/fi";
-import { DatePicker, TimePicker } from 'antd';
+import { DatePicker, TimePicker, Pagination } from 'antd';
 import { MdOutlineEmail, MdOutlineWhatsapp } from "react-icons/md";
 import { useNavigate, useParams } from 'react-router-dom';
 import {
@@ -18,24 +19,8 @@ import {
 } from 'react-share';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import AIPLAutography from "../../assets/images/exploreproperties/aipl-autograph.jpg";
-import AriaMall from "../../assets/images/exploreproperties/aria-mall.jpg";
-import Omaxstate from "../../assets/images/exploreproperties/omaxstate.webp";
-import M3Mantalya from "../../assets/images/exploreproperties/m3m_antalya.avif";
-import EmeraldHills from "../../assets/images/exploreproperties/emerald-hills.jpg";
-import WorldTrade from "../../assets/images/exploreproperties/worldtrader-center.jpg";
-import CentralPark from "../../assets/images/exploreproperties/central-park.jpg";
-import M3MMansion from "../../assets/images/exploreproperties/m3m-mansion.jpg";
-import Krisumi from "../../assets/images/exploreproperties/krisumi-waterfall.jpg";
-import Tulip from "../../assets/images/exploreproperties/tulip-monsella.jpg";
-import SmartWorld from "../../assets/images/exploreproperties/smartworld-dxp.jpg";
-import AIPLBusinessClub from "../../assets/images/exploreproperties/aipl-business.jpg";
-import Cygnett from "../../assets/images/exploreproperties/cygnett-retreat.jpg";
-import Sobha from "../../assets/images/exploreproperties/sobha-international.webp";
-import Elan from "../../assets/images/exploreproperties/Elan-The-Mark_img.webp";
-import PionerUrban from "../../assets/images/exploreproperties/pioneer_urban.jpg";
-import ElanThePersidential from "../../assets/images/exploreproperties/Elan-The-Presidential.jpg";
-import Trinity from "../../assets/images/exploreproperties/Trinity-Sky-Palazzos.jpg";
+
+import { properties } from '../../data/propertiesData'; 
 
 import CustomButton from '../ui/Button';
 import './ExploreProperties.css';
@@ -46,8 +31,7 @@ const ExploreProperties = ({ filters = {} }) => {
     const [activeTab, setActiveTab] = useState('all');
     const [isLoading, setIsLoading] = useState(true);
     const [favorites, setFavorites] = useState(new Set());
-    const [visibleProperties, setVisibleProperties] = useState(6);
-    const [showAll, setShowAll] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
     const [shareCounts, setShareCounts] = useState(() => {
         const saved = localStorage.getItem('shareCounts');
         return saved ? JSON.parse(saved) : {};
@@ -55,359 +39,7 @@ const ExploreProperties = ({ filters = {} }) => {
     const navigate = useNavigate();
     const { propertyName } = useParams();
 
-    const properties = [
-        {
-            id: '1',
-            type: 'Shop/Commercial',
-            name: 'Airia Mall',
-            location: 'Airia Mall, Sector 68, Gurgaon, Haryana, India',
-            size: '300 - 8000 Sq Ft',
-            price: '₹2.5 Cr - ₹8.5 Cr',
-            image: AriaMall,
-            options: ['FOR RENT', 'FOR SALE', 'HOT OFFER'],
-            rating: 4.8,
-            views: 1200,
-            description: 'Airia Mall offers premium commercial spaces in the heart of Gurgaon, ideal for retail and business ventures.'
-        },
-        {
-            id: '2',
-            type: 'Office/Commercial',
-            name: 'AIPL Business Club',
-            location: 'AIPL Business Club, Sector 62, Gurgaon, Haryana, India',
-            size: '500 - 5000 Sq Ft',
-            price: '₹1 Cr - ₹10 Cr',
-            image: AIPLAutography,
-            options: ['FOR RENT', 'FOR SALE'],
-            rating: 4.6,
-            views: 890,
-            description: 'AIPL Business Club provides state-of-the-art office spaces with modern amenities in a prime location.'
-        },
-        {
-            id: '3',
-            type: 'Shop/Commercial',
-            name: 'The Omaxe State',
-            location: 'The Omaxe State, Sector 19B, Dwarka, Delhi, India',
-            size: '50 - 10000 Sq Ft',
-            price: '₹50 L - ₹12 Cr',
-            image: Omaxstate,
-            options: ['FOR RENT', 'FOR SALE'],
-            rating: 4.5,
-            views: 2100,
-            description: 'The Omaxe State is a vibrant commercial hub in Dwarka, offering diverse retail and office spaces.'
-        },
-        {
-            id: '4',
-            type: 'Residential',
-            name: 'M3M Antalya Hills',
-            location: 'M3M Antalya Hills, Sector 79, Gurugram, Haryana, India',
-            size: '1138 – 1642 Sq Ft',
-            price: '₹1.15 Cr – ₹1.62 Cr',
-            image: M3Mantalya,
-            options: ['FOR RENT', 'FOR SALE', 'HOT OFFER'],
-            rating: 4.7,
-            views: 1200,
-            description: 'M3M Antalya Hills offers luxurious residential living with scenic views and modern amenities.'
-        },
-        {
-            id: '5',
-            type: 'Villa',
-            name: 'Emerald Hills Villa',
-            location: 'Emerald Hills, Sector 65, Gurgaon, Haryana, India',
-            size: '2500 - 5000 Sq Ft',
-            price: '₹3.5 Cr - ₹8 Cr',
-            image: EmeraldHills,
-            options: ['FOR SALE', 'LUXURY'],
-            rating: 4.9,
-            views: 950,
-            description: 'Emerald Hills Villas provide exclusive, spacious living with premium facilities in Gurgaon.'
-        },
-        {
-            id: '6',
-            type: 'Office/Studio',
-            name: 'World Trade Center',
-            location: 'WTC, Sector 16, Noida, UP, India',
-            size: '800 - 4000 Sq Ft',
-            price: '₹80 L - ₹5 Cr',
-            image: WorldTrade,
-            options: ['FOR RENT', 'FOR SALE'],
-            rating: 4.4,
-            views: 1350,
-            description: 'World Trade Center in Noida offers premium office spaces with global business connectivity.'
-        },
-        {
-            id: '7',
-            type: 'Residential',
-            name: 'M3M Antalya Hills',
-            location: 'M3M Antalya Hills, Sector 79, Gurugram, Haryana, India',
-            size: '1138 – 1642 Sq Ft',
-            price: '₹1.15 Cr – ₹1.62 Cr',
-            image: M3Mantalya,
-            options: ['FOR RENT', 'FOR SALE', 'HOT OFFER'],
-            rating: 4.7,
-            views: 1200,
-            description: 'M3M Antalya Hills offers luxurious residential living with scenic views and modern amenities.'
-        },
-        {
-            id: '8',
-            type: 'Residential',
-            name: 'Central Park Flower Valley The Room',
-            location: 'The Room, Central Park II, Sector 48, Gurugram, Haryana, India',
-            size: 'NA',
-            price: '₹3 Cr*',
-            image: CentralPark,
-            options: ['FOR RENT', 'FOR SALE'],
-            rating: 4.5,
-            views: 970,
-            description: 'Central Park Flower Valley offers elegant residential spaces with lush surroundings.'
-        },
-        {
-            id: '9',
-            type: 'Residential',
-            name: 'M3M Mansion Sector 113, Gurgaon',
-            location: 'M3M Mansion, Sector 113, Bajghera, Gurugram, Haryana, India',
-            size: '1638 – 6695 Sq Ft',
-            price: '₹1.8 Cr – ₹8.2 Cr',
-            image: M3MMansion,
-            options: ['FOR RENT', 'FOR SALE', 'HOT OFFER'],
-            rating: 4.9,
-            views: 2400,
-            description: 'M3M Mansion offers ultra-luxury residences with top-tier amenities in Sector 113.'
-        },
-        {
-            id: '10',
-            type: 'Residential/Studio/Apartment',
-            name: 'Krisumi Waterfall Residences',
-            location: 'Krisumi Waterfall Residences, Sector 36A, Gurugram, Haryana, India',
-            size: '1448 – 6569 Sq Ft',
-            price: '₹1.50 Cr – ₹6.5 Cr',
-            image: Krisumi,
-            options: ['FEATURED', 'FOR RENT', 'FOR SALE', 'HOT OFFER'],
-            rating: 4.6,
-            views: 1870,
-            description: 'Krisumi Waterfall Residences blend Japanese design with modern luxury in Gurugram.'
-        },
-        {
-            id: '11',
-            type: 'Residential/Apartment',
-            name: 'Tulip Monsella',
-            location: 'Tulip Monsella, Sector 53, Gurugram, Haryana, India',
-            size: '1368 – 4503 Sq Ft',
-            price: '₹3.75 Cr – ₹9 Cr',
-            image: Tulip,
-            options: ['FOR RENT', 'FOR SALE'],
-            rating: 4.8,
-            views: 1650,
-            description: 'Tulip Monsella offers premium residences with sophisticated design in Sector 53.'
-        },
-        {
-            id: '12',
-            type: 'Residential/Apartment',
-            name: 'Smartworld One DXP',
-            location: 'Smartworld ONE DXP, Sector 113, Bajghera, Gurugram, Haryana, India',
-            size: '2450 – 3203 Sq Ft',
-            price: '₹2.95 Cr – ₹5 Cr',
-            image: SmartWorld,
-            options: ['FOR RENT', 'FOR SALE', 'HOT OFFER'],
-            rating: 4.6,
-            views: 2100,
-            description: 'Smartworld One DXP provides modern residential living with smart home features.'
-        },
-        {
-            id: '13',
-            type: 'Commercial',
-            name: 'Reach Airia Mall',
-            location: 'Airia Mall, Sector 68, Gurugram, Haryana, India',
-            size: '300 – 8000 Sq Ft',
-            price: '₹ Price on Request',
-            image: AriaMall,
-            options: ['FOR RENT', 'FOR SALE', 'HOT OFFER'],
-            rating: 4.7,
-            views: 1700,
-            description: 'Reach Airia Mall is a prime commercial destination with versatile retail spaces.'
-        },
-        {
-            id: '14',
-            type: 'Commercial',
-            name: 'AIPL Business Club',
-            location: 'AIPL Business Club, Sector 62, Gurugram, Haryana, India',
-            size: '500 – 20000 Sq Ft',
-            price: '₹1 Cr - ₹5 Cr',
-            image: AIPLBusinessClub,
-            options: ['FOR RENT', 'FOR SALE'],
-            rating: 4.6,
-            views: 1500,
-            description: 'AIPL Business Club offers premium office spaces with cutting-edge facilities.'
-        },
-        {
-            id: '15',
-            type: 'Commercial',
-            name: 'The Omaxe State',
-            location: 'The Omaxe State, Sector 198, Sector 24 Dwarka, Dwarka, Delhi, India',
-            size: '50 – 10000 Sq Ft',
-            price: '₹ Price on Request',
-            image: Omaxstate,
-            options: ['FOR RENT', 'FOR SALE', 'HOT OFFER'],
-            rating: 4.8,
-            views: 2100,
-            description: 'The Omaxe State is a bustling commercial complex in Dwarka with diverse offerings.'
-        },
-        {
-            id: '16',
-            type: 'Commercial',
-            name: 'AIPL Joy Street',
-            location: 'AIPL Joy Street, Badshahpur, Sector 66, Gurugram, Haryana, India',
-            size: '300 – 8000 Sq Ft',
-            price: '₹ Price on Request',
-            image: AIPLAutography,
-            options: ['FOR RENT', 'FOR SALE'],
-            rating: 4.5,
-            views: 1400,
-            description: 'AIPL Joy Street combines retail and leisure in a vibrant commercial setting.'
-        },
-        {
-            id: '17',
-            type: 'Commercial/Villa',
-            name: 'Cygnett Retreat',
-            location: 'Pahadi Kothi, Bagar Road, Pangot, Uttarakhand, India',
-            size: '800 Sq Ft',
-            price: '₹ Price on Request',
-            image: Cygnett,
-            options: ['FOR RENT', 'FOR SALE', 'HOT OFFER'],
-            rating: 4.9,
-            views: 1300,
-            description: 'Cygnett Retreat offers unique commercial spaces in the serene hills of Uttarakhand.'
-        },
-        {
-            id: '18',
-            type: 'Commercial',
-            name: 'M3M IFC',
-            location: 'M3M IFC, Golf Course Extension Road, Badshahpur, Sector 66, Gurugram, Haryana, India',
-            size: '500 – 18000 Sq Ft',
-            price: '₹1.25Cr – ₹15Cr',
-            image: M3MMansion,
-            options: ['FOR RENT', 'FOR SALE', 'HOT OFFER'],
-            rating: 4.7,
-            views: 1900,
-            description: 'M3M IFC is a prestigious commercial complex with world-class office spaces.'
-        },
-        {
-            id: '19',
-            type: 'Villa',
-            name: 'Cygnett Retreat',
-            location: 'Pahadi Kothi, Bagar Road, Pangot, Uttarakhand, India',
-            size: '800 Sq Ft',
-            price: '₹ Price on Request',
-            image: Cygnett,
-            options: ['FOR RENT', 'FOR SALE', 'HOT OFFER'],
-            rating: 4.9,
-            views: 1300,
-            description: 'Cygnett Retreat villas offer tranquil living in the scenic hills of Uttarakhand.'
-        },
-        {
-            id: '20',
-            type: 'Villa',
-            name: 'Sobha International City',
-            location: 'Sobha International City, Dwarka Expressway, Sector 109, Gurugram, Haryana, India',
-            size: '3153 – 7330 Sq Ft',
-            price: '₹ Price on Request',
-            image: Sobha,
-            options: ['FOR RENT', 'FOR SALE', 'HOT OFFER'],
-            rating: 4.8,
-            views: 1650,
-            description: 'Sobha International City offers luxurious villas with global design standards.'
-        },
-        {
-            id: '21',
-            type: 'Office',
-            name: 'AIPL Business Club',
-            location: 'AIPL Business Club, Sector 62, Gurugram, Haryana, India',
-            size: 'Size on Request',
-            price: '₹1 Cr - ₹5 Cr',
-            image: AIPLBusinessClub,
-            options: ['FOR RENT', 'FOR SALE'],
-            rating: 4.7,
-            views: 980,
-            description: 'AIPL Business Club provides flexible office spaces in a prime Gurgaon location.'
-        },
-        {
-            id: '22',
-            type: 'Office',
-            name: 'M3M IFC',
-            location: 'M3M IFC, Golf Course Extension Road, Badshahpur, Sector 66, Gurugram, Haryana, India',
-            size: '500 – 18000 Sq Ft',
-            price: '₹ Price on Request',
-            image: M3MMansion,
-            options: ['FOR RENT', 'FOR SALE', 'HOT OFFER'],
-            rating: 4.9,
-            views: 1200,
-            description: 'M3M IFC offers modern office spaces with premium amenities in Gurgaon.'
-        },
-        {
-            id: '23',
-            type: 'Office/Food Court/Commercial/Shop',
-            name: 'AIPL Autograph',
-            location: 'AIPL Autograph Corporate Office Space, Sector 66, Gurugram, Haryana, India',
-            size: 'Size on Request',
-            price: '₹ Price on Request',
-            image: AIPLAutography,
-            options: ['FOR RENT', 'FOR SALE', 'HOT OFFER'],
-            rating: 4.8,
-            views: 1400,
-            description: 'AIPL Autograph provides sophisticated corporate office spaces in Sector 66.'
-        },
-        {
-            id: '24',
-            type: 'Shop/Commercial',
-            name: 'Elan The Mark',
-            location: 'Elan The Mark, Block R, New Palam Vihar Phase 1, Sector 106, Gurugram, Pawala Khasrupur, Haryana, India',
-            size: 'Size on Request',
-            price: '₹ Price on Request',
-            image: Elan,
-            options: ['FOR RENT', 'FOR SALE', 'HOT OFFER'],
-            rating: 4.8,
-            views: 1400,
-            description: 'Elan The Mark provides vibrant commercial spaces in Sector 106.'
-        },
-        {
-            id: '25',
-            type: 'Apartment/Residential',
-            name: 'Elan The Presidential',
-            location: 'Elan The Presidential, Northern Peripheral Road, Panwala Khusropur, Sector 106, Gurugram, Haryana, India',
-            size: 'Size on Request',
-            price: '₹ Price on Request',
-            image: ElanThePersidential,
-            options: ['FOR RENT', 'FOR SALE', 'HOT OFFER'],
-            rating: 4.8,
-            views: 1400,
-            description: 'Elan The Presidential offers luxurious residential apartments in Sector 106.'
-        },
-        {
-            id: '26',
-            type: 'Apartment/Residential',
-            name: 'Trinity Sky Palazzos',
-            location: 'Trinity Sky Palazzos, On, Northern Peripheral Road, Sector 88B, Gurugram, Haryana, India',
-            size: 'Size on Request',
-            price: '₹ Price on Request',
-            image: Trinity,
-            options: ['FOR RENT', 'FOR SALE', 'HOT OFFER'],
-            rating: 4.8,
-            views: 1400,
-            description: 'Trinity Sky Palazzos provides premium residential living in Sector 88B.'
-        },
-        {
-            id: '27',
-            type: 'Apartment/Residential',
-            name: 'Pioneer Urban Presidia',
-            location: 'Pioneer Presidia, Sector 62, Gurugram, Ghata, Haryana, India',
-            size: 'Size on Request',
-            price: '₹ Price on Request',
-            image: PionerUrban,
-            options: ['FOR RENT', 'FOR SALE', 'HOT OFFER'],
-            rating: 4.8,
-            views: 1400,
-            description: 'Pioneer Urban Presidia provides premium residential living in Sector 62.'
-        }
-    ];
+    const PAGE_SIZE = 6;
 
     const tabs = [
         { key: 'all', label: 'All Properties', count: properties.length },
@@ -490,6 +122,10 @@ const ExploreProperties = ({ filters = {} }) => {
                 return 'bg-gradient-to-r from-gray-800/50 to-amber-700/50 text-gray-200 border border-[#ffffff38]';
             case 'FOR RENT':
                 return 'bg-gradient-to-r from-amber-700/50 to-gray-800/50 text-gray-200 border border-[#ffffff38]';
+            case 'SOLD OUT':
+                return 'bg-gradient-to-r from-gray-800/50 to-red-700/50 text-red-200 border border-[#ffffff38]';
+            case 'FEATURED':
+                return 'bg-gradient-to-r from-blue-800/50 to-blue-700/50 text-blue-200 border border-[#ffffff38]';
             default:
                 return 'bg-gray-800 text-gray-200 border border-[#ffffff38]';
         }
@@ -497,22 +133,28 @@ const ExploreProperties = ({ filters = {} }) => {
 
     useEffect(() => {
         setTimeout(() => setIsLoading(false), 1500);
-        setVisibleProperties(6);
-    }, [activeTab]);
+        setCurrentPage(1);
+    }, [activeTab, filters]);
 
     useEffect(() => {
         localStorage.setItem('shareCounts', JSON.stringify(shareCounts));
     }, [shareCounts]);
 
-    const handleViewMore = () => {
-        setVisibleProperties(filteredProperties.length);
-        setShowAll(true);
-    };
+    // Clamp currentPage to valid range to prevent NaN issues
+    useEffect(() => {
+        const totalPages = Math.ceil(filteredProperties.length / PAGE_SIZE);
+        if (currentPage > totalPages || currentPage < 1 || isNaN(currentPage)) {
+            setCurrentPage(Math.max(1, totalPages));
+        }
+    }, [filteredProperties.length, currentPage, PAGE_SIZE]);
 
-    const handleViewLess = () => {
-        setVisibleProperties(6);
-        setShowAll(false);
-    };
+    const paginatedProperties = useMemo(() => {
+        const totalPages = Math.ceil(filteredProperties.length / PAGE_SIZE);
+        const effectivePage = Math.max(1, Math.min(currentPage, totalPages));
+        const start = (effectivePage - 1) * PAGE_SIZE;
+        const end = start + PAGE_SIZE;
+        return filteredProperties.slice(start, end);
+    }, [filteredProperties, currentPage, PAGE_SIZE]);
 
     const PropertyModal = ({ property, onClose }) => {
         const [contactForm, setContactForm] = useState({
@@ -844,119 +486,7 @@ const ExploreProperties = ({ filters = {} }) => {
                             <div className="left-side  rounded-xl shadow-md h-full sm:mr-6 sm:w-1/2">
                                 <ContactForm className="h-full" />
                             </div>
-                            {/* <div className="right-side border border-[#ffffff38] p-4 sm:p-6 rounded-xl shadow-md sm:w-1/2">
-                                <h3 className="text-lg font-semibold text-[#c2c6cb] mb-4 fontFamily-bebas">Schedule a Tour</h3>
-                                <form className="space-y-4" onSubmit={handleTourSubmit}>
-                                    <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
-                                        <div className="w-full sm:w-1/2">
-                                            <label className="block text-sm font-medium text-[#c2c6cb] mb-1" htmlFor="tourDate">
-                                                Date
-                                            </label>
-                                            <DatePicker
-                                                id="tourDate"
-                                                name="tourDate"
-                                                className="w-full"
-                                                style={{
-                                                    padding: '8px',
-                                                    borderRadius: '8px',
-                                                    border: '1px solid #ffffff38',
-                                                    background: '#333',
-                                                    color: '#c2c6cb'
-                                                }}
-                                                placeholder="Select date"
-                                                value={tourForm.tourDate}
-                                                onChange={handleDateChange}
-                                            />
-                                        </div>
-                                        <div className="w-full sm:w-1/2">
-                                            <label className="block text-sm font-medium text-[#c2c6cb] mb-1" htmlFor="tourTime">
-                                                Time
-                                            </label>
-                                            <TimePicker
-                                                id="tourTime"
-                                                name="tourTime"
-                                                use12Hours
-                                                format="h:mm:ss A"
-                                                className="w-full"
-                                                style={{
-                                                    padding: '8px',
-                                                    borderRadius: '8px',
-                                                    border: '1px solid #ffffff38',
-                                                    background: '#333',
-                                                    color: '#c2c6cb'
-                                                }}
-                                                placeholder="Select time"
-                                                value={tourForm.tourTime}
-                                                onChange={handleTimeChange}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[#c2c6cb] mb-1" htmlFor="tourName">
-                                            Name
-                                        </label>
-                                        <CustomInput
-                                            type="text"
-                                            id="tourName"
-                                            name="tourName"
-                                            className="w-full px-3 py-2 border border-[#ffffff38] rounded-lg bg-[#333] text-[#c2c6cb]"
-                                            placeholder="Enter your name"
-                                            value={tourForm.tourName}
-                                            onChange={handleTourChange}
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[#c2c6cb] mb-1" htmlFor="tourPhone">
-                                            Phone
-                                        </label>
-                                        <CustomInput
-                                            type="tel"
-                                            id="tourPhone"
-                                            name="tourPhone"
-                                            className="w-full px-3 py-2 border border-[#ffffff38] rounded-lg bg-[#333] text-[#c2c6cb]"
-                                            placeholder="Enter your phone number"
-                                            value={tourForm.tourPhone}
-                                            onChange={handleTourChange}
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[#c2c6cb] mb-1" htmlFor="tourEmail">
-                                            Email
-                                        </label>
-                                        <CustomInput
-                                            type="email"
-                                            id="tourEmail"
-                                            name="tourEmail"
-                                            className="w-full px-3 py-2 border border-[#ffffff38] rounded-lg bg-[#333] text-[#c2c6cb]"
-                                            placeholder="Enter your email address"
-                                            value={tourForm.tourEmail}
-                                            onChange={handleTourChange}
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-[#c2c6cb] mb-1" htmlFor="tourMessage">
-                                            Message
-                                        </label>
-                                        <textarea
-                                            id="tourMessage"
-                                            name="tourMessage"
-                                            rows={3}
-                                            className="w-full px-3 py-2 border border-[#ffffff38] rounded-lg bg-[#333] text-[#c2c6cb] text-area-contact"
-                                            placeholder="Type your message"
-                                            value={tourForm.tourMessage}
-                                            onChange={handleTourChange}
-                                        />
-                                    </div>
-                                    <div className="w-full flex justify-center items-center">
-                                        <CustomButton
-                                            type="submit"
-                                            className="w-auto text-[#c2c6cb] font-semibold py-3 px-4 property-card-action-button rounded-xl bg-[#333] hover:bg-[#444] border border-[#ffffff38]"
-                                        >
-                                            Schedule Tour
-                                        </CustomButton>
-                                    </div>
-                                </form>
-                            </div> */}
+
                         </div>
                     </div>
                 </div>
@@ -1031,7 +561,7 @@ const ExploreProperties = ({ filters = {} }) => {
                         </div>
                         <div className="space-y-1 sm:space-y-2 mb-3 sm:mb-4">
                             <div className="flex items-start space-x-2 text-[#c2c6cb]">
-                                <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mt-0.5 text-amber-400" /> 
+                                <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mt-0.5 text-amber-400" />
                                 <p className="text-xs sm:text-sm leading-relaxed line-clamp-2 font-[sans-serif]">{property.location}</p>
                             </div>
                             <div className="flex items-center space-x-2 text-[#c2c6cb]">
@@ -1133,6 +663,9 @@ const ExploreProperties = ({ filters = {} }) => {
         navigate(-1, { replace: true });
     };
 
+    const totalPages = Math.ceil(filteredProperties.length / PAGE_SIZE);
+    const effectiveCurrentPage = Math.max(1, Math.min(currentPage, totalPages || 1));
+
     return (
         <div className="min-h-screen bg-[#2d2d2d] py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-full sm:max-w-7xl mx-auto mb-8 sm:mb-12 text-center">
@@ -1185,29 +718,23 @@ const ExploreProperties = ({ filters = {} }) => {
                 ) : (
                     <>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
-                            {filteredProperties.slice(0, visibleProperties).map((property, index) => (
+                            {paginatedProperties.map((property, index) => (
                                 <PropertyCard key={property.id} property={property} index={index} />
                             ))}
                         </div>
-                        {filteredProperties.length > 6 && (
-                            <div className="text-center flex items-center w-full justify-center mt-8">
-                                {!showAll ? (
-                                    <CustomButton
-                                        className="px-6 py-3 flex items-center rounded-xl w-auto cursor-pointer property-card-action-button bg-[#333] text-[#c2c6cb] hover:bg-[#444] border border-[#ffffff38]"
-                                        onClick={handleViewMore}
-                                    >
-                                        View More
-                                    </CustomButton>
-                                ) : (
-                                    <CustomButton
-                                        className="px-6 py-3 rounded-xl cursor-pointer property-card-action-button bg-[#333] text-[#c2c6cb] hover:bg-[#444] border border-[#ffffff38]"
-                                        onClick={handleViewLess}
-                                    >
-                                        View Less
-                                    </CustomButton>
-                                )}
-                            </div>
-                        )}
+                        <div className="flex justify-center mt-8">
+                            <Pagination
+                                current={effectiveCurrentPage}
+                                total={filteredProperties.length}
+                                showTotal={(total, range) => {
+                                    const start = range[0] || 0;
+                                    const end = range[1] || 0;
+                                    return `${start}-${end} of ${total} properties`;
+                                }}
+                                pageSize={PAGE_SIZE}
+                                onChange={setCurrentPage}
+                            />
+                        </div>
                     </>
                 )}
             </div>
