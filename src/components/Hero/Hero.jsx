@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Row, Col, Card, Tag } from "antd";
-import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
+import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { DownOutlined } from "@ant-design/icons";
-import backgroundVideo from "../../assets/images/home/main_banner.mp4";
-import MobileVideo from "../../assets/images/home/mobile_banner.mp4";
+// import BackgroundImage from "../../assets/images/home/banner_video.mp4";
+import backgroundVideo from "../../assets/images/home/banner_video.mp4";
 import "./Hero.css";
 import CustomInput from "../ui/Input";
 import CustomSelect from "../ui/Select";
@@ -23,13 +23,13 @@ const Hero = ({ onSearchChange }) => {
   };
 
   const handleTypeSelect = (value) => {
-    setPropertyType(value || []);
-    onSearchChange({ type: value || [] });
+    setPropertyType(value);
+    onSearchChange({ type: value });
   };
 
   const handleCitySelect = (value) => {
-    setSelectedCity(value || []);
-    onSearchChange({ city: value || [] });
+    setSelectedCity(value);
+    onSearchChange({ city: value });
   };
 
   const propertyTypeOptions = [
@@ -58,20 +58,18 @@ const Hero = ({ onSearchChange }) => {
   const tagRender = (props) => {
     const { label, closable, onClose } = props;
     return (
-      <Tag closable={closable} onClose={onClose} className="hero-tag">
+      <Tag
+        closable={closable}
+        onClose={onClose}
+        className="hero-tag"
+      >
         {label}
       </Tag>
     );
   };
 
-  const propertyMinWidth =
-    propertyType.length > 0
-      ? Math.min(propertyType.length * 70 + 60, 400)
-      : 150;
-  const cityMinWidth =
-    selectedCity.length > 0
-      ? Math.min(selectedCity.length * 70 + 60, 400)
-      : 150;
+  const propertyMinWidth = propertyType.length > 0 ? Math.min(propertyType.length * 70 + 60, 400) : 150;
+  const cityMinWidth = selectedCity.length > 0 ? Math.min(selectedCity.length * 70 + 60, 400) : 150;
 
   return (
     <section
@@ -97,9 +95,11 @@ const Hero = ({ onSearchChange }) => {
           YOUR PROPERTY, OUR PRIORITY
         </p>
 
-        <Card className="hero-section-card w-full max-w-6xl mx-auto bg-gradient-to-r from-gray-800 to-gray-600 shadow-2xl rounded-2xl p-6 sm:p-0 animate-scale-in">
+        <Card
+          className="hero-section-card w-full max-w-6xl mx-auto bg-gradient-to-r from-gray-800 to-gray-600 shadow-2xl rounded-2xl p-6 sm:p-0 animate-scale-in"
+        >
           <Row gutter={[8, 8]} align="middle" justify="center" wrap className="p-4 hero-card-all">
-            <Col xs={24} sm={12} md={undefined} style={screens.md ? { flex: "0 0 200px" } : {}}>
+            <Col xs={24} sm={12} md={undefined} style={screens.md ? { flex: '0 0 200px' } : {}}>
               <CustomInput
                 size="large"
                 placeholder="Search"
@@ -109,30 +109,27 @@ const Hero = ({ onSearchChange }) => {
               />
             </Col>
 
-            <Col xs={24} sm={12} md={undefined} style={screens.md ? { flex: "0 0 auto" } : {}}>
+            <Col xs={24} sm={12} md={undefined} style={screens.md ? { flex: '0 0 auto' } : {}}>
               <CustomSelect
                 size="large"
                 className="hero-select"
-                dropdownMatchSelectWidth={false}
-                getPopupContainer={(trigger) => trigger.parentNode}
                 style={{
                   width: "auto",
                   height: 40,
                   minWidth: propertyMinWidth,
                   maxWidth: 400,
-                  transition: "min-width 0.3s ease",
+                  transition: 'min-width 0.3s ease',
                 }}
                 placeholder="Property Type"
                 suffixIcon={<DownOutlined />}
                 onChange={handleTypeSelect}
+                styles={{ popup: { root: { width: 200 } } }}
                 optionFilterProp="label"
                 showSearch
                 mode="multiple"
                 value={propertyType}
                 tagRender={tagRender}
                 allowClear
-                onDropdownVisibleChange={() => {}}
-                onMouseDown={(e) => e.stopPropagation()}
               >
                 <CustomSelect.OptGroup label="Commercial">
                   {propertyTypeOptions
@@ -155,21 +152,20 @@ const Hero = ({ onSearchChange }) => {
               </CustomSelect>
             </Col>
 
-            <Col xs={24} sm={12} md={undefined} style={screens.md ? { flex: "0 0 auto" } : {}}>
+            <Col xs={24} sm={12} md={undefined} style={screens.md ? { flex: '0 0 auto' } : {}}>
               <CustomSelect
                 size="large"
                 className="hero-select"
-                dropdownMatchSelectWidth={false}
-                getPopupContainer={(trigger) => trigger.parentNode}
                 style={{
                   width: "auto",
                   height: 40,
                   minWidth: cityMinWidth,
                   maxWidth: 400,
-                  transition: "min-width 0.3s ease",
+                  transition: 'min-width 0.3s ease',
                 }}
                 placeholder="Select City"
                 onChange={handleCitySelect}
+                styles={{ popup: { root: { width: 200 } } }}
                 options={cityOptions.map((city) => ({
                   value: city,
                   label: city.charAt(0).toUpperCase() + city.slice(1),
@@ -178,12 +174,10 @@ const Hero = ({ onSearchChange }) => {
                 value={selectedCity}
                 tagRender={tagRender}
                 allowClear
-                onDropdownVisibleChange={() => {}}
-                onMouseDown={(e) => e.stopPropagation()}
               />
             </Col>
 
-            <Col xs={24} sm={12} md={undefined} style={screens.md ? { flex: "0 0 150px" } : {}}>
+            <Col xs={24} sm={12} md={undefined} style={screens.md ? { flex: '0 0 150px' } : {}}>
               <CustomButton
                 type="primary"
                 size="large"
