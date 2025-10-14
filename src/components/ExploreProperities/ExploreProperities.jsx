@@ -4,7 +4,7 @@ import { Heart, MapPin, Ruler, Eye, Star, X, Share2, Printer } from 'lucide-reac
 import { FiPhone } from "react-icons/fi";
 import { DatePicker, TimePicker, Pagination } from 'antd';
 import { MdOutlineEmail, MdOutlineWhatsapp } from "react-icons/md";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import {
     FacebookShareButton,
     TwitterShareButton,
@@ -28,7 +28,8 @@ import CustomInput from '../ui/Input';
 import ContactForm from '../../pages/Contact/ContactForm';
 
 const ExploreProperties = ({ filters = {} }) => {
-    const [activeTab, setActiveTab] = useState('all');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [activeTab, setActiveTab] = useState(() => searchParams.get('tab') || 'all');
     const [isLoading, setIsLoading] = useState(true);
     const [favorites, setFavorites] = useState(new Set());
     const [currentPage, setCurrentPage] = useState(1);
@@ -59,6 +60,11 @@ const ExploreProperties = ({ filters = {} }) => {
             city: f.city ? String(f.city).trim().toLowerCase() : '',
         };
     }, [filters]);
+
+    const handleTabChange = (tabKey) => {
+        setActiveTab(tabKey);
+        setSearchParams({ tab: tabKey });
+    };
 
     const getCombinedFiltered = () => {
         let list = properties.slice();
@@ -647,7 +653,7 @@ const ExploreProperties = ({ filters = {} }) => {
             <div className="mt-4 sm:mt-6">
                 <CustomButton
                     className="px-4 sm:px-6 py-2 sm:py-3 cursor-pointer rounded-xl font-semibold text-[#c2c6cb] bg-[#333] hover:bg-[#444] border border-[#ffffff38] hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg text-sm sm:text-base"
-                    onClick={() => setActiveTab('all')}
+                    onClick={() => handleTabChange('all')}
                 >
                     View All Properties
                 </CustomButton>
@@ -686,7 +692,7 @@ const ExploreProperties = ({ filters = {} }) => {
                         <CustomButton
                             key={tab.key}
                             style={{ backgroundColor: 'transparent', position: 'relative' }}
-                            onClick={() => setActiveTab(tab.key)}
+                            onClick={() => handleTabChange(tab.key)}
                             className={`px-4 sm:px-6 py-2 sm:py-3 font-semibold transition-all cursor-pointer duration-300 transform hover:scale-105 text-sm sm:text-base whitespace-nowrap border border-[#ffffff38] ${activeTab === tab.key
                                 ? 'gradient-border-active text-[#c99913] font-bold bg-[#444] shadow-xl scale-105'
                                 : 'text-[#c2c6cb] hover:gradient-border-active hover:text-[#c99913] bg-[#333]'

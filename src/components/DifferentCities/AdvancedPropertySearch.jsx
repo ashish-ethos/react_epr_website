@@ -191,7 +191,7 @@ const AdvancedPropertySearch = ({
 
   const formatPrice = (price, priceValue) => {
     const rawPrice = price ?? priceValue;
-    if (!rawPrice || isNaN(Number(rawPrice))) return "N/A";
+    if (!rawPrice || isNaN(Number(rawPrice))) return "On Request";
     return `₹${(Number(rawPrice) / 10000000).toFixed(1)} Cr`;
   };
 
@@ -205,7 +205,7 @@ const AdvancedPropertySearch = ({
     const numPrice = parseFloat(rawPrice);
 
     if (!numPrice || isNaN(numPrice)) {
-      return "N/A";
+      return "On Request";
     }
 
     let crores = numPrice / 10000000;
@@ -982,7 +982,7 @@ const AdvancedPropertySearch = ({
                             </div>
                             <div className="card-footer">
                               <div className="card-footer-content">
-                                <div className="card-price">{getFormattedPrice(property)}</div>
+                                <div className="card-price">{getFormattedPrice(property)} </div>
                                 <div className="card-area">{property.areaValue} sq ft</div>
                               </div>
                             </div>

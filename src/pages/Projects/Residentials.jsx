@@ -3,7 +3,7 @@ import { Input, Typography, Pagination } from 'antd';
 import { FilterOutlined, DownOutlined, SearchOutlined as SearchIcon } from '@ant-design/icons';
 import { Grid, List, MapPinHouse, Bed, Bath, LandPlot, Heart, Share2, Eye, Star, X, Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 import ViewDetailsDrawer from './ViewDetailsDrawer';
-import { allProjectPropertyDetails } from '../../data/propertyDetailsData';
+import { properties } from '../../data/propertiesData';
 import { BsWhatsapp } from "react-icons/bs";
 import './Project.css';
 import CustomButton from '../../components/ui/Button';
@@ -14,13 +14,35 @@ const { Search } = Input;
 const { Option } = CustomSelect;
 const { Text } = Typography;
 
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('Error in Residentials:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <div className="text-center py-8 text-red-500">Something went wrong. Refresh the page.</div>;
+    }
+    return this.props.children;
+  }
+}
+
 const Residentials = () => {
   const [viewMode, setViewMode] = useState('grid');
   const [sortBy, setSortBy] = useState('featured');
   const [filters, setFilters] = useState({
     priceRange: '',
     propertyType: '',
-    bedrooms: '',
+    sizeRange: '',
     category: '',
   });
   const [searchTerm, setSearchTerm] = useState('');
@@ -37,7 +59,7 @@ const Residentials = () => {
 
   useEffect(() => {
     if (propertyName) {
-      const property = allProjectPropertyDetails.find(
+      const property = properties.find(
         (p) => p.name.toLowerCase().replace(/\s+/g, '-') === propertyName
       );
       if (property) {
@@ -49,6 +71,20 @@ const Residentials = () => {
       setSelectedProperty(null);
     }
   }, [propertyName]);
+
+  useEffect(() => {
+    if (!propertyName) {
+      const params = new URLSearchParams(location.search);
+      const page = parseInt(params.get('page'), 10) || 1;
+      setCurrentPage(page);
+    }
+  }, [location.search, propertyName]);
+
+  useEffect(() => {
+    if (!propertyName) {
+      navigate(`/projects/residential?page=${currentPage}`, { replace: true });
+    }
+  }, [currentPage, propertyName, navigate]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -63,22 +99,30 @@ const Residentials = () => {
   };
 
   const filteredProperties = useMemo(() => {
-    let filtered = allProjectPropertyDetails.filter((property) => {
+    let filtered = properties.filter((property) => {
+      const typeLower = property.type?.toLowerCase() || '';
       const isResidential =
-        (property.type.toLowerCase().includes('apartment') ||
-          property.type.toLowerCase().includes('villa') ||
-          property.type.toLowerCase().includes('studio')) &&
-        !property.type.toLowerCase().includes('shop') &&
-        !property.type.toLowerCase().includes('office') &&
-        !property.type.toLowerCase().includes('commercial');
+        typeLower.includes('residential') ||
+        typeLower.includes('apartment') ||
+        typeLower.includes('villa') ||
+        typeLower.includes('studio');
       const matchesSearch =
-        property.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        property.location.toLowerCase().includes(searchTerm.toLowerCase());
+        property.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        property.location?.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesType = !filters.propertyType ||
-        property.type.split(', ').some(type => type.trim() === filters.propertyType);
-      const matchesBedrooms = !filters.bedrooms || property.bedrooms.toString() === filters.bedrooms;
+        property.type?.split(', ').some(type => type.trim() === filters.propertyType);
+      const matchesSizeRange = !filters.sizeRange || (() => {
+        if (property.size?.includes('On Request') || !property.size) return false;
+        const sizeStr = property.size.replace(/[^0-9-]/g, ''); // Extract numbers and dashes
+        const [min, max] = sizeStr.split('-').map(num => parseInt(num) || 0);
+        const [rangeMin, rangeMax] = filters.sizeRange.split('-').map(num => parseInt(num) || 0);
+        if (rangeMax === 0) { // For >5000, rangeMax is 0 meaning infinity
+          return min >= rangeMin;
+        }
+        return min >= rangeMin && (max === 0 ? min <= rangeMax : max >= rangeMin && max <= rangeMax);
+      })();
       const matchesCategory = !filters.category || property.category === filters.category;
-      return isResidential && matchesSearch && matchesType && matchesBedrooms && matchesCategory;
+      return isResidential && matchesSearch && matchesType && matchesSizeRange && matchesCategory;
     });
 
     if (showLikedOnly) {
@@ -88,38 +132,38 @@ const Residentials = () => {
     switch (sortBy) {
       case 'price_low':
         return filtered.sort((a, b) => {
-          const priceA = a.price.includes('On Request')
+          const priceA = a.price?.includes('On Request')
             ? Infinity
-            : parseFloat(a.price.replace(/[₹,crore lakh]/g, '')) || Infinity;
-          const priceB = b.price.includes('On Request')
+            : parseFloat(a.price?.replace(/[₹,crore lakh]/g, '')) || Infinity;
+          const priceB = b.price?.includes('On Request')
             ? Infinity
-            : parseFloat(b.price.replace(/[₹,crore lakh]/g, '')) || Infinity;
+            : parseFloat(b.price?.replace(/[₹,crore lakh]/g, '')) || Infinity;
           return priceA - priceB;
         });
       case 'price_high':
         return filtered.sort((a, b) => {
-          const priceA = a.price.includes('On Request')
+          const priceA = a.price?.includes('On Request')
             ? -Infinity
-            : parseFloat(a.price.replace(/[₹,crore lakh]/g, '')) || -Infinity;
-          const priceB = b.price.includes('On Request')
+            : parseFloat(a.price?.replace(/[₹,crore lakh]/g, '')) || -Infinity;
+          const priceB = b.price?.includes('On Request')
             ? -Infinity
-            : parseFloat(b.price.replace(/[₹,crore lakh]/g, '')) || -Infinity;
+            : parseFloat(b.price?.replace(/[₹,crore lakh]/g, '')) || -Infinity;
           return priceB - priceA;
         });
       case 'rating':
         return filtered.sort((a, b) => b.rating - a.rating);
       case 'sqft':
         return filtered.sort((a, b) => {
-          const sqftA = a.sqft.includes('On Request')
+          const sqftA = a.size?.includes('On Request')
             ? -Infinity
-            : parseInt(a.sqft.split('-')[0]) || parseInt(a.sqft) || -Infinity;
-          const sqftB = b.sqft.includes('On Request')
+            : parseInt(a.size?.split('-')[0]) || parseInt(a.size) || -Infinity;
+          const sqftB = b.size?.includes('On Request')
             ? -Infinity
-            : parseInt(b.sqft.split('-')[0]) || parseInt(b.sqft) || -Infinity;
+            : parseInt(b.size?.split('-')[0]) || parseInt(b.size) || -Infinity;
           return sqftB - sqftA;
         });
       default:
-        return filtered.sort((a, b) => b.featured - a.featured);
+        return filtered.sort((a, b) => (b.featured || 0) - (a.featured || 0));
     }
   }, [searchTerm, filters, sortBy, likedProperties, showLikedOnly]);
 
@@ -131,8 +175,8 @@ const Residentials = () => {
   const handleViewDetails = (property) => {
     setSelectedProperty(property);
     setDrawerOpen(true);
-    const propertyName = property.name.toLowerCase().replace(/\s+/g, '-');
-    navigate(`/projects/residential/${propertyName}`, { state: { from: location.pathname } });
+    const propertyNameSlug = property.name.toLowerCase().replace(/\s+/g, '-');
+    navigate(`/projects/residential/${propertyNameSlug}`, { state: { from: location.pathname + location.search } });
   };
 
   const handleCloseDrawer = () => {
@@ -211,7 +255,7 @@ const Residentials = () => {
             </div>
           )}
           <div className="project-status-mobile absolute top-4 left-4 flex flex-wrap gap-2">
-            {property.status.map((status) => (
+            {(property.status || property.options || []).map((status) => (
               <span
                 key={status}
                 className={`px-3 py-1 text-xs font-semibold bg-[#06060670] rounded-full border border-[#ffffff38] text-[#c2c6cb]`}
@@ -283,39 +327,32 @@ const Residentials = () => {
             </div>
           </div>
           <div className="flex items-center gap-4 mb-4 text-sm text-[#c2c6cb]/80 mobile-project-type">
-            <span className="flex items-center gap-1">
-              <Bed className="text-[#c2c6cb]" />
-              {property.bedrooms} Bed
-            </span>
-            <span className="flex items-center gap-1">
-              <Bath className="text-[#c2c6cb]" />
-              {property.bathrooms} Baths
-            </span>
+            
             <span className="flex items-center gap-1">
               <LandPlot className="text-[#c2c6cb]" />
-              {property.sqft}
+              {property.size || 'N/A'}
             </span>
           </div>
           <div className="flex items-center justify-between mb-4  mobile-resdientail-title">
             <div>
               <div className="text-2xl font-bold text-[#c2c6cb]">{property.price}</div>
-              <div className="text-sm text-[#c2c6cb]/80">{property.pricePerSqft}/sq ft</div>
+              <div className="text-sm text-[#c2c6cb]/80">{(property.pricePerSqft || 'On Request')}/sq ft</div>
             </div>
             <span
               className={`px-3 py-1 rounded-full text-xs font-semibold bg-[#333]/50 text-[#c2c6cb] border border-[#ffffff38]`}
             >
-              {property.category.replace('_', ' ')}
+              {property.category ? property.category.replace('_', ' ') : 'N/A'}
             </span>
           </div>
           <div className="flex flex-wrap gap-2 mb-2">
-            {property.amenities.slice(0, 3).map((amenity) => (
+            {((property.amenities || []).slice(0, 3)).map((amenity) => (
               <span key={amenity} className="px-2 py-1 bg-[#333]/50 text-[#c2c6cb]/80 rounded-lg text-xs border border-[#ffffff38]">
                 {amenity}
               </span>
             ))}
-            {property.amenities.length > 3 && (
+            {(property.amenities || []).length > 3 && (
               <span className="px-2 py-1 bg-[#333]/50 text-[#c2c6cb]/80 rounded-lg text-xs border border-[#ffffff38]">
-                +{property.amenities.length - 3} more
+                +{(property.amenities || []).length - 3} more
               </span>
             )}
           </div>
@@ -409,7 +446,7 @@ const Residentials = () => {
             </div>
           )}
           <div className="absolute top-2 left-2 flex flex-wrap gap-2">
-            {property.status.map((status) => (
+            {(property.status || property.options || []).map((status) => (
               <span
                 key={status}
                 className="px-2 py-1 text-xs font-semibold rounded-full bg-[#333]/50 text-[#c2c6cb] border border-[#ffffff38]"
@@ -487,36 +524,28 @@ const Residentials = () => {
 
           </div>
           <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mb-4 text-sm text-[#c2c6cb]/80 mobile-icons-bbl">
-            <span className="flex items-center gap-1">
-              <Bed className="text-[#c2c6cb]" /> {property.bedrooms} Bed
-            </span>
-            <span className="flex items-center gap-1">
-              <Bath className="text-[#c2c6cb]" /> {property.bathrooms} Bath
-            </span>
-            <span className="flex items-center gap-1">
-              <LandPlot className="text-[#c2c6cb]" /> {property.sqft}
-            </span>
+            
           </div>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 mobile-project-type">
             <div>
               <div className="text-lg md:text-xl font-bold text-[#c2c6cb]">{property.price}</div>
-              <div className="text-sm text-[#c2c6cb]/80">{property.pricePerSqft || 'On Request'}/sq ft</div>
+              <div className="text-sm text-[#c2c6cb]/80">{(property.pricePerSqft || 'On Request')}/sq ft</div>
             </div>
             <span
               className="px-2 py-1 rounded-full text-xs font-semibold bg-[#333]/50 text-[#c2c6cb] border border-[#ffffff38]"
             >
-              {property.category.replace('_', ' ')}
+              {property.category ? property.category.replace('_', ' ') : 'N/A'}
             </span>
           </div>
           <div className="flex flex-wrap gap-2 mb-4">
-            {property.amenities.slice(0, 3).map((amenity) => (
+            {((property.amenities || []).slice(0, 3)).map((amenity) => (
               <span key={amenity} className="px-2 py-1 bg-[#333]/50 text-[#c2c6cb]/80 rounded-lg text-xs border border-[#ffffff38]">
                 {amenity}
               </span>
             ))}
-            {property.amenities.length > 3 && (
+            {(property.amenities || []).length > 3 && (
               <span className="px-2 py-1 bg-[#333]/50 text-[#c2c6cb]/80 rounded-lg text-xs border border-[#ffffff38]">
-                +{property.amenities.length - 3} more
+                +{(property.amenities || []).length - 3} more
               </span>
             )}
           </div>
@@ -597,6 +626,8 @@ const Residentials = () => {
                 />
               </CustomButton>
               <CustomSelect
+                popupMatchSelectWidth={true}
+                onOpenChange={(open) => { /* Handle if needed */ }}
                 value={sortBy}
                 onChange={(value) => setSortBy(value)}
                 size="large"
@@ -621,9 +652,11 @@ const Residentials = () => {
           </div>
           {showFilters && (
             <div className="mt-4 p-4 bg-[#333]/50 rounded-xl border border-[#ffffff38]">
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mobile-open-filter">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mobile-open-filter">
                 <CustomSelect
                   showSearch
+                  popupMatchSelectWidth={true}
+                  onOpenChange={(open) => { /* Handle if needed */ }}
                   value={filters.propertyType}
                   onChange={(value) => setFilters({ ...filters, propertyType: value })}
                   placeholder="All Property Types"
@@ -631,7 +664,7 @@ const Residentials = () => {
                   filterSort={filterSort}
                   size="large"
                   className="custom-select"
-                  
+
                   options={[
                     { value: '', label: 'All Property Types' },
                     { value: 'APARTMENT', label: 'Apartment' },
@@ -641,24 +674,27 @@ const Residentials = () => {
                 />
                 <CustomSelect
                   showSearch
-                  value={filters.bedrooms}
-                  onChange={(value) => setFilters({ ...filters, bedrooms: value })}
-                  placeholder="Any Bedrooms"
+                  popupMatchSelectWidth={true}
+                  onOpenChange={(open) => { /* Handle if needed */ }}
+                  value={filters.sizeRange}
+                  onChange={(value) => setFilters({ ...filters, sizeRange: value })}
+                  placeholder="Any Size"
                   optionFilterProp="label"
                   filterSort={filterSort}
                   size="large"
                   className="custom-select"
                   options={[
-                    { value: '', label: 'Any Bedrooms' },
-                    { value: '1', label: '1 Bedroom' },
-                    { value: '2', label: '2 Bedrooms' },
-                    { value: '3', label: '3 Bedrooms' },
-                    { value: '4', label: '4 Bedrooms' },
-                    { value: '5', label: '5+ Bedrooms' },
+                    { value: '', label: 'Any Size' },
+                    { value: '0-1000', label: '<1000 Sq Ft' },
+                    { value: '1000-2000', label: '1000-2000 Sq Ft' },
+                    { value: '2000-5000', label: '2000-5000 Sq Ft' },
+                    { value: '5000+', label: '>5000 Sq Ft' },
                   ]}
                 />
                 <CustomSelect
                   showSearch
+                  popupMatchSelectWidth={true}
+                  onOpenChange={(open) => { /* Handle if needed */ }}
                   value={filters.category}
                   onChange={(value) => setFilters({ ...filters, category: value })}
                   placeholder="All Categories"
@@ -675,7 +711,7 @@ const Residentials = () => {
                   ]}
                 />
                 <button
-                  onClick={() => setFilters({ priceRange: '', propertyType: '', bedrooms: '', category: '' })}
+                  onClick={() => setFilters({ priceRange: '', propertyType: '', sizeRange: '', category: '' })}
                   size="large"
                   className="cancelButton rounded-md max-w-[200px]"
                 >
@@ -700,27 +736,29 @@ const Residentials = () => {
             <div className="mb-6">
               <h2 className="text-2xl font-bold text-[#c2c6cb]">All Residential Properties</h2>
             </div>
-            <div
-              className={`grid gap-8 ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}
-            >
-              {displayedProperties.map((property) => (
-                <div key={property.id}>
-                  {viewMode === 'grid' ? (
-                    <GridPropertyCard
-                      property={property}
-                      isLiked={likedProperties.includes(property.id)}
-                      onToggleLike={toggleLike}
-                    />
-                  ) : (
-                    <ListPropertyCard
-                      property={property}
-                      isLiked={likedProperties.includes(property.id)}
-                      onToggleLike={toggleLike}
-                    />
-                  )}
-                </div>
-              ))}
-            </div>
+            <ErrorBoundary>
+              <div
+                className={`grid gap-8 ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}
+              >
+                {displayedProperties.map((property) => (
+                  <div key={property.id}>
+                    {viewMode === 'grid' ? (
+                      <GridPropertyCard
+                        property={property}
+                        isLiked={likedProperties.includes(property.id)}
+                        onToggleLike={toggleLike}
+                      />
+                    ) : (
+                      <ListPropertyCard
+                        property={property}
+                        isLiked={likedProperties.includes(property.id)}
+                        onToggleLike={toggleLike}
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </ErrorBoundary>
             <div className="mt-8 flex justify-center">
               <Pagination
                 current={currentPage}

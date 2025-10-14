@@ -151,9 +151,9 @@ function DifferentCities() {
         <div className="absolute bottom-0 right-0 w-80 sm:w-[600px] h-80 sm:h-[600px] bg-gradient-to-l from-amber-500/10 to-yellow-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
-      <div className="absolute bottom-0 left-0 w-full h-24 sm:h-32 bg-gradient-to-t from-black/30 to-transparent">
+      {/* <div className="absolute bottom-0 left-0 w-full h-24 sm:h-32 bg-gradient-to-t from-black/30 to-transparent">
         <div className="absolute bottom-0 left-0 w-full h-16 sm:h-20 bg-gradient-to-r from-transparent via-yellow-400/5 to-transparent"></div>
-      </div>
+      </div> */}
 
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(15)].map((_, i) => (
@@ -170,7 +170,7 @@ function DifferentCities() {
         ))}
       </div>
 
-      <div className="relative z-10 h-auto py-4 sm:py-8 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 h-auto py-4 sm:py-0 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-full sm:max-w-5xl mx-auto text-center">
           <div className={`inline-flex items-center gap-2 mb-6 sm:mb-8 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
             <div className="w-8 sm:w-12 h-0.5 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>

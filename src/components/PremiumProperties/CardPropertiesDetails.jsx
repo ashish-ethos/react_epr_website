@@ -50,7 +50,7 @@ const CardPropertiesDetails = ({ property }) => {
   return (
     <div className="max-w-7xl mx-auto bg-[#333] shadow-sm border border-[#ffffff38] overflow-y-auto custom-scrollbar scrollbar-thin ">
       {/* Header Section */}
-      <div className="bg-[#1b1b1b] px-6 py-4 border-b border-[#ffffff38]">
+      <div className="bg-[#1b1b1b] px-6 py-4 border-b border-[#ffffff38] mobile-header-premium">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold text-[#c2c6cb]">{property.name}</h1>
           {property.featured && (
@@ -67,7 +67,7 @@ const CardPropertiesDetails = ({ property }) => {
       </div>
 
       {/* Main Content */}
-      <div className="p-6">
+      <div className="p-6 mobile-main-content-premium">
         {/* Property Image */}
         <div className="mb-8 relative">
           <img
@@ -76,7 +76,7 @@ const CardPropertiesDetails = ({ property }) => {
             className="w-full h-64 md:h-96 object-cover rounded-xl shadow-lg"
           />
 
-          <div className="absolute inset-0 flex flex-col gap-2 p-2 md:p-4">
+          <div className="absolute inset-0 flex gap-2 p-2 md:p-4 mobile-property-tags justify-between">
             {/* Property Type */}
             <div>
               <span className="inline-flex items-center px-2 py-0.5 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-semibold bg-[#16a34a]/20 text-[#c2c6cb] backdrop-blur-sm">

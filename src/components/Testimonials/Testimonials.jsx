@@ -110,13 +110,6 @@ const Testimonial = () => {
 
   return (
     <div className=" bg-[#333] py-10 px-4 relative overflow-hidden laptop-mode-screen" id='testimonials'>
-      {/* Background Orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-[#444]/50 to-[#c2c6cb]/20 rounded-full opacity-20 blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-[#c2c6cb]/20 to-[#444]/50 rounded-full opacity-20 blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-gradient-to-r from-[#333]/50 to-[#c2c6cb]/20 rounded-full opacity-15 blur-2xl animate-pulse delay-2000"></div>
-      </div>
-
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-16 mobile-testimonial-section">

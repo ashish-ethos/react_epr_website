@@ -195,6 +195,12 @@
 .ant-pagination .ant-pagination-total-text {
   color: #c2c6cb !important;
 }
+.ant-pagination .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-link-icon {
+  color: #c08830 !important
+}
+.ant-pagination .ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-link-icon{
+  color: #c08830 !important;
+}
 
 @media (min-width: 768px) and (max-width: 1124px) {
   .ant-col-lg-8 {

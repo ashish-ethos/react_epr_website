@@ -1,3 +1,5 @@
+// propertyDetailsData.js
+
 import DLFCamellias from "../assets/images/premiumproperties/dlfthecamilias.jpg";
 import ElanTheEmperor from "../assets/images/premiumproperties/Elan-The-Emperor.jpg";
 import KrisumiWaterfall from "../assets/images/premiumproperties/krisumiwaterfall.jpg";
