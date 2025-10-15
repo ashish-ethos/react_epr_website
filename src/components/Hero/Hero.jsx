@@ -148,6 +148,7 @@ const Hero = ({ onSearchChange }) => {
                         {opt.label}
                       </CustomSelect.Option>
                     ))}
+                    {/* still its not working properly dropdown is not opening? */}
                 </CustomSelect.OptGroup>
               </CustomSelect>
             </Col>
