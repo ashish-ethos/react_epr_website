@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Input, Typography, Pagination } from 'antd';
+import { Input, Typography, Pagination, Empty } from 'antd';
 import { FilterOutlined, DownOutlined, SearchOutlined as SearchIcon } from '@ant-design/icons';
 import { Grid, List, MapPinHouse, LandPlot, Heart, Share2, Eye, Star, X, Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 import ViewDetailsDrawer from './ViewDetailsDrawer';
@@ -35,6 +35,55 @@ class ErrorBoundary extends React.Component {
     return this.props.children;
   }
 }
+
+const parseSinglePrice = (str) => {
+  if (!str) return null;
+  const clean = str.replace(/[₹*]/g, '').trim().toLowerCase();
+  const match = clean.match(/(\d+(?:\.\d+)?)\s*(cr|crore|l|lakh|lakhs)/i);
+  if (match) {
+    let num = parseFloat(match[1]);
+    const unit = match[2].toLowerCase();
+    if (unit.startsWith('l') || unit.startsWith('lakh')) {
+      num = num / 100; // Convert lakhs to crores
+    }
+    return num;
+  }
+  const numMatch = clean.match(/(\d+(?:\.\d+)?)/);
+  if (numMatch) {
+    return parseFloat(numMatch[1]); // Assume crores if no unit specified
+  }
+  return null;
+};
+
+const parsePriceRange = (priceStr) => {
+  if (!priceStr || priceStr.includes('On Request') || priceStr.includes('Price on Request')) {
+    return { min: null, max: null };
+  }
+  let clean = priceStr.replace(/[*]/g, '').trim();
+  clean = clean.replace(/[–—–—\-]/g, '-');
+  const parts = clean.split('-').map(p => p.trim()).filter(p => p);
+  if (parts.length === 1) {
+    const val = parseSinglePrice(parts[0]);
+    return { min: val, max: val };
+  } else if (parts.length >= 2) {
+    const minVal = parseSinglePrice(parts[0]);
+    const maxVal = parseSinglePrice(parts[1]);
+    return { min: minVal, max: maxVal };
+  }
+  return { min: null, max: null };
+};
+
+const parseSizeRange = (sizeStr) => {
+  if (!sizeStr || sizeStr.includes('On Request')) {
+    return { min: null, max: null };
+  }
+  const clean = sizeStr.replace(/[––—]/g, '-').replace(/[^\d-]/g, '');
+  const parts = clean.split('-').map(num => parseInt(num) || 0);
+  if (parts.length === 1) {
+    return { min: parts[0], max: parts[0] };
+  }
+  return { min: parts[0], max: parts[1] || parts[0] };
+};
 
 const Commercial = () => {
   const [viewMode, setViewMode] = useState('grid');
@@ -105,25 +154,33 @@ const Commercial = () => {
         typeLower.includes('shop') ||
         typeLower.includes('office') ||
         typeLower.includes('commercial') ||
-        typeLower.includes('studio') && typeLower.includes('office');
+        (typeLower.includes('studio') && typeLower.includes('office'));
       const matchesSearch =
         property.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         property.location?.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesType = !filters.propertyType ||
-        property.type?.split(',').map(t => t.trim().toUpperCase()).includes(filters.propertyType) ||
-        typeLower.includes(filters.propertyType.toLowerCase());
-      const matchesSizeRange = !filters.sizeRange || (() => {
-        if (property.size?.includes('On Request') || !property.size) return false;
-        const sizeStr = property.size.replace(/[^0-9-]/g, ''); // Extract numbers and dashes
-        const [min, max] = sizeStr.split('-').map(num => parseInt(num) || 0);
-        const [rangeMin, rangeMax] = filters.sizeRange.split('-').map(num => parseInt(num) || 0);
-        if (rangeMax === 0) { // For >5000, rangeMax is 0 meaning infinity
-          return min >= rangeMin;
-        }
-        return min >= rangeMin && (max === 0 ? min <= rangeMax : max >= rangeMin && max <= rangeMax);
-      })();
+      const matchesType =
+        !filters.propertyType ||
+        property.type?.toLowerCase().includes(filters.propertyType.toLowerCase().replace('/', '/'));
+      const priceRangeProp = parsePriceRange(property.price);
+      const matchesPriceRange =
+        !filters.priceRange ||
+        (priceRangeProp.max !== null &&
+          (() => {
+            const [, rangeMaxStr] = filters.priceRange.split('-');
+            const filterMax = rangeMaxStr === '+' ? Infinity : parseFloat(rangeMaxStr) || Infinity;
+            return priceRangeProp.max <= filterMax;
+          })());
+      const sizeRangeProp = parseSizeRange(property.size);
+      const matchesSizeRange =
+        !filters.sizeRange ||
+        (sizeRangeProp.max !== null &&
+          (() => {
+            const [, rangeMaxStr] = filters.sizeRange.split('-');
+            const filterMax = rangeMaxStr === '+' ? Infinity : parseInt(rangeMaxStr) || Infinity;
+            return sizeRangeProp.max <= filterMax;
+          })());
       const matchesCategory = !filters.category || property.category === filters.category;
-      return isCommercial && matchesSearch && matchesType && matchesSizeRange && matchesCategory;
+      return isCommercial && matchesSearch && matchesType && matchesPriceRange && matchesSizeRange && matchesCategory;
     });
 
     if (showLikedOnly) {
@@ -133,38 +190,26 @@ const Commercial = () => {
     switch (sortBy) {
       case 'price_low':
         return filtered.sort((a, b) => {
-          const priceA = a.price?.includes('On Request')
-            ? Infinity
-            : parseFloat(a.price?.replace(/[₹,crore lakh]/g, '')) || Infinity;
-          const priceB = b.price?.includes('On Request')
-            ? Infinity
-            : parseFloat(b.price?.replace(/[₹,crore lakh]/g, '')) || Infinity;
+          const priceA = parsePriceRange(a.price).min || Infinity;
+          const priceB = parsePriceRange(b.price).min || Infinity;
           return priceA - priceB;
         });
       case 'price_high':
         return filtered.sort((a, b) => {
-          const priceA = a.price?.includes('On Request')
-            ? -Infinity
-            : parseFloat(a.price?.replace(/[₹,crore lakh]/g, '')) || -Infinity;
-          const priceB = b.price?.includes('On Request')
-            ? -Infinity
-            : parseFloat(b.price?.replace(/[₹,crore lakh]/g, '')) || -Infinity;
+          const priceA = parsePriceRange(a.price).max || -Infinity;
+          const priceB = parsePriceRange(b.price).max || -Infinity;
           return priceB - priceA;
         });
       case 'rating':
         return filtered.sort((a, b) => b.rating - a.rating);
       case 'sqft':
         return filtered.sort((a, b) => {
-          const sqftA = a.size?.includes('On Request')
-            ? -Infinity
-            : parseInt(a.size?.split('-')[0]) || parseInt(a.size) || -Infinity;
-          const sqftB = b.size?.includes('On Request')
-            ? -Infinity
-            : parseInt(b.size?.split('-')[0]) || parseInt(b.size) || -Infinity;
+          const sqftA = parseSizeRange(a.size).min || -Infinity;
+          const sqftB = parseSizeRange(b.size).min || -Infinity;
           return sqftB - sqftA;
         });
       default:
-        return filtered.sort((a, b) => (b.featured || 0) - (a.featured || 0));
+        return filtered.sort((a, b) => (b.options?.includes('FEATURED') ? 1 : 0) - (a.options?.includes('FEATURED') ? 1 : 0));
     }
   }, [searchTerm, filters, sortBy, likedProperties, showLikedOnly]);
 
@@ -256,7 +301,7 @@ const Commercial = () => {
             </div>
           )}
           <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-            {(property.status || property.options || []).map((status) => (
+            {(property.options || []).map((status) => (
               <span
                 key={status}
                 className={`px-3 py-1 text-xs font-semibold bg-[#06060670] rounded-full border border-[#ffffff38] text-[#c2c6cb]`}
@@ -304,7 +349,7 @@ const Commercial = () => {
               </div>
             </div>
           )}
-          {property.featured && (
+          {property.options?.includes('FEATURED') && (
             <div className="absolute bottom-4 left-4">
               <span className="bg-gradient-to-r from-[#c2c6cb]/60 to-[#444]/80 text-[#000] px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 border border-[#ffffff38]">
                 <Star size={12} fill="currentColor" />
@@ -331,7 +376,7 @@ const Commercial = () => {
               <LandPlot className="text-[#c2c6cb]" /> {property.size || 'N/A'}
             </span>
           </div>
-          <div className="flex items-center justify-between mb-4  mobile-project-title ">
+          <div className="flex items-center justify-between mb-4 mobile-project-title">
             <div>
               <div className="text-2xl font-bold text-[#c2c6cb] mobile-property-price">{property.price}</div>
               <div className="text-sm text-[#c2c6cb]/80">{(property.pricePerSqft || 'On Request')}/sq ft</div>
@@ -355,10 +400,7 @@ const Commercial = () => {
             )}
           </div>
           <div className="flex w-full justify-center gap-3">
-            <div
-              className="inline-block rounded-[12px] p-[2px]"
-
-            >
+            <div className="inline-block rounded-[12px] p-[2px]">
               <CustomButton
                 onClick={() => handleViewDetails(property)}
                 className="bg-[#444] text-[#c2c6cb] px-5 py-2 rounded-[10px] cursor-pointer font-semibold flex items-center justify-center gap-2 hover:shadow-md transition-all duration-200"
@@ -442,7 +484,7 @@ const Commercial = () => {
             </div>
           )}
           <div className="absolute top-2 left-2 flex flex-wrap gap-2">
-            {(property.status || property.options || []).map((status) => (
+            {(property.options || []).map((status) => (
               <span
                 key={status}
                 className={`px-2 py-1 text-xs font-semibold rounded-full bg-[#333]/50 text-[#c2c6cb] border border-[#ffffff38]`}
@@ -451,7 +493,7 @@ const Commercial = () => {
               </span>
             ))}
           </div>
-          {property.featured && (
+          {property.options?.includes('FEATURED') && (
             <div className="absolute bottom-2 left-2 flex justify-between w-full px-4">
               <span className="bg-gradient-to-r from-[#c2c6cb]/20 to-[#444]/20 text-[#c2c6cb] px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1 border border-[#ffffffde]">
                 <Star size={12} fill="currentColor" />
@@ -549,7 +591,6 @@ const Commercial = () => {
                 <Eye size={18} /> View Details
               </CustomButton>
             </div>
-
           </div>
         </div>
       </div>
@@ -563,15 +604,15 @@ const Commercial = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#333] ">
+    <div className="min-h-screen bg-[#333]">
       <div className="bg-[#444] border-b border-t border-[#ffffff38] top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between mb-4  mobile-project-title">
+          <div className="flex items-center justify-between mb-4 mobile-project-title">
             <div>
               <h1 className="mobile-title-project-text text-3xl font-bold text-[#c2c6cb]">Commercial Properties</h1>
               <p className="text-[#c2c6cb]/80 mt-1">{filteredProperties.length} properties available</p>
             </div>
-            <div className="flex items-center gap-3 ">
+            <div className="flex items-center gap-3">
               <div className="flex bg-[#333]/50 rounded-lg border border-[#ffffff38]">
                 <button
                   onClick={() => setViewMode('grid')}
@@ -618,7 +659,6 @@ const Commercial = () => {
               </CustomButton>
               <CustomSelect
                 popupMatchSelectWidth={true}
-                onOpenChange={(open) => { /* Handle if needed */ }}
                 value={sortBy}
                 onChange={(value) => setSortBy(value)}
                 size="large"
@@ -643,11 +683,28 @@ const Commercial = () => {
           </div>
           {showFilters && (
             <div className="mt-4 p-4 bg-[#333]/50 rounded-xl border border-[#ffffff38]">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mobile-open-filter">
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mobile-open-filter">
                 <CustomSelect
                   showSearch
                   popupMatchSelectWidth={true}
-                  onOpenChange={(open) => { /* Handle if needed */ }}
+                  value={filters.priceRange}
+                  onChange={(value) => setFilters({ ...filters, priceRange: value })}
+                  placeholder="Any Price"
+                  optionFilterProp="label"
+                  filterSort={filterSort}
+                  size="large"
+                  className="custom-select"
+                  options={[
+                    { value: '', label: 'Any Price' },
+                    { value: '0-0.5', label: '0-50L' },
+                    { value: '0.5-3', label: '50L - 3 Cr' },
+                    { value: '1-5', label: '1Cr - 5Cr' },
+                    { value: '5-+', label: '5Cr+' },
+                  ]}
+                />
+                <CustomSelect
+                  showSearch
+                  popupMatchSelectWidth={true}
                   value={filters.propertyType}
                   onChange={(value) => setFilters({ ...filters, propertyType: value })}
                   placeholder="All Property Types"
@@ -655,7 +712,6 @@ const Commercial = () => {
                   filterSort={filterSort}
                   size="large"
                   className="custom-select"
-                  
                   options={[
                     { value: '', label: 'All Property Types' },
                     { value: 'SHOP/COMMERCIAL', label: 'Shop/Commercial' },
@@ -666,7 +722,6 @@ const Commercial = () => {
                 <CustomSelect
                   showSearch
                   popupMatchSelectWidth={true}
-                  onOpenChange={(open) => { /* Handle if needed */ }}
                   value={filters.sizeRange}
                   onChange={(value) => setFilters({ ...filters, sizeRange: value })}
                   placeholder="Any Size"
@@ -676,16 +731,15 @@ const Commercial = () => {
                   className="custom-select"
                   options={[
                     { value: '', label: 'Any Size' },
-                    { value: '0-1000', label: '<1000 Sq Ft' },
-                    { value: '1000-2000', label: '1000-2000 Sq Ft' },
-                    { value: '2000-5000', label: '2000-5000 Sq Ft' },
-                    { value: '5000+', label: '>5000 Sq Ft' },
+                    { value: '0-500', label: '0-500 Sq Ft' },
+                    { value: '500-4000', label: '500-4000 Sq Ft' },
+                    { value: '4000-10000', label: '4000-10000 Sq Ft' },
+                    { value: '10000-+', label: '10000+ Sq Ft' },
                   ]}
                 />
                 <CustomSelect
                   showSearch
                   popupMatchSelectWidth={true}
-                  onOpenChange={(open) => { /* Handle if needed */ }}
                   value={filters.category}
                   onChange={(value) => setFilters({ ...filters, category: value })}
                   placeholder="All Categories"
@@ -721,7 +775,9 @@ const Commercial = () => {
             <div className="text-[#c2c6cb]/80 mb-4">
               <SearchIcon size={64} className="mx-auto" />
             </div>
-            <h3 className="text-xl font-semibold text-[#c2c6cb] mb-2">No properties found</h3>
+            <Empty description={
+              <h3 className="text-xl font-semibold text-[#c2c6cb] mb-2">No properties found</h3>
+            } />
             <p className="text-[#c2c6cb]/80">Try adjusting your search criteria or filters</p>
           </div>
         ) : (

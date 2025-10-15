@@ -9,6 +9,7 @@ import Testimonial from '../../components/Testimonials/Testimonials';
 import OurBlog from '../../components/OurBlog/OurBlog';
 import AssociatedDevelopers from '../../components/AssociatedDevelopers/AssociatedDevelopers';
 import Hero from '../../components/Hero/Hero';
+import PopularLocation from "../../components/PopularLocation/PopularLocation";
 
 const Home = () => {
   const [filters, setFilters] = useState({ search: "", type: "", city: "" });
@@ -27,6 +28,7 @@ const Home = () => {
 
       <PremiumProperties />
       <DifferentCities />
+      <PopularLocation />
       <SetsApart />
       <WhyChooseUs />
       <OurTeam />

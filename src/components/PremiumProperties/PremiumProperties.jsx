@@ -3,9 +3,10 @@ import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 import DLFCamellias from "../../assets/images/premiumproperties/dlfthecamilias.jpg";
 import ElanTheEmperor from "../../assets/images/premiumproperties/Elan-The-Emperor.jpg";
 import KrisumiWaterfall from "../../assets/images/premiumproperties/krisumiwaterfall.jpg";
-import TrinitySkyPlazao from "../../assets/images/premiumproperties/skyplazzo.jpg";
 import M3Mmansion from "../../assets/images/premiumproperties/m3mmansion.jpg";
 import DLFTheCrest from "../../assets/images/premiumproperties/dlfthecrest.jpg";
+import GodrejAristocrat from "../../assets/images/exploreproperties/godrej.webp";
+
 import { Drawer } from "antd";
 import "./PremiumProperties.css";
 import { useNavigate, useParams } from "react-router-dom";
@@ -24,23 +25,23 @@ function PremiumProperties() {
   const properties = [
     {
       id: 1,
-      name: "Trinity Sky Palazzo",
-      price: "₹On Request",
-      basePrice: "₹On Request",
-      image: TrinitySkyPlazao,
+      name: "Godrej Aristocrat",
+      price: "₹ On Request",
+      size: "On Request",
+      image: GodrejAristocrat,
       location: {
-        full: "Sector 88, Gurgaon, Haryana, India",
-        googleMap: `<iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d14033.074991315998!2d76.94311120573879!3d28.441313962311764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sTrinity%20Sky%20Palazzos%2C%20On%2C%20Northern%20Peripheral%20Road%2C%20Sector%2088B%2C%20Gurugram%2C%20Haryana%2C%20India!5e0!3m2!1sen!2sin!4v1755066872168!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
+        full: "Sector 49, Gurugram, Haryana, India",
+        googleMap: `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
         city: "Gurugram",
         state: "Haryana",
-        area: "Dwarka Expressway",
+        area: "Sector 49",
         country: "India",
       },
       area: "3200 - 4400 Sq Ft",
       type: "APARTMENT, RESIDENTIAL",
       rating: 4.8,
       views: 1245,
-      discount: "50% OFF",
+      category: "Luxury",
       featured: true,
       amenities: ["Swimming Pool", "Gym", "Garden", "Security"],
       updatedOn: "June 19, 2025",
@@ -48,8 +49,8 @@ function PremiumProperties() {
     {
       id: 2,
       name: "Elan The Emperor",
-      price: "₹On Request",
-      basePrice: "₹On Request",
+      price: "₹ On Request",
+      size: "On Request",
       image: ElanTheEmperor,
       location: {
         full: "Sector 106, Gurgaon, Haryana, India",
@@ -63,16 +64,16 @@ function PremiumProperties() {
       type: "APARTMENT, RESIDENTIAL",
       rating: 4.9,
       views: 2156,
-      discount: "60% OFF",
+      category: "Luxury",
       featured: true,
-      amenities: ["Rooftop Pool", "Spa", "Concierge", "Parking"],
+      amenities: ["Rooftop Pool", "Spa", "Gym", "Parking"],
       updatedOn: "June 20, 2025",
     },
     {
       id: 3,
       name: "Krisumi Waterfall Residences",
-      price: "₹On Request",
-      basePrice: "₹On Request",
+      price: "₹ On Request",
+      size: "On Request",
       image: KrisumiWaterfall,
       location: {
         full: "Sector 36A, Gurgaon, Haryana, India",
@@ -86,7 +87,7 @@ function PremiumProperties() {
       type: "APARTMENT, STUDIO, RESIDENTIAL",
       rating: 4.7,
       views: 892,
-      discount: "44% OFF",
+      category: "Luxury",
       featured: false,
       amenities: ["Waterfall View", "Balcony", "Garden", "Clubhouse"],
       updatedOn: "June 21, 2025",
@@ -94,8 +95,8 @@ function PremiumProperties() {
     {
       id: 4,
       name: "DLF The Camellias",
-      price: "₹On Request",
-      basePrice: "₹On Request",
+      price: "₹ On Request",
+      size: "On Request",
       image: DLFCamellias,
       location: {
         full: "DLF The Camellias, Sector 42, Gurugram, Haryana, India",
@@ -111,7 +112,7 @@ function PremiumProperties() {
       type: "APARTMENT, RESIDENTIAL",
       rating: 5.0,
       views: 3421,
-      discount: "56% OFF",
+      category: "Luxury",
       featured: true,
       amenities: ["Private Elevator", "Terrace", "Butler Service", "Wine Cellar"],
       updatedOn: "June 20, 2025",
@@ -124,8 +125,8 @@ function PremiumProperties() {
     {
       id: 5,
       name: "M3M Mansion Sector 113",
-      price: "₹On Request",
-      basePrice: "₹On Request",
+      price: "₹ On Request",
+      size: "On Request",
       image: M3Mmansion,
       location: {
         full: "M3M Mansion, Sector 113, Gururgam, Haryana, India",
@@ -141,7 +142,7 @@ function PremiumProperties() {
       type: "APARTMENT, RESIDENTIAL",
       rating: 4.6,
       views: 1687,
-      discount: "75% OFF",
+      category: "Luxury",
       featured: false,
       amenities: ["City View", "Fitness Center", "Playground", "Shopping"],
       updatedOn: "June 28, 2025",
@@ -153,22 +154,23 @@ function PremiumProperties() {
     {
       id: 6,
       name: "DLF The Crest",
-      price: "₹On Request",
-      basePrice: "₹On Request",
+      price: "₹ On Request",
+      size: "On Request",
       image: DLFTheCrest,
       location: {
         full: "DLF Phase 5, Sector 54, Gurgram, Haryana, India",
         googleMap: `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.58548173569!2d77.02305912601354!3d28.522116639085294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1b89af3e9f25%3A0x933e8ef98fc61271!2sDLF%20The%20Crest!5e0!3m2!1sen!2sin!4v1755071944004!5m2!2sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
         city: "Gurugram",
         state: "Haryana",
-        area: "Golf Course Road",
         country: "India",
+        area: "Golf Course Road",
+        
       },
       area: "2246 - 6221 Sq Ft",
       type: "APARTMENT, RESIDENTIAL",
       rating: 4.8,
       views: 2934,
-      discount: "64% OFF",
+      category: "Luxury",
       featured: true,
       amenities: ["Park View", "Yoga Studio", "Library", "Cafe"],
       updatedOn: "June 20, 2025",
@@ -239,11 +241,11 @@ function PremiumProperties() {
   const handleTouchEnd = () => {
     if (!touchStartX.current || !touchEndX.current) return;
     const diff = touchStartX.current - touchEndX.current;
-    if (Math.abs(diff) > 50) { // Swipe threshold
+    if (Math.abs(diff) > 50) { 
       if (diff > 0) {
-        nextProperty(); // Swipe left
+        nextProperty();
       } else {
-        prevProperty(); // Swipe right
+        prevProperty();
       }
     }
     touchStartX.current = null;
@@ -325,8 +327,8 @@ function PremiumProperties() {
                           FEATURED
                         </span>
                       )}
-                      <span className="px-3 py-1 bg-[#333] text-[#c99913] text-xs font-bold rounded-full shadow-lg border border-[#ffffff38]">
-                        {property.discount}
+                      <span className="px-3 text-center py-1 bg-[#333] text-[#c99913] text-xs font-bold rounded-full shadow-lg border border-[#ffffff38]">
+                        {property.category}
                       </span>
                     </div>
                   </div>
@@ -335,14 +337,14 @@ function PremiumProperties() {
                   <div className="p-6">
                     <div className="flex items-center gap-3 mb-4 content-mobile-price">
                       <span className="text-2xl font-bold fontFamily-bebas text-[#c99913]">{property.price}</span>
-                      <span className="text-sm text-[#c2c6cb] bg-[#444] px-2 py-1 rounded border border-[#ffffff38]">Base Price {property.basePrice}</span>
+                      <div className="text-sm text-[#c2c6cb] bg-[#444] px-2 py-1 rounded border border-[#ffffff38] border-dashed"> Plot Size : {property.size}</div>
                     </div>
                     <h3 className="text-xl font-medium fontFamily-bebas text-[#c2c6cb] mb-2">{property.name}</h3>
                     <div className="flex items-start gap-2 mb-3">
                       <MapPin size={16} className="text-[#c99913] mt-1" />
-                      <p className="text-sm text-[#c2c6cb]">{`${property.location.city}, ${property.location.area}`}</p>
+                      <p className="text-sm text-[#c2c6cb]">{`${property.location.city}, ${property.location.area}, ${property.location.state}, ${property.location.country}`}</p>
                     </div>
-                    <div className="flex flex-wrap gap-2 mb-6">
+                    <div className="flex flex-wrap gap-2 mb-3">
                       {property.amenities.slice(0, 3).map((a, i) => (
                         <span key={i} className="px-2 py-1 bg-[#444] text-[#c2c6cb] text-xs rounded-full border border-[#ffffff38]">
                           {a}

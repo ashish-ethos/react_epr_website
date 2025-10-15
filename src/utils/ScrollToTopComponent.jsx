@@ -14,6 +14,7 @@ const pathnamesToScroll = [
   "/privacy-policy",
   "/terms&conditions",
   "/f&qs",
+  "/popular-location",
   "/disclaimer",
 ];
 

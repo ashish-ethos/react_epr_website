@@ -3,7 +3,7 @@
 import DLFCamellias from "../assets/images/premiumproperties/dlfthecamilias.jpg";
 import ElanTheEmperor from "../assets/images/premiumproperties/Elan-The-Emperor.jpg";
 import KrisumiWaterfall from "../assets/images/premiumproperties/krisumiwaterfall.jpg";
-import TrinitySkyPlazao from "../assets/images/premiumproperties/skyplazzo.jpg";
+import CygnetRestro from "../assets/images/premiumproperties/cygnet_resort.jpg";
 import M3Mmansion from "../assets/images/premiumproperties/m3mmansion.jpg";
 import AIPLAutograph from "../assets/images/exploreproperties/aipl-autograph.jpg";
 import CentralPark from "../assets/images/exploreproperties/central-park.jpg";
@@ -17,7 +17,6 @@ import ElanEpic from "../assets/images/exploreproperties/elan_epic.webp";
 import Omaxstate from "../assets/images/exploreproperties/omaxstate.webp";
 import M3MMansion from "../assets/images/exploreproperties/m3m-mansion.jpg";
 import Tulip from "../assets/images/exploreproperties/tulip-monsella.jpg";
-import Trinity from "../assets/images/exploreproperties/Trinity-Sky-Palazzos.jpg";
 import ElanThePersidential from "../assets/images/exploreproperties/Elan-The-Presidential.jpg";
 import Krisumi from "../assets/images/exploreproperties/krisumi-waterfall.jpg";
 import SmartWorld from "../assets/images/exploreproperties/smartworld-dxp.jpg";
@@ -249,7 +248,7 @@ export const allProjectPropertyDetails = [
     category: "ULTRA_LUXURY",
     status: ["FOR SALE", "FOR RENT", "EXCLUSIVE"],
     rating: 4.9,
-    image: TrinitySkyPlazao,
+    image: CygnetRestro,
     featured: true,
     amenities: [
       "Private Pool",
@@ -451,9 +450,9 @@ export const allProjectPropertyDetails = [
   },
   {
     id: 20,
-    name: "Trinity Sky Palazzos",
+    name: "M3M Mansion Sector 113, Gurgaon",
     location:
-      "Trinity Sky Palazzos, On, Northern Peripheral Road, Sector 88B, Gurugram, Haryana, India",
+      "M3M Mansion, Sector 113, Bajghera, Gurugram, Haryana, India",
     price: "₹On Request",
     priceValue: null, 
     pricePerSqft: "₹On Request",
@@ -464,7 +463,7 @@ export const allProjectPropertyDetails = [
     category: "ULTRA_LUXURY",
     status: ["FOR SALE", "EXCLUSIVE"],
     rating: 4.9,
-    image: Trinity,
+    image: M3MMansion,
     featured: true,
     amenities: [
       "Private Pool",
@@ -474,8 +473,8 @@ export const allProjectPropertyDetails = [
       "Security",
     ],
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1754.0811133637621!2d76.95199581744384!3d28.444525700000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17b7bb627787%3A0xe726ba0fd10b0119!2sTrinity%20Sky%20Palazzos!5e0!3m2!1sen!2sin!4v1757833313430!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
-  },
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14021.337444733965!2d77.01855426399176!3d28.529668041185936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1b89af3e9f25%3A0x933e8ef98fc61271!2sM3M%20MANSION!5e0!3m2!1sen!2sin!4v1757834670154!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+  },,
   {
     id: 21,
     name: "Elan The Emperor",
@@ -582,31 +581,5 @@ export const allProjectPropertyDetails = [
     addressMap:
       '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.335131206927!2d77.02627907601368!3d28.52964488874452!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1b003439c981%3A0x483544ed2c5ee6f1!2sSmartworld%20One%20DXP!5e0!3m2!1sen!2sin!4v1757834459163!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
-  {
-    id: 25,
-    name: "M3M Mansion Sector 113, Gurgaon",
-    location:
-      "M3M Mansion, Sector 113, Bajghera, Gurugram, Haryana, India",
-    price: "₹On Request",
-    priceValue: null, 
-    pricePerSqft: "₹On Request",
-    sqft: "On Request Sq Ft",
-    bedrooms: 5,
-    bathrooms: 5,
-    type: "APARTMENT, RESIDENTIAL",
-    category: "ULTRA_LUXURY",
-    status: ["FOR SALE", "EXCLUSIVE"],
-    rating: 4.9,
-    image: M3MMansion,
-    featured: true,
-    amenities: [
-      "Private Pool",
-      "Garden",
-      "Home Theater",
-      "Wine Cellar",
-      "Security",
-    ],
-    addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14021.337444733965!2d77.01855426399176!3d28.529668041185936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1b89af3e9f25%3A0x933e8ef98fc61271!2sM3M%20MANSION!5e0!3m2!1sen!2sin!4v1757834670154!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
-  },
+  
 ];

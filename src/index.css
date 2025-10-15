@@ -288,6 +288,9 @@ body {
     width: auto !important;
     height: auto !important;
   }
+  .mobile-value-section{
+    padding: 10px 15px !important;
+  }
 }
 
 .cross-mobile-icon {

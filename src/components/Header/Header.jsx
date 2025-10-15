@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
-import { FaCaretDown } from "react-icons/fa";
 import { Menu, X } from 'lucide-react';
-import { IoIosArrowDown } from "react-icons/io";
-import { Dropdown, Space } from "antd"; 
+import { Dropdown, Space } from "antd";
+import { DownOutlined } from '@ant-design/icons';
 import "./Header.css";
 import CompanyHeaderLogo from "../../assets/images/logo/ethos_pro_darkmode.png";
 import MobileHeaderLogo from "../../assets/images/logo/EPR_logo.png";
@@ -11,8 +10,6 @@ import MobileHeaderLogo from "../../assets/images/logo/EPR_logo.png";
 function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [projectsOpen, setProjectsOpen] = useState(false);
-  const [hoveredItem, setHoveredItem] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -34,18 +31,17 @@ function Header() {
     { name: "Contact", path: "/contact" },
   ];
 
-  const onClick = ({ key }) => {};
-
   const getDropdownItems = (dropdown) =>
     dropdown.map((sub) => ({
       label: (
         <NavLink
           to={sub.path}
           className={({ isActive }) =>
-            `block px-4 py-1 text-sm hover:bg-gray-700 ${
+            `block px-4 py-2 text-sm hover:bg-gray-700 ${
               isActive ? "text-[#c08830] font-semibold" : "text-[#c08830]"
             }`
           }
+          onClick={() => setMobileOpen(false)} // Close mobile menu on item click
         >
           {sub.name}
         </NavLink>
@@ -76,23 +72,22 @@ function Header() {
         <nav className="hidden md:flex items-center space-x-8">
           {navItems.map((item) =>
             item.dropdown ? (
-              <div
-                className="relative"
+              <Dropdown
                 key={item.name}
-                onMouseEnter={() => setHoveredItem(item.name)}
-                onMouseLeave={() => setHoveredItem(null)}
+                menu={{ items: getDropdownItems(item.dropdown) }}
+                trigger={["hover"]}
+                overlayClassName="custom-dropdown"
               >
-                <Dropdown
-                  menu={{ items: getDropdownItems(item.dropdown), onClick }}
-                  trigger={["hover"]}
-                  open={item.name === hoveredItem}
-                  overlayClassName="custom-dropdown"
+                <a
+                  onClick={(e) => e.preventDefault()}
+                  className="flex items-center font-medium cursor-pointer text-[#c08830] hover:text-[#e6b800]"
                 >
-                  <span className="flex items-center font-medium cursor-pointer text-[#c08830] hover:text-[#e6b800]">
-                    {item.name} <IoIosArrowDown className="ml-1 mt-1" />
-                  </span>
-                </Dropdown>
-              </div>
+                  <Space>
+                    {item.name}
+                    <DownOutlined />
+                  </Space>
+                </a>
+              </Dropdown>
             ) : (
               <NavLink
                 key={item.name}
@@ -122,12 +117,16 @@ function Header() {
           className="md:hidden text-3xl"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
-          {mobileOpen ? <X className="w-6 h-6 text-[#c08830] cross-mobile-icon" /> : <Menu className="w-6 h-6 text-[#c08830] cross-mobile-icon" />}
+          {mobileOpen ? (
+            <X className="w-6 h-6 text-[#c08830] cross-mobile-icon" />
+          ) : (
+            <Menu className="w-6 h-6 text-[#c08830] cross-mobile-icon" />
+          )}
         </button>
       </div>
 
       <div
-        className={`md:hidden bg-black shadow-lg fixed top-12 right-0 w-64 h-screen transition-transform duration-500 ${
+        className={`md:hidden bg-black mobile-screen-sidebar shadow-lg fixed top-16 right-0 w-64 h-screen transition-transform duration-500 ${
           mobileOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -135,33 +134,32 @@ function Header() {
           {navItems.map((item) =>
             item.dropdown ? (
               <li key={item.name}>
-                <button
-                  className="flex items-center justify-between fontFamily-bebas w-full text-left font-medium text-[#c08830]"
-                  onClick={() => setProjectsOpen(!projectsOpen)}
+                <Dropdown
+                  menu={{ items: getDropdownItems(item.dropdown) }}
+                  trigger={["click"]}
+                  overlayClassName="custom-dropdown mobile-dropdown"
                 >
-                  {item.name} <FaCaretDown />
-                </button>
-                {projectsOpen && (
-                  <ul className="mt-2 ml-4 space-y-2">
-                    {item.dropdown.map((sub) => (
-                      <NavLink
-                        key={sub.name}
-                        to={sub.path}
-                        onClick={() => setMobileOpen(false)}
-                        className="block text-[#c08830] hover:text-[#e6b800]"
-                      >
-                        {sub.name}
-                      </NavLink>
-                    ))}
-                  </ul>
-                )}
+                  <a
+                    onClick={(e) => e.preventDefault()}
+                    className="flex items-center justify-between fontFamily-bebas w-full text-left font-medium text-[#c08830] hover:text-[#e6b800]"
+                  >
+                    <Space>
+                      {item.name}
+                      <DownOutlined />
+                    </Space>
+                  </a>
+                </Dropdown>
               </li>
             ) : (
               <li key={item.name}>
                 <NavLink
                   to={item.path}
                   onClick={() => setMobileOpen(false)}
-                  className="block font-medium text-[#c08830] hover:text-[#e6b800]"
+                  className={({ isActive }) =>
+                    `block font-medium hover:text-[#e6b800] ${
+                      isActive ? "text-[#c08830]" : "text-[#c08830]"
+                    }`
+                  }
                 >
                   {item.name}
                 </NavLink>

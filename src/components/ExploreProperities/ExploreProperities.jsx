@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Heart, MapPin, Ruler, Eye, Star, X, Share2, Printer } from 'lucide-react';
 import { FiPhone } from "react-icons/fi";
-import { DatePicker, TimePicker, Pagination } from 'antd';
+import { DatePicker, TimePicker, Pagination, Empty } from 'antd';
 import { MdOutlineEmail, MdOutlineWhatsapp } from "react-icons/md";
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import {
@@ -20,7 +20,7 @@ import {
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
-import { properties } from '../../data/propertiesData'; 
+import { properties } from '../../data/propertiesData';
 
 import CustomButton from '../ui/Button';
 import './ExploreProperties.css';
@@ -644,9 +644,11 @@ const ExploreProperties = ({ filters = {} }) => {
 
     const NoResults = () => (
         <div className="text-center py-8 sm:py-12 px-4 bg-[#333]/80 backdrop-blur-sm rounded-2xl shadow-lg max-w-full sm:max-w-2xl mx-auto animate-fadeIn border border-[#ffffff38]">
-            <h2 className="text-xl sm:text-3xl font-bold bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent mb-2 sm:mb-3">
-                No Properties Found
-            </h2>
+            <Empty description={
+                <h2 className="text-xl sm:text-3xl font-bold bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent mb-2 sm:mb-3">
+                    No Properties Found
+                </h2>
+            } />
             <p className="text-[#c2c6cb] text-sm sm:text-lg font-[Inter] max-w-full sm:max-w-md mx-auto">
                 There are no properties available for the selected category. Try another category or check back later.
             </p>

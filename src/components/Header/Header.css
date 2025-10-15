@@ -221,4 +221,7 @@ header img {
   .mobile-header-section{
     background: #000 !important;
   }
+  .mobile-screen-sidebar{
+    top: 48px !important;
+  }
 }

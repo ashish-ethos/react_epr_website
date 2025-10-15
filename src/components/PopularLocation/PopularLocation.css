@@ -1,0 +1,73 @@
+/* PopularLocation.css */
+
+.popular-location-section {
+    padding: 2rem;
+    background: #181A1B;
+    color: #c2c6cb;
+}
+
+.popular-location-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.popular-location-description {
+    color: #c2c6cb;
+    margin-bottom: 2rem;
+}
+
+.locations-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.location-button {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    background: #1F2123;
+    border: 1px solid #23272A;
+    border-radius: 1rem;
+    padding: 1.5rem 2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    outline: none;
+    box-shadow: none;
+}
+
+.location-button:hover {
+    background: #23272A;
+    border-color: #c08830;
+}
+.location-icon-wrapper:hover{
+    border-color: #c08830;
+}
+
+.location-button.selected {
+    background: #23272A;
+    border: 2px solid #c08830;
+    box-shadow: 0 2px 12px rgba(244, 63, 94, 0.08);
+}
+
+.location-icon-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: #23272A;
+    border-radius: 0.7rem;
+}
+
+.location-icon {
+   color: #c08830;
+}
+
+.location-name {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #F3F4F6;
+    text-align: left;
+}

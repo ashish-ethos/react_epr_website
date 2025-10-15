@@ -12,7 +12,7 @@ import {
   List,
   ArrowLeft,
 } from "lucide-react";
-import { Input, Select, Button } from "antd";
+import { Input, Select, Button, Empty } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import CustomSelect from "../ui/Select";
 
@@ -196,9 +196,14 @@ const BlogExploreArticles = ({ blogPosts, contentMap }) => {
 
                 <div className="custom-scrollbar space-y-3 sm:space-y-4 px-2 max-h-[calc(100vh-200px)] sm:max-h-[calc(100vh-250px)] overflow-y-auto scrollbar-thin scrollbar-thumb-[#c2c6cb] scrollbar-track-[#555]">
                   {filteredPosts.length === 0 ? (
-                    <div className="p-4 text-center text-[#c2c6cb] text-base">
-                      No results found
-                    </div>
+                    <Empty
+                      description={
+                        <div className="p-4 text-center text-[#c2c6cb] text-base">
+                          No results found
+                        </div>
+
+                      }
+                    />
                   ) : (
                     (searchTerm.trim() || filterCategory !== "all"
                       ? filteredPosts
@@ -207,8 +212,8 @@ const BlogExploreArticles = ({ blogPosts, contentMap }) => {
                       <div
                         key={post.id}
                         className={`group relative p-3 sm:p-4 rounded-xl sm:rounded-2xl border cursor-pointer border transition-all duration-300 hover:shadow-lg hover:scale-[1.01] hover:border-[#c08830] ${selectedPost.id === post.id
-                            ? "bg-transparent text-[#c2c6cb] border-[#c08830] shadow-lg"
-                            : "bg-[#555]/80 text-[#c2c6cb] border-[#ffffff38]"
+                          ? "bg-transparent text-[#c2c6cb] border-[#c08830] shadow-lg"
+                          : "bg-[#555]/80 text-[#c2c6cb] border-[#ffffff38]"
                           }`}
                         onClick={() => setSelectedPost(post)}
                       >
@@ -226,8 +231,8 @@ const BlogExploreArticles = ({ blogPosts, contentMap }) => {
                           <div className="flex-1 min-w-0">
                             <h4
                               className={`font-semibold text-sm sm:text-base leading-snug mb-2 line-clamp-2 ${selectedPost.id === post.id
-                                  ? "text-[#c2c6cb]"
-                                  : "text-[#c2c6cb]"
+                                ? "text-[#c2c6cb]"
+                                : "text-[#c2c6cb]"
                                 }`}
                             >
                               {post.title}
@@ -259,9 +264,11 @@ const BlogExploreArticles = ({ blogPosts, contentMap }) => {
           {viewMode === "grid" && !selectedPost && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 w-full">
               {filteredPosts.length === 0 ? (
-                <div className="p-4 text-center text-[#c2c6cb] text-base col-span-full">
-                  No results found
-                </div>
+                <Empty description={
+                  <div className="p-4 text-center text-[#c2c6cb] text-base col-span-full">
+                    No results found
+                  </div>
+                } />
               ) : (
                 (searchTerm.trim() || filterCategory !== "all"
                   ? filteredPosts
@@ -270,8 +277,8 @@ const BlogExploreArticles = ({ blogPosts, contentMap }) => {
                   <div
                     key={post.id}
                     className={`group relative p-3 sm:p-4 rounded-xl sm:rounded-2xl cursor-pointer transition-all duration-300 hover:shadow-lg border hover:scale-[1.01] hover:border-[#c08830] ${hoveredPost === post.id
-                        ? "bg-transparent text-[#c2c6cb] shadow-lg border-[#c08830]"
-                        : "bg-[#555] text-[#c2c6cb] border-[#ffffff38]"
+                      ? "bg-transparent text-[#c2c6cb] shadow-lg border-[#c08830]"
+                      : "bg-[#555] text-[#c2c6cb] border-[#ffffff38]"
                       }`}
                     onClick={() => setSelectedPost(post)}
                     onMouseEnter={() => setHoveredPost(post.id)}

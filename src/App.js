@@ -19,6 +19,7 @@ import Disclaimer from "./pages/Disclaimer/Disclaimer";
 import ScrollToTop from "./utils/ScrollToTopComponent";
 import NotFound from "./pages/NotFound/NotFound";
 import ExploreProperties from "./components/ExploreProperities/ExploreProperities";
+import PopularLocation from "./components/PopularLocation/PopularLocation";
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
           <Route path="/explore-properties" element={<ExploreProperties />} />
           <Route path="/property/:propertyName" element={<ExploreProperties/>}/>
           <Route path="/blog/:id/:title" element={<Blog />} />
+          <Route path="/popular-location/:locationName?" element={<PopularLocation/>}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

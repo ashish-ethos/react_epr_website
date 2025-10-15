@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Input, Typography, Pagination } from 'antd';
+import { Input, Typography, Pagination, Empty } from 'antd';
 import { FilterOutlined, DownOutlined, SearchOutlined as SearchIcon } from '@ant-design/icons';
 import { Grid, List, MapPinHouse, Bed, Bath, LandPlot, Heart, Share2, Eye, Star, X, Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 import ViewDetailsDrawer from './ViewDetailsDrawer';
@@ -35,6 +35,55 @@ class ErrorBoundary extends React.Component {
     return this.props.children;
   }
 }
+
+const parseSinglePrice = (str) => {
+  if (!str) return null;
+  const clean = str.replace(/[₹*]/g, '').trim().toLowerCase();
+  const match = clean.match(/(\d+(?:\.\d+)?)\s*(cr|crore|l|lakh|lakhs)/i);
+  if (match) {
+    let num = parseFloat(match[1]);
+    const unit = match[2].toLowerCase();
+    if (unit.startsWith('l') || unit.startsWith('lakh')) {
+      num = num / 100; // Convert lakhs to crores
+    }
+    return num;
+  }
+  const numMatch = clean.match(/(\d+(?:\.\d+)?)/);
+  if (numMatch) {
+    return parseFloat(numMatch[1]); // Assume crores if no unit specified
+  }
+  return null;
+};
+
+const parsePriceRange = (priceStr) => {
+  if (!priceStr || priceStr.includes('On Request') || priceStr.includes('Price on Request')) {
+    return { min: null, max: null };
+  }
+  let clean = priceStr.replace(/[*]/g, '').trim();
+  clean = clean.replace(/[–—–—\-]/g, '-');
+  const parts = clean.split('-').map(p => p.trim()).filter(p => p);
+  if (parts.length === 1) {
+    const val = parseSinglePrice(parts[0]);
+    return { min: val, max: val };
+  } else if (parts.length >= 2) {
+    const minVal = parseSinglePrice(parts[0]);
+    const maxVal = parseSinglePrice(parts[1]);
+    return { min: minVal, max: maxVal };
+  }
+  return { min: null, max: null };
+};
+
+const parseSizeRange = (sizeStr) => {
+  if (!sizeStr || sizeStr.includes('On Request')) {
+    return { min: null, max: null };
+  }
+  const clean = sizeStr.replace(/[––—]/g, '-').replace(/[^\d-]/g, '');
+  const parts = clean.split('-').map(num => parseInt(num) || 0);
+  if (parts.length === 1) {
+    return { min: parts[0], max: parts[0] };
+  }
+  return { min: parts[0], max: parts[1] || parts[0] };
+};
 
 const Residentials = () => {
   const [viewMode, setViewMode] = useState('grid');
@@ -109,20 +158,29 @@ const Residentials = () => {
       const matchesSearch =
         property.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         property.location?.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesType = !filters.propertyType ||
-        property.type?.split(', ').some(type => type.trim() === filters.propertyType);
-      const matchesSizeRange = !filters.sizeRange || (() => {
-        if (property.size?.includes('On Request') || !property.size) return false;
-        const sizeStr = property.size.replace(/[^0-9-]/g, ''); // Extract numbers and dashes
-        const [min, max] = sizeStr.split('-').map(num => parseInt(num) || 0);
-        const [rangeMin, rangeMax] = filters.sizeRange.split('-').map(num => parseInt(num) || 0);
-        if (rangeMax === 0) { // For >5000, rangeMax is 0 meaning infinity
-          return min >= rangeMin;
-        }
-        return min >= rangeMin && (max === 0 ? min <= rangeMax : max >= rangeMin && max <= rangeMax);
-      })();
+      const matchesType =
+        !filters.propertyType ||
+        property.type?.toLowerCase().includes(filters.propertyType.toLowerCase());
+      const priceRangeProp = parsePriceRange(property.price);
+      const matchesPriceRange =
+        !filters.priceRange ||
+        (priceRangeProp.max !== null &&
+          (() => {
+            const [, rangeMaxStr] = filters.priceRange.split('-');
+            const filterMax = rangeMaxStr === '0' ? Infinity : parseFloat(rangeMaxStr) || Infinity;
+            return priceRangeProp.max <= filterMax;
+          })());
+      const sizeRangeProp = parseSizeRange(property.size);
+      const matchesSizeRange =
+        !filters.sizeRange ||
+        (sizeRangeProp.max !== null &&
+          (() => {
+            const [, rangeMaxStr] = filters.sizeRange.split('-');
+            const filterMax = rangeMaxStr === '0' ? Infinity : parseInt(rangeMaxStr) || Infinity;
+            return sizeRangeProp.max <= filterMax;
+          })());
       const matchesCategory = !filters.category || property.category === filters.category;
-      return isResidential && matchesSearch && matchesType && matchesSizeRange && matchesCategory;
+      return isResidential && matchesSearch && matchesType && matchesPriceRange && matchesSizeRange && matchesCategory;
     });
 
     if (showLikedOnly) {
@@ -132,34 +190,22 @@ const Residentials = () => {
     switch (sortBy) {
       case 'price_low':
         return filtered.sort((a, b) => {
-          const priceA = a.price?.includes('On Request')
-            ? Infinity
-            : parseFloat(a.price?.replace(/[₹,crore lakh]/g, '')) || Infinity;
-          const priceB = b.price?.includes('On Request')
-            ? Infinity
-            : parseFloat(b.price?.replace(/[₹,crore lakh]/g, '')) || Infinity;
+          const priceA = parsePriceRange(a.price).min || Infinity;
+          const priceB = parsePriceRange(b.price).min || Infinity;
           return priceA - priceB;
         });
       case 'price_high':
         return filtered.sort((a, b) => {
-          const priceA = a.price?.includes('On Request')
-            ? -Infinity
-            : parseFloat(a.price?.replace(/[₹,crore lakh]/g, '')) || -Infinity;
-          const priceB = b.price?.includes('On Request')
-            ? -Infinity
-            : parseFloat(b.price?.replace(/[₹,crore lakh]/g, '')) || -Infinity;
+          const priceA = parsePriceRange(a.price).max || -Infinity;
+          const priceB = parsePriceRange(b.price).max || -Infinity;
           return priceB - priceA;
         });
       case 'rating':
         return filtered.sort((a, b) => b.rating - a.rating);
       case 'sqft':
         return filtered.sort((a, b) => {
-          const sqftA = a.size?.includes('On Request')
-            ? -Infinity
-            : parseInt(a.size?.split('-')[0]) || parseInt(a.size) || -Infinity;
-          const sqftB = b.size?.includes('On Request')
-            ? -Infinity
-            : parseInt(b.size?.split('-')[0]) || parseInt(b.size) || -Infinity;
+          const sqftA = parseSizeRange(a.size).min || -Infinity;
+          const sqftB = parseSizeRange(b.size).min || -Infinity;
           return sqftB - sqftA;
         });
       default:
@@ -327,7 +373,6 @@ const Residentials = () => {
             </div>
           </div>
           <div className="flex items-center gap-4 mb-4 text-sm text-[#c2c6cb]/80 mobile-project-type">
-            
             <span className="flex items-center gap-1">
               <LandPlot className="text-[#c2c6cb]" />
               {property.size || 'N/A'}
@@ -357,10 +402,7 @@ const Residentials = () => {
             )}
           </div>
           <div className="flex justify-center mt-2">
-            <div
-              className="inline-block rounded-[12px] p-[2px]"
-
-            >
+            <div className="inline-block rounded-[12px] p-[2px]">
               <CustomButton
                 onClick={() => handleViewDetails(property)}
                 className="bg-[#444] text-[#c2c6cb] px-5 py-2 rounded-[10px] cursor-pointer font-semibold flex items-center justify-center gap-2 hover:shadow-md transition-all duration-200"
@@ -439,7 +481,6 @@ const Residentials = () => {
               alt={property.name}
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
-
           ) : (
             <div className="w-full h-full bg-[#333] flex items-center justify-center">
               <Text type="secondary" className="text-[#c2c6cb]">No Image Available</Text>
@@ -455,7 +496,6 @@ const Residentials = () => {
               </span>
             ))}
           </div>
-
           {property.featured && (
             <div className="absolute bottom-2 left-2 flex justify-between w-full px-4">
               <span className="bg-gradient-to-r from-[#c2c6cb]/40 to-[#444]/40 text-[#c2c6cb] px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1 border border-[#ffffffde]">
@@ -502,12 +542,8 @@ const Residentials = () => {
                 )}
               </div>
             </div>
-
           )}
-
-
         </div>
-
         <div className="p-4 md:p-6 w-full md:w-2/3">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-3">
             <div>
@@ -519,12 +555,12 @@ const Residentials = () => {
             <div className="flex items-center gap-1 mt-2 md:mt-0">
               <Star size={14} className="text-[#c2c6cb] fill-current" />
               <span className="text-sm font-semibold text-[#c2c6cb]">{property.rating}</span>
-
             </div>
-
           </div>
           <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mb-4 text-sm text-[#c2c6cb]/80 mobile-icons-bbl">
-            
+            <span className="flex items-center gap-1">
+              <LandPlot className="text-[#c2c6cb]" /> {property.size || 'N/A'}
+            </span>
           </div>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 mobile-project-type">
             <div>
@@ -555,10 +591,10 @@ const Residentials = () => {
                 onClick={() => handleViewDetails(property)}
                 className="bg-[#444] text-[#c2c6cb] px-5 py-2 rounded-[10px] cursor-pointer font-semibold flex items-center justify-center gap-2 hover:shadow-md transition-all duration-200"
               >
+                <Eye size={18} />
                 View Details
               </CustomButton>
             </div>
-
           </div>
         </div>
       </div>
@@ -652,7 +688,26 @@ const Residentials = () => {
           </div>
           {showFilters && (
             <div className="mt-4 p-4 bg-[#333]/50 rounded-xl border border-[#ffffff38]">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mobile-open-filter">
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mobile-open-filter">
+                <CustomSelect
+                  showSearch
+                  popupMatchSelectWidth={true}
+                  onOpenChange={(open) => { /* Handle if needed */ }}
+                  value={filters.priceRange}
+                  onChange={(value) => setFilters({ ...filters, priceRange: value })}
+                  placeholder="Any Price"
+                  optionFilterProp="label"
+                  filterSort={filterSort}
+                  size="large"
+                  className="custom-select"
+                  options={[
+                    { value: '', label: 'Any Price' },
+                    { value: '0-1', label: '<1 Cr' },
+                    { value: '1-5', label: '1-5 Cr' },
+                    { value: '5-10', label: '5-10 Cr' },
+                    { value: '10-0', label: '>10 Cr' },
+                  ]}
+                />
                 <CustomSelect
                   showSearch
                   popupMatchSelectWidth={true}
@@ -664,7 +719,6 @@ const Residentials = () => {
                   filterSort={filterSort}
                   size="large"
                   className="custom-select"
-
                   options={[
                     { value: '', label: 'All Property Types' },
                     { value: 'APARTMENT', label: 'Apartment' },
@@ -688,7 +742,7 @@ const Residentials = () => {
                     { value: '0-1000', label: '<1000 Sq Ft' },
                     { value: '1000-2000', label: '1000-2000 Sq Ft' },
                     { value: '2000-5000', label: '2000-5000 Sq Ft' },
-                    { value: '5000+', label: '>5000 Sq Ft' },
+                    { value: '5000-0', label: '>5000 Sq Ft' },
                   ]}
                 />
                 <CustomSelect
@@ -704,8 +758,6 @@ const Residentials = () => {
                   className="custom-select"
                   options={[
                     { value: '', label: 'All Categories' },
-                    { value: 'COMPACT', label: 'Compact' },
-                    { value: 'PREMIUM', label: 'Premium' },
                     { value: 'LUXURY', label: 'Luxury' },
                     { value: 'ULTRA_LUXURY', label: 'Ultra Luxury' },
                   ]}
@@ -728,7 +780,9 @@ const Residentials = () => {
             <div className="text-[#c2c6cb]/80 mb-4">
               <SearchIcon size={64} className="mx-auto" />
             </div>
-            <h3 className="text-xl font-semibold text-[#c2c6cb] mb-2">No properties found</h3>
+            <Empty description={
+              <h3 className="text-xl font-semibold text-[#c2c6cb] mb-2">No properties found</h3>
+            } />
             <p className="text-[#c2c6cb]/80">Try adjusting your search criteria or filters</p>
           </div>
         ) : (

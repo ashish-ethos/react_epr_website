@@ -17,6 +17,7 @@ import {
   Divider,
   Collapse,
   List,
+  Empty,
 } from "antd";
 import {
   FaFilter,
@@ -1125,8 +1126,9 @@ const AdvancedPropertySearch = ({
             </>
           ) : (
             <div className="no-properties">
-              <House className="no-properties-icon" />
-              <Title level={3} className="text-[#c2c6cb]">No Properties Found</Title>
+              <Empty description={
+                <Title level={3} className="text-[#c2c6cb]">No Properties Found</Title>
+              } />
               <Text className="text-[#c2c6cb]">
                 We couldn't find any properties matching your search criteria.
                 Try adjusting your filters or search terms.
