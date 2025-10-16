@@ -51,6 +51,7 @@ export const properties = [
     options: ["FOR RENT", "FOR SALE", "HOT OFFER"],
     rating: 4.8,
     views: 1200,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "Airia Mall offers premium commercial spaces in the heart of Gurgaon, ideal for retail and business ventures.",
@@ -68,6 +69,7 @@ export const properties = [
     options: ["FOR SALE", "FOR RENT", "LUXURY"],
     rating: 4.9,
     views: 2000,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup", "Gym", "Swimming Pool"],
     category: "ULTRA_LUXURY",
     description:
       "M3M Golf Estate offers luxurious apartments with golf course views in Sector 65.",
@@ -86,6 +88,7 @@ export const properties = [
     rating: 4.5,
     category: "ULTRA_LUXURY",
     views: 2100,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     description:
       "The Omaxe State is a vibrant commercial hub in Dwarka, offering diverse retail and office spaces.",
     addressMap:
@@ -102,6 +105,7 @@ export const properties = [
     options: ["FOR RENT", "FOR SALE", "HOT OFFER"],
     rating: 4.7,
     views: 1200,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup", "Gym", "Swimming Pool"],
     category: "ULTRA_LUXURY",
     description:
       "M3M Antalya Hills offers luxurious residential living with scenic views and modern amenities.",
@@ -119,6 +123,7 @@ export const properties = [
     options: ["FOR SALE", "LUXURY"],
     rating: 4.9,
     views: 950,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup", "Gym", "Swimming Pool"],
     category: "ULTRA_LUXURY",
     description:
       "Emerald Hills Villas provide exclusive, spacious living with premium facilities in Gurgaon.",
@@ -136,6 +141,7 @@ export const properties = [
     options: ["FOR RENT", "FOR SALE"],
     rating: 4.4,
     views: 1350,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup", "Gym"],
     category: "ULTRA_LUXURY",
     description:
       "World Trade Center in Noida offers premium office spaces with global business connectivity.",
@@ -153,6 +159,7 @@ export const properties = [
     options: ["FOR SALE", "HOT OFFER"],
     rating: 4.7,
     views: 1600,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup", "Gym", "Swimming Pool"],
     category: "ULTRA_LUXURY",
     description:
       "Ganga Green Valley offers plots in a green environment. Developer: Ganga Realty. ",
@@ -170,6 +177,7 @@ export const properties = [
     options: ["FOR RENT", "FOR SALE"],
     rating: 4.5,
     views: 970,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup", "Gym", "Swimming Pool"],
     category: "ULTRA_LUXURY",
     description:
       "Central Park Flower Valley offers elegant residential spaces with lush surroundings.",
@@ -187,6 +195,7 @@ export const properties = [
     options: ["FOR RENT", "FOR SALE", "HOT OFFER"],
     rating: 4.9,
     views: 2400,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup", "Gym", "Swimming Pool"],
     category: "ULTRA_LUXURY",
     description:
       "M3M Mansion offers ultra-luxury residences with top-tier amenities in Sector 113.",
@@ -205,6 +214,7 @@ export const properties = [
     options: ["FEATURED", "FOR SALE", "HOT OFFER"],
     rating: 4.6,
     views: 1870,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup", "Gym", "Swimming Pool"],
     category: "ULTRA_LUXURY",
     description:
       "Krisumi Waterfall Residences blend Japanese design with modern luxury in Gurugram.",
@@ -222,6 +232,7 @@ export const properties = [
     options: ["FOR RENT", "FOR SALE"],
     rating: 4.8,
     views: 1650,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup", "Gym", "Swimming Pool"],
     category: "ULTRA_LUXURY",
     description:
       "Tulip Monsella offers premium residences with sophisticated design in Sector 53.",
@@ -240,6 +251,7 @@ export const properties = [
     options: ["FOR RENT", "FOR SALE", "HOT OFFER"],
     rating: 4.6,
     views: 2100,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "Smartworld One DXP provides modern residential living with smart home features.",
@@ -257,6 +269,7 @@ export const properties = [
     options: ["FOR RENT", "FOR SALE", "HOT OFFER"],
     rating: 4.7,
     views: 1700,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "Reach Airia Mall is a prime commercial destination with versatile retail spaces.",
@@ -274,6 +287,7 @@ export const properties = [
     options: ["FOR RENT", "FOR SALE"],
     rating: 4.6,
     views: 1500,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup", "Gym"],
     category: "ULTRA_LUXURY",
     description:
       "AIPL Business Club offers premium office spaces with cutting-edge facilities.",
@@ -292,6 +306,7 @@ export const properties = [
     options: ["SOLD OUT", "LUXURY"],
     rating: 4.8,
     views: 2000,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup", "Gym", "Swimming Pool"],
     category: "ULTRA_LUXURY",
     description:
       "M3M Duo High is a sold-out high-rise project. Developer: M3M Gurgaon.",
@@ -311,6 +326,7 @@ export const properties = [
     options: ["FOR RENT", "FOR SALE"],
     rating: 4.5,
     views: 1400,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup"], 
     category: "ULTRA_LUXURY",
     description:
       "AIPL Joy Street combines retail and leisure in a vibrant commercial setting.",
@@ -328,6 +344,7 @@ export const properties = [
     options: ["FOR RENT", "FOR SALE", "HOT OFFER"],
     rating: 4.9,
     views: 1300,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup", "Gym", "Swimming Pool"],
     category: "ULTRA_LUXURY",
     description:
       "Cygnett Retreat offers unique commercial spaces in the serene hills of Uttarakhand.",
@@ -346,6 +363,7 @@ export const properties = [
     options: ["FOR RENT", "FOR SALE", "HOT OFFER"],
     rating: 4.7,
     views: 1900,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "M3M IFC is a prestigious commercial complex with world-class office spaces.",
@@ -363,6 +381,7 @@ export const properties = [
     options: ["FOR SALE"],
     rating: 4.6,
     views: 1450,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup", "Gym", "Swimming Pool"],
     category: "ULTRA_LUXURY",
     description:
       "Ashiana Amarah is a family-oriented residential project. Developer: Ashiana Housing Ltd.",
@@ -382,6 +401,7 @@ export const properties = [
     options: ["FOR RENT", "FOR SALE", "HOT OFFER"],
     rating: 4.8,
     views: 1650,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "Sobha International City offers luxurious villas with global design standards.",
@@ -399,6 +419,7 @@ export const properties = [
     options: ["FOR SALE", "HOT OFFER"],
     rating: 4.8,
     views: 1850,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "Sobha Aranya offers spacious 3-4 BHK flats in Sector 80. Developer: Sobha Limited.",
@@ -418,6 +439,7 @@ export const properties = [
     options: ["FOR RENT", "FOR SALE", "HOT OFFER"],
     rating: 4.9,
     views: 1200,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "M3M IFC offers modern office spaces with premium amenities in Gurgaon.",
@@ -436,6 +458,7 @@ export const properties = [
     options: ["FOR RENT", "FOR SALE", "HOT OFFER"],
     rating: 4.8,
     views: 1400,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "AIPL Autograph provides sophisticated corporate office spaces in Sector 66.",
@@ -454,6 +477,7 @@ export const properties = [
     options: ["FOR RENT", "FOR SALE", "HOT OFFER"],
     rating: 4.8,
     views: 1400,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "Elan The Mark provides vibrant commercial spaces in Sector 106.",
@@ -472,6 +496,7 @@ export const properties = [
     options: ["FOR RENT", "FOR SALE", "HOT OFFER"],
     rating: 4.8,
     views: 1400,
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "Elan The Presidential offers luxurious residential apartments in Sector 106.",
@@ -489,6 +514,7 @@ export const properties = [
     options: ["FOR RENT", "FOR SALE"],
     rating: 4.9,
     views: 1300,
+    facilities: ["24/7 Security", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "LUXURY",
     description:
       "Elan Epic is a premium commercial mall with retail shops in Sector 70.",
@@ -507,6 +533,7 @@ export const properties = [
     options: ["FOR RENT", "FOR SALE", "HOT OFFER"],
     rating: 4.8,
     views: 1400,
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "Pioneer Urban Presidia provides premium residential living in Sector 62.",
@@ -524,6 +551,7 @@ export const properties = [
     options: ["FOR SALE", "HOT OFFER"],
     rating: 4.8,
     views: 1800,
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "Godrej Aristocrat offers premium 3 BHK luxury apartments in Sector 49, Gurugram. Developer: Godrej Properties.",
@@ -542,6 +570,7 @@ export const properties = [
     options: ["FOR SALE", "LUXURY"],
     rating: 4.9,
     views: 2200,
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "DLF The Camellias is an ultra-luxury residential project on Golf Course Road. Developer: DLF Residential Builders. ",
@@ -559,6 +588,7 @@ export const properties = [
     options: ["FOR SALE", "HOT OFFER"],
     rating: 4.7,
     views: 1900,
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "DLF Privana West offers luxurious living in Sector 76. Developer: DLF Limited.",
@@ -577,6 +607,7 @@ export const properties = [
     options: ["FOR SALE"],
     rating: 4.6,
     views: 1600,
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "Signature Global Titanium SPR is a premium residential development in Sector 71. Developer: Signature Global.",
@@ -595,6 +626,7 @@ export const properties = [
     options: ["FOR SALE", "LUXURY"],
     rating: 4.9,
     views: 2100,
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "M3M Altitude provides high-end apartments on GCRE. Developer: M3M Group. ",
@@ -612,6 +644,7 @@ export const properties = [
     options: ["FOR SALE", "HOT OFFER"],
     rating: 4.8,
     views: 2000,
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "The Dahlias offers spacious luxury units in DLF 5. Developer: DLF Ltd. ",
@@ -629,6 +662,7 @@ export const properties = [
     options: ["FOR SALE"],
     rating: 4.7,
     views: 1700,
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "M3M Golf Estate SCDA features premium residences in Sector 113. Developer: M3M Properties.",
@@ -646,6 +680,7 @@ export const properties = [
     options: ["FOR SALE", "HOT OFFER"],
     rating: 4.6,
     views: 1500,
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "Conscient Hines Elevate is a modern residential project in Sector 59. Developer: Conscient + Hines. ",
@@ -664,6 +699,7 @@ export const properties = [
     options: ["FOR SALE", "LUXURY"],
     rating: 4.8,
     views: 1850,
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "M3M Polo Suites offers luxurious suites on Golf Course Extension. Developer: M3M India.",
@@ -682,6 +718,7 @@ export const properties = [
     options: ["FOR SALE"],
     rating: 4.7,
     views: 1750,
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "Godrej Meridien provides contemporary homes on Dwarka Expressway. Developer: Godrej Properties. ",
@@ -699,6 +736,7 @@ export const properties = [
     options: ["FOR SALE"],
     rating: 4.8,
     views: 1950,
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "DLF The Ultima provides modern apartments in Sector 81. Developer: DLF. ",
@@ -716,6 +754,7 @@ export const properties = [
     options: ["FOR SALE", "LUXURY"],
     rating: 4.9,
     views: 2300,
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "Trump Towers offer ultra-premium living in partnership with Trump. Developer: Trump / developer partnership. ",
@@ -733,6 +772,7 @@ export const properties = [
     options: ["FOR SALE"],
     rating: 4.7,
     views: 1650,
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "M3M Golf Estate 2 is a golf-themed residential project. Developer: M3M India.",
@@ -750,6 +790,7 @@ export const properties = [
     options: ["FOR SALE", "HOT OFFER"],
     rating: 4.7,
     views: 1700,
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "M3M Golf Hills offers premium homes with golf views. Developer: M3M India. ",
@@ -768,6 +809,7 @@ export const properties = [
     options: ["FOR SALE"],
     rating: 4.6,
     views: 1550,
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "LUXURY",
     description:
       "M3M Woodshire provides affordable luxury on Dwarka Expressway. Developer: M3M Gurgaon. ",
@@ -785,6 +827,7 @@ export const properties = [
     options: ["FOR SALE", "FOR RENT", "HOT OFFER"],
     rating: 4.9,
     views: 1800,
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "DLF The Arbour offers ultra-luxury apartments with premium amenities in Sector 63.",
@@ -802,6 +845,7 @@ export const properties = [
     options: ["FOR SALE", "LUXURY"],
     rating: 4.9,
     views: 1600,
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     category: "ULTRA_LUXURY",
     description:
       "Pioneer Araya provides ultra-luxury residences with exclusive features.",
@@ -820,6 +864,7 @@ export const properties = [
     rating: 4.7,
     views: 1400,
     category: "ULTRA_LUXURY",
+    facilities: ["24/7 Security", "Swimming Pool", "Gym", "Club House", "Car Parking", "Wifi", "CCTV", "Power Backup"],
     description:
       "Elan The Emperor offers luxurious apartments and commercial spaces in Sector 66.",
     addressMap:
