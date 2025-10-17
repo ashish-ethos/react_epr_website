@@ -214,3 +214,6 @@
     display: none !important;
   }
 }
+.ant-pagination .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-ellipsis{
+  color: #ffffff40 !important;
+}
