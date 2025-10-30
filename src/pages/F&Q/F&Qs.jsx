@@ -190,7 +190,7 @@ const FAQPage = () => {
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="px-6 pb-4 text-[#c2c6cb] fontFamily-Content mobile-faq-answer"
+                        className="px-6 pb-4 text-[#c2c6cb] fontFamily-Content mobile-faq-answer bg-black pt-2"
                       >
                         {faq.answer}
                       </motion.div>

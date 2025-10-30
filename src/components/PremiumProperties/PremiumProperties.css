@@ -82,6 +82,7 @@
 
 @media (max-width: 425px) {
   .carousel-card {
+    height: 100% !important;
     width: 96% !important;
   }
   .main-carousel {
@@ -186,6 +187,11 @@ div:hover {
   }
   .mobile-header-premium{
     padding: 5px 10px !important;
+  }
+}
+@media (min-width: 426px) and (max-width: 800px) {
+  .tablet-location-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 

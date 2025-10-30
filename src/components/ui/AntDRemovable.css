@@ -105,7 +105,7 @@
   color: #c2c6cb !important;
 }
 .ant-drawer .ant-drawer-header {
-  background: #2f2f2fb5 !important;
+  /* background: #2f2f2fb5 !important; */
 }
 .ant-typography.ant-typography-secondary {
   color: rgb(253 253 253 / 59%) !important;

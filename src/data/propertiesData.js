@@ -173,7 +173,7 @@ export const properties = [
     addressMap:
       '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
-   {
+  {
     id: "7",
     type: "Residential",
     name: "Ganga Green Valley (Sector 78)",
@@ -338,7 +338,6 @@ export const properties = [
     addressMap:
       '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3510.1948247691957!2d77.05033447600975!3d28.38318299535935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d22fecb57f373%3A0xcc4398c9599fcdd7!2sAiria%20Mall!5e0!3m2!1sen!2sin!4v1757830312167!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
-  
   {
     id: "16",
     type: "Commercial",
@@ -432,7 +431,7 @@ export const properties = [
     addressMap:
       '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.8648188526845!2d76.99439727601327!3d28.51371458946548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d10ad1732bb97%3A0xb3229fb8929e6a8d!2sSobha%20International%20City!5e0!3m2!1sen!2sin!4v1754211291277!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
-   {
+  {
     id: "21",
     type: "Residential",
     name: "Sobha Aranya (Sector 80)",
@@ -1272,7 +1271,8 @@ export const properties = [
       "M3M Soulitude offers premium residential options in Sector 89 by M3M India.",
     addressMap:
     '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508.968084328291!2d76.94843037549305!3d28.420219875781402!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1712a8ebb32f%3A0xb61a3349e27d589d!2sM3M%20Soulitude!5e0!3m2!1sen!2sin!4v1760696185642!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
-  },{
+  },
+  {
     id: "67",
     type: "Residential",
     name: 'Conscient Elaira Residences (Sector 80)',
@@ -1326,7 +1326,6 @@ export const properties = [
     description:
       "GLS Avenue 51 offers premium residential options in Sector 92 by GLS Developers.",
     addressMap:
-    '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.2075930114356!2d76.91478997549278!3d28.4129922757852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d15feee26e7f1%3A0x71c9cef3d7b08a1b!2sGLS%20Avenue!5e0!3m2!1sen!2sin!4v1760698343412!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'  }
+    '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.2075930114356!2d76.91478997549278!3d28.4129922757852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d15feee26e7f1%3A0x71c9cef3d7b08a1b!2sGLS%20Avenue!5e0!3m2!1sen!2sin!4v1760698343412!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'  
+  }
 ];
-
-

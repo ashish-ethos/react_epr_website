@@ -461,7 +461,7 @@ const ExploreProperties = ({ filters = {} }) => {
                                 </div>
                                 <div className="get-in-touch-section border border-[#ffffff38] p-2 sm:p-3 rounded-xl shadow-md">
                                     <h3 className="text-base font-semibold text-[#c2c6cb] mb-3 fontFamily-bebas">Get in Touch</h3>
-                                    <div className="flex flex-col sm:flex-row gap-3">
+                                    <div className="flex flex-col sm:flex-row gap-3 tablet-contact-buttons">
                                         <CustomButton
                                             onClick={() => window.location.href = 'tel:+918744964496'}
                                             className="flex-1 bg-[#333] hover:bg-[#444] text-[#c2c6cb] font-semibold py-3 px-4 rounded-xl transition-all duration-200 hover:scale-105 hover:shadow-lg flex items-center justify-center group border border-[#ffffff38]"
@@ -681,7 +681,7 @@ const ExploreProperties = ({ filters = {} }) => {
                     Explore Premium Properties
                 </h1>
                 <div className="h-1 bg-gradient-to-r from-transparent via-[#c99913] to-transparent rounded-full animate-pulse"></div>
-                <p className="mobile-subtitle-text text-[#c2c6cb] text-sm font-[sans-serif] sm:text-lg max-w-full sm:max-w-2xl mx-auto mt-2 font-[Inter]">
+                <p className="mobile-subtitle-text text-[#c2c6cb] text-sm font-[sans-serif] sm:text-lg max-w-full sm:max-w-2xl mx-auto mt-2 font-[Inter] explore-properties-maincontent">
                     Discover a diverse collection of premium properties, from luxurious residences to high-end commercial spaces.
                     Browse through the latest listings, featuring stunning architecture, prime locations,
                     and exceptional investment opportunities. Discover the perfect investment or dream residence with ease.
@@ -740,6 +740,7 @@ const ExploreProperties = ({ filters = {} }) => {
                                     return `${start}-${end} of ${total} properties`;
                                 }}
                                 pageSize={PAGE_SIZE}
+                                showSizeChanger={false}
                                 onChange={setCurrentPage}
                             />
                         </div>

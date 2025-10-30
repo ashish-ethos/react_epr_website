@@ -380,7 +380,7 @@ function PremiumProperties() {
         onClose={() => navigate("/")}
         open={drawerOpen}
         styles={{
-          header: { background: "#333", borderBottom: "1px solid #ffffff38", color: "#c2c6cb" },
+          header: { background: "#000", borderBottom: "1px solid #ffffff38", color: "#c2c6cb" },
           body: { background: "#333", padding: 0 },
           mask: { background: "rgba(17, 24, 39, 0.5)" },
         }}

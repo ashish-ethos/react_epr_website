@@ -300,7 +300,7 @@ const Commercial = () => {
               <Text type="secondary" className="text-[#c2c6cb]">No Image Available</Text>
             </div>
           )}
-          <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+          <div className="absolute top-4 left-4 flex flex-wrap gap-2 mobile-commercial-column">
             {(property.options || []).map((status) => (
               <span
                 key={status}
@@ -376,7 +376,7 @@ const Commercial = () => {
               <LandPlot className="text-[#c2c6cb]" /> {property.size || 'N/A'}
             </span>
           </div>
-          <div className="flex items-center justify-between mb-4 mobile-project-title">
+          <div className="flex items-center justify-between mb-4 mobile-project-title mobile-commercial-bottom">
             <div>
               <div className="text-2xl font-bold text-[#c2c6cb] mobile-property-price">{property.price}</div>
               <div className="text-sm text-[#c2c6cb]/80">{(property.pricePerSqft || 'On Request')}/sq ft</div>
@@ -387,7 +387,7 @@ const Commercial = () => {
               {property.category ? property.category.replace('_', ' ') : 'N/A'}
             </span>
           </div>
-          <div className="flex flex-wrap gap-2 mb-4">
+          {/* <div className="flex flex-wrap gap-2 mb-4">
             {((property.amenities || []).slice(0, 3)).map((amenity) => (
               <span key={amenity} className="px-2 py-1 bg-[#333]/50 text-[#c2c6cb]/80 rounded-lg text-xs border border-[#ffffff38]">
                 {amenity}
@@ -398,7 +398,7 @@ const Commercial = () => {
                 +{(property.amenities || []).length - 3} more
               </span>
             )}
-          </div>
+          </div> */}
           <div className="flex w-full justify-center gap-3">
             <div className="inline-block rounded-[12px] p-[2px]">
               <CustomButton

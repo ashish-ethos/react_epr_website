@@ -951,7 +951,7 @@ const AdvancedPropertySearch = ({
                               <Tooltip title="Favorite">
                                 <div
                                   onClick={() => toggleFavorite(property.id)}
-                                  className="action-button"
+                                  className="action-button advanced-section-action"
                                 >
                                   <FaHeart
                                     className={
@@ -963,7 +963,7 @@ const AdvancedPropertySearch = ({
                                 </div>
                               </Tooltip>
                               <Tooltip title="View">
-                                <div className="action-button">
+                                <div className="action-button advanced-section-action">
                                   <FaEye
                                     onClick={() => {
                                       const propertyName = property.name
@@ -983,7 +983,7 @@ const AdvancedPropertySearch = ({
                             </div>
                             <div className="card-footer">
                               <div className="card-footer-content">
-                                <div className="card-price">{getFormattedPrice(property)} </div>
+                                <div className="card-price">₹ {getFormattedPrice(property)} </div>
                                 <div className="card-area">{property.areaValue} sq ft</div>
                               </div>
                             </div>

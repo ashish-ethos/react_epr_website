@@ -113,10 +113,7 @@ const CardPropertiesDetails = ({ property }) => {
                 <span className="text-sm font-medium text-[#c2c6cb]/80">Price</span>
                 <span className="text-lg font-bold text-[#c99913]">{property.price}</span>
               </div>
-              <div className="flex justify-between py-2 border-b border-[#ffffff38]">
-                <span className="text-sm font-medium text-[#c2c6cb]/80">Discount</span>
-                <span className="text-sm font-semibold text-[#ef4444]">{property.discount}</span>
-              </div>
+             
               <div className="flex justify-between py-2 border-b border-[#ffffff38]">
                 <span className="text-sm font-medium text-[#c2c6cb]/80">Area</span>
                 <span className="text-sm text-[#c2c6cb]">{property.area}</span>
@@ -145,7 +142,7 @@ const CardPropertiesDetails = ({ property }) => {
             </h4>
             <div className="space-y-3">
               <p className="text-sm text-[#c2c6cb]">{property.location.address || property.location.full}</p>
-              <div className="grid grid-cols-2 gap-2 text-sm text-[#c2c6cb]">
+              <div className="grid grid-cols-2 gap-2 text-sm text-[#c2c6cb] tablet-location-grid">
                 <span className="text-sm fontFamily-bebas text-center shadow-sm p-2 bg-[#333] rounded-md border border-[#ffffff38] hover:shadow-[0_0_10px_rgba(201,153,19,0.2)] hover:bg-[#444] transition-all">City: {property.location.city}</span>
                 <span className="text-sm fontFamily-bebas text-center shadow-sm p-2 bg-[#333] rounded-md border border-[#ffffff38] hover:shadow-[0_0_10px_rgba(201,153,19,0.2)] hover:bg-[#444] transition-all">State: {property.location.state}</span>
                 <span className="text-sm fontFamily-bebas text-center shadow-sm p-2 bg-[#333] rounded-md border border-[#ffffff38] hover:shadow-[0_0_10px_rgba(201,153,19,0.2)] hover:bg-[#444] transition-all">Area: {property.location.area}</span>
@@ -168,7 +165,7 @@ const CardPropertiesDetails = ({ property }) => {
               <Home className="w-5 h-5 mr-2 text-[#c99913]" />
               Amenities
             </h4>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-3 tablet-location-grid">
               {property.amenities?.map((amenity, idx) => (
                 <div key={idx} className="flex items-center gap-2 text-sm text-[#c2c6cb] shadow-sm p-2 bg-[#333] rounded-md border border-[#ffffff38] hover:shadow-[0_0_10px_rgba(201,153,19,0.2)] hover:bg-[#444] transition-all">
                   {getAmenityIcon(amenity)}

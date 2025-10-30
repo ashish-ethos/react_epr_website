@@ -534,6 +534,9 @@
   margin: 0px;
   padding: 2px;
 }
+.advanced-section-action{
+  padding: 10px !important;
+}
 
 .card-actions {
   position: absolute;
@@ -719,7 +722,7 @@
   }
   .ant-drawer .ant-drawer-header {
     padding: 5px 10px !important;
-    background: #444 !important;
+    /* background: #444 !important; */
   }
   .ant-drawer-body {
     padding: 10px !important;

@@ -111,9 +111,17 @@
     left: 0px !important;
     width: 150px !important;
   }
+  .explore-properties-maincontent{
+    font-size: 12px !important;
+  }
 }
 @media(max-width: 400px){
   .mobile-text-price{
     font-size: 15px;
+  }
+}
+@media(min-width:645px) and (max-width:800px){
+  .tablet-contact-buttons{
+    flex-flow: wrap;
   }
 }

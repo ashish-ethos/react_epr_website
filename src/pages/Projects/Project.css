@@ -49,7 +49,25 @@
   .custom-search .ant-input{
     height:40px !important;
   }
- 
+  .mobile-property-type{
+    font-size: 10px !important;
+  }
+  .mobile-resdientail-title{
+    flex-direction: column;
+    gap: 5px;
+    align-items: start;
+  }
+  .mobile-project-title{
+    flex-direction: column;
+    gap: 5px;
+    align-items: start;
+  }
+  .mobile-commercial-bottom{
+    margin-bottom: 0px !important;
+  }
+  .mobile-commercial-column{
+    flex-direction: column ;
+  }
 }
 
 /* Project.css for dark mode */

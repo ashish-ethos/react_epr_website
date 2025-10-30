@@ -373,7 +373,7 @@ const Residentials = () => {
             </div>
           </div>
           <div className="flex items-center gap-4 mb-4 text-sm text-[#c2c6cb]/80 mobile-project-type">
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-1 text-[16px]">
               <LandPlot className="text-[#c2c6cb]" />
               {property.size || 'N/A'}
             </span>
@@ -383,11 +383,11 @@ const Residentials = () => {
               <div className="text-2xl font-bold text-[#c2c6cb]">{property.price}</div>
               <div className="text-sm text-[#c2c6cb]/80">{(property.pricePerSqft || 'On Request')}/sq ft</div>
             </div>
-            <span
-              className={`px-3 py-1 rounded-full text-xs font-semibold bg-[#333]/50 text-[#c2c6cb] border border-[#ffffff38]`}
+            <div
+              className={`px-3 py-1 rounded-full text-xs font-semibold bg-[#333]/50 text-[#c2c6cb] border border-[#ffffff38] mobile-property-type `}
             >
               {property.category ? property.category.replace('_', ' ') : 'N/A'}
-            </span>
+            </div>
           </div>
           <div className="flex flex-wrap gap-2 mb-2">
             {((property.amenities || []).slice(0, 3)).map((amenity) => (
