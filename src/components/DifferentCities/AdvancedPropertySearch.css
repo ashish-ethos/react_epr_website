@@ -595,6 +595,14 @@
 }
 
 .card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+  max-height: 2.8em; /* 2 lines * 1.4 line-height */
+  word-break: break-word;
   font-weight: 700;
   font-size: 20px;
   /* margin-bottom: 6px; */
@@ -647,6 +655,14 @@
 .list-title {
   font-weight: 700;
   color: #c2c6cb;
+   display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+  max-height: 2.8em;
+  word-break: break-word;
 }
 
 .list-details {
@@ -837,4 +853,18 @@
 .for-list-tag {
   background: #444 !important;
   color: #c2c6cb !important;
+}
+
+.listmode-price{
+  font-weight: 800;
+  font-size: 18px;
+  color: #c2c6cb;
+}
+.listmode-area{
+  display:flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  opacity: 0.9;
+  color: #c2c6cb;
 }

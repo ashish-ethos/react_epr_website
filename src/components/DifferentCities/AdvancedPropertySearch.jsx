@@ -13,7 +13,7 @@ import {
   Tag,
   Radio,
   Tooltip,
-  
+
   Divider,
   Collapse,
   List,
@@ -24,9 +24,9 @@ import {
   FaEye,
   FaHeart,
   FaTh,
-  FaList 
+  FaList
 } from "react-icons/fa";
-import { Bed, Bath, Star, House, LandPlot, MapPinHouse, CalendarDays, Search } from 'lucide-react';
+import { Bed, Bath, Star, House, LandPlot, MapPinHouse, CalendarDays, Search, Ruler } from 'lucide-react';
 
 import CustomInput from "../ui/Input";
 import CustomSelect from "../ui/Select";
@@ -177,8 +177,9 @@ const AdvancedPropertySearch = ({
   const [filteredProperties, setFilteredProperties] = useState(displayProperties);
   const pageSize = 9;
   const navigate = useNavigate();
-  const isMobile =  window.innerWidth < 800;
-  
+  // const isMobile = window.innerWidth < 800;
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
+
 
   const currentYear = new Date().getFullYear();
 
@@ -188,7 +189,14 @@ const AdvancedPropertySearch = ({
     return () => clearTimeout(t);
   }, [searchQuery]);
 
-  
+useEffect(() => {
+  const handleResize = () => {
+    setIsMobile(window.innerWidth < 800);
+  };
+
+  window.addEventListener('resize', handleResize);
+  return () => window.removeEventListener('resize', handleResize);
+}, []);
 
   const formatPrice = (price, priceValue) => {
     const rawPrice = price ?? priceValue;
@@ -196,27 +204,91 @@ const AdvancedPropertySearch = ({
     return `₹${(Number(rawPrice) / 10000000).toFixed(1)} Cr`;
   };
 
+
   const getFormattedPrice = (property) => {
-    let rawPrice = property.priceValue ?? 0;
-
-    if (typeof rawPrice === "string") {
-      rawPrice = rawPrice.replace(/[^0-9.]/g, "");
-    }
-
-    const numPrice = parseFloat(rawPrice);
-
-    if (!numPrice || isNaN(numPrice)) {
+    // Check if price is explicitly "On Request" or similar
+    if (
+      property.price === "₹On Request" ||
+      property.price === "On Request" ||
+      property.price === "₹ On Request"
+    ) {
       return "On Request";
     }
 
-    let crores = numPrice / 10000000;
+    let displayFormat = null; 
+    let rawPrice = property.priceValue;
 
-    if (Number.isInteger(crores)) {
-      return `${crores} Cr`;
+    if (typeof property.price === "string") {
+      const priceStr = property.price.toLowerCase().replace(/\*/g, '').trim();
+
+      if (priceStr.includes("crore") || priceStr.includes(" cr")) {
+        displayFormat = "crore";
+      } else if (priceStr.includes("lakh") || priceStr.includes(" l")) {
+        displayFormat = "lakh";
+      }
+
+      if (!rawPrice || rawPrice === 0) {
+        // Handle "crore" or "cr" format
+        if (priceStr.includes("crore") || priceStr.includes(" cr")) {
+          const match = priceStr.match(/[\d.]+/);
+          if (match) {
+            const crValue = parseFloat(match[0]);
+            rawPrice = crValue * 10000000; 
+          }
+        }
+        // Handle "lakh" or "l" format
+        else if (priceStr.includes("lakh") || priceStr.includes(" l")) {
+          const match = priceStr.match(/[\d.]+/);
+          if (match) {
+            const lakhValue = parseFloat(match[0]);
+            rawPrice = lakhValue * 100000; 
+          }
+        }
+
+        else if (priceStr.includes("onwards")) {
+          return "On Request";
+        }
+      }
     }
 
-    return `${crores.toFixed(1)} Cr`;
+    if (!rawPrice || isNaN(rawPrice) || rawPrice === 0) {
+      return "On Request";
+    }
+
+    if (displayFormat === "lakh") {
+      const lakhs = rawPrice / 100000;
+      if (Number.isInteger(lakhs)) {
+        return `₹${lakhs} L`;
+      }
+      return `₹${lakhs.toFixed(2)} L`;
+    }
+
+    if (displayFormat === "crore") {
+      const crores = rawPrice / 10000000;
+      if (Number.isInteger(crores)) {
+        return `₹${crores} Cr`;
+      }
+      return `₹${crores.toFixed(2)} Cr`;
+    }
+
+    const crores = rawPrice / 10000000;
+
+    if (crores < 1) {
+      const lakhs = rawPrice / 100000;
+      if (Number.isInteger(lakhs)) {
+        return `₹${lakhs} L`;
+      }
+      return `₹${lakhs.toFixed(2)} L`;
+    }
+
+    // Show in crores
+    if (Number.isInteger(crores)) {
+      return `₹${crores} Cr`;
+    }
+
+    return `₹${crores.toFixed(2)} Cr`;
   };
+
 
   const onApply = () => {
     const updatedProperties = displayProperties
@@ -983,7 +1055,7 @@ const AdvancedPropertySearch = ({
                             </div>
                             <div className="card-footer">
                               <div className="card-footer-content">
-                                <div className="card-price">₹ {getFormattedPrice(property)} </div>
+                                <div className="card-price"> {getFormattedPrice(property)} </div>
                                 <div className="card-area">{property.areaValue} sq ft</div>
                               </div>
                             </div>
@@ -992,7 +1064,9 @@ const AdvancedPropertySearch = ({
                       >
                         <Card.Meta
                           title={
-                            <div className="card-title">{property.name}</div>
+                            <Tooltip title={property.name} placement="top">
+                              <div className="card-title">{property.name}</div>
+                            </Tooltip>
                           }
                           description={
                             <div className="card-description p-2">
@@ -1107,6 +1181,12 @@ const AdvancedPropertySearch = ({
                                 {property.status}
                               </Tag>
                             </div>
+                            <div className="listmode-price"> {getFormattedPrice(property)} </div>
+                            <div className="listmode-area">
+                              <Ruler />
+                              <p>{property.areaValue} sq ft</p>
+                            </div>
+
                           </div>
                         }
                       />
