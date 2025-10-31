@@ -94,6 +94,15 @@
   background: #555 !important;
   font-weight: 600;
 }
+.ant-input-number-outlined:focus-within{
+  border-color: #c08830 !important;
+  box-shadow: 0 0 0 2px rgba(192, 136, 48, 0.2) !important;
+  background: #333 !important;
+}
+.ant-input-number-outlined:hover{
+  border-color: #c08830 !important;
+  background-color: #333 !important;
+}
 
 /* Selector box (visible input area) */
 .ant-select-selector {
@@ -103,9 +112,6 @@
 }
 .ant-drawer .ant-drawer-close {
   color: #c2c6cb !important;
-}
-.ant-drawer .ant-drawer-header {
-  /* background: #2f2f2fb5 !important; */
 }
 .ant-typography.ant-typography-secondary {
   color: rgb(253 253 253 / 59%) !important;
@@ -216,4 +222,11 @@
 }
 .ant-pagination .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-ellipsis{
   color: #ffffff40 !important;
+}
+
+.ant-pagination .ant-pagination-next button{
+  color: #c2c6cb !important;
+}
+.ant-pagination .ant-pagination-prev button{
+  color: #c2c6cb !important;
 }

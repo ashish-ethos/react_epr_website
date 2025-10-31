@@ -446,3 +446,18 @@ body {
     height: 250px !important;
   }
 }
+
+@media(min-width:767px) and (max-width:1200px){
+  .tablet-image-blog{
+    flex-direction: column !important;
+  }
+  .blog-article-list{
+    padding: 10px !important;
+  }
+  .tablet-article{ 
+    top: 0px !important;
+  }
+  .tablet-screen-column{
+    gap:10px !important;
+  }
+}

@@ -44,13 +44,13 @@ const parseSinglePrice = (str) => {
     let num = parseFloat(match[1]);
     const unit = match[2].toLowerCase();
     if (unit.startsWith('l') || unit.startsWith('lakh')) {
-      num = num / 100; // Convert lakhs to crores
+      num = num / 100; 
     }
     return num;
   }
   const numMatch = clean.match(/(\d+(?:\.\d+)?)/);
   if (numMatch) {
-    return parseFloat(numMatch[1]); // Assume crores if no unit specified
+    return parseFloat(numMatch[1]); 
   }
   return null;
 };

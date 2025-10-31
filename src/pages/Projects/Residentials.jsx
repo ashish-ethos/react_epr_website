@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Input, Typography, Pagination, Empty } from 'antd';
 import { FilterOutlined, DownOutlined, SearchOutlined as SearchIcon } from '@ant-design/icons';
-import { Grid, List, MapPinHouse, Bed, Bath, LandPlot, Heart, Share2, Eye, Star, X, Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
+import { Grid, List, MapPinHouse, LandPlot, Heart, Share2, Eye, Star, X, Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 import ViewDetailsDrawer from './ViewDetailsDrawer';
 import { properties } from '../../data/propertiesData';
 import { BsWhatsapp } from "react-icons/bs";

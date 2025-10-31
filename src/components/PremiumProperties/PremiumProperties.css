@@ -85,7 +85,11 @@
     height: 100% !important;
     width: 96% !important;
   }
+  .mobile-cardporperties-name {
+    font-size: 16px !important;
+  }
   .main-carousel {
+    gap: 3rem !important;
     width: 100% !important;
   }
   .content-mobile-price {
@@ -108,7 +112,7 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {

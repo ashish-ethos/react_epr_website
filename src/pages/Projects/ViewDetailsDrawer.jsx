@@ -1,5 +1,5 @@
-import React, { useState,  useEffect } from 'react';
-import { Drawer, Button, Typography, Tag, InputNumber,  Form, Tabs,   Avatar, Progress } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Drawer, Button, Typography, Tag, InputNumber, Form, Tabs, Avatar, Progress } from 'antd';
 import {
   CloseOutlined,
   EnvironmentOutlined,
@@ -154,17 +154,19 @@ const ViewDetailsDrawer = ({ open, onClose, project, isLiked = false, onToggleLi
   // };
 
   const PremiumCard = ({ children, className = '', gradient = false, hover = true }) => (
-    <div className={`
-      ${gradient
-        ? 'bg-gradient-to-br from-[#333]/50 to-[#444]/50 border-2 border-[#ffffff38]'
-        : 'bg-[#333] border border-[#ffffff38]'
-      } 
+    <div
+      className={`
+    ${gradient
+          ? 'bg-gradient-to-br from-[#333]/50 to-[#444]/50 border-2 border-[#ffffff38]'
+          : 'bg-[#333] border border-[#ffffff38]'
+        } 
       rounded-2xl shadow-lg 
-      ${hover ? 'hover:shadow-xl hover:scale-[1.02] transition-all duration-300' : ''} 
       p-4 premium-card ${className}
-    `}>
+    `}
+    >
       {children}
     </div>
+
   );
 
   const StatCard = ({ icon, label, value, color = 'blue' }) => (
@@ -387,9 +389,13 @@ const ViewDetailsDrawer = ({ open, onClose, project, isLiked = false, onToggleLi
             <div className="space-y-4">
               <Form.Item
                 name="loanAmount"
-                label={<Text strong className="text-[#c2c6cb]">Loan Amount</Text>}
-                initialValue={loanAmount}
-                rules={[{ required: true, message: 'Please enter loan amount' }]}
+                label={
+                  <span className="flex items-center gap-1">
+                    <Text strong className="text-[#c2c6cb]">Loan Amount</Text>
+                    <span className="text-red-500">*</span>
+                  </span>
+                }
+                rules={[{ message: 'Please enter loan amount' }]}
               >
                 <InputNumber
                   min={100000}
@@ -407,10 +413,16 @@ const ViewDetailsDrawer = ({ open, onClose, project, isLiked = false, onToggleLi
             <div className="space-y-4">
               <Form.Item
                 name="interestRate"
-                label={<Text strong className="text-[#c2c6cb]">Interest Rate (%)</Text>}
+                label={
+                  <span className="flex items-center gap-1">
+                    <Text strong className="text-[#c2c6cb]">Interest Rate (%)</Text>
+                    <span className="text-red-500">*</span>
+                  </span>
+                }
                 initialValue={interestRate}
-                rules={[{ required: true, message: 'Please enter interest rate' }]}
+                rules={[{ message: 'Please enter interest rate' }]}
               >
+
                 <InputNumber
                   min={1}
                   max={20}
@@ -426,10 +438,16 @@ const ViewDetailsDrawer = ({ open, onClose, project, isLiked = false, onToggleLi
             <div className="space-y-4">
               <Form.Item
                 name="tenure"
-                label={<Text strong className="text-[#c2c6cb]">Tenure (Months)</Text>}
+                label={
+                  <span className="flex items-center gap-1">
+                    <Text strong className="text-[#c2c6cb]">Tenure (Months)</Text>
+                    <span className="text-red-500">*</span>
+                  </span>
+                }
                 initialValue={tenure}
-                rules={[{ required: true, message: 'Please enter tenure' }]}
+                rules={[{ message: 'Please enter tenure' }]}
               >
+
                 <InputNumber
                   min={12}
                   max={360}
@@ -457,47 +475,49 @@ const ViewDetailsDrawer = ({ open, onClose, project, isLiked = false, onToggleLi
         </Form>
       </PremiumCard>
 
-      {emi && (
-        <PremiumCard>
-          <div className="grid sm:grid-cols-3 gap-6">
-            <div className="text-center p-4 bg-gradient-to-br from-[#333]/50 to-[#444]/50 rounded-2xl border border-[#ffffff38]">
-              <div className="text-xl font-bold text-[#c2c6cb] mb-2">₹{formatPrice(emi)}</div>
-              <div className="text-[#c2c6cb] font-medium">Monthly EMI</div>
+      {
+        emi && (
+          <PremiumCard>
+            <div className="grid sm:grid-cols-3 gap-6">
+              <div className="text-center p-4 bg-gradient-to-br from-[#333]/50 to-[#444]/50 rounded-2xl border border-[#ffffff38]">
+                <div className="text-xl font-bold text-[#c2c6cb] mb-2">₹ {formatPrice(emi)}</div>
+                <div className="text-[#c2c6cb] font-medium">Monthly EMI</div>
+              </div>
+
+              <div className="text-center p-4 bg-gradient-to-br from-[#333]/50 to-[#444]/50 rounded-2xl border border-[#ffffff38]">
+                <div className="text-xl font-bold text-[#c2c6cb] mb-2">₹ {formatPrice(totalAmount)}</div>
+                <div className="text-[#c2c6cb] font-medium">Total Amount</div>
+              </div>
+
+              <div className="text-center p-4 bg-gradient-to-br from-[#333]/50 to-[#444]/50 rounded-2xl border border-[#ffffff38]">
+                <div className="text-xl font-bold text-[#c2c6cb] mb-2">₹ {formatPrice(totalInterest)}</div>
+                <div className="text-[#c2c6cb] font-medium">Total Interest</div>
+              </div>
             </div>
 
-            <div className="text-center p-4 bg-gradient-to-br from-[#333]/50 to-[#444]/50 rounded-2xl border border-[#ffffff38]">
-              <div className="text-xl font-bold text-[#c2c6cb] mb-2">₹{formatPrice(totalAmount)}</div>
-              <div className="text-[#c2c6cb] font-medium">Total Amount</div>
+            <div className="mt-6">
+              <div className="flex justify-between items-center mb-3">
+                <Text strong className="text-[#c2c6cb]">Principal vs Interest</Text>
+                <Text className="text-[#c2c6cb]/80">
+                  {((loanAmount / totalAmount) * 100).toFixed(1)}% Principal
+                </Text>
+              </div>
+              <Progress
+                percent={Number(((loanAmount / totalAmount) * 100).toFixed(2))}
+                strokeColor="#c2c6cb"
+                trailColor="#444"
+                className="mb-2"
+                format={(percent) => `${percent}%`}
+              />
+              <div className="flex justify-between text-sm text-[#c2c6cb]/80">
+                <span>Principal: ₹ {formatPrice(loanAmount)}</span>
+                <span>Interest: ₹ {formatPrice(totalInterest)}</span>
+              </div>
             </div>
-
-            <div className="text-center p-4 bg-gradient-to-br from-[#333]/50 to-[#444]/50 rounded-2xl border border-[#ffffff38]">
-              <div className="text-xl font-bold text-[#c2c6cb] mb-2">₹{formatPrice(totalInterest)}</div>
-              <div className="text-[#c2c6cb] font-medium">Total Interest</div>
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <div className="flex justify-between items-center mb-3">
-              <Text strong className="text-[#c2c6cb]">Principal vs Interest</Text>
-              <Text className="text-[#c2c6cb]/80">
-                {((loanAmount / totalAmount) * 100).toFixed(1)}% Principal
-              </Text>
-            </div>
-            <Progress
-              percent={Number(((loanAmount / totalAmount) * 100).toFixed(2))}
-              strokeColor="#c2c6cb"
-              trailColor="#444"
-              className="mb-2"
-              format={(percent) => `${percent}%`}
-            />
-            <div className="flex justify-between text-sm text-[#c2c6cb]/80">
-              <span>Principal: ₹{formatPrice(loanAmount)}</span>
-              <span>Interest: ₹{formatPrice(totalInterest)}</span>
-            </div>
-          </div>
-        </PremiumCard>
-      )}
-    </div>
+          </PremiumCard>
+        )
+      }
+    </div >
   );
 
   const contactContent = (
@@ -570,7 +590,7 @@ const ViewDetailsDrawer = ({ open, onClose, project, isLiked = false, onToggleLi
               shape="circle"
               icon={<CloseOutlined />}
               onClick={onClose}
-             className="border border-1 hover:bg-red-500 hover:border-red-500 close-icons-project"
+              className="border border-1 hover:bg-red-500 hover:border-red-500 close-icons-project"
               size="large"
 
             />

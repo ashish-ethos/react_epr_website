@@ -16,11 +16,17 @@ import CustomButton from "../ui/Button";
 function PremiumProperties() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [visibleCards, setVisibleCards] = useState(1);
+  const [cardWidth, setCardWidth] = useState(0);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [selectedProperty, setSelectedProperty] = useState(null);
   const navigate = useNavigate();
   const { propertyName } = useParams();
   const touchStartX = useRef(null);
   const touchEndX = useRef(null);
   const carouselRef = useRef(null);
+
+  const gapPx = 32; // Equivalent to Tailwind gap-8 (2rem assuming 16px root font)
 
   const properties = [
     {
@@ -177,23 +183,37 @@ function PremiumProperties() {
     },
   ];
 
-
   const getVisibleCards = () => {
     if (window.innerWidth < 640) return 1;
     if (window.innerWidth < 1024) return 2;
     return 3;
   };
 
-  const [visibleCards, setVisibleCards] = useState(getVisibleCards());
+  useEffect(() => {
+    const handleVcResize = () => setVisibleCards(getVisibleCards());
+    window.addEventListener("resize", handleVcResize);
+    handleVcResize();
+    return () => window.removeEventListener("resize", handleVcResize);
+  }, []);
 
   useEffect(() => {
-    const handleResize = () => {
-      setVisibleCards(getVisibleCards());
-      setCurrentIndex(0);
+    const handleDimResize = () => {
+      if (carouselRef.current) {
+        const cw = carouselRef.current.offsetWidth;
+        const effectiveVisible = Math.min(visibleCards, properties.length);
+        if (effectiveVisible > 0) {
+          const numGapsInView = Math.max(0, effectiveVisible - 1);
+          const adjust = gapPx * numGapsInView;
+          const newCardW = (cw - adjust) / effectiveVisible;
+          setCardWidth(newCardW);
+          setCurrentIndex(0);
+        }
+      }
     };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    handleDimResize();
+    window.addEventListener("resize", handleDimResize);
+    return () => window.removeEventListener("resize", handleDimResize);
+  }, [visibleCards]);
 
   useEffect(() => {
     if (propertyName) {
@@ -210,23 +230,29 @@ function PremiumProperties() {
     }
   }, [propertyName]);
 
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [selectedProperty, setSelectedProperty] = useState(null);
-
   const openDetails = (property) => {
     const slug = property.name.toLowerCase().replace(/\s+/g, "-");
     navigate(`/premiumproperties/${slug}`);
     setDrawerOpen(true);
   };
 
+  const effectiveVisible = Math.min(visibleCards, properties.length);
+  const maxIndexValue = Math.max(0, properties.length - effectiveVisible);
+  const slideWidth = cardWidth + gapPx;
+  const totalInnerWidth = properties.length * cardWidth + (properties.length - 1) * gapPx;
+  const translateX = -currentIndex * slideWidth;
+  const isFullView = maxIndexValue === 0;
+
   const nextProperty = () => {
-    setCurrentIndex((prev) =>
-      prev >= properties.length - visibleCards ? 0 : prev + 1
-    );
+    if (currentIndex < maxIndexValue) {
+      setCurrentIndex(currentIndex + 1);
+    }
   };
 
   const prevProperty = () => {
-    setCurrentIndex((prev) => (prev <= 0 ? properties.length - visibleCards : prev - 1));
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
   };
 
   // Touch event handlers for swipe
@@ -275,21 +301,25 @@ function PremiumProperties() {
           </p>
         </div>
 
-        {/* Navigation Buttons */}
-        <button
-          onClick={prevProperty}
-          disabled={currentIndex === 0}
-          className="absolute cursor-pointer left-4 top-1/2 transform -translate-y-1/2 z-30 p-4 rounded-full bg-[#333]/90 text-[#c2c6cb] shadow-xl hover:scale-110 hover:bg-[#444] transition-all border border-[#ffffff38] permium-properties-right"
-        >
-          <ChevronLeft size={24} />
-        </button>
-        <button
-          onClick={nextProperty}
-          disabled={currentIndex >= properties.length - visibleCards}
-          className="absolute cursor-pointer right-4 top-1/2 transform -translate-y-1/2 z-30 p-4 rounded-full bg-[#333]/90 text-[#c2c6cb] shadow-xl hover:scale-110 hover:bg-[#444] transition-all border border-[#ffffff38] permium-properties-right"
-        >
-          <ChevronRight size={24} />
-        </button>
+        {/* Navigation Buttons - Only show if not full view */}
+        {!isFullView && (
+          <>
+            <button
+              onClick={prevProperty}
+              disabled={currentIndex === 0}
+              className="absolute cursor-pointer left-4 top-1/2 transform -translate-y-1/2 z-30 p-4 rounded-full bg-[#333]/90 text-[#c2c6cb] shadow-xl hover:scale-110 hover:bg-[#444] transition-all border border-[#ffffff38] permium-properties-right disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button
+              onClick={nextProperty}
+              disabled={currentIndex >= maxIndexValue}
+              className="absolute cursor-pointer right-4 top-1/2 transform -translate-y-1/2 z-30 p-4 rounded-full bg-[#333]/90 text-[#c2c6cb] shadow-xl hover:scale-110 hover:bg-[#444] transition-all border border-[#ffffff38] permium-properties-right disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <ChevronRight size={24} />
+            </button>
+          </>
+        )}
 
         {/* Carousel */}
         <div
@@ -302,14 +332,15 @@ function PremiumProperties() {
           <div
             className="flex transition-transform duration-700 ease-out gap-8 main-carousel"
             style={{
-              transform: `translateX(-${(currentIndex * 100) / visibleCards}%)`,
-              width: `${(properties.length / visibleCards) * 100}%`,
+              width: `${totalInnerWidth}px`,
+              transform: `translateX(${translateX}px)`,
             }}
           >
             {properties.map((property) => (
               <div
                 key={property.id}
-                className={`carousel-card relative flex-shrink-0 w-[calc(100%/${visibleCards}-2rem)] transition-all duration-700 ${hoveredCard === property.id ? "scale-105 z-20" : "scale-100"}`}
+                className={`carousel-card relative flex-shrink-0 transition-all duration-700 ${hoveredCard === property.id ? "scale-105 z-20" : "scale-100"}`}
+                style={{ width: `${cardWidth}px` }}
                 onMouseEnter={() => setHoveredCard(property.id)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
@@ -380,7 +411,7 @@ function PremiumProperties() {
         onClose={() => navigate("/")}
         open={drawerOpen}
         styles={{
-          header: { background: "#000", borderBottom: "1px solid #ffffff38", color: "#c2c6cb" },
+          header: { background: "#1b1b1b", borderBottom: "1px solid #ffffff38", color: "#c2c6cb" },
           body: { background: "#333", padding: 0 },
           mask: { background: "rgba(17, 24, 39, 0.5)" },
         }}

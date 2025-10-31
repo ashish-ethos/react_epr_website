@@ -162,7 +162,7 @@ const TeamCard = ({ member, index, isVisible, onViewProfile }) => {
 
   return (
     <div
-      className={`group relative w-[280px] h-[420px] perspective-1000 transform transition-all duration-700 flex-shrink-0 mobile-screen-teamcard`}
+      className={`group relative w-full h-[420px] perspective-1000 transform transition-all duration-700 flex-shrink-0 mobile-screen-teamcard`}
       style={{ transitionDelay: `${index * 200}ms` }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -453,12 +453,32 @@ const OurTeam = () => {
   const [selectedMember, setSelectedMember] = useState(null);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const cardsPerPage = 4;
+  const [visibleCards, setVisibleCards] = useState(1);
   const totalCards = teamMembers.length;
-  const maxIndex = Math.ceil(totalCards / cardsPerPage) - 1;
+  const maxIndex = Math.max(0, totalCards - visibleCards);
   const { name } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    const updateVisibleCards = () => {
+      let vc;
+      if (window.innerWidth >= 1024) {
+        vc = 4;
+      } else if (window.innerWidth >= 768) {
+        vc = 2;
+      } else {
+        vc = 1;
+      }
+      setVisibleCards(vc);
+      const newMax = Math.max(0, totalCards - vc);
+      setCurrentIndex((prev) => Math.min(prev, newMax));
+    };
+
+    updateVisibleCards();
+    window.addEventListener('resize', updateVisibleCards);
+    return () => window.removeEventListener('resize', updateVisibleCards);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -520,7 +540,7 @@ const OurTeam = () => {
         <div className="overflow-hidden py-4">
           <div
             className="flex transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            style={{ transform: `translateX(-${currentIndex * (100 / visibleCards)}%)` }}
           >
             {teamMembers.map((member, index) => (
               <div key={member.id} className="w-full md:w-1/2 lg:w-1/4 flex-shrink-0 px-4 teamcard-mobile" >

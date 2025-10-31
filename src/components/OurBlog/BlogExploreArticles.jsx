@@ -18,7 +18,7 @@ import CustomSelect from "../ui/Select";
 
 const BlogExploreArticles = ({ blogPosts, contentMap }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedPost, setSelectedPost] = useState(blogPosts[0]);
+  const [selectedPost, setSelectedPost] = useState(null);
   const [hoveredPost, setHoveredPost] = useState(null);
   const [viewMode, setViewMode] = useState("list");
   const [filterCategory, setFilterCategory] = useState("all");
@@ -32,7 +32,7 @@ const BlogExploreArticles = ({ blogPosts, contentMap }) => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (!searchTerm.trim()) {
-      setSelectedPost(blogPosts[0]);
+      setSelectedPost(null);
     }
   };
 
@@ -168,7 +168,7 @@ const BlogExploreArticles = ({ blogPosts, contentMap }) => {
                   icon={<List className="w-4 h-4 text-[#c2c6cb]" />}
                   onClick={() => {
                     setViewMode("list");
-                    setSelectedPost(blogPosts[0]);
+                    setSelectedPost(null);
                   }}
                   size="middle"
                   className="!rounded-lg !h-8 w-8 flex items-center justify-center bg-[#555] text-[#c2c6cb] hover:border-[#c08830]"
@@ -180,11 +180,11 @@ const BlogExploreArticles = ({ blogPosts, contentMap }) => {
       </div>
 
       <div className="max-w-8xl mx-auto px-4 sm:px-6 py-6 sm:py-8 blog-article-list">
-        <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+        <div className="flex flex-col md:flex-row gap-6 md:gap-8 tablet-screen-column">
           {/* Article List */}
           {viewMode === "list" && (
-            <div className="w-full md:w-1/3">
-              <div className="bg-[#555]/70 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-xl border border-[#ffffff38] p-2 sm:p-4 sticky top-20 md:top-24">
+            <div className={`w-full md:w-1/3 ${selectedPost ? 'hidden md:block' : 'block'}`}>
+              <div className="bg-[#555]/70 backdrop-blur-sm rounded-2xl sm:rounded-3xl tablet-article shadow-xl border border-[#ffffff38] p-2 sm:p-4 sticky top-20 md:top-24">
                 <div className="flex items-center gap-3 mb-2 sm:mb-3">
                   <div className="w-8 sm:w-10 h-8 sm:h-10 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
                     <Filter className="w-4 sm:w-5 h-4 sm:h-5 text-[#c2c6cb]" />
@@ -211,13 +211,13 @@ const BlogExploreArticles = ({ blogPosts, contentMap }) => {
                     ).map((post) => (
                       <div
                         key={post.id}
-                        className={`group relative p-3 sm:p-4 rounded-xl sm:rounded-2xl border cursor-pointer border transition-all duration-300 hover:shadow-lg hover:scale-[1.01] hover:border-[#c08830] ${selectedPost.id === post.id
+                        className={`group relative p-3 sm:p-4 rounded-xl sm:rounded-2xl border cursor-pointer border transition-all duration-300 hover:shadow-lg hover:scale-[1.01] hover:border-[#c08830] ${selectedPost?.id === post.id
                           ? "bg-transparent text-[#c2c6cb] border-[#c08830] shadow-lg"
                           : "bg-[#555]/80 text-[#c2c6cb] border-[#ffffff38]"
                           }`}
                         onClick={() => setSelectedPost(post)}
                       >
-                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 tablet-image-blog " >
                           {/* Image */}
                           <div className="w-full sm:w-24 flex-shrink-0">
                             <img
@@ -230,7 +230,7 @@ const BlogExploreArticles = ({ blogPosts, contentMap }) => {
                           {/* Content */}
                           <div className="flex-1 min-w-0">
                             <h4
-                              className={`font-semibold text-sm sm:text-base leading-snug mb-2 line-clamp-2 ${selectedPost.id === post.id
+                              className={`font-semibold text-sm sm:text-base leading-snug mb-2 line-clamp-2 ${selectedPost?.id === post.id
                                 ? "text-[#c2c6cb]"
                                 : "text-[#c2c6cb]"
                                 }`}
@@ -251,7 +251,7 @@ const BlogExploreArticles = ({ blogPosts, contentMap }) => {
                           </div>
                         </div>
 
-                        {selectedPost.id === post.id && (
+                        {selectedPost?.id === post.id && (
                           <ChevronRight className="absolute right-2 sm:right-3 top-1/2 transform -translate-y-1/2 w-4 sm:w-5 h-4 sm:h-5 text-[#c08830]" />
                         )}
                       </div>
@@ -309,10 +309,18 @@ const BlogExploreArticles = ({ blogPosts, contentMap }) => {
 
           {/* Selected Article Content */}
           {selectedPost && (
-            <div className="w-full">
+            <div className="w-full relative">
               {viewMode === "grid" && (
                 <button
                   className="absolute left-2 sm:left-4 z-20 p-2 bg-[#555] rounded-full shadow-lg mb-4 border-[#ffffff38] hover:border-[#c08830] cursor-pointer"
+                  onClick={() => setSelectedPost(null)}
+                >
+                  <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 text-[#c2c6cb]" />
+                </button>
+              )}
+              {viewMode === "list" && (
+                <button
+                  className="md:hidden absolute left-2 sm:left-4 z-20 p-2 bg-[#555] rounded-full shadow-lg mb-4 border-[#ffffff38] hover:border-[#c08830] cursor-pointer"
                   onClick={() => setSelectedPost(null)}
                 >
                   <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 text-[#c2c6cb]" />
@@ -338,7 +346,7 @@ const BlogExploreArticles = ({ blogPosts, contentMap }) => {
                         </span>
                       ))}
                     </div>
-                    <h1 className="text-md sm:text-2xl md:text-3xl font-bold text-[#c2c6cb] leading-tight mb-2 sm:mb-4">
+                    <h1 className="text-md sm:text-2xl md:text-3xl font-bold text-[#fff] leading-tight mb-2 sm:mb-4">
                       {selectedPost.title}
                     </h1>
                     <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-[#c2c6cb] text-xs sm:text-sm">

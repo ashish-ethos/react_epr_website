@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { MapPin, Heart, Bed, Ruler, ChevronDown } from 'lucide-react';
-import { Select, Input, Form, Button, ConfigProvider, Empty, Card } from 'antd';
+import { MapPin, Heart, Bed, Ruler } from 'lucide-react';
+import { Select, Input, Form, Button, ConfigProvider, Empty, } from 'antd';
 import { theme } from 'antd';
-import { SearchOutlined, CloseOutlined, DownOutlined } from '@ant-design/icons';
+import { SearchOutlined, CloseOutlined } from '@ant-design/icons';
 import "./PopularLocation.css";
 import ContactForm from "../../pages/Contact/ContactForm";
 import CustomButton from "../ui/Button";
@@ -327,12 +327,12 @@ const PopularLocation = () => {
 
                         {/* Right: Interest Form */}
                         <div className="bg-black rounded-lg shadow-md p-6 col-span-1">
-                            <Card className="px-4 py-2">
+                            <div className="px-4 py-2">
                                 <h3 className="text-lg font-semibold text-[#c2c6cb] m-2 text-center">
                                     Interested in {currentLocation.name} Properties?
                                 </h3>
                                 <ContactForm />
-                            </Card>
+                            </div>
                         </div>
                     </div>
                 </div>

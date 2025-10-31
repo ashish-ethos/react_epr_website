@@ -988,12 +988,12 @@ useEffect(() => {
                         hoverable
                         styles={{ body: { padding: 18 } }}
                         className="property-card"
-                        onMouseEnter={(e) =>
-                          (e.currentTarget.style.transform = "translateY(-8px)")
-                        }
-                        onMouseLeave={(e) =>
-                          (e.currentTarget.style.transform = "translateY(0)")
-                        }
+                        // onMouseEnter={(e) =>
+                        //   (e.currentTarget.style.transform = "translateY(-8px)")
+                        // }
+                        // onMouseLeave={(e) =>
+                        //   (e.currentTarget.style.transform = "translateY(0)")
+                        // }
                         cover={
                           <div className="card-image-container">
                             <img
@@ -1181,7 +1181,7 @@ useEffect(() => {
                                 {property.status}
                               </Tag>
                             </div>
-                            <div className="listmode-price"> {getFormattedPrice(property)} </div>
+                            <div className="listmode-price py-1">  ₹ {getFormattedPrice(property)} </div>
                             <div className="listmode-area">
                               <Ruler />
                               <p>{property.areaValue} sq ft</p>

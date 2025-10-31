@@ -52,7 +52,7 @@ const CardPropertiesDetails = ({ property }) => {
       {/* Header Section */}
       <div className="bg-[#1b1b1b] px-6 py-4 border-b border-[#ffffff38] mobile-header-premium">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-[#c2c6cb]">{property.name}</h1>
+          <h1 className="text-2xl font-bold text-[#c2c6cb] mobile-cardporperties-name">{property.name}</h1>
           {property.featured && (
             <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#c99913]/20 text-[#c99913]">
               <Star className="w-4 h-4 mr-1" />

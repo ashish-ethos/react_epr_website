@@ -85,7 +85,7 @@ const Testimonial = () => {
         setOffset(0);
       } else if (window.innerWidth < 1024) {
         setVisibleCount(2);
-        setOffset(280);
+        setOffset(120);
       } else {
         setVisibleCount(3);
         setOffset(320);
@@ -141,11 +141,11 @@ const Testimonial = () => {
           onMouseEnter={() => setPause(true)}
           onMouseLeave={() => setPause(false)}
         >
-          <div className="flex justify-center items-start space-x-2 md:space-x-4 lg:space-x-8 mb-12 mobile-testimonial-section">
+          <div className="flex justify-center items-start space-x-2 md:space-x-2 lg:space-x-8 mb-12 mobile-testimonial-section">
             {getVisibleTestimonials().map((testimonial, index) => (
               <div
                 key={testimonial.id}
-                className={`transition-all duration-700 ease-in-out ${
+                className={`transition-all duration-700 ease-in-out w-full max-w-xs ${
                   visibleCount === 3 && index !== 1
                     ? 'scale-90 opacity-70 z-10'
                     : 'scale-100 opacity-100 z-20'
@@ -157,7 +157,7 @@ const Testimonial = () => {
                 <div className="relative group">
                   <div className="absolute inset-0 bg-[#444]/40 backdrop-blur-xl rounded-3xl shadow-2xl border border-[#ffffff38] group-hover:bg-[#444]/50 transition-all duration-300" />
                   <div className="absolute inset-0 bg-gradient-to-br from-[#333]/20 to-transparent rounded-3xl" />
-                  <div className="relative z-10 p-6 sm:p-8 h-full flex flex-col">
+                  <div className="relative z-10 p-4 md:p-6 lg:p-8 h-full flex flex-col">
                     <Quote className="w-6 h-6 sm:w-8 sm:h-8 text-[#c2c6cb] opacity-60 mb-4" />
                     <p className="text-xs sm:text-sm leading-relaxed mb-4 fontFamily-bebas text-[#c2c6cb] flex-grow testimonial-content">
                       {testimonial.content}

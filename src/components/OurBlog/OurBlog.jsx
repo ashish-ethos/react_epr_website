@@ -424,7 +424,7 @@ const OurBlog = () => {
     useEffect(() => {
         const handleResize = () => {
             setVisibleCards(getVisibleCards());
-            setCurrentSlide(0); // Reset to first slide on resize
+            setCurrentSlide(0); 
         };
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
@@ -536,13 +536,6 @@ const OurBlog = () => {
 
     return (
         <div className="min-h-screen bg-[#00000047] py-10 px-4 relative overflow-hidden premium-properties-main laptop-mode-screen" id='our-blog'>
-            {/* Animated Background */}
-            <div className="absolute inset-0">
-                <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-[#444]/50 to-[#c2c6cb]/20 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-[#c2c6cb]/20 to-[#444]/50 rounded-full blur-3xl animate-pulse delay-1000"></div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-[#c2c6cb]/20 to-transparent rounded-full"></div>
-            </div>
-
             <div className="max-w-7xl mx-auto relative z-10">
                 {/* Header Section */}
                 <div className="w-full flex flex-col gap-12 header-ourblog">
@@ -574,7 +567,7 @@ const OurBlog = () => {
                         {/* Left Section - Blog Heading + Content */}
                         <div className="flex-1 text-center lg:text-left">
                             <h1 className="text-5xl lg:text-7xl font-black mb-4 leading-none">
-                                <span className="block mobile-title-text mobile-title-text font-[Montserrat] sm:text-xl md:text-5xl font-black mb-3 sm:mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent animate-pulse">
+                                <span className="block mobile-title-text mobile-title-text font-[Montserrat] sm:text-xl md:text-5xl font-black mb-3 sm:mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent">
                                     Our Blog
                                 </span>
                             </h1>
@@ -635,7 +628,7 @@ const OurBlog = () => {
                             {blogPosts.map((post) => (
                                 <div
                                     key={post.id}
-                                    className={`flex-shrink-0 px-4  all-ourblog-card cursor-pointer w-full sm:w-1/2 lg:w-1/${visibleCards}`}
+                                    className={`flex-shrink-0 px-4  all-ourblog-card cursor-pointer w-full sm:w-1/2 lg:w-1/4 ${visibleCards}`}
                                     onMouseEnter={() => setHoveredCard(post.id)}
                                     onMouseLeave={() => setHoveredCard(null)}
                                     onClick={() => openDrawer(post)}
