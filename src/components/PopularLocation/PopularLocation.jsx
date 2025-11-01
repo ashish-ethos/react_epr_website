@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { MapPin, Heart, Bed, Ruler } from 'lucide-react';
-import { Select, Input, Form, Button, ConfigProvider, Empty, } from 'antd';
+import { Select, Input, Form, Button, ConfigProvider, Empty } from 'antd';
 import { theme } from 'antd';
-import { SearchOutlined, CloseOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 import "./PopularLocation.css";
 import ContactForm from "../../pages/Contact/ContactForm";
 import CustomButton from "../ui/Button";
-import ViewPopularLocation from "./ViewPopularLocation"; 
-import { properties } from "../../data/propertiesData"; 
+import ViewPopularLocation from "./ViewPopularLocation";
+import { properties } from "../../data/propertiesData";
 
 const locations = [
     { name: "Dwarka Expressway", slug: "dwarka-expressway" },
@@ -63,9 +63,9 @@ const sortOptions = [
 
 const PropertyCard = ({ property, onPropertyClick }) => {
     // Derive BHK from type or size, fallback to '3' as example
-    const bhk = property.type.toLowerCase().includes('3bhk') ? '3' : '3'; 
-    const possession = 'Jul 2029'; 
-    const address = property.location.split(',')[0]; 
+    const bhk = property.type.toLowerCase().includes('3bhk') ? '3' : '3';
+    const possession = 'Jul 2029';
+    const address = property.location.split(',')[0];
 
     const handleClick = () => {
         onPropertyClick(property);
@@ -85,10 +85,10 @@ const PropertyCard = ({ property, onPropertyClick }) => {
                     <MapPin className="w-4 h-4 mr-1" />
                     <span className="text-xs">{address}</span>
                 </div>
-                <img 
-                    src={property.image} 
-                    alt={property.name} 
-                    className="w-full h-48 object-cover" 
+                <img
+                    src={property.image}
+                    alt={property.name}
+                    className="w-full h-48 object-cover"
                 />
             </div>
             <div className="p-4 text-[#c2c6cb]">
@@ -120,6 +120,7 @@ const PropertyCard = ({ property, onPropertyClick }) => {
 
 const PopularLocation = () => {
     const [selected, setSelected] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
     const { locationName } = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
@@ -127,6 +128,8 @@ const PopularLocation = () => {
     const [filteredProperties, setFilteredProperties] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProperty, setSelectedProperty] = useState(null);
+
+    const formValues = Form.useWatch([], form);
 
     useEffect(() => {
         if (locationName) {
@@ -140,21 +143,76 @@ const PopularLocation = () => {
     }, [locationName]);
 
     useEffect(() => {
-        if (locationName) {
-            const currentLoc = locations.find(l => l.slug === locationName);
-            if (currentLoc) {
-                const filtered = properties.filter(prop =>
-                    prop.location.toLowerCase().includes(currentLoc.name.toLowerCase())
-                );
-                setFilteredProperties(filtered);
-            }
+        const currentLoc = locations.find(l => l.slug === locationName);
+        if (!currentLoc) return;
+
+        let filtered = properties.filter(prop =>
+            prop.location.toLowerCase().includes(currentLoc.name.toLowerCase())
+        );
+
+        // Apply search filter if present
+        if (searchTerm.trim()) {
+            filtered = filtered.filter(prop =>
+                prop.name.toLowerCase().includes(searchTerm.toLowerCase().trim())
+            );
         }
-    }, [locationName]);
+
+        // Apply property type filter
+        if (formValues?.propertyType && formValues.propertyType !== 'all') {
+            filtered = filtered.filter(p =>
+                p.type.toLowerCase().includes(formValues.propertyType)
+            );
+        }
+
+        // Apply BHK filter
+        if (formValues?.bhk && formValues.bhk !== 'all') {
+            filtered = filtered.filter(p =>
+                p.type.toLowerCase().includes(formValues.bhk)
+            );
+        }
+
+        // Apply construction filter (assuming prop.status is 'under' or 'ready')
+        if (formValues?.construction && formValues.construction !== 'all') {
+            filtered = filtered.filter(p =>
+                p.status === formValues.construction
+            );
+        }
+
+        // Apply features filter (assuming prop.features is an array)
+        if (formValues?.features && formValues.features !== 'all') {
+            filtered = filtered.filter(p =>
+                p.features?.includes(formValues.features)
+            );
+        }
+
+        // Apply price filter
+        if (formValues?.price && formValues.price !== 'all') {
+            filtered = filtered.filter(p => {
+                const priceStr = p.price.replace(/[^\d.]/g, '');
+                const priceNum = parseFloat(priceStr);
+                const unitMultiplier = p.price.toLowerCase().includes('cr') ? 100 : 1;
+                const priceInLakhs = priceNum * unitMultiplier;
+
+                switch (formValues.price) {
+                    case '50l-1cr':
+                        return priceInLakhs >= 50 && priceInLakhs <= 100;
+                    case '1cr-2cr':
+                        return priceInLakhs >= 100 && priceInLakhs <= 200;
+                    case '2crplus':
+                        return priceInLakhs > 200;
+                    default:
+                        return true;
+                }
+            });
+        }
+
+        setFilteredProperties(filtered);
+    }, [locationName, searchTerm, formValues]);
 
     useEffect(() => {
         const propSlug = searchParams.get('property');
         if (propSlug) {
-            const prop = properties.find(p => 
+            const prop = properties.find(p =>
                 p.name.toLowerCase().replace(/\s+/g, '-') === propSlug
             );
             if (prop) {
@@ -187,12 +245,9 @@ const PopularLocation = () => {
         setSearchParams({});
     };
 
-    const onFinish = (values) => {
-        console.log('Form submitted:', values);
-    };
-
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
+    const clearFilters = () => {
+        form.resetFields();
+        setSearchTerm('');
     };
 
     if (!locationName) {
@@ -259,52 +314,67 @@ const PopularLocation = () => {
                     <div className="custom-grid">
                         {/* Left: Filters Sidebar */}
                         <div className="bg-black rounded-lg shadow-md p-6">
-                            <div className="space-y-6">
-                                {/* Search Bar */}
-                                <div className="relative">
-                                    <Input
-                                        prefix={<SearchOutlined className="text-gray-500" />}
-                                        suffix={<CloseOutlined className="text-gray-500" />}
-                                        placeholder="Search locations"
-                                        value={`${currentLocation.name}, Gurgaon`}
-                                        readOnly
-                                        className="pr-10"
-                                    />
-                                </div>
+                            {/* Search Bar */}
+                            <div className="relative mb-3">
+                                <Input
+                                    prefix={<SearchOutlined className="text-gray-500" />}
+                                    allowClear
+                                    placeholder="Search projects..."
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                />
+                            </div>
 
+                            {/* Form for filters */}
+                            <Form
+                                form={form}
+                                layout="vertical"
+                                initialValues={{
+                                    propertyType: 'all',
+                                    bhk: 'all',
+                                    construction: 'all',
+                                    features: 'all',
+                                    price: 'all'
+                                }}
+                            >
                                 {/* Property Types */}
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-300 mb-2">Property Types</label>
-                                    <Select options={propertyTypeOptions} style={{ width: '100%' }} placeholder="Select Property" />
-                                </div>
+                                <Form.Item name="propertyType" label={<label className="block text-sm font-medium text-gray-300 mb-2">Property Types</label>}>
+                                    <Select options={propertyTypeOptions} placeholder="Select Property" style={{ width: '100%' }} />
+                                </Form.Item>
 
                                 {/* BHK */}
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-300 mb-2">BHK</label>
-                                    <Select options={bhkOptions} style={{ width: '100%' }} placeholder="Select BHK" />
-                                </div>
+                                <Form.Item name="bhk" label={<label className="block text-sm font-medium text-gray-300 mb-2">BHK</label>}>
+                                    <Select options={bhkOptions} placeholder="Select BHK" style={{ width: '100%' }} />
+                                </Form.Item>
 
                                 {/* Stages of Construction */}
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-300 mb-2">Stages of Construction</label>
-                                    <Select options={constructionOptions} style={{ width: '100%' }} placeholder="Select Construction" />
-                                </div>
+                                <Form.Item name="construction" label={<label className="block text-sm font-medium text-gray-300 mb-2">Stages of Construction</label>}>
+                                    <Select options={constructionOptions} placeholder="Select Construction" style={{ width: '100%' }} />
+                                </Form.Item>
 
                                 {/* Features */}
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-300 mb-2">Features</label>
-                                    <Select options={featuresOptions} style={{ width: '100%' }} placeholder="Select Features" />
-                                </div>
+                                <Form.Item name="features" label={<label className="block text-sm font-medium text-gray-300 mb-2">Features</label>}>
+                                    <Select options={featuresOptions} placeholder="Select Features" style={{ width: '100%' }} />
+                                </Form.Item>
 
                                 {/* Price Range */}
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-300 mb-2">Price Range</label>
-                                    <Select options={priceOptions} style={{ width: '100%' }} placeholder="Select Price" />
-                                </div>
+                                <Form.Item name="price" label={<label className="block text-sm font-medium text-gray-300 mb-2">Price Range</label>}>
+                                    <Select options={priceOptions} placeholder="Select Price" style={{ width: '100%' }} />
+                                </Form.Item>
 
-                                {/* Clear All */}
-                                <CustomButton block>Clear All</CustomButton>
-                            </div>
+                                {/* Buttons */}
+                                <Form.Item>
+                                    <div className="flex gap-2">
+                                        <Button
+                                            block
+                                            onClick={clearFilters}
+                                            style={{ backgroundColor: 'transparent', borderColor: '#c2c6cb', color: '#c2c6cb' }}
+                                        >
+                                            Clear All
+                                        </Button>
+                                    </div>
+                                </Form.Item>
+                            </Form>
                         </div>
 
                         {/* Center: Results Area */}

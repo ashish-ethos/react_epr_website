@@ -590,8 +590,10 @@
 }
 
 .card-area {
+  font-weight: 700;
   font-size: 13px;
   opacity: 0.9;
+  color: #c2c6cb;
 }
 
 .card-title {
@@ -601,7 +603,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.4;
-  max-height: 2.8em; /* 2 lines * 1.4 line-height */
+  max-height: 2.8em; 
   word-break: break-word;
   font-weight: 700;
   font-size: 20px;

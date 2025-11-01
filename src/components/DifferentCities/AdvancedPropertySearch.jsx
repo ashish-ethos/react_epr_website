@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import {
   Drawer,
@@ -13,7 +12,6 @@ import {
   Tag,
   Radio,
   Tooltip,
-
   Divider,
   Collapse,
   List,
@@ -27,15 +25,12 @@ import {
   FaList
 } from "react-icons/fa";
 import { Bed, Bath, Star, House, LandPlot, MapPinHouse, CalendarDays, Search, Ruler } from 'lucide-react';
-
 import CustomInput from "../ui/Input";
 import CustomSelect from "../ui/Select";
 import CustomButton from "../ui/Button";
 import "./AdvancedPropertySearch.css";
 import { useNavigate, useLocation } from "react-router-dom";
-
 const { Title, Text } = Typography;
-
 // Custom options for CustomSelect
 const areaOptions = [
   { value: "All Areas", label: "All Areas" },
@@ -43,7 +38,6 @@ const areaOptions = [
   { value: "Marine Drive, Mumbai", label: "Marine Drive, Mumbai" },
   { value: "Electronic City, Bangalore", label: "Electronic City, Bangalore" },
 ];
-
 const typeOptions = [
   { value: "Apartment", label: "Apartment" },
   { value: "Villa", label: "Villa" },
@@ -51,7 +45,6 @@ const typeOptions = [
   { value: "Residential", label: "Residential" },
   { value: "Commercial", label: "Commercial" },
 ];
-
 const statusOptions = [
   { value: "For Sale", label: "For Sale" },
   { value: "For Rent", label: "For Rent" },
@@ -59,7 +52,6 @@ const statusOptions = [
   { value: "New Launch", label: "New Launch" },
   { value: "Ready to Move", label: "Ready to Move" },
 ];
-
 const bedroomOptions = [
   { value: "Any", label: "Any" },
   { value: "1", label: "1 Bedroom" },
@@ -67,7 +59,6 @@ const bedroomOptions = [
   { value: "3", label: "3 Bedrooms" },
   { value: "4+", label: "4+ Bedrooms" },
 ];
-
 const bathroomOptions = [
   { value: "Any", label: "Any" },
   { value: "1", label: "1 Bathroom" },
@@ -75,18 +66,14 @@ const bathroomOptions = [
   { value: "3", label: "3 Bathrooms" },
   { value: "4+", label: "4+ Bathrooms" },
 ];
-
 const labelOptions = [
   { value: "Any", label: "Any" },
   { value: "featured", label: "Featured" },
   { value: "hot", label: "Hot" },
   { value: "new", label: "New" },
 ];
-
 const countryOptions = [{ value: "101", label: "India" }];
-
 const stateOptions = [{ value: "4030", label: "Haryana" }];
-
 const cityOptions = [
   { value: "56798", label: "Gurgaon" },
   { value: "110001", label: "Delhi" },
@@ -96,7 +83,6 @@ const cityOptions = [
   { value: "600001", label: "Chennai" },
   { value: "411001", label: "Pune" },
 ];
-
 const mockProperties = [
   {
     id: 1,
@@ -107,18 +93,24 @@ const mockProperties = [
     priceValue: 85000000,
     type: "Penthouse",
     status: "For Sale",
-    bedrooms: 4,
-    bathrooms: 3,
-    areaValue: 2500,
+    bedrooms: "4 Beds",
+    bathrooms: "3 Baths",
+    bedsRange: "4 Beds",
+    bathsRange: "3 Baths",
+    bedroomsMin: 4,
+    bedroomsMax: 4,
+    bathroomsMin: 3,
+    bathroomsMax: 3,
     yearBuilt: 2022,
+    yearBuiltList: ["2022"],
     label: "featured",
     featured: true,
     countryId: 101,
     stateId: 4030,
     cityId: "56798",
+    size: "2500 Sq Ft",
   },
 ];
-
 // Gurgaon sectors
 const gurgaonSectors = [
   "Sector 54, Gurgaon",
@@ -133,7 +125,6 @@ const gurgaonSectors = [
   "Sector 65, Gurgaon",
   "Sector 109, Gurgaon",
 ];
-
 const AdvancedPropertySearch = ({
   open,
   onClose,
@@ -179,117 +170,85 @@ const AdvancedPropertySearch = ({
   const navigate = useNavigate();
   // const isMobile = window.innerWidth < 800;
   const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
-
-
   const currentYear = new Date().getFullYear();
-
   // Debounce search query for better UX
   useEffect(() => {
     const t = setTimeout(() => setDebouncedQuery(searchQuery), 250);
     return () => clearTimeout(t);
   }, [searchQuery]);
-
 useEffect(() => {
   const handleResize = () => {
     setIsMobile(window.innerWidth < 800);
   };
-
   window.addEventListener('resize', handleResize);
   return () => window.removeEventListener('resize', handleResize);
 }, []);
-
-  const formatPrice = (price, priceValue) => {
-    const rawPrice = price ?? priceValue;
-    if (!rawPrice || isNaN(Number(rawPrice))) return "On Request";
-    return `₹${(Number(rawPrice) / 10000000).toFixed(1)} Cr`;
-  };
-
-
-  const getFormattedPrice = (property) => {
-    // Check if price is explicitly "On Request" or similar
-    if (
-      property.price === "₹On Request" ||
-      property.price === "On Request" ||
-      property.price === "₹ On Request"
-    ) {
+  const getFormattedArea = (property) => {
+    const sizeStr = property.size?.trim();
+    if (!sizeStr || sizeStr.includes("On Request") || sizeStr.includes("Request")) {
       return "On Request";
     }
-
-    let displayFormat = null; 
+    // Match range like "1138 – 1642 Sq Ft" or "300 - 8000 Sq Ft"
+    const rangeMatch = sizeStr.match(/(\d+(?:\.\d+)?)\s*[-–]\s*(\d+(?:\.\d+)?)\s*(Sq Ft|sqft|Sqft)/i);
+    if (rangeMatch) {
+      const min = parseInt(rangeMatch[1]).toLocaleString();
+      const max = parseInt(rangeMatch[2]).toLocaleString();
+      const unit = rangeMatch[3]?.toUpperCase() || "Sq Ft";
+      return `${min} - ${max} ${unit}`;
+    }
+    // Single value like "2500 Sq Ft"
+    const singleMatch = sizeStr.match(/(\d+(?:\.\d+)?)\s*(Sq Ft|sqft|Sqft)/i);
+    if (singleMatch) {
+      const value = parseInt(singleMatch[1]).toLocaleString();
+      const unit = singleMatch[2]?.toUpperCase() || "Sq Ft";
+      return `${value} ${unit}`;
+    }
+    return "On Request";
+  };
+  const getFormattedPrice = (property) => {
+    let priceStr = property.price?.replace(/\*/g, '').trim();
+    if (!priceStr) {
+      return "On Request";
+    }
+    // Normalize common "On Request" variants
+    const requestVariants = ["On Request", "₹On Request", "₹ On Request", "Price on Request", "₹ Price on Request"];
+    if (requestVariants.some(variant => priceStr.includes(variant))) {
+      return "On Request";
+    }
+    // Handle ranges like "₹ 50 L - ₹ 12 Cr" or "₹ 2.5 Cr - ₹ 8.5 Cr*"
+    if (priceStr.includes(" - ") || priceStr.includes("-")) {
+      // Clean up: remove extra spaces, ensure consistent ₹ placement
+      priceStr = priceStr.replace(/\s*[-–]\s*/g, ' - ').replace(/₹\s*/g, '₹');
+      // If it ends with Cr or L, fine; else assume Cr for display
+      return priceStr;
+    }
+    // For single values, parse and format
     let rawPrice = property.priceValue;
-
-    if (typeof property.price === "string") {
-      const priceStr = property.price.toLowerCase().replace(/\*/g, '').trim();
-
-      if (priceStr.includes("crore") || priceStr.includes(" cr")) {
-        displayFormat = "crore";
-      } else if (priceStr.includes("lakh") || priceStr.includes(" l")) {
-        displayFormat = "lakh";
-      }
-
-      if (!rawPrice || rawPrice === 0) {
-        // Handle "crore" or "cr" format
-        if (priceStr.includes("crore") || priceStr.includes(" cr")) {
-          const match = priceStr.match(/[\d.]+/);
-          if (match) {
-            const crValue = parseFloat(match[0]);
-            rawPrice = crValue * 10000000; 
-          }
-        }
-        // Handle "lakh" or "l" format
-        else if (priceStr.includes("lakh") || priceStr.includes(" l")) {
-          const match = priceStr.match(/[\d.]+/);
-          if (match) {
-            const lakhValue = parseFloat(match[0]);
-            rawPrice = lakhValue * 100000; 
-          }
-        }
-
-        else if (priceStr.includes("onwards")) {
-          return "On Request";
+    if (!rawPrice || rawPrice === 0) {
+      // Extract number
+      const numMatch = priceStr.match(/[\d.]+/);
+      if (numMatch) {
+        const num = parseFloat(numMatch[0]);
+        if (priceStr.toLowerCase().includes("cr") || priceStr.toLowerCase().includes("crore")) {
+          rawPrice = num * 10000000;
+        } else if (priceStr.toLowerCase().includes("l") || priceStr.toLowerCase().includes("lakh")) {
+          rawPrice = num * 100000;
+        } else {
+          rawPrice = num; // Assume in rupees, but unlikely
         }
       }
     }
-
     if (!rawPrice || isNaN(rawPrice) || rawPrice === 0) {
       return "On Request";
     }
-
-    if (displayFormat === "lakh") {
-      const lakhs = rawPrice / 100000;
-      if (Number.isInteger(lakhs)) {
-        return `₹${lakhs} L`;
-      }
-      return `₹${lakhs.toFixed(2)} L`;
-    }
-
-    if (displayFormat === "crore") {
-      const crores = rawPrice / 10000000;
-      if (Number.isInteger(crores)) {
-        return `₹${crores} Cr`;
-      }
-      return `₹${crores.toFixed(2)} Cr`;
-    }
-
     const crores = rawPrice / 10000000;
-
     if (crores < 1) {
       const lakhs = rawPrice / 100000;
-      if (Number.isInteger(lakhs)) {
-        return `₹${lakhs} L`;
-      }
-      return `₹${lakhs.toFixed(2)} L`;
+      return `₹${Math.round(lakhs)} L`;
+    } else {
+      return `₹${Math.round(crores)} Cr`;
     }
-
-    // Show in crores
-    if (Number.isInteger(crores)) {
-      return `₹${crores} Cr`;
-    }
-
-    return `₹${crores.toFixed(2)} Cr`;
   };
-
-
   const onApply = () => {
     const updatedProperties = displayProperties
       .filter((property) => {
@@ -297,7 +256,6 @@ useEffect(() => {
           !debouncedQuery ||
           property.name?.toLowerCase().includes(debouncedQuery.toLowerCase()) ||
           property.location?.toLowerCase().includes(debouncedQuery.toLowerCase());
-
         const matchesCountry =
           countryId.length === 0 ||
           countryId.includes(property.countryId?.toString());
@@ -315,54 +273,57 @@ useEffect(() => {
         const matchesStatus =
           status.length === 0 || status.includes(property.status);
         const matchesType = type.length === 0 || type.includes(property.type);
+        // Updated bedrooms match with range support
+        const propMinBeds = property.bedroomsMin || (typeof property.bedrooms === 'object' ? property.bedrooms?.min : parseInt(property.bedrooms) || 0);
+        const propMaxBeds = property.bedroomsMax || (typeof property.bedrooms === 'object' ? property.bedrooms?.max : parseInt(property.bedrooms) || 0);
         const matchesBedrooms =
           bedrooms.length === 0 ||
           bedrooms.includes("Any") ||
           bedrooms.some((bed) => {
-            if (!property.bedrooms) return false;
-            if (bed.includes("+")) {
-              const min = Number(bed.replace("+", ""));
-              return property.bedrooms >= min;
+            if (bed === "4+") {
+              return propMaxBeds >= 4;
             }
-            if (bed.includes("-")) {
-              const [min, max] = bed.split("-").map(Number);
-              return property.bedrooms >= min && property.bedrooms <= max;
-            }
-            return property.bedrooms.toString() === bed;
+            const bedNum = Number(bed);
+            if (isNaN(bedNum)) return false;
+            return propMinBeds <= bedNum && propMaxBeds >= bedNum;
           });
+        // Updated bathrooms match with range support
+        const propMinBaths = property.bathroomsMin || (typeof property.bathrooms === 'object' ? property.bathrooms?.min : parseInt(property.bathrooms) || 0);
+        const propMaxBaths = property.bathroomsMax || (typeof property.bathrooms === 'object' ? property.bathrooms?.max : parseInt(property.bathrooms) || 0);
         const matchesBathrooms =
           bathrooms.length === 0 ||
           bathrooms.includes("Any") ||
           bathrooms.some((bath) => {
-            if (!property.bathrooms) return false;
-            if (bath.includes("+")) {
-              const min = Number(bath.replace("+", ""));
-              return property.bathrooms >= min;
+            if (bath === "4+") {
+              return propMaxBaths >= 4;
             }
-            if (bath.includes("-")) {
-              const [min, max] = bath.split("-").map(Number);
-              return property.bathrooms >= min && property.bathrooms <= max;
-            }
-            return property.bathrooms.toString() === bath;
+            const bathNum = Number(bath);
+            if (isNaN(bathNum)) return false;
+            return propMinBaths <= bathNum && propMaxBaths >= bathNum;
           });
         const matchesLabel =
           label.length === 0 ||
           label.includes("Any") ||
           label.includes(property.label);
+        // Updated year built match with list support
+        const propYears = Array.isArray(property.yearBuiltList) 
+          ? property.yearBuiltList.map(y => y.toString()) 
+          : [property.yearBuilt?.toString() || '2020'];
         const matchesYearBuilt =
           yearBuilt.length === 0 ||
-          yearBuilt.includes(property.yearBuilt?.toString());
+          yearBuilt.some((y) => propYears.includes(y));
         const effectiveMinArea = minArea <= maxArea ? minArea : maxArea;
         const effectiveMaxArea = minArea <= maxArea ? maxArea : minArea;
+        // Updated area range to include "On Request" (areaValue === 0)
         const matchesAreaRange =
-          property.areaValue >= effectiveMinArea &&
-          property.areaValue <= effectiveMaxArea;
+          property.areaValue === 0 ||
+          (property.areaValue >= effectiveMinArea &&
+            property.areaValue <= effectiveMaxArea);
         const matchesPriceRange =
           property.priceValue === null ||
           property.priceValue === 0 ||
           (property.priceValue >= priceRange[0] &&
             property.priceValue <= priceRange[1]);
-
         return (
           matchesSearch &&
           matchesCountry &&
@@ -396,17 +357,15 @@ useEffect(() => {
         }
       });
     setFilteredProperties(updatedProperties);
+    setCurrentPage(1);
   };
-
   const paginatedProperties = filteredProperties.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-
   const toggleFavorite = (propertyId) => {
     const newFavorites = new Set(favoriteProperties);
     if (newFavorites.has(propertyId)) {
@@ -416,7 +375,6 @@ useEffect(() => {
     }
     setFavoriteProperties(newFavorites);
   };
-
   // Clear all filters
   const handleClearFilters = () => {
     setCountryId([]);
@@ -434,9 +392,9 @@ useEffect(() => {
     handlePriceChange([1000000, 1000000000]);
     setCurrentPage(1);
     setSearchQuery("");
+    setDebouncedQuery("");
     setFilteredProperties(displayProperties);
   };
-
   const handlePriceChangeWrapper = (value) => {
     let [min, max] = value;
     if (min > max) {
@@ -444,7 +402,6 @@ useEffect(() => {
     }
     handlePriceChange([min, max]);
   };
-
   useEffect(() => {
     setCurrentPage(1);
   }, [
@@ -463,7 +420,6 @@ useEffect(() => {
     priceRange,
     debouncedQuery,
   ]);
-
   const getStatusColor = (status) => {
     switch (status) {
       case "For Sale":
@@ -476,7 +432,6 @@ useEffect(() => {
         return "purple";
     }
   };
-
   // Helpers to remove specific filter items
   const removeFilterValue = (filterKey, value) => {
     switch (filterKey) {
@@ -514,7 +469,6 @@ useEffect(() => {
         break;
     }
   };
-
   const activeChips = [];
   area.forEach(
     (a) =>
@@ -575,7 +529,6 @@ useEffect(() => {
         filterKey: "cityId",
       })
   );
-
   // Year options for CustomSelect
   const yearOptions = Array.from(
     { length: 126 },
@@ -584,7 +537,21 @@ useEffect(() => {
     value: year.toString(),
     label: year.toString(),
   }));
-
+  const handleNavigate = (property) => {
+    const propertyName = property.name
+      .toLowerCase()
+      .replace(/\s+/g, "-");
+    const routeType =
+      property.type.toLowerCase() === "commercial"
+        ? "commercial"
+        : "residential";
+    navigate(`/projects/${routeType}/${propertyName}`, {
+      state: { 
+        from: location.pathname,
+        property: property
+      },
+    });
+  };
   return (
     <Drawer
       title={
@@ -637,7 +604,6 @@ useEffect(() => {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="search-input"
                 />
-
                 <div className="chips-container">
                   {activeChips.length === 0 ? (
                     <Text type="secondary" className="text-[#c2c6cb]">No active filters</Text>
@@ -656,11 +622,9 @@ useEffect(() => {
                     ))
                   )}
                 </div>
-
                 <Divider className="filters-divider" />
               </Space>
             </div>
-
             <Collapse defaultActiveKey={isMobile ? [] : ["basic", "advanced"]} ghost items={[
               {
                 key: "basic",
@@ -763,14 +727,8 @@ useEffect(() => {
                         max={1000000000}
                         step={1000000}
                         value={priceRange}
-                        onChange={(value) => {
-                          const [min, max] = value;
-                          handlePriceChange([Math.min(min, max), Math.max(min, max)]);
-                        }}
-                        onAfterChange={(value) => {
-                          const [min, max] = value;
-                          handlePriceChange([Math.min(min, max), Math.max(min, max)]);
-                        }}
+                        onChange={handlePriceChangeWrapper}
+                        onAfterChange={handlePriceChangeWrapper}
                         tooltip={{
                           formatter: (value) => {
                             const crores = value / 10000000;
@@ -921,7 +879,6 @@ useEffect(() => {
                 className: "fontFamily-bebas",
               },
             ]} />
-
             <div className="filters-footer">
               <Space className="filters-footer-buttons">
                 <CustomButton
@@ -941,7 +898,6 @@ useEffect(() => {
             </div>
           </div>
         )}
-
         <div className="properties-container custom-scrollbar">
           <div className="properties-header">
             <div className="view-mode-container">
@@ -962,7 +918,6 @@ useEffect(() => {
               </div>
             </div>
           </div>
-
           {activeChips.length > 0 && (
             <div className="chips-container">
               {activeChips.map((chip) => (
@@ -977,7 +932,6 @@ useEffect(() => {
               ))}
             </div>
           )}
-
           {filteredProperties.length > 0 ? (
             <>
               {viewMode === "grid" ? (
@@ -989,10 +943,10 @@ useEffect(() => {
                         styles={{ body: { padding: 18 } }}
                         className="property-card"
                         // onMouseEnter={(e) =>
-                        //   (e.currentTarget.style.transform = "translateY(-8px)")
+                        // (e.currentTarget.style.transform = "translateY(-8px)")
                         // }
                         // onMouseLeave={(e) =>
-                        //   (e.currentTarget.style.transform = "translateY(0)")
+                        // (e.currentTarget.style.transform = "translateY(0)")
                         // }
                         cover={
                           <div className="card-image-container">
@@ -1012,7 +966,7 @@ useEffect(() => {
                                 <Tag className="featured-tag">Featured</Tag>
                               )}
                               <Tag
-                                className={`status-tag m-0 p-0 flex justify-center items-center ${property.status
+                                className={`status-tag m-0 p-1 flex justify-center items-center ${property.status
                                   .toLowerCase()
                                   .replace(" ", "-")}`}
                               >
@@ -1035,28 +989,15 @@ useEffect(() => {
                                 </div>
                               </Tooltip>
                               <Tooltip title="View">
-                                <div className="action-button advanced-section-action">
-                                  <FaEye
-                                    onClick={() => {
-                                      const propertyName = property.name
-                                        .toLowerCase()
-                                        .replace(/\s+/g, "-");
-                                      const routeType =
-                                        property.type.toLowerCase() === "commercial"
-                                          ? "commercial"
-                                          : "residential";
-                                      navigate(`/projects/${routeType}/${propertyName}`, {
-                                        state: { from: location.pathname },
-                                      });
-                                    }}
-                                  />
+                                <div className="action-button advanced-section-action" onClick={() => handleNavigate(property)}>
+                                  <FaEye />
                                 </div>
                               </Tooltip>
                             </div>
                             <div className="card-footer">
                               <div className="card-footer-content">
                                 <div className="card-price"> {getFormattedPrice(property)} </div>
-                                <div className="card-area">{property.areaValue} sq ft</div>
+                                <div className="card-area flex items-center justify-end "><span><Ruler className="mr-1 w-5 h-5"/> </span> {getFormattedArea(property)}</div>
                               </div>
                             </div>
                           </div>
@@ -1077,28 +1018,17 @@ useEffect(() => {
                               <div className="card-details">
                                 <div className="card-details-content">
                                   <Text className="card-detail-item">
-                                    <Bed className="text-[#c2c6cb]" /> {property.bedrooms} Beds
+                                    <Bed className="text-[#c2c6cb]" /> {property.bedsRange || property.bedrooms || '0 Beds'}
                                   </Text>
                                   <Text className="card-detail-item">
-                                    <Bath className="text-[#c2c6cb]" /> {property.bathrooms} Baths
+                                    <Bath className="text-[#c2c6cb]" /> {property.bathsRange || property.bathrooms || '0 Baths'}
                                   </Text>
                                   <Tag color="default" className="capitalize bg-[#444] property-advanced">{property.type} </Tag>
                                 </div>
                                 <CustomButton
                                   type="primary"
                                   className="property-card-action-button"
-                                  onClick={() => {
-                                    const propertyName = property.name
-                                      .toLowerCase()
-                                      .replace(/\s+/g, "-");
-                                    const routeType =
-                                      property.type.toLowerCase() === "commercial"
-                                        ? "commercial"
-                                        : "residential";
-                                    navigate(`/projects/${routeType}/${propertyName}`, {
-                                      state: { from: location.pathname },
-                                    });
-                                  }}
+                                  onClick={() => handleNavigate(property)}
                                 >
                                   View Details
                                 </CustomButton>
@@ -1122,18 +1052,7 @@ useEffect(() => {
                           type="primary"
                           key="view"
                           className="property-card-action-button"
-                          onClick={() => {
-                            const propertyName = property.name
-                              .toLowerCase()
-                              .replace(/\s+/g, "-");
-                            const routeType =
-                              property.type.toLowerCase() === "commercial"
-                                ? "commercial"
-                                : "residential";
-                            navigate(`/projects/${routeType}/${propertyName}`, {
-                              state: { from: location.pathname },
-                            });
-                          }}
+                          onClick={() => handleNavigate(property)}
                         >
                           View Details
                         </CustomButton>,
@@ -1160,19 +1079,19 @@ useEffect(() => {
                             <div className="list-details">
                               <div className="list-details-content flex items-center justify-center flex-col text-[#c2c6cb]">
                                 <Bed className="text-[#c2c6cb]" />
-                                <p>{property.bedrooms} Beds</p>
+                                <p>{property.bedsRange || property.bedrooms || '0 Beds'}</p>
                               </div>
                               <div className="list-details-content flex items-center justify-center flex-col text-[#c2c6cb]">
                                 <Bath className="text-[#c2c6cb]" />
-                                <p>{property.bathrooms} Baths</p>
+                                <p>{property.bathsRange || property.bathrooms || '0 Baths'}</p>
                               </div>
                               <div className="list-details-content flex items-center justify-center flex-col text-[#c2c6cb]">
                                 <LandPlot className="text-[#c2c6cb]" />
-                                <p>{property.areaValue} sq ft</p>
+                                <p>{getFormattedArea(property)}</p>
                               </div>
                               <div className="list-details-content flex items-center justify-center flex-col text-[#c2c6cb]">
                                 <CalendarDays className="text-[#c2c6cb]" />
-                                <p>{property.yearBuilt} Year</p>
+                                <p>{property.yearBuilt || 2020} Year</p>
                               </div>
                             </div>
                             <div className="list-tags">
@@ -1181,12 +1100,11 @@ useEffect(() => {
                                 {property.status}
                               </Tag>
                             </div>
-                            <div className="listmode-price py-1">  ₹ {getFormattedPrice(property)} </div>
+                            <div className="listmode-price py-1"> {getFormattedPrice(property)} </div>
                             <div className="listmode-area">
                               <Ruler />
-                              <p>{property.areaValue} sq ft</p>
+                              <p>{getFormattedArea(property)}</p>
                             </div>
-
                           </div>
                         }
                       />
@@ -1194,7 +1112,6 @@ useEffect(() => {
                   )}
                 />
               )}
-
               <div className="pagination-container">
                 <Pagination
                   current={currentPage}
@@ -1229,5 +1146,4 @@ useEffect(() => {
     </Drawer>
   );
 };
-
 export default AdvancedPropertySearch;

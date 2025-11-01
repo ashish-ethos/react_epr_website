@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Button } from "antd";
 import { Building2 } from "lucide-react";
 import { RiBuilding2Line, RiMapPin2Line, RiLineChartLine, RiArrowRightLine } from "react-icons/ri";
 import AdvancedPropertySearch from './AdvancedPropertySearch';
-import { allProjectPropertyDetails } from "../../data/propertyDetailsData";
-
+import { properties } from "../../data/propertiesData";
+import Gurgaon from "../../assets/images/about/gurgaon.webp";
+import Mumbai from "../../assets/images/about/bombay.jpg";
+import Delhi from "../../assets/images/about/delhi.webp";
+import Bangalore from "../../assets/images/about/bangalore.jpeg";
 function DifferentCities() {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -13,12 +15,10 @@ function DifferentCities() {
   const [size] = useState("large");
   const navigate = useNavigate();
   const location = useLocation();
-
   // Dynamic location state
   const [countryId, setCountryId] = useState([]);
   const [stateId, setStateId] = useState([]);
   const [cityId, setCityId] = useState([]);
-
   // Filter state
   const [area, setArea] = useState([]);
   const [status, setStatus] = useState([]);
@@ -30,14 +30,16 @@ function DifferentCities() {
   const [label, setLabel] = useState([]);
   const [yearBuilt, setYearBuilt] = useState([]);
   const [priceRange, setPriceRange] = useState([1000000, 1000000000]);
-
-  const properties = allProjectPropertyDetails.map((property) => {
+  // Map the imported properties to the expected structure for AdvancedPropertySearch
+  const mappedProperties = properties.map((property) => {
     // Determine the type for routing (residential or commercial)
     const propertyType = property.type.toLowerCase();
     const propertyCategory = property.category.toLowerCase();
     let routeType = "residential";
     if (
       propertyType.includes("commercial") ||
+      propertyType.includes("shop") ||
+      propertyType.includes("office") ||
       propertyCategory.includes("investment")
     ) {
       routeType = "commercial";
@@ -49,60 +51,123 @@ function DifferentCities() {
     ) {
       routeType = "residential";
     }
-
+    // Parse size for areaValue (take the first number as approximate min size, or average if range)
+    let areaValue = 0;
+    const sizeMatch = property.size.match(/(\d+(?:\.\d+)?)/g);
+    if (sizeMatch && sizeMatch.length > 0) {
+      areaValue = parseInt(sizeMatch[0]) || 0;
+    } else if (property.size.includes("On Request")) {
+      areaValue = 0; // Default for on-request sizes
+    }
+    // Parse price for priceValue
+    let priceValue = 0;
+    if (!property.price.includes("On Request") && !property.price.includes("Request")) {
+      const priceNum = parseFloat(property.price.replace(/[^0-9.]/g, ""));
+      if (!isNaN(priceNum)) {
+        priceValue = priceNum * (property.price.includes("Cr") ? 10000000 : 100000);
+      }
+    }
+    // Infer status from property.status array, normalize first one
+    let normalizedStatus = "Available";
+    if (property.status && property.status.length > 0) {
+      const firstStatus = property.status[0];
+      normalizedStatus = firstStatus
+        .replace("FOR SALE", "For Sale")
+        .replace("FOR RENT", "For Rent")
+        .replace("NEW LAUNCH", "New Launch")
+        .replace("HOT OFFER", "Hot Offer");
+    } else if (property.options.includes("SOLD OUT")) {
+      normalizedStatus = "Sold";
+    }
+    // Infer featured/label from options
+    const featured = property.options.includes("HOT OFFER") || property.options.includes("FEATURED") || property.options.includes("LUXURY");
+    // Handle bedrooms range
+    const bedsMin = property.bedrooms ? property.bedrooms.min : 0;
+    const bedsMax = property.bedrooms ? property.bedrooms.max : 0;
+    const bedsRange = bedsMin > 0 
+      ? (bedsMin === bedsMax ? `${bedsMin} Bed${bedsMin !== 1 ? 's' : ''}` : `${bedsMin}-${bedsMax} Beds`) 
+      : 'On Request';
+    // Handle bathrooms range
+    const bathsMin = property.bathrooms ? property.bathrooms.min : 0;
+    const bathsMax = property.bathrooms ? property.bathrooms.max : 0;
+    const bathsRange = bathsMin > 0 
+      ? (bathsMin === bathsMax ? `${bathsMin} Bath${bathsMin !== 1 ? 's' : ''}` : `${bathsMin}-${bathsMax} Baths`) 
+      : 'On Request';
+    // Handle year built
+    let yearBuiltYears = property.yearBuilt ? property.yearBuilt.map(y => parseInt(y)) : [2020];
+    const yearBuiltMax = Math.max(...yearBuiltYears);
+    const yearBuiltList = property.yearBuilt || [];
+    // Infer area (sector for matching)
+    let sectorArea = property.location.split(",")[0].trim();
+    const sectorMatch = property.location.match(/Sector (\d+)/i);
+    if (sectorMatch) {
+      sectorArea = `Sector ${sectorMatch[1]}, Gurgaon`;
+    }
+    // Infer stateId and cityId based on location (mostly Gurgaon/Haryana)
+    let stateIdValue = 4030; // Default Haryana
+    let cityIdValue = 57510; // Default Gurgaon
+    const locLower = property.location.toLowerCase();
+    if (locLower.includes("uttar pradesh") || locLower.includes("noida")) {
+      stateIdValue = 4031;
+      cityIdValue = 57511;
+    } else if (locLower.includes("delhi")) {
+      stateIdValue = 4047;
+      cityIdValue = 57650;
+    } // Else default to Haryana/Gurgaon
     return {
+      ...property, // Spread original to have all fields
       id: property.id,
       name: property.name,
       location: property.location,
-      area: property.location.split(",")[0].trim(), 
-      areaValue: parseInt(property.sqft) || 0, 
-      type: routeType, 
+      area: sectorArea,
+      areaValue: areaValue,
+      type: routeType,
       price: property.price,
-      priceValue: property.price.includes("On Request")
-        ? 0
-        : parseFloat(property.price.replace(/[^0-9.]/g, "")) * (property.price.includes("Cr") ? 10000000 : 100000),
-      status: property.status[0],
-      featured: property.featured,
-      label: property.featured ? "featured" : null,
-      bedrooms: property.bedrooms,
-      bathrooms: property.bathrooms,
-      yearBuilt: 2020, 
+      priceValue: priceValue,
+      status: normalizedStatus,
+      featured: featured,
+      label: featured ? "featured" : null,
+      bedroomsMin: bedsMin,
+      bedroomsMax: bedsMax,
+      bedsRange: bedsRange,
+      bathroomsMin: bathsMin,
+      bathroomsMax: bathsMax,
+      bathsRange: bathsRange,
+      yearBuilt: yearBuiltMax,
+      yearBuiltList: yearBuiltList,
+      size: property.size,
       image: property.image,
-      countryId: 101, 
-      stateId: property.location.includes("Haryana") ? 4030 : property.location.includes("Uttar Pradesh") ? 4031 : 4047,
-      cityId: property.location.includes("Gurgram") ? 57510 : property.location.includes("Noida") ? 57511 : 57650,
+      countryId: 101,
+      stateId: stateIdValue,
+      cityId: cityIdValue,
+      // Override the object fields with strings for safe rendering
+      bedrooms: bedsRange,
+      bathrooms: bathsRange,
     };
   });
-
   // Featured cities data
   const featuredCities = [
-  { name: "Mumbai", growth: "+18%", icon: <Building2 className="w-5 h-5 text-gray-400" /> },
-  { name: "Gurgaon", growth: "+22%", icon: <Building2 className="w-5 h-5 text-gray-400" /> },
-  { name: "Bangalore", growth: "+15%", icon: <Building2 className="w-5 h-5 text-gray-400" /> },
-  { name: "Delhi", growth: "+20%", icon: <Building2 className="w-5 h-5 text-gray-400" /> },
-];
-
+    { name: "Mumbai", growth: "+18%", icon: <Building2 className="w-5 h-5 text-gray-400" />, image: Mumbai },
+    { name: "Gurgaon", growth: "+22%", icon: <Building2 className="w-5 h-5 text-gray-400" />, image: Gurgaon },
+    { name: "Bangalore", growth: "+15%", icon: <Building2 className="w-5 h-5 text-gray-400" />, image: Bangalore },
+    { name: "Delhi", growth: "+20%", icon: <Building2 className="w-5 h-5 text-gray-400" />, image: Delhi },
+  ];
   useEffect(() => {
     setIsVisible(true);
-
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
-
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
-
   const showDrawer = () => {
     navigate("/location");
     setOpen(true);
   };
-
   const onClose = () => {
     setOpen(false);
     navigate(-1);
   };
-
   useEffect(() => {
     if (location.pathname === "/location") {
       setOpen(true);
@@ -110,11 +175,9 @@ function DifferentCities() {
       setOpen(false);
     }
   }, [location.pathname]);
-
   const handlePriceChange = (value) => {
     setPriceRange(value);
   };
-
   const handleClearFilters = () => {
     setCountryId([]);
     setStateId([]);
@@ -130,15 +193,13 @@ function DifferentCities() {
     setYearBuilt([]);
     setPriceRange([1000000, 1000000000]);
   };
-
   return (
     <div className="relative h-auto overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black py-4 sm:py-8" id="different-cities">
       <style>
         {`
-          
+        
         `}
       </style>
-
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-yellow-600/10 to-amber-600/10 animate-pulse"></div>
         <div
@@ -150,11 +211,6 @@ function DifferentCities() {
         ></div>
         <div className="absolute bottom-0 right-0 w-80 sm:w-[600px] h-80 sm:h-[600px] bg-gradient-to-l from-amber-500/10 to-yellow-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
-
-      {/* <div className="absolute bottom-0 left-0 w-full h-24 sm:h-32 bg-gradient-to-t from-black/30 to-transparent">
-        <div className="absolute bottom-0 left-0 w-full h-16 sm:h-20 bg-gradient-to-r from-transparent via-yellow-400/5 to-transparent"></div>
-      </div> */}
-
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(15)].map((_, i) => (
           <div
@@ -169,15 +225,13 @@ function DifferentCities() {
           ></div>
         ))}
       </div>
-
       <div className="relative z-10 h-auto py-4 sm:py-0 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-full sm:max-w-5xl mx-auto text-center">
           <div className={`inline-flex items-center gap-2 mb-6 sm:mb-8 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
             <div className="w-8 sm:w-12 h-0.5 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>
-            <RiBuilding2Line className="text-yellow-400 animate-pulse" size={16} sm={20} />
+            <RiBuilding2Line className="text-yellow-400 animate-pulse" size={16} />
             <div className="w-8 sm:w-12 h-0.5 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>
           </div>
-
           <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-black mb-6 sm:mb-8 transition-all duration-1200 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <span className="mobile-title-text bg-gradient-to-r font-[Montserrat] from-white via-yellow-200 to-yellow-400 bg-clip-text text-transparent animate-pulse">
               Popular Places
@@ -187,7 +241,6 @@ function DifferentCities() {
               to Invest
             </span>
           </h1>
-
           <div className={`max-w-full sm:max-w-4xl mx-auto mb-8 sm:mb-12 transition-all duration-1000 delay-400 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <div className="bg-black/20 backdrop-blur-md rounded-2xl p-4 sm:p-8 shadow-2xl border border-yellow-400/20">
               <p className="mobile-subtitle-text text-sm sm:text-lg text-gray-200 leading-relaxed font-light">
@@ -201,30 +254,39 @@ function DifferentCities() {
               </p>
             </div>
           </div>
-
           <div className={`mb-8 sm:mb-12 transition-all duration-1000 delay-600 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
             <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
               {featuredCities.map((city, index) => (
                 <div
                   key={city.name}
-                  className="group bg-black/20 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-yellow-400/20 hover:bg-black/30 hover:border-yellow-400/40 transition-all duration-300 hover:scale-105 hover:shadow-xl w-full sm:w-auto"
+                  onClick={showDrawer}
+                  className="group bg-black/20 backdrop-blur-sm rounded-xl p-2 cursor-pointer border border-yellow-400/20
+               hover:bg-black/30 hover:border-yellow-400/40 transition-all duration-300 hover:scale-105
+               hover:shadow-xl w-full sm:w-[230px]"
                   style={{ animationDelay: `${index * 200}ms` }}
                 >
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <span className="text-xl sm:text-2xl">{city.icon}</span>
+                  {/* City Image */}
+                  <div className="w-full h-28 sm:h-32 rounded-lg overflow-hidden mb-3">
+                    <img
+                      src={city.image}
+                      alt={city.name}
+                      className="w-full h-full object-cover scale-100 group-hover:scale-110 transition-all duration-500"
+                    />
+                  </div>
+                  {/* Text + Icon */}
+                  <div className="flex items-center justify-between">
                     <div>
-                      <div className="text-white font-semibold text-xs sm:text-sm">{city.name}</div>
-                      <div className="flex items-center gap-1 text-yellow-400 text-[10px] sm:text-xs">
-                        <RiLineChartLine size={10} sm={12} />
-                        {city.growth}
+                      <div className="text-white font-semibold text-sm sm:text-base">{city.name}</div>
+                      <div className="flex items-center gap-1 text-yellow-400 text-xs sm:text-sm">
+                        <RiLineChartLine /> {city.growth}
                       </div>
                     </div>
+                    <div className="text-yellow-400 text-xl">{city.icon}</div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-
           <div className={`transition-all duration-1000 delay-800 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <button
               onClick={showDrawer}
@@ -232,18 +294,17 @@ function DifferentCities() {
             >
               <span className="absolute left-[-75%] top-0 w-[50%] h-full bg-gradient-to-r from-transparent via-white/30 to-transparent rotate-12 group-hover:animate-[shine_1.2s_ease-in-out_forwards] pointer-events-none"></span>
               <div className="relative z-10 flex items-center gap-3 sm:gap-4 text-gray-100 group-hover:text-yellow-100 transition-colors duration-300">
-                <RiMapPin2Line className="group-hover:scale-125 group-hover:text-yellow-300 transition-transform duration-300" size={16} sm={20} />
+                <RiMapPin2Line className="group-hover:scale-125 group-hover:text-yellow-300 transition-transform duration-300" size={16} />
                 <span className="tracking-wide cursor-pointer group-hover:text-yellow-200 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)] transition-all duration-300">
                   Explore Properties by Cities
                 </span>
-                <RiArrowRightLine className="group-hover:translate-x-2 group-hover:rotate-12 text-yellow-300 transition-all duration-300" size={16} sm={20} />
+                <RiArrowRightLine className="group-hover:translate-x-2 group-hover:rotate-12 text-yellow-300 transition-all duration-300" size={16} />
               </div>
               <div className="absolute inset-0 rounded-2xl pointer-events-none ring-0 group-hover:ring-2 ring-yellow-400/50 transition duration-500"></div>
             </button>
           </div>
         </div>
       </div>
-
       <AdvancedPropertySearch
         open={open}
         onClose={onClose}
@@ -274,10 +335,9 @@ function DifferentCities() {
         priceRange={priceRange}
         handlePriceChange={handlePriceChange}
         handleClearFilters={handleClearFilters}
-        properties={properties}
+        properties={mappedProperties}
       />
     </div>
   );
 }
-
 export default DifferentCities;

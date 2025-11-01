@@ -384,80 +384,75 @@ const ViewDetailsDrawer = ({ open, onClose, project, isLiked = false, onToggleLi
           EMI Calculator
         </Title>
 
-        <Form form={form} layout="vertical" onFinish={handleEMISubmit} className="space-y-4">
-          <div className="grid sm:grid-cols-3 gap-6 emi-form-grid">
-            <div className="space-y-4">
-              <Form.Item
-                name="loanAmount"
-                label={
-                  <span className="flex items-center gap-1">
-                    <Text strong className="text-[#c2c6cb]">Loan Amount</Text>
-                    <span className="text-red-500">*</span>
-                  </span>
-                }
-                rules={[{ message: 'Please enter loan amount' }]}
-              >
-                <InputNumber
-                  min={100000}
-                  max={100000000}
-                  value={loanAmount}
-                  onChange={setLoanAmount}
-                  formatter={val => `₹ ${val}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  parser={val => val.replace(/₹\s?|(,*)/g, '')}
-                  className="w-full"
-                  size="large"
-                />
-              </Form.Item>
-            </div>
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={(values) => {
+            const loanAmountVal = Number(values.loanAmount);
+            const interestRateVal = Number(values.interestRate);
+            const tenureVal = Number(values.tenure);
 
-            <div className="space-y-4">
-              <Form.Item
-                name="interestRate"
-                label={
-                  <span className="flex items-center gap-1">
-                    <Text strong className="text-[#c2c6cb]">Interest Rate (%)</Text>
-                    <span className="text-red-500">*</span>
-                  </span>
-                }
-                initialValue={interestRate}
-                rules={[{ message: 'Please enter interest rate' }]}
-              >
+            // Saving to state (optional if you want to show in results)
+            setLoanAmount(loanAmountVal);
+            setInterestRate(interestRateVal);
+            setTenure(tenureVal);
 
-                <InputNumber
-                  min={1}
-                  max={20}
-                  step={0.1}
-                  value={interestRate}
-                  onChange={setInterestRate}
-                  className="w-full"
-                  size="large"
-                />
-              </Form.Item>
-            </div>
+            const p = loanAmountVal;
+            const r = interestRateVal / 100 / 12;
+            const n = tenureVal;
 
-            <div className="space-y-4">
-              <Form.Item
-                name="tenure"
-                label={
-                  <span className="flex items-center gap-1">
-                    <Text strong className="text-[#c2c6cb]">Tenure (Months)</Text>
-                    <span className="text-red-500">*</span>
-                  </span>
-                }
-                initialValue={tenure}
-                rules={[{ message: 'Please enter tenure' }]}
-              >
+            if (r === 0) {
+              const emiValue = p / n;
+              setEmi(emiValue.toFixed(2));
+              setTotalAmount(p.toFixed(2));
+              setTotalInterest(0);
+            } else {
+              const emiValue = p * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+              const total = emiValue * n;
+              const interest = total - p;
 
-                <InputNumber
-                  min={12}
-                  max={360}
-                  value={tenure}
-                  onChange={setTenure}
-                  className="w-full"
-                  size="large"
-                />
-              </Form.Item>
-            </div>
+              setEmi(emiValue.toFixed(2));
+              setTotalAmount(total.toFixed(2));
+              setTotalInterest(interest.toFixed(2));
+            }
+          }}
+          initialValues={{
+            loanAmount,
+            interestRate,
+            tenure,
+          }}
+        >
+          <div className="grid sm:grid-cols-3 gap-6 emi-form-grid mt-2">
+            <Form.Item
+              name="loanAmount"
+              label={<span className="flex items-center gap-1"><Text strong className="text-[#c2c6cb]">Loan Amount</Text></span>}
+              rules={[{ required: true, message: 'Please enter loan amount' }]}
+            >
+              <InputNumber
+                min={100000}
+                max={100000000}
+                className="w-full"
+                size="large"
+                formatter={(val) => `₹ ${val}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                parser={(val) => val.replace(/₹\s?|(,*)/g, '')}
+              />
+            </Form.Item>
+
+            <Form.Item
+              name="interestRate"
+              label={<span className="flex items-center gap-1"><Text strong className="text-[#c2c6cb]">Interest Rate (%)</Text></span>}
+              rules={[{ required: true, message: 'Please enter interest rate' }]}
+            >
+              <InputNumber min={1} max={20} step={0.1} className="w-full" size="large" />
+            </Form.Item>
+
+            <Form.Item
+              name="tenure"
+              label={<span className="flex items-center gap-1"><Text strong className="text-[#c2c6cb]">Tenure (Months)</Text></span>}
+              rules={[{ required: true, message: 'Please enter tenure' }]}
+            >
+              <InputNumber min={12} max={360} className="w-full" size="large" />
+            </Form.Item>
           </div>
 
           <Form.Item>
@@ -475,50 +470,31 @@ const ViewDetailsDrawer = ({ open, onClose, project, isLiked = false, onToggleLi
         </Form>
       </PremiumCard>
 
-      {
-        emi && (
-          <PremiumCard>
-            <div className="grid sm:grid-cols-3 gap-6">
-              <div className="text-center p-4 bg-gradient-to-br from-[#333]/50 to-[#444]/50 rounded-2xl border border-[#ffffff38]">
-                <div className="text-xl font-bold text-[#c2c6cb] mb-2">₹ {formatPrice(emi)}</div>
-                <div className="text-[#c2c6cb] font-medium">Monthly EMI</div>
-              </div>
-
-              <div className="text-center p-4 bg-gradient-to-br from-[#333]/50 to-[#444]/50 rounded-2xl border border-[#ffffff38]">
-                <div className="text-xl font-bold text-[#c2c6cb] mb-2">₹ {formatPrice(totalAmount)}</div>
-                <div className="text-[#c2c6cb] font-medium">Total Amount</div>
-              </div>
-
-              <div className="text-center p-4 bg-gradient-to-br from-[#333]/50 to-[#444]/50 rounded-2xl border border-[#ffffff38]">
-                <div className="text-xl font-bold text-[#c2c6cb] mb-2">₹ {formatPrice(totalInterest)}</div>
-                <div className="text-[#c2c6cb] font-medium">Total Interest</div>
-              </div>
+      {/* Show result only after submit */}
+      {emi !== null && (
+        <PremiumCard>
+          <div className="grid sm:grid-cols-3 gap-6">
+            <div className="text-center p-4 bg-gradient-to-br from-[#333]/50 to-[#444]/50 rounded-2xl border border-[#ffffff38]">
+              <div className="text-xl font-bold text-[#c2c6cb] mb-2">₹ {formatPrice(emi)}</div>
+              <div className="text-[#c2c6cb] font-medium">Monthly EMI</div>
             </div>
 
-            <div className="mt-6">
-              <div className="flex justify-between items-center mb-3">
-                <Text strong className="text-[#c2c6cb]">Principal vs Interest</Text>
-                <Text className="text-[#c2c6cb]/80">
-                  {((loanAmount / totalAmount) * 100).toFixed(1)}% Principal
-                </Text>
-              </div>
-              <Progress
-                percent={Number(((loanAmount / totalAmount) * 100).toFixed(2))}
-                strokeColor="#c2c6cb"
-                trailColor="#444"
-                className="mb-2"
-                format={(percent) => `${percent}%`}
-              />
-              <div className="flex justify-between text-sm text-[#c2c6cb]/80">
-                <span>Principal: ₹ {formatPrice(loanAmount)}</span>
-                <span>Interest: ₹ {formatPrice(totalInterest)}</span>
-              </div>
+            <div className="text-center p-4 bg-gradient-to-br from-[#333]/50 to-[#444]/50 rounded-2xl border border-[#ffffff38]">
+              <div className="text-xl font-bold text-[#c2c6cb] mb-2">₹ {formatPrice(totalAmount)}</div>
+              <div className="text-[#c2c6cb] font-medium">Total Amount</div>
             </div>
-          </PremiumCard>
-        )
-      }
-    </div >
+
+            <div className="text-center p-4 bg-gradient-to-br from-[#333]/50 to-[#444]/50 rounded-2xl border border-[#ffffff38]">
+              <div className="text-xl font-bold text-[#c2c6cb] mb-2">₹ {formatPrice(totalInterest)}</div>
+              <div className="text-[#c2c6cb] font-medium">Total Interest</div>
+            </div>
+          </div>
+        </PremiumCard>
+      )}
+    </div>
   );
+
+
 
   const contactContent = (
     <PremiumCard className='p-0 m-0'>
