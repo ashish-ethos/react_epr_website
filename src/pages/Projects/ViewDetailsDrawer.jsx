@@ -170,7 +170,7 @@ const ViewDetailsDrawer = ({ open, onClose, project, isLiked = false, onToggleLi
   );
 
   const StatCard = ({ icon, label, value, color = 'blue' }) => (
-    <div className="text-center p-2 mobile-stat-grid">
+    <div className="text-center p-1 mobile-stat-grid">
       <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-${color}-100/20 text-${color}-600 mb-1 border-1`}>
         {icon}
       </div>
@@ -278,7 +278,7 @@ const ViewDetailsDrawer = ({ open, onClose, project, isLiked = false, onToggleLi
           <StatCard
             icon={<AreaChartOutlined className="text-[#c2c6cb]" />}
             label="Area"
-            value={project?.sqft || 'N/A'}
+            value={project?.sqft || 'On Request'}
             color="blue"
             className="text-sm font-medium font-[Inter] text-[#c2c6cb]"
           />
@@ -294,13 +294,13 @@ const ViewDetailsDrawer = ({ open, onClose, project, isLiked = false, onToggleLi
               <StatCard
                 icon={<UserOutlined className="text-[#c2c6cb]" />}
                 label="Bedrooms"
-                value={project?.bedrooms || 'N/A'}
+                value={typeof project?.bedrooms === 'object' ? `${project.bedrooms.min || 0}-${project.bedrooms.max || 0} Beds` : (project?.bedrooms || 'N/A')}
                 color="purple"
               />
               <StatCard
                 icon={<ThunderboltOutlined className="text-[#c2c6cb]" />}
                 label="Bathrooms"
-                value={project?.bathrooms || 'N/A'}
+                value={typeof project?.bathrooms === 'object' ? `${project.bathrooms.min || 0}-${project.bathrooms.max || 0} Baths` : (project?.bathrooms || 'N/A')}
                 color="orange"
               />
             </>

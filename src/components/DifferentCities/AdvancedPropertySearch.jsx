@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import {
   Drawer,
   Typography,
@@ -30,11 +30,13 @@ import CustomSelect from "../ui/Select";
 import CustomButton from "../ui/Button";
 import "./AdvancedPropertySearch.css";
 import { useNavigate, useLocation } from "react-router-dom";
+
 const { Title, Text } = Typography;
+
 // Custom options for CustomSelect
 const areaOptions = [
   { value: "All Areas", label: "All Areas" },
-  { value: " Gurgaon", label: "Gurgaon" },
+  { value: "Gurgaon", label: "Gurgaon" },
   { value: "Marine Drive, Mumbai", label: "Marine Drive, Mumbai" },
   { value: "Electronic City, Bangalore", label: "Electronic City, Bangalore" },
 ];
@@ -51,6 +53,8 @@ const statusOptions = [
   { value: "Hot Offer", label: "Hot Offer" },
   { value: "New Launch", label: "New Launch" },
   { value: "Ready to Move", label: "Ready to Move" },
+  { value: "Sold", label: "Sold" },
+  { value: "Available", label: "Available" },
 ];
 const bedroomOptions = [
   { value: "Any", label: "Any" },
@@ -83,6 +87,8 @@ const cityOptions = [
   { value: "600001", label: "Chennai" },
   { value: "411001", label: "Pune" },
 ];
+
+// Mock properties (fallback)
 const mockProperties = [
   {
     id: 1,
@@ -111,6 +117,7 @@ const mockProperties = [
     size: "2500 Sq Ft",
   },
 ];
+
 // Gurgaon sectors
 const gurgaonSectors = [
   "Sector 54, Gurgaon",
@@ -125,6 +132,7 @@ const gurgaonSectors = [
   "Sector 65, Gurgaon",
   "Sector 109, Gurgaon",
 ];
+
 const AdvancedPropertySearch = ({
   open,
   onClose,
@@ -163,169 +171,122 @@ const AdvancedPropertySearch = ({
   const [searchQuery, setSearchQuery] = useState("");
   const [favoriteProperties, setFavoriteProperties] = useState(new Set());
   const [debouncedQuery, setDebouncedQuery] = useState("");
-  const location = useLocation();
-  const displayProperties = properties.length > 0 ? properties : mockProperties;
-  const [filteredProperties, setFilteredProperties] = useState(displayProperties);
+  const [filteredProperties, setFilteredProperties] = useState(properties.length > 0 ? properties : mockProperties);
+  const [displayProperties, setDisplayProperties] = useState(properties.length > 0 ? properties : mockProperties);
   const pageSize = 9;
   const navigate = useNavigate();
-  // const isMobile = window.innerWidth < 800;
+  const routerLocation = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
   const currentYear = new Date().getFullYear();
-  // Debounce search query for better UX
+
+  // Debounce search query
   useEffect(() => {
     const t = setTimeout(() => setDebouncedQuery(searchQuery), 250);
     return () => clearTimeout(t);
   }, [searchQuery]);
-useEffect(() => {
-  const handleResize = () => {
-    setIsMobile(window.innerWidth < 800);
-  };
-  window.addEventListener('resize', handleResize);
-  return () => window.removeEventListener('resize', handleResize);
-}, []);
-  const getFormattedArea = (property) => {
-    const sizeStr = property.size?.trim();
-    if (!sizeStr || sizeStr.includes("On Request") || sizeStr.includes("Request")) {
-      return "On Request";
-    }
-    // Match range like "1138 – 1642 Sq Ft" or "300 - 8000 Sq Ft"
-    const rangeMatch = sizeStr.match(/(\d+(?:\.\d+)?)\s*[-–]\s*(\d+(?:\.\d+)?)\s*(Sq Ft|sqft|Sqft)/i);
-    if (rangeMatch) {
-      const min = parseInt(rangeMatch[1]).toLocaleString();
-      const max = parseInt(rangeMatch[2]).toLocaleString();
-      const unit = rangeMatch[3]?.toUpperCase() || "Sq Ft";
-      return `${min} - ${max} ${unit}`;
-    }
-    // Single value like "2500 Sq Ft"
-    const singleMatch = sizeStr.match(/(\d+(?:\.\d+)?)\s*(Sq Ft|sqft|Sqft)/i);
-    if (singleMatch) {
-      const value = parseInt(singleMatch[1]).toLocaleString();
-      const unit = singleMatch[2]?.toUpperCase() || "Sq Ft";
-      return `${value} ${unit}`;
-    }
-    return "On Request";
-  };
-  const getFormattedPrice = (property) => {
-    let priceStr = property.price?.replace(/\*/g, '').trim();
-    if (!priceStr) {
-      return "On Request";
-    }
-    // Normalize common "On Request" variants
-    const requestVariants = ["On Request", "₹On Request", "₹ On Request", "Price on Request", "₹ Price on Request"];
-    if (requestVariants.some(variant => priceStr.includes(variant))) {
-      return "On Request";
-    }
-    // Handle ranges like "₹ 50 L - ₹ 12 Cr" or "₹ 2.5 Cr - ₹ 8.5 Cr*"
-    if (priceStr.includes(" - ") || priceStr.includes("-")) {
-      // Clean up: remove extra spaces, ensure consistent ₹ placement
-      priceStr = priceStr.replace(/\s*[-–]\s*/g, ' - ').replace(/₹\s*/g, '₹');
-      // If it ends with Cr or L, fine; else assume Cr for display
-      return priceStr;
-    }
-    // For single values, parse and format
-    let rawPrice = property.priceValue;
-    if (!rawPrice || rawPrice === 0) {
-      // Extract number
-      const numMatch = priceStr.match(/[\d.]+/);
-      if (numMatch) {
-        const num = parseFloat(numMatch[0]);
-        if (priceStr.toLowerCase().includes("cr") || priceStr.toLowerCase().includes("crore")) {
-          rawPrice = num * 10000000;
-        } else if (priceStr.toLowerCase().includes("l") || priceStr.toLowerCase().includes("lakh")) {
-          rawPrice = num * 100000;
-        } else {
-          rawPrice = num; // Assume in rupees, but unlikely
-        }
-      }
-    }
-    if (!rawPrice || isNaN(rawPrice) || rawPrice === 0) {
-      return "On Request";
-    }
-    const crores = rawPrice / 10000000;
-    if (crores < 1) {
-      const lakhs = rawPrice / 100000;
-      return `₹${Math.round(lakhs)} L`;
-    } else {
-      return `₹${Math.round(crores)} Cr`;
-    }
-  };
-  const onApply = () => {
-    const updatedProperties = displayProperties
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 800);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Update displayProperties when props change
+  useEffect(() => {
+    const newDisplay = properties.length > 0 ? properties : mockProperties;
+    setDisplayProperties(newDisplay);
+    // Reset filtered to display on props change
+    setFilteredProperties(newDisplay);
+  }, [properties]);
+
+  // Optimized filter function using useCallback
+  const applyFilters = useCallback((propsToFilter, currentFilters) => {
+    const {
+      searchQuery: query,
+      countryId: cId,
+      stateId: sId,
+      cityId: ctyId,
+      area: a,
+      status: st,
+      type: t,
+      bedrooms: b,
+      bathrooms: ba,
+      label: l,
+      yearBuilt: yb,
+      minArea: minA,
+      maxArea: maxA,
+      priceRange: pr,
+      sortBy: sb
+    } = currentFilters;
+
+    return propsToFilter
       .filter((property) => {
-        const matchesSearch =
-          !debouncedQuery ||
-          property.name?.toLowerCase().includes(debouncedQuery.toLowerCase()) ||
-          property.location?.toLowerCase().includes(debouncedQuery.toLowerCase());
-        const matchesCountry =
-          countryId.length === 0 ||
-          countryId.includes(property.countryId?.toString());
-        const matchesState =
-          stateId.length === 0 ||
-          stateId.includes(property.stateId?.toString());
-        const matchesCity =
-          cityId.length === 0 || cityId.includes(property.cityId?.toString());
-        const matchesArea =
-          area.length === 0 ||
-          area.includes("All Areas") ||
-          (area.includes("Gurgaon") &&
-            gurgaonSectors.includes(property.area)) ||
-          area.includes(property.area);
-        const matchesStatus =
-          status.length === 0 || status.includes(property.status);
-        const matchesType = type.length === 0 || type.includes(property.type);
-        // Updated bedrooms match with range support
-        const propMinBeds = property.bedroomsMin || (typeof property.bedrooms === 'object' ? property.bedrooms?.min : parseInt(property.bedrooms) || 0);
-        const propMaxBeds = property.bedroomsMax || (typeof property.bedrooms === 'object' ? property.bedrooms?.max : parseInt(property.bedrooms) || 0);
-        const matchesBedrooms =
-          bedrooms.length === 0 ||
-          bedrooms.includes("Any") ||
-          bedrooms.some((bed) => {
-            if (bed === "4+") {
-              return propMaxBeds >= 4;
-            }
+        // Search match
+        const matchesSearch = !query ||
+          property.name?.toLowerCase().includes(query.toLowerCase()) ||
+          property.location?.toLowerCase().includes(query.toLowerCase());
+
+        // Location matches
+        const matchesCountry = cId.length === 0 || cId.includes(property.countryId?.toString());
+        const matchesState = sId.length === 0 || sId.includes(property.stateId?.toString());
+        const matchesCity = ctyId.length === 0 || ctyId.includes(property.cityId?.toString());
+        const matchesArea = a.length === 0 ||
+          a.includes("All Areas") ||
+          (a.includes("Gurgaon") && gurgaonSectors.some(sector => property.area?.includes(sector))) ||
+          a.includes(property.area);
+
+        // Basic matches
+        const matchesStatus = st.length === 0 || st.includes(property.status);
+        const matchesType = t.length === 0 || t.includes(property.type);
+
+        // Bedrooms match
+        const propMinBeds = property.bedroomsMin || 0;
+        const propMaxBeds = property.bedroomsMax || 0;
+        const matchesBedrooms = b.length === 0 ||
+          b.includes("Any") ||
+          b.some((bed) => {
+            if (bed === "4+") return propMaxBeds >= 4;
             const bedNum = Number(bed);
-            if (isNaN(bedNum)) return false;
-            return propMinBeds <= bedNum && propMaxBeds >= bedNum;
+            return !isNaN(bedNum) && propMinBeds <= bedNum && propMaxBeds >= bedNum;
           });
-        // Updated bathrooms match with range support
-        const propMinBaths = property.bathroomsMin || (typeof property.bathrooms === 'object' ? property.bathrooms?.min : parseInt(property.bathrooms) || 0);
-        const propMaxBaths = property.bathroomsMax || (typeof property.bathrooms === 'object' ? property.bathrooms?.max : parseInt(property.bathrooms) || 0);
-        const matchesBathrooms =
-          bathrooms.length === 0 ||
-          bathrooms.includes("Any") ||
-          bathrooms.some((bath) => {
-            if (bath === "4+") {
-              return propMaxBaths >= 4;
-            }
+
+        // Bathrooms match
+        const propMinBaths = property.bathroomsMin || 0;
+        const propMaxBaths = property.bathroomsMax || 0;
+        const matchesBathrooms = ba.length === 0 ||
+          ba.includes("Any") ||
+          ba.some((bath) => {
+            if (bath === "4+") return propMaxBaths >= 4;
             const bathNum = Number(bath);
-            if (isNaN(bathNum)) return false;
-            return propMinBaths <= bathNum && propMaxBaths >= bathNum;
+            return !isNaN(bathNum) && propMinBaths <= bathNum && propMaxBaths >= bathNum;
           });
-        const matchesLabel =
-          label.length === 0 ||
-          label.includes("Any") ||
-          label.includes(property.label);
-        // Updated year built match with list support
-        const propYears = Array.isArray(property.yearBuiltList) 
-          ? property.yearBuiltList.map(y => y.toString()) 
+
+        // Label match
+        const matchesLabel = l.length === 0 ||
+          l.includes("Any") ||
+          l.includes(property.label);
+
+        // Year built match
+        const propYears = Array.isArray(property.yearBuiltList)
+          ? property.yearBuiltList.map(y => y.toString())
           : [property.yearBuilt?.toString() || '2020'];
-        const matchesYearBuilt =
-          yearBuilt.length === 0 ||
-          yearBuilt.some((y) => propYears.includes(y));
-        const effectiveMinArea = minArea <= maxArea ? minArea : maxArea;
-        const effectiveMaxArea = minArea <= maxArea ? maxArea : minArea;
-        // Updated area range to include "On Request" (areaValue === 0)
-        const matchesAreaRange =
-          property.areaValue === 0 ||
-          (property.areaValue >= effectiveMinArea &&
-            property.areaValue <= effectiveMaxArea);
-        const matchesPriceRange =
-          property.priceValue === null ||
+        const matchesYearBuilt = yb.length === 0 ||
+          yb.some((y) => propYears.includes(y));
+
+        // Area range match (allow 0 for On Request)
+        const effectiveMinArea = Math.min(minA, maxA);
+        const effectiveMaxArea = Math.max(minA, maxA);
+        const matchesAreaRange = property.areaValue === 0 ||
+          (property.areaValue >= effectiveMinArea && property.areaValue <= effectiveMaxArea);
+
+        // Price range match (allow 0/null for On Request)
+        const matchesPriceRange = property.priceValue === null ||
           property.priceValue === 0 ||
-          (property.priceValue >= priceRange[0] &&
-            property.priceValue <= priceRange[1]);
-        return (
-          matchesSearch &&
+          (property.priceValue >= pr[0] && property.priceValue <= pr[1]);
+
+        return matchesSearch &&
           matchesCountry &&
           matchesState &&
           matchesCity &&
@@ -337,35 +298,88 @@ useEffect(() => {
           matchesLabel &&
           matchesYearBuilt &&
           matchesAreaRange &&
-          matchesPriceRange
-        );
+          matchesPriceRange;
       })
       .sort((a, b) => {
-        switch (sortBy) {
+        switch (sb) {
           case "price-low":
-            return a.priceValue - b.priceValue;
+            return (a.priceValue || 0) - (b.priceValue || 0);
           case "price-high":
-            return b.priceValue - a.priceValue;
+            return (b.priceValue || 0) - (a.priceValue || 0);
           case "area-large":
-            return b.areaValue - a.areaValue;
+            return (b.areaValue || 0) - (a.areaValue || 0);
           case "area-small":
-            return a.areaValue - b.areaValue;
+            return (a.areaValue || 0) - (b.areaValue || 0);
           case "newest":
-            return b.yearBuilt - a.yearBuilt;
+            return (b.yearBuilt || 0) - (a.yearBuilt || 0);
           default:
             return 0;
         }
       });
+  }, []);
+
+  // Apply filters only on submit
+  const onApply = useCallback(() => {
+    const currentFilters = {
+      searchQuery: debouncedQuery,
+      countryId,
+      stateId,
+      cityId,
+      area,
+      status,
+      type,
+      bedrooms,
+      bathrooms,
+      label,
+      yearBuilt,
+      minArea,
+      maxArea,
+      priceRange,
+      sortBy,
+    };
+    const updatedProperties = applyFilters(displayProperties, currentFilters);
     setFilteredProperties(updatedProperties);
     setCurrentPage(1);
-  };
-  const paginatedProperties = filteredProperties.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize
-  );
+  }, [debouncedQuery, countryId, stateId, cityId, area, status, type, bedrooms, bathrooms, label, yearBuilt, minArea, maxArea, priceRange, sortBy, displayProperties, applyFilters]);
+
+  // Handle sort change - apply immediately since it's UI
+  const handleSortChange = useCallback((value) => {
+    setSortBy(value);
+    // Re-apply filters with new sort
+    const currentFilters = {
+      searchQuery: debouncedQuery,
+      countryId,
+      stateId,
+      cityId,
+      area,
+      status,
+      type,
+      bedrooms,
+      bathrooms,
+      label,
+      yearBuilt,
+      minArea,
+      maxArea,
+      priceRange,
+      sortBy: value,
+    };
+    const updatedProperties = applyFilters(displayProperties, currentFilters);
+    setFilteredProperties(updatedProperties);
+    setCurrentPage(1);
+  }, [debouncedQuery, countryId, stateId, cityId, area, status, type, bedrooms, bathrooms, label, yearBuilt, minArea, maxArea, priceRange, displayProperties, applyFilters]);
+
+  // Paginated properties
+  const paginatedProperties = useMemo(() =>
+    filteredProperties.slice(
+      (currentPage - 1) * pageSize,
+      currentPage * pageSize
+    ),
+    [filteredProperties, currentPage, pageSize]);
+
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+
   const toggleFavorite = (propertyId) => {
     const newFavorites = new Set(favoriteProperties);
     if (newFavorites.has(propertyId)) {
@@ -375,8 +389,8 @@ useEffect(() => {
     }
     setFavoriteProperties(newFavorites);
   };
-  // Clear all filters
-  const handleClearFilters = () => {
+
+  const handleClearFilters = useCallback(() => {
     setCountryId([]);
     setStateId([]);
     setCityId([]);
@@ -390,11 +404,13 @@ useEffect(() => {
     setMinArea(0);
     setMaxArea(10000);
     handlePriceChange([1000000, 1000000000]);
-    setCurrentPage(1);
     setSearchQuery("");
     setDebouncedQuery("");
+    setSortBy("price-low");
     setFilteredProperties(displayProperties);
-  };
+    setCurrentPage(1);
+  }, [displayProperties, handlePriceChange]);
+
   const handlePriceChangeWrapper = (value) => {
     let [min, max] = value;
     if (min > max) {
@@ -402,24 +418,9 @@ useEffect(() => {
     }
     handlePriceChange([min, max]);
   };
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [
-    countryId,
-    stateId,
-    cityId,
-    area,
-    status,
-    type,
-    bedrooms,
-    bathrooms,
-    label,
-    yearBuilt,
-    minArea,
-    maxArea,
-    priceRange,
-    debouncedQuery,
-  ]);
+
+  // No auto-apply on filter change - only page reset if needed, but since apply is manual, no useEffect for filters
+
   const getStatusColor = (status) => {
     switch (status) {
       case "For Sale":
@@ -432,126 +433,134 @@ useEffect(() => {
         return "purple";
     }
   };
-  // Helpers to remove specific filter items
-  const removeFilterValue = (filterKey, value) => {
+
+  const removeFilterValue = useCallback((filterKey, value) => {
     switch (filterKey) {
       case "area":
-        setArea(area.filter((a) => a !== value));
+        setArea(prev => prev.filter((a) => a !== value));
         break;
       case "type":
-        setType(type.filter((t) => t !== value));
+        setType(prev => prev.filter((t) => t !== value));
         break;
       case "status":
-        setStatus(status.filter((s) => s !== value));
+        setStatus(prev => prev.filter((s) => s !== value));
         break;
       case "bedrooms":
-        setBedrooms(bedrooms.filter((b) => b !== value));
+        setBedrooms(prev => prev.filter((b) => b !== value));
         break;
       case "bathrooms":
-        setBathrooms(bathrooms.filter((b) => b !== value));
+        setBathrooms(prev => prev.filter((b) => b !== value));
         break;
       case "label":
-        setLabel(label.filter((l) => l !== value));
+        setLabel(prev => prev.filter((l) => l !== value));
         break;
       case "yearBuilt":
-        setYearBuilt(yearBuilt.filter((y) => y !== value));
+        setYearBuilt(prev => prev.filter((y) => y !== value));
         break;
       case "countryId":
-        setCountryId(countryId.filter((c) => c !== value));
+        setCountryId(prev => prev.filter((c) => c !== value));
         break;
       case "stateId":
-        setStateId(stateId.filter((s) => s !== value));
+        setStateId(prev => prev.filter((s) => s !== value));
         break;
       case "cityId":
-        setCityId(cityId.filter((c) => c !== value));
+        setCityId(prev => prev.filter((c) => c !== value));
         break;
       default:
         break;
     }
-  };
-  const activeChips = [];
-  area.forEach(
-    (a) =>
-      a && activeChips.push({ key: `area:${a}`, label: a, filterKey: "area" })
-  );
-  type.forEach(
-    (t) =>
-      t && activeChips.push({ key: `type:${t}`, label: t, filterKey: "type" })
-  );
-  status.forEach(
-    (s) =>
-      s &&
-      activeChips.push({ key: `status:${s}`, label: s, filterKey: "status" })
-  );
-  bedrooms.forEach(
-    (b) =>
-      b &&
-      activeChips.push({ key: `bed:${b}`, label: b, filterKey: "bedrooms" })
-  );
-  bathrooms.forEach(
-    (b) =>
-      b &&
-      activeChips.push({ key: `bath:${b}`, label: b, filterKey: "bathrooms" })
-  );
-  label.forEach(
-    (l) =>
-      l && activeChips.push({ key: `label:${l}`, label: l, filterKey: "label" })
-  );
-  yearBuilt.forEach(
-    (y) =>
-      y &&
-      activeChips.push({ key: `year:${y}`, label: y, filterKey: "yearBuilt" })
-  );
-  countryId.forEach(
-    (c) =>
-      c &&
-      activeChips.push({
-        key: `country:${c}`,
-        label: `Country:${c}`,
-        filterKey: "countryId",
-      })
-  );
-  stateId.forEach(
-    (s) =>
-      s &&
-      activeChips.push({
-        key: `state:${s}`,
-        label: `State:${s}`,
-        filterKey: "stateId",
-      })
-  );
-  cityId.forEach(
-    (c) =>
-      c &&
-      activeChips.push({
-        key: `city:${c}`,
-        label: `City:${c}`,
-        filterKey: "cityId",
-      })
-  );
-  // Year options for CustomSelect
-  const yearOptions = Array.from(
-    { length: 126 },
-    (_, i) => currentYear - i
-  ).map((year) => ({
-    value: year.toString(),
-    label: year.toString(),
-  }));
-  const handleNavigate = (property) => {
+  }, []);
+
+  // Active chips
+  const activeChips = useMemo(() => {
+    const chips = [];
+    area.forEach((a) => a && chips.push({ key: `area:${a}`, label: a, filterKey: "area" }));
+    type.forEach((t) => t && chips.push({ key: `type:${t}`, label: t, filterKey: "type" }));
+    status.forEach((s) => s && chips.push({ key: `status:${s}`, label: s, filterKey: "status" }));
+    bedrooms.forEach((b) => b && chips.push({ key: `bed:${b}`, label: b, filterKey: "bedrooms" }));
+    bathrooms.forEach((b) => b && chips.push({ key: `bath:${b}`, label: b, filterKey: "bathrooms" }));
+    label.forEach((l) => l && chips.push({ key: `label:${l}`, label: l, filterKey: "label" }));
+    yearBuilt.forEach((y) => y && chips.push({ key: `year:${y}`, label: y, filterKey: "yearBuilt" }));
+    countryId.forEach((c) => c && chips.push({ key: `country:${c}`, label: `Country:${c}`, filterKey: "countryId" }));
+    stateId.forEach((s) => s && chips.push({ key: `state:${s}`, label: `State:${s}`, filterKey: "stateId" }));
+    cityId.forEach((c) => c && chips.push({ key: `city:${c}`, label: `City:${c}`, filterKey: "cityId" }));
+    return chips;
+  }, [area, type, status, bedrooms, bathrooms, label, yearBuilt, countryId, stateId, cityId]);
+
+  const yearOptions = useMemo(() =>
+    Array.from({ length: 126 }, (_, i) => currentYear - i).map((year) => ({
+      value: year.toString(),
+      label: year.toString(),
+    })),
+    [currentYear]);
+
+  const getFormattedArea = useCallback((property) => {
+    const sizeStr = property.size?.trim();
+    if (!sizeStr || sizeStr.includes("On Request") || sizeStr.includes("Request")) {
+      return "On Request";
+    }
+    const rangeMatch = sizeStr.match(/(\d+(?:\.\d+)?)\s*[-–]\s*(\d+(?:\.\d+)?)\s*(Sq Ft|sqft|Sqft)/i);
+    if (rangeMatch) {
+      const min = parseInt(rangeMatch[1]).toLocaleString();
+      const max = parseInt(rangeMatch[2]).toLocaleString();
+      const unit = rangeMatch[3]?.toUpperCase() || "Sq Ft";
+      return `${min} - ${max} ${unit}`;
+    }
+    const singleMatch = sizeStr.match(/(\d+(?:\.\d+)?)\s*(Sq Ft|sqft|Sqft)/i);
+    if (singleMatch) {
+      const value = parseInt(singleMatch[1]).toLocaleString();
+      const unit = singleMatch[2]?.toUpperCase() || "Sq Ft";
+      return `${value} ${unit}`;
+    }
+    return "On Request";
+  }, []);
+
+  const getFormattedPrice = useCallback((property) => {
+    let priceStr = property.price?.replace(/\*/g, '').trim();
+    if (!priceStr) return "On Request";
+    const requestVariants = ["On Request", "₹On Request", "₹ On Request", "Price on Request", "₹ Price on Request"];
+    if (requestVariants.some(variant => priceStr.includes(variant))) return "On Request";
+    if (priceStr.includes(" - ") || priceStr.includes("-")) {
+      priceStr = priceStr.replace(/\s*[-–]\s*/g, ' - ').replace(/₹\s*/g, '₹');
+      return priceStr;
+    }
+    let rawPrice = property.priceValue;
+    if (!rawPrice || rawPrice === 0) {
+      const numMatch = priceStr.match(/[\d.]+/);
+      if (numMatch) {
+        const num = parseFloat(numMatch[0]);
+        if (priceStr.toLowerCase().includes("cr") || priceStr.toLowerCase().includes("crore")) {
+          rawPrice = num * 10000000;
+        } else if (priceStr.toLowerCase().includes("l") || priceStr.toLowerCase().includes("lakh")) {
+          rawPrice = num * 100000;
+        } else {
+          rawPrice = num;
+        }
+      }
+    }
+    if (!rawPrice || isNaN(rawPrice) || rawPrice === 0) return "On Request";
+    const crores = rawPrice / 10000000;
+    if (crores < 1) {
+      const lakhs = rawPrice / 100000;
+      return `₹${Math.round(lakhs)} L`;
+    } else {
+      return `₹${Math.round(crores)} Cr`;
+    }
+  }, []);
+
+  const handleNavigate = useCallback((property) => {
     const propertyName = property.name
       .toLowerCase()
       .replace(/\s+/g, "-");
-    const routeType =
-      property.type.toLowerCase() === "commercial"
-        ? "commercial"
-        : "residential";
+    const routeType = property.type.toLowerCase() === "commercial" ? "commercial" : "residential";
     navigate(`/projects/${routeType}/${propertyName}`, {
-      state: { 
-        from: location.pathname,
+      state: {
+        from: routerLocation.pathname,
         property: property
       },
     });
-  };
+  }, [routerLocation.pathname, navigate]);
+
   return (
     <Drawer
       title={
@@ -612,9 +621,7 @@ useEffect(() => {
                       <Tag
                         key={chip.key}
                         closable
-                        onClose={() =>
-                          removeFilterValue(chip.filterKey, chip.label)
-                        }
+                        onClose={() => removeFilterValue(chip.filterKey, chip.label)}
                         className="chip-tag"
                       >
                         {chip.label}
@@ -918,7 +925,7 @@ useEffect(() => {
               </div>
             </div>
           </div>
-          {activeChips.length > 0 && (
+          {/* {activeChips.length > 0 && (
             <div className="chips-container">
               {activeChips.map((chip) => (
                 <Tag
@@ -931,7 +938,7 @@ useEffect(() => {
                 </Tag>
               ))}
             </div>
-          )}
+          )} */}
           {filteredProperties.length > 0 ? (
             <>
               {viewMode === "grid" ? (
@@ -942,12 +949,6 @@ useEffect(() => {
                         hoverable
                         styles={{ body: { padding: 18 } }}
                         className="property-card"
-                        // onMouseEnter={(e) =>
-                        // (e.currentTarget.style.transform = "translateY(-8px)")
-                        // }
-                        // onMouseLeave={(e) =>
-                        // (e.currentTarget.style.transform = "translateY(0)")
-                        // }
                         cover={
                           <div className="card-image-container">
                             <img
@@ -997,7 +998,7 @@ useEffect(() => {
                             <div className="card-footer">
                               <div className="card-footer-content">
                                 <div className="card-price"> {getFormattedPrice(property)} </div>
-                                <div className="card-area flex items-center justify-end "><span><Ruler className="mr-1 w-5 h-5"/> </span> {getFormattedArea(property)}</div>
+                                <div className="card-area flex items-center justify-end "><span><Ruler className="mr-1 w-5 h-5" /> </span> {getFormattedArea(property)}</div>
                               </div>
                             </div>
                           </div>
@@ -1018,12 +1019,12 @@ useEffect(() => {
                               <div className="card-details">
                                 <div className="card-details-content">
                                   <Text className="card-detail-item">
-                                    <Bed className="text-[#c2c6cb]" /> {property.bedsRange || property.bedrooms || '0 Beds'}
+                                    <Bed className="text-[#c2c6cb]" /> {property.bedsRange || '0 Beds'}
                                   </Text>
                                   <Text className="card-detail-item">
-                                    <Bath className="text-[#c2c6cb]" /> {property.bathsRange || property.bathrooms || '0 Baths'}
+                                    <Bath className="text-[#c2c6cb]" /> {property.bathsRange || '0 Baths'}
                                   </Text>
-                                  <Tag color="default" className="capitalize bg-[#444] property-advanced">{property.type} </Tag>
+                                  <Tag color="default" className="capitalize bg-[#444] property-advanced">{property.type}</Tag>
                                 </div>
                                 <CustomButton
                                   type="primary"
@@ -1146,4 +1147,5 @@ useEffect(() => {
     </Drawer>
   );
 };
+
 export default AdvancedPropertySearch;

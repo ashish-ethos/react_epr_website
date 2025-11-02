@@ -643,7 +643,7 @@
 .card-details-content {
   flex-wrap: wrap;
   display: flex;
-  gap: 12px;
+  gap: 10px;
   align-items: center;
 }
 

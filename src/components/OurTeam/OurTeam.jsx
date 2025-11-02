@@ -268,7 +268,7 @@ const TeamCard = ({ member, index, isVisible, onViewProfile }) => {
 
 const ProfileDrawer = ({ member, visible, onClose }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const customCloseIcon = <CloseOutlined className="text-red-500" />;
   if (!member) return null;
 
   const handleOpenModal = () => setIsModalOpen(true);
@@ -401,7 +401,7 @@ const ProfileDrawer = ({ member, visible, onClose }) => {
               onCancel={handleCloseModal}
               footer={null}
               centered
-              width={500}
+              closeIcon={customCloseIcon}
               className="rounded-2xl bg-[#333]"
             >
               <ContactForm onClose={handleCloseModal} />
@@ -526,13 +526,13 @@ const OurTeam = () => {
   return (
     <div className="main-bg py-10 px-4 relative overflow-hidden" id="our-team">
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-16 our-team-text">
+        <div className="text-center mb-6 our-team-text">
           <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <h3 className="text-3xl mobile-title-text font-[Montserrat] sm:text-xl md:text-5xl font-black mb-3 sm:mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent animate-pulse">
               Meet Our Team
             </h3>
             <div className="h-1 bg-gradient-to-r from-transparent via-[#c99913] to-transparent rounded-full animate-pulse"></div>
-            <p className="text-xl mt-1 mobile-subtitle-text font-bebas md:text-2xl text-[#c2c6cb] font-light max-w-4xl mx-auto leading-relaxed whychoose-subtitle">
+            <p className="text-xl mt-2 mobile-subtitle-text font-bebas md:text-2xl text-[#c2c6cb] font-light max-w-4xl mx-auto leading-relaxed whychoose-subtitle">
               "Your Real Estate Experts, Ready to Serve"
             </p>
           </div>

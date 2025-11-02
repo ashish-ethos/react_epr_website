@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Building2 } from "lucide-react";
 import { RiBuilding2Line, RiMapPin2Line, RiLineChartLine, RiArrowRightLine } from "react-icons/ri";
@@ -8,18 +8,18 @@ import Gurgaon from "../../assets/images/about/gurgaon.webp";
 import Mumbai from "../../assets/images/about/bombay.jpg";
 import Delhi from "../../assets/images/about/delhi.webp";
 import Bangalore from "../../assets/images/about/bangalore.jpeg";
+
 function DifferentCities() {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [open, setOpen] = useState(false);
-  const [size] = useState("large");
   const navigate = useNavigate();
   const location = useLocation();
-  // Dynamic location state
+
+  // Filter states
   const [countryId, setCountryId] = useState([]);
   const [stateId, setStateId] = useState([]);
   const [cityId, setCityId] = useState([]);
-  // Filter state
   const [area, setArea] = useState([]);
   const [status, setStatus] = useState([]);
   const [type, setType] = useState([]);
@@ -30,36 +30,26 @@ function DifferentCities() {
   const [label, setLabel] = useState([]);
   const [yearBuilt, setYearBuilt] = useState([]);
   const [priceRange, setPriceRange] = useState([1000000, 1000000000]);
-  // Map the imported properties to the expected structure for AdvancedPropertySearch
-  const mappedProperties = properties.map((property) => {
-    // Determine the type for routing (residential or commercial)
+
+  // Map properties to expected structure
+  const mappedProperties = useMemo(() => properties.map((property) => {
     const propertyType = property.type.toLowerCase();
     const propertyCategory = property.category.toLowerCase();
     let routeType = "residential";
-    if (
-      propertyType.includes("commercial") ||
-      propertyType.includes("shop") ||
-      propertyType.includes("office") ||
-      propertyCategory.includes("investment")
-    ) {
+    if (propertyType.includes("commercial") || propertyType.includes("shop") || propertyType.includes("office") || propertyCategory.includes("investment")) {
       routeType = "commercial";
-    } else if (
-      propertyType.includes("apartment") ||
-      propertyType.includes("residential") ||
-      propertyType.includes("villa") ||
-      propertyType.includes("studio")
-    ) {
+    } else if (propertyType.includes("apartment") || propertyType.includes("residential") || propertyType.includes("villa") || propertyType.includes("studio")) {
       routeType = "residential";
     }
-    // Parse size for areaValue (take the first number as approximate min size, or average if range)
+
     let areaValue = 0;
     const sizeMatch = property.size.match(/(\d+(?:\.\d+)?)/g);
     if (sizeMatch && sizeMatch.length > 0) {
       areaValue = parseInt(sizeMatch[0]) || 0;
     } else if (property.size.includes("On Request")) {
-      areaValue = 0; // Default for on-request sizes
+      areaValue = 0;
     }
-    // Parse price for priceValue
+
     let priceValue = 0;
     if (!property.price.includes("On Request") && !property.price.includes("Request")) {
       const priceNum = parseFloat(property.price.replace(/[^0-9.]/g, ""));
@@ -67,7 +57,7 @@ function DifferentCities() {
         priceValue = priceNum * (property.price.includes("Cr") ? 10000000 : 100000);
       }
     }
-    // Infer status from property.status array, normalize first one
+
     let normalizedStatus = "Available";
     if (property.status && property.status.length > 0) {
       const firstStatus = property.status[0];
@@ -76,34 +66,37 @@ function DifferentCities() {
         .replace("FOR RENT", "For Rent")
         .replace("NEW LAUNCH", "New Launch")
         .replace("HOT OFFER", "Hot Offer");
-    } else if (property.options.includes("SOLD OUT")) {
+    } else if (property.options && property.options.includes("SOLD OUT")) {
       normalizedStatus = "Sold";
     }
-    // Infer featured/label from options
-    const featured = property.options.includes("HOT OFFER") || property.options.includes("FEATURED") || property.options.includes("LUXURY");
-    // Handle bedrooms range
+
+    const featured = (property.options || []).some(opt => 
+      opt.includes("HOT OFFER") || opt.includes("FEATURED") || opt.includes("LUXURY")
+    );
+
     const bedsMin = property.bedrooms ? property.bedrooms.min : 0;
     const bedsMax = property.bedrooms ? property.bedrooms.max : 0;
-    const bedsRange = bedsMin > 0 
-      ? (bedsMin === bedsMax ? `${bedsMin} Bed${bedsMin !== 1 ? 's' : ''}` : `${bedsMin}-${bedsMax} Beds`) 
+    const bedsRange = bedsMin > 0
+      ? (bedsMin === bedsMax ? `${bedsMin} Bed${bedsMin !== 1 ? 's' : ''}` : `${bedsMin}-${bedsMax} Beds`)
       : 'On Request';
-    // Handle bathrooms range
+
     const bathsMin = property.bathrooms ? property.bathrooms.min : 0;
     const bathsMax = property.bathrooms ? property.bathrooms.max : 0;
-    const bathsRange = bathsMin > 0 
-      ? (bathsMin === bathsMax ? `${bathsMin} Bath${bathsMin !== 1 ? 's' : ''}` : `${bathsMin}-${bathsMax} Baths`) 
+    const bathsRange = bathsMin > 0
+      ? (bathsMin === bathsMax ? `${bathsMin} Bath${bathsMin !== 1 ? 's' : ''}` : `${bathsMin}-${bathsMax} Baths`)
       : 'On Request';
-    // Handle year built
-    let yearBuiltYears = property.yearBuilt ? property.yearBuilt.map(y => parseInt(y)) : [2020];
+
+    let yearBuiltYears = (property.yearBuilt || []).map(y => parseInt(y));
+    if (yearBuiltYears.length === 0) yearBuiltYears = [2020];
     const yearBuiltMax = Math.max(...yearBuiltYears);
     const yearBuiltList = property.yearBuilt || [];
-    // Infer area (sector for matching)
+
     let sectorArea = property.location.split(",")[0].trim();
     const sectorMatch = property.location.match(/Sector (\d+)/i);
     if (sectorMatch) {
       sectorArea = `Sector ${sectorMatch[1]}, Gurgaon`;
     }
-    // Infer stateId and cityId based on location (mostly Gurgaon/Haryana)
+
     let stateIdValue = 4030; // Default Haryana
     let cityIdValue = 57510; // Default Gurgaon
     const locLower = property.location.toLowerCase();
@@ -113,9 +106,13 @@ function DifferentCities() {
     } else if (locLower.includes("delhi")) {
       stateIdValue = 4047;
       cityIdValue = 57650;
-    } // Else default to Haryana/Gurgaon
+    } else if (locLower.includes("uttarakhand")) {
+      stateIdValue = 4001; // Uttarakhand
+      cityIdValue = 60001; // Nainital approx
+    }
+
     return {
-      ...property, // Spread original to have all fields
+      ...property,
       id: property.id,
       name: property.name,
       location: property.location,
@@ -140,18 +137,18 @@ function DifferentCities() {
       countryId: 101,
       stateId: stateIdValue,
       cityId: cityIdValue,
-      // Override the object fields with strings for safe rendering
       bedrooms: bedsRange,
       bathrooms: bathsRange,
     };
-  });
-  // Featured cities data
+  }), [properties]);
+
   const featuredCities = [
     { name: "Mumbai", growth: "+18%", icon: <Building2 className="w-5 h-5 text-gray-400" />, image: Mumbai },
     { name: "Gurgaon", growth: "+22%", icon: <Building2 className="w-5 h-5 text-gray-400" />, image: Gurgaon },
     { name: "Bangalore", growth: "+15%", icon: <Building2 className="w-5 h-5 text-gray-400" />, image: Bangalore },
     { name: "Delhi", growth: "+20%", icon: <Building2 className="w-5 h-5 text-gray-400" />, image: Delhi },
   ];
+
   useEffect(() => {
     setIsVisible(true);
     const handleMouseMove = (e) => {
@@ -160,14 +157,17 @@ function DifferentCities() {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
+
   const showDrawer = () => {
     navigate("/location");
     setOpen(true);
   };
+
   const onClose = () => {
     setOpen(false);
     navigate(-1);
   };
+
   useEffect(() => {
     if (location.pathname === "/location") {
       setOpen(true);
@@ -175,9 +175,11 @@ function DifferentCities() {
       setOpen(false);
     }
   }, [location.pathname]);
+
   const handlePriceChange = (value) => {
     setPriceRange(value);
   };
+
   const handleClearFilters = () => {
     setCountryId([]);
     setStateId([]);
@@ -193,13 +195,9 @@ function DifferentCities() {
     setYearBuilt([]);
     setPriceRange([1000000, 1000000000]);
   };
+
   return (
     <div className="relative h-auto overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black py-4 sm:py-8" id="different-cities">
-      <style>
-        {`
-        
-        `}
-      </style>
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-yellow-600/10 to-amber-600/10 animate-pulse"></div>
         <div
@@ -265,7 +263,6 @@ function DifferentCities() {
                hover:shadow-xl w-full sm:w-[230px]"
                   style={{ animationDelay: `${index * 200}ms` }}
                 >
-                  {/* City Image */}
                   <div className="w-full h-28 sm:h-32 rounded-lg overflow-hidden mb-3">
                     <img
                       src={city.image}
@@ -273,7 +270,6 @@ function DifferentCities() {
                       className="w-full h-full object-cover scale-100 group-hover:scale-110 transition-all duration-500"
                     />
                   </div>
-                  {/* Text + Icon */}
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="text-white font-semibold text-sm sm:text-base">{city.name}</div>
@@ -340,4 +336,5 @@ function DifferentCities() {
     </div>
   );
 }
+
 export default DifferentCities;

@@ -373,7 +373,7 @@ const Commercial = () => {
           </div>
           <div className="flex items-center gap-4 mb-4 text-sm text-[#c2c6cb]/80">
             <span className="flex items-center gap-1">
-              <LandPlot className="text-[#c2c6cb]" /> {property.size || 'N/A'}
+              <LandPlot className="text-[#c2c6cb]" /> {property.size || 'On Request'}
             </span>
           </div>
           <div className="flex items-center justify-between mb-4 mobile-project-title mobile-commercial-bottom">
@@ -556,7 +556,7 @@ const Commercial = () => {
           </div>
           <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mb-4 text-sm text-[#c2c6cb]/80">
             <span className="flex items-center gap-1">
-              <LandPlot className="text-[#c2c6cb]" /> {property.size || 'N/A'}
+              <LandPlot className="text-[#c2c6cb]" /> {property.size || 'On Request'}
             </span>
           </div>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 mobile-project-type">

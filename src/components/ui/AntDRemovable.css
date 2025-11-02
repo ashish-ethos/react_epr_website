@@ -230,3 +230,9 @@
 .ant-pagination .ant-pagination-prev button{
   color: #c2c6cb !important;
 }
+.ant-modal .ant-modal-content {
+  background: #333 !important;
+}
+.ant-modal .ant-modal-close{
+  border: 1px solid red !important;
+}
