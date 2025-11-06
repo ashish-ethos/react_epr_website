@@ -20,6 +20,7 @@ import ScrollToTop from "./utils/ScrollToTopComponent";
 import NotFound from "./pages/NotFound/NotFound";
 import ExploreProperties from "./components/ExploreProperities/ExploreProperities";
 import PopularLocation from "./components/PopularLocation/PopularLocation";
+import CookieBanner from "./components/CookieBanner/CookieBanner";
 
 function App() {
   return (
@@ -64,6 +65,7 @@ function App() {
         </Routes>
       </main>
       <Footer />
+      <CookieBanner />
     </Router>
   );
 }

@@ -40,7 +40,7 @@ Clone the repository:
 
 ```bash
 git clone https://github.com/ashish-ethos/react_epr_website.git
-cd react_epr_website
+cd react_epr
 
 ```
 ---
