@@ -273,7 +273,7 @@
 }
 
 .filters-panel {
-  width: 340px;
+  width: 300px;
   border-right: 1px solid #ffffff38;
   overflow-y: auto;
   background: #444;
@@ -643,7 +643,7 @@
 .card-details-content {
   flex-wrap: wrap;
   display: flex;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
 }
 
@@ -671,7 +671,7 @@
   margin-top: 8px;
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 8px;
 }
 
 .list-tags {
@@ -710,10 +710,15 @@
     align-items: start;
   }
   .ant-collapse > .ant-collapse-item > .ant-collapse-header {
-    padding: 5px !important;
+    padding: 0px 5px !important;
   }
   .property-button-section {
     display: none;
+  }
+  .grid-viewdetails{
+    width: 100%;
+    justify-content: center;
+    display:flex;
   }
 }
 
@@ -869,4 +874,7 @@
   font-size: 13px;
   opacity: 0.9;
   color: #c2c6cb;
+}
+.advanced-list-image{
+  height: 100%;
 }

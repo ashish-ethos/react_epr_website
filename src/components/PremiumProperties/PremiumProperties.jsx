@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
+import { ChevronLeft, ChevronRight, MapPin, ExternalLink } from "lucide-react";
 import DLFCamellias from "../../assets/images/premiumproperties/dlfthecamilias.jpg";
 import ElanTheEmperor from "../../assets/images/premiumproperties/Elan-The-Emperor.jpg";
 import KrisumiWaterfall from "../../assets/images/premiumproperties/krisumiwaterfall.jpg";
@@ -392,7 +392,7 @@ function PremiumProperties() {
                           borderStyle: "solid",
                         }}
                       >
-                        Details
+                        Details <ExternalLink className="w-4 h-4" />
                       </CustomButton>
                     </div>
                   </div>
@@ -407,7 +407,7 @@ function PremiumProperties() {
       <Drawer
         title={<span className="text-xl font-bold text-[#c2c6cb]">Property Details</span>}
         placement="right"
-        width={window.innerWidth < 640 ? "100%" : 1000}
+        width={window.innerWidth < 640 ? "100%" : 800}
         onClose={() => navigate("/")}
         open={drawerOpen}
         styles={{

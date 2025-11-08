@@ -1,6 +1,5 @@
-// ExploreProperties.js
 import React, { useState, useEffect, useMemo } from 'react';
-import { Heart, MapPin, Ruler, Eye, Star, X, Share2, Printer } from 'lucide-react';
+import { Heart, MapPin, Ruler, Eye, Star, X, Share2, Printer, ExternalLink } from 'lucide-react';
 import { FiPhone } from "react-icons/fi";
 import { Pagination, Empty } from 'antd';
 import { MdOutlineEmail, MdOutlineWhatsapp } from "react-icons/md";
@@ -15,7 +14,8 @@ import {
     TwitterIcon,
     LinkedinIcon,
     WhatsappIcon,
-    EmailIcon
+    EmailIcon,
+    
 } from 'react-share';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -24,7 +24,6 @@ import { properties } from '../../data/propertiesData';
 
 import CustomButton from '../ui/Button';
 import './ExploreProperties.css';
-import CustomInput from '../ui/Input';
 import ContactForm from '../../pages/Contact/ContactForm';
 
 const ExploreProperties = ({ filters = {} }) => {
@@ -32,7 +31,6 @@ const ExploreProperties = ({ filters = {} }) => {
     const [activeTab, setActiveTab] = useState(() => searchParams.get('tab') || 'all');
     const [isLoading, setIsLoading] = useState(true);
     const [favorites, setFavorites] = useState(new Set());
-    const [currentPage, setCurrentPage] = useState(1);
     const [shareCounts, setShareCounts] = useState(() => {
         const saved = localStorage.getItem('shareCounts');
         return saved ? JSON.parse(saved) : {};
@@ -63,7 +61,7 @@ const ExploreProperties = ({ filters = {} }) => {
 
     const handleTabChange = (tabKey) => {
         setActiveTab(tabKey);
-        setSearchParams({ tab: tabKey });
+        navigate(`/explore-properties?tab=${tabKey}`);
     };
 
     const getCombinedFiltered = () => {
@@ -102,7 +100,7 @@ const ExploreProperties = ({ filters = {} }) => {
         return list;
     };
 
-    const filteredProperties = useMemo(getCombinedFiltered, [activeTab, filters]);
+    const filteredProperties = useMemo(getCombinedFiltered, [activeTab, normalizedFilters]);
 
     const toggleFavorite = (id) => {
         setFavorites(prev => {
@@ -139,28 +137,46 @@ const ExploreProperties = ({ filters = {} }) => {
 
     useEffect(() => {
         setTimeout(() => setIsLoading(false), 1500);
-        setCurrentPage(1);
-    }, [activeTab, filters]);
+    }, [activeTab, normalizedFilters]);
+
+    useEffect(() => {
+        const tab = searchParams.get('tab') || 'all';
+        setActiveTab(tab);
+    }, [searchParams]);
+
+    const page = useMemo(() => {
+        const p = searchParams.get('page');
+        const parsed = p ? parseInt(p, 10) : 1;
+        return isNaN(parsed) ? 1 : parsed;
+    }, [searchParams]);
+
+    useEffect(() => {
+        const totalPages = Math.ceil(filteredProperties.length / PAGE_SIZE);
+        if (page > totalPages || page < 1) {
+            const newPage = Math.max(1, totalPages);
+            const params = new URLSearchParams(searchParams);
+            if (newPage === 1) {
+                params.delete('page');
+            } else {
+                params.set('page', newPage.toString());
+            }
+            const queryString = params.toString();
+            const url = queryString ? `/explore-properties?${queryString}` : '/explore-properties';
+            navigate(url);
+        }
+    }, [filteredProperties.length, page, navigate, searchParams]);
 
     useEffect(() => {
         localStorage.setItem('shareCounts', JSON.stringify(shareCounts));
     }, [shareCounts]);
 
-    // Clamp currentPage to valid range to prevent NaN issues
-    useEffect(() => {
-        const totalPages = Math.ceil(filteredProperties.length / PAGE_SIZE);
-        if (currentPage > totalPages || currentPage < 1 || isNaN(currentPage)) {
-            setCurrentPage(Math.max(1, totalPages));
-        }
-    }, [filteredProperties.length, currentPage, PAGE_SIZE]);
-
+    const totalPages = useMemo(() => Math.ceil(filteredProperties.length / PAGE_SIZE), [filteredProperties.length]);
+    const effectivePage = useMemo(() => Math.max(1, Math.min(page, totalPages || 1)), [page, totalPages]);
     const paginatedProperties = useMemo(() => {
-        const totalPages = Math.ceil(filteredProperties.length / PAGE_SIZE);
-        const effectivePage = Math.max(1, Math.min(currentPage, totalPages));
         const start = (effectivePage - 1) * PAGE_SIZE;
         const end = start + PAGE_SIZE;
         return filteredProperties.slice(start, end);
-    }, [filteredProperties, currentPage, PAGE_SIZE]);
+    }, [filteredProperties, effectivePage, PAGE_SIZE]);
 
     const PropertyModal = ({ property, onClose }) => {
         const [contactForm, setContactForm] = useState({
@@ -170,40 +186,12 @@ const ExploreProperties = ({ filters = {} }) => {
             message: '',
         });
 
-        const [tourForm, setTourForm] = useState({
-            tourType: '',
-            tourDate: null,
-            tourTime: null,
-            tourName: '',
-            tourPhone: '',
-            tourEmail: '',
-            tourMessage: '',
-        });
-
         const [isShareOpen, setIsShareOpen] = useState(false);
         const [isPrinting, setIsPrinting] = useState(false);
 
         const handleContactChange = (e) => {
             const { name, value } = e.target;
             setContactForm((prev) => ({ ...prev, [name]: value }));
-        };
-
-        const handleTourChange = (e) => {
-            const { name, value } = e.target;
-            setTourForm((prev) => ({ ...prev, [name]: value }));
-        };
-
-        const handleTimeChange = (time) => {
-            setTourForm((prev) => ({ ...prev, tourTime: time }));
-        };
-
-        const handleDateChange = (date) => {
-            setTourForm((prev) => ({ ...prev, tourDate: date }));
-        };
-
-        const handleTourSubmit = (e) => {
-            e.preventDefault();
-            // Add your submission logic here
         };
 
         const toggleSharePopup = () => {
@@ -505,7 +493,7 @@ const ExploreProperties = ({ filters = {} }) => {
 
         const handleDetailsClick = () => {
             const formattedName = property.name.toLowerCase().replace(/\s+/g, '-');
-            navigate(`/property/${formattedName}`, { state: { property } });
+            navigate(`/explore-properties/${formattedName}`, { state: { property } });
         };
 
         return (
@@ -610,7 +598,7 @@ const ExploreProperties = ({ filters = {} }) => {
                                     className="property-card-action-button bg-[#333] text-[#c2c6cb] hover:bg-[#444] border border-[#ffffff38]"
                                     onClick={handleDetailsClick}
                                 >
-                                    Details
+                                    Details <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
                                 </CustomButton>
                             </div>
                         </div>
@@ -671,9 +659,6 @@ const ExploreProperties = ({ filters = {} }) => {
         navigate(-1, { replace: true });
     };
 
-    const totalPages = Math.ceil(filteredProperties.length / PAGE_SIZE);
-    const effectiveCurrentPage = Math.max(1, Math.min(currentPage, totalPages || 1));
-
     return (
         <div className="min-h-screen bg-[#2d2d2d] py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-full sm:max-w-7xl mx-auto mb-8 sm:mb-12 text-center">
@@ -732,7 +717,7 @@ const ExploreProperties = ({ filters = {} }) => {
                         </div>
                         <div className="flex justify-center mt-8">
                             <Pagination
-                                current={effectiveCurrentPage}
+                                current={effectivePage}
                                 total={filteredProperties.length}
                                 showTotal={(total, range) => {
                                     const start = range[0] || 0;
@@ -741,7 +726,17 @@ const ExploreProperties = ({ filters = {} }) => {
                                 }}
                                 pageSize={PAGE_SIZE}
                                 showSizeChanger={false}
-                                onChange={setCurrentPage}
+                                onChange={(newPage) => {
+                                    const params = new URLSearchParams(searchParams);
+                                    if (newPage === 1) {
+                                        params.delete('page');
+                                    } else {
+                                        params.set('page', newPage.toString());
+                                    }
+                                    const queryString = params.toString();
+                                    const url = queryString ? `/explore-properties?${queryString}` : '/explore-properties';
+                                    navigate(url);
+                                }}
                             />
                         </div>
                     </>

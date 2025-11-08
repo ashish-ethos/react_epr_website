@@ -601,14 +601,14 @@ const OurBlog = () => {
                         <CustomButton
                             onClick={prevSlide}
                             disabled={currentSlide === 0}
-                            className="group w-14 h-14 bg-[#333]/80 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 hover:bg-[#444]/90 disabled:opacity-40 disabled:cursor-not-allowed hover:scale-110 transform shadow-lg border border-[#ffffff38]"
+                            className="mobile-ourblog-prev group w-14 h-14 bg-[#333]/80 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 hover:bg-[#444]/90 disabled:opacity-40 disabled:cursor-not-allowed hover:scale-110 transform shadow-lg border border-[#ffffff38]"
                         >
                             <ChevronLeft className="w-6 h-6 text-[#c2c6cb] group-hover:text-[#c2c6cb] transition-colors" />
                         </CustomButton>
                         <CustomButton
                             onClick={nextSlide}
                             disabled={currentSlide >= blogPosts.length - visibleCards}
-                            className="group w-14 h-14 bg-[#333]/80 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 hover:bg-[#444]/90 disabled:opacity-40 disabled:cursor-not-allowed hover:scale-110 transform shadow-lg border border-[#ffffff38]"
+                            className="mobile-ourblog-next group w-14 h-14 bg-[#333]/80 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 hover:bg-[#444]/90 disabled:opacity-40 disabled:cursor-not-allowed hover:scale-110 transform shadow-lg border border-[#ffffff38]"
                         >
                             <ChevronRight className="w-6 h-6 text-[#c2c6cb] group-hover:text-[#c2c6cb] transition-colors" />
                         </CustomButton>

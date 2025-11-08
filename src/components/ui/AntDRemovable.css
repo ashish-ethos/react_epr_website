@@ -219,6 +219,9 @@
   .ant-pagination .ant-pagination-total-text {
     display: none !important;
   }
+  .ant-space-gap-row-middle {
+    row-gap: 5px !important;
+  }
 }
 .ant-pagination .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-ellipsis{
   color: #ffffff40 !important;
@@ -235,4 +238,14 @@
 }
 .ant-modal .ant-modal-close{
   border: 1px solid red !important;
+}
+.ant-list-vertical .ant-list-item .ant-list-item-meta{
+  margin-block-end: 0px !important;
+}
+.ant-list-vertical .ant-list-item .ant-list-item-action {
+  margin-block-start: 0px !important;
+}
+
+.ant-space-gap-row-middle{
+  row-gap: 10px !important;
 }

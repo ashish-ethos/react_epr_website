@@ -221,6 +221,17 @@
   .all-ourblog-card {
     width: 50%;
   }
+  .ourblog-card-section{
+    padding: 0px !important;
+  }
+  .mobile-ourblog-prev{
+    width: auto !important;
+    height: auto !important;
+  }
+  .mobile-ourblog-next{
+    width: auto !important;
+    height: auto !important;
+  }
 }
 
 @media (max-width: 425px) {

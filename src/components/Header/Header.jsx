@@ -37,11 +37,11 @@ function Header() {
         <NavLink
           to={sub.path}
           className={({ isActive }) =>
-            `block px-4 py-2 text-sm hover:bg-gray-700 ${
+            `block px-2 py-1 text-sm hover:bg-[#222] ${
               isActive ? "text-[#c08830] font-semibold" : "text-[#c08830]"
             }`
           }
-          onClick={() => setMobileOpen(false)} // Close mobile menu on item click
+          onClick={() => setMobileOpen(false)} 
         >
           {sub.name}
         </NavLink>

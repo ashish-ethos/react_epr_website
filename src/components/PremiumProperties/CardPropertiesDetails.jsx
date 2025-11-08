@@ -177,7 +177,7 @@ const CardPropertiesDetails = ({ property }) => {
         </div>
 
         {/* Row 2: Contact Form */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-1 gap-8">
           <div className="bg-[#1b1b1b] rounded-xl p-2 border border-[#ffffff38]">
             <ContactForm propertyId={property.id} />
           </div>

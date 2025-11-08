@@ -24,12 +24,12 @@ import {
   FaTh,
   FaList
 } from "react-icons/fa";
-import { Bed, Bath, Star, House, LandPlot, MapPinHouse, CalendarDays, Search, Ruler } from 'lucide-react';
+import { Bed, Bath, Star, House, LandPlot, MapPinHouse, CalendarDays, Search, Ruler, ExternalLink } from 'lucide-react';
 import CustomInput from "../ui/Input";
 import CustomSelect from "../ui/Select";
 import CustomButton from "../ui/Button";
 import "./AdvancedPropertySearch.css";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 
 const { Title, Text } = Typography;
 
@@ -41,6 +41,7 @@ const areaOptions = [
   { value: "Electronic City, Bangalore", label: "Electronic City, Bangalore" },
 ];
 const typeOptions = [
+  { value: "Apartment", label: "Apartment" },
   { value: "Apartment", label: "Apartment" },
   { value: "Villa", label: "Villa" },
   { value: "Penthouse", label: "Penthouse" },
@@ -164,6 +165,7 @@ const AdvancedPropertySearch = ({
   handlePriceChange,
   properties = [],
 }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
   const [viewMode, setViewMode] = useState("grid");
   const [sortBy, setSortBy] = useState("price-low");
@@ -178,6 +180,28 @@ const AdvancedPropertySearch = ({
   const routerLocation = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
   const currentYear = new Date().getFullYear();
+
+  // Sync currentPage from URL params on mount or param change
+  useEffect(() => {
+    const pageParam = searchParams.get('page');
+    const page = pageParam ? parseInt(pageParam, 10) : 1;
+    if (!isNaN(page) && page > 0) {
+      setCurrentPage(page);
+    } else if (pageParam !== null) {
+      // Invalid page param, remove it and reset to 1
+      searchParams.delete('page');
+      setSearchParams(searchParams);
+      setCurrentPage(1);
+    }
+  }, [searchParams, setSearchParams]);
+
+  // Reset page to 1 if current page exceeds total pages after filters change
+  useEffect(() => {
+    const totalPages = Math.ceil(filteredProperties.length / pageSize);
+    if (currentPage > totalPages && totalPages > 0) {
+      setCurrentPage(1);
+    }
+  }, [filteredProperties.length, currentPage, pageSize]);
 
   // Debounce search query
   useEffect(() => {
@@ -376,9 +400,15 @@ const AdvancedPropertySearch = ({
     ),
     [filteredProperties, currentPage, pageSize]);
 
-  const handlePageChange = (page) => {
+  const handlePageChange = useCallback((page) => {
     setCurrentPage(page);
-  };
+    // Update URL only when user interacts with pagination
+    setSearchParams(prev => {
+      const newParams = new URLSearchParams(prev);
+      newParams.set('page', page.toString());
+      return newParams;
+    });
+  }, [setSearchParams]);
 
   const toggleFavorite = (propertyId) => {
     const newFavorites = new Set(favoriteProperties);
@@ -947,7 +977,7 @@ const AdvancedPropertySearch = ({
                     <Col xs={24} sm={12} lg={8} key={property.id}>
                       <Card
                         hoverable
-                        styles={{ body: { padding: 18 } }}
+                        styles={{ body: { padding: 10 } }}
                         className="property-card"
                         cover={
                           <div className="card-image-container">
@@ -1018,21 +1048,23 @@ const AdvancedPropertySearch = ({
                               </div>
                               <div className="card-details">
                                 <div className="card-details-content">
-                                  <Text className="card-detail-item">
+                                  <Text className="card-detail-item rounded-md border border-[#c99913]/30 bg-gradient-to-r from-black/40 via-[#1a1a1a]/60 to-black/40 shadow-md shadow-black/60 text-[#e6e6e6] p-1">
                                     <Bed className="text-[#c2c6cb]" /> {property.bedsRange || '0 Beds'}
                                   </Text>
-                                  <Text className="card-detail-item">
+                                  <Text className="card-detail-item rounded-md border border-[#c99913]/30 bg-gradient-to-r from-black/40 via-[#1a1a1a]/60 to-black/40 shadow-md shadow-black/60 text-[#e6e6e6] p-1">
                                     <Bath className="text-[#c2c6cb]" /> {property.bathsRange || '0 Baths'}
                                   </Text>
                                   <Tag color="default" className="capitalize bg-[#444] property-advanced">{property.type}</Tag>
                                 </div>
-                                <CustomButton
-                                  type="primary"
-                                  className="property-card-action-button"
-                                  onClick={() => handleNavigate(property)}
-                                >
-                                  View Details
-                                </CustomButton>
+                                <div className="grid-viewdetails">
+                                  <CustomButton
+                                    type="primary"
+                                    className="property-card-action-button"
+                                    onClick={() => handleNavigate(property)}
+                                  >
+                                    View Detail <ExternalLink className="w-4 h-4" />
+                                  </CustomButton>
+                                </div>
                               </div>
                             </div>
                           }
@@ -1055,7 +1087,7 @@ const AdvancedPropertySearch = ({
                           className="property-card-action-button"
                           onClick={() => handleNavigate(property)}
                         >
-                          View Details
+                          View Detail <ExternalLink className="w-4 h-4" />
                         </CustomButton>,
                       ]}
                       extra={
@@ -1063,7 +1095,7 @@ const AdvancedPropertySearch = ({
                           width={340}
                           alt={property.name}
                           src={property.image}
-                          className="cehcek"
+                          className="advanced-list-image"
                         />
                       }
                     >
@@ -1078,21 +1110,21 @@ const AdvancedPropertySearch = ({
                               <p className="m-0 p-0">{property.location}</p>
                             </Text>
                             <div className="list-details">
-                              <div className="list-details-content flex items-center justify-center flex-col text-[#c2c6cb]">
+                              <div className="list-details-content flex items-center justify-center  rounded-md border border-[#c99913]/30 bg-gradient-to-r from-black/40 via-[#1a1a1a]/60 to-black/40 shadow-md shadow-black/60 text-[#e6e6e6] p-1">
                                 <Bed className="text-[#c2c6cb]" />
-                                <p>{property.bedsRange || property.bedrooms || '0 Beds'}</p>
+                                <p className="mx-2">{property.bedsRange || property.bedrooms || '0 Beds'}</p>
                               </div>
-                              <div className="list-details-content flex items-center justify-center flex-col text-[#c2c6cb]">
+                              <div className="list-details-content flex items-center justify-center  rounded-md border border-[#c99913]/30 bg-gradient-to-r from-black/40 via-[#1a1a1a]/60 to-black/40 shadow-md shadow-black/60 text-[#e6e6e6] p-1">
                                 <Bath className="text-[#c2c6cb]" />
-                                <p>{property.bathsRange || property.bathrooms || '0 Baths'}</p>
+                                <p className="mx-2">{property.bathsRange || property.bathrooms || '0 Baths'}</p>
                               </div>
-                              <div className="list-details-content flex items-center justify-center flex-col text-[#c2c6cb]">
+                              <div className="list-details-content flex items-center justify-center  rounded-md border border-[#c99913]/30 bg-gradient-to-r from-black/40 via-[#1a1a1a]/60 to-black/40 shadow-md shadow-black/60 text-[#e6e6e6] p-1">
                                 <LandPlot className="text-[#c2c6cb]" />
-                                <p>{getFormattedArea(property)}</p>
+                                <p className="mx-2">{getFormattedArea(property)}</p>
                               </div>
-                              <div className="list-details-content flex items-center justify-center flex-col text-[#c2c6cb]">
+                              <div className="list-details-content flex items-center justify-center  rounded-md border border-[#c99913]/30 bg-gradient-to-r from-black/40 via-[#1a1a1a]/60 to-black/40 shadow-md shadow-black/60 text-[#e6e6e6] p-1">
                                 <CalendarDays className="text-[#c2c6cb]" />
-                                <p>{property.yearBuilt || 2020} Year</p>
+                                <p className="mx-2">{property.yearBuilt || 2020} Year</p>
                               </div>
                             </div>
                             <div className="list-tags">
@@ -1101,11 +1133,15 @@ const AdvancedPropertySearch = ({
                                 {property.status}
                               </Tag>
                             </div>
-                            <div className="listmode-price py-1"> {getFormattedPrice(property)} </div>
-                            <div className="listmode-area">
-                              <Ruler />
-                              <p>{getFormattedArea(property)}</p>
+                            <div className="list-mode-footer flex items-center justify-between">
+                              <div className="listmode-price py-1"> {getFormattedPrice(property)} </div>
+
+                              <div className="listmode-area">
+                                <Ruler />
+                                <p>{getFormattedArea(property)}</p>
+                              </div>
                             </div>
+
                           </div>
                         }
                       />
