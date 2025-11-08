@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react_epr_website/static/css/main.bfb0694f.css",
-    "main.js": "/react_epr_website/static/js/main.96a89ea9.js",
+    "main.js": "/react_epr_website/static/js/main.ac0d5fbf.js",
     "static/js/977.882cd572.chunk.js": "/react_epr_website/static/js/977.882cd572.chunk.js",
     "static/js/667.2c554471.chunk.js": "/react_epr_website/static/js/667.2c554471.chunk.js",
     "static/media/banner_video.mp4": "/react_epr_website/static/media/banner_video.52be0753dabeb3bc0ded.mp4",
@@ -99,12 +99,12 @@
     "static/media/aria-mall.jpg": "/react_epr_website/static/media/aria-mall.a57d8e9ac69845de446b.jpg",
     "index.html": "/react_epr_website/index.html",
     "main.bfb0694f.css.map": "/react_epr_website/static/css/main.bfb0694f.css.map",
-    "main.96a89ea9.js.map": "/react_epr_website/static/js/main.96a89ea9.js.map",
+    "main.ac0d5fbf.js.map": "/react_epr_website/static/js/main.ac0d5fbf.js.map",
     "977.882cd572.chunk.js.map": "/react_epr_website/static/js/977.882cd572.chunk.js.map",
     "667.2c554471.chunk.js.map": "/react_epr_website/static/js/667.2c554471.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.bfb0694f.css",
-    "static/js/main.96a89ea9.js"
+    "static/js/main.ac0d5fbf.js"
   ]
 }
