@@ -389,7 +389,7 @@ const ProfileDrawer = ({ member, visible, onClose }) => {
           <div className="flex justify-center items-center">
             <CustomButton
               onClick={handleOpenModal}
-              className="w-auto py-3 gradient-border font-bold rounded-xl"
+              className="w-auto py-3 gradient-border font-bold "
             >
               <span className="flex items-center justify-center gap-2">
                 <PhoneOutlined />

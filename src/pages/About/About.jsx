@@ -219,10 +219,10 @@ const About = () => {
                                 <div
                                     key={index}
                                     className="
-                                        bg-[#444]/70 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-[#ffffff38]
+                                        bg-[#444]/70 backdrop-blur-sm rounded-3xl p-8 sm:p-4 shadow-xl border border-[#ffffff38]
                                         transition-all duration-500 
                                         hover:-translate-y-2 hover:scale-105 
-                                        hover:shadow-[0_0_30px_rgba(194,198,203,0.25)] hover:ring-2 hover:ring-[#c2c6cb]/30 mobile-value-section
+                                        hover:shadow-[0_0_30px_rgba(194,198,203,0.25)] hover:ring-2 hover:ring-[#c2c6cb]/30 mobile-value-section laptop-value-section
                                     "
                                 >
                                     <div className="bg-gradient-to-br from-[#c2c6cb] to-[#333] w-12 h-12 rounded-xl flex items-center justify-center mb-4">

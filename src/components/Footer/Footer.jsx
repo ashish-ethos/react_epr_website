@@ -360,7 +360,7 @@ function Footer() {
           </div>
 
           {/* Navigation Sections */}
-          <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-1 gap-8">
             {/* Quick Links */}
             <div>
               <h4 className="text-xl font-bold fontFamily-bebas mb-6 relative">
@@ -401,7 +401,7 @@ function Footer() {
 
           </div>
 
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3 sm:grid-cols-1">
             <h4 className="text-xl font-bold mb-6 fontFamily-bebas relative">
               Get In Touch
               <div className="absolute -bottom-2 left-0 w-12 h-0.5 bg-gradient-to-r from-transparent via-[#c99913] to-transparent" />
@@ -439,13 +439,13 @@ function Footer() {
               ].map(({ icon: Icon, title, content, action, color, onClick }) => (
                 <div key={title} className="group relative">
                   <div className="p-4 bg-gradient-to-r from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 hover:border-[#c08830] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl">
-                    <div className="flex items-start gap-4">
+                    <div className="flex items-start gap-4 sm:flex-col">
                       <div className={`w-12 h-12 bg-gradient-to-r ${color} rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
                         <Icon className="w-5 h-5 text-white" />
                       </div>
                       <div className="flex-1">
                         <h5 className="font-semibold text-white mb-1 fontFamily-bebas">{title}</h5>
-                        <p className="text-gray-400 text-sm mb-2 fontFamily-bebas">{content}</p>
+                        <p className="text-gray-400 text-sm sm:text-xs mb-2 fontFamily-bebas">{content}</p>
                         <button
                           className="text-[#c08830] cursor-pointer text-sm font-medium hover:text-emerald-300 transition-colors"
                           onClick={onClick}

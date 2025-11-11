@@ -196,7 +196,7 @@ const ContactForm = ({ onSubmitSuccess }) => {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className={`w-auto px-6 py-2 cursor-pointer rounded-xl text-[#c2c6cb] font-semibold transition border border-[#ffffff38] ${loading ? 'bg-[#444] cursor-not-allowed' : 'bg-[#333] hover:bg-[#444] focus:ring-4 focus:ring-[#c99913]/20'}`}
+                                className={`w-auto px-6 py-2 cursor-pointer rounded-lg text-[#c2c6cb] font-semibold transition border border-[#ffffff38] ${loading ? 'bg-[#444] cursor-not-allowed' : 'bg-[#333] hover:bg-[#444] focus:ring-4 focus:ring-[#c99913]/20'}`}
                             >
                                 {loading ? (
                                     <div className="flex items-center justify-center">

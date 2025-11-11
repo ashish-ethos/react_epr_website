@@ -566,7 +566,7 @@ const ExploreProperties = ({ filters = {} }) => {
                         <div className="mb-3 sm:mb-4">
                             <p className="text-base sm:text-xl font-bold text-amber-400 line-clamp-1">{property.price}</p>
                         </div>
-                        <div className="flex space-x-1 sm:space-x-2">
+                        <div className="flex space-x-1 sm:space-x-2 flex-wrap sm:gap-2">
                             {[
                                 {
                                     icon: FiPhone,
@@ -642,7 +642,7 @@ const ExploreProperties = ({ filters = {} }) => {
             </p>
             <div className="mt-4 sm:mt-6">
                 <CustomButton
-                    className="px-4 sm:px-6 py-2 sm:py-3 cursor-pointer rounded-xl font-semibold text-[#c2c6cb] bg-[#333] hover:bg-[#444] border border-[#ffffff38] hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg text-sm sm:text-base"
+                    className="px-4 sm:px-6 py-2 sm:py-3 cursor-pointer rounded-lg font-semibold text-[#c2c6cb] bg-[#333] hover:bg-[#444] border border-[#ffffff38] hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg text-sm sm:text-base"
                     onClick={() => handleTabChange('all')}
                 >
                     View All Properties

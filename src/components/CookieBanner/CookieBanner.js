@@ -1,18 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CookieConsent from "react-cookie-consent";
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const CookieBanner = () => {
-  const [showBanner, setShowBanner] = useState(true);
+  const [showBanner, setShowBanner] = useState(false);
 
-  const handleAccept = () => {
+  useEffect(() => {
+    const consent = document.cookie.split("; ").find((row) => row.startsWith("userConsent="));
+    if (!consent) {
+      setShowBanner(true);
+    }
+  }, []);
+
+  const setConsentCookie = (value) => {
     const expires = new Date();
     expires.setFullYear(expires.getFullYear() + 1);
-    document.cookie = `userConsent=true; expires=${expires.toUTCString()}; path=/`;
-    
+    document.cookie = `userConsent=${value}; expires=${expires.toUTCString()}; path=/`;
     setShowBanner(false);
   };
+
+  const handleAccept = () => setConsentCookie("true");
+  const handleReject = () => setConsentCookie("false");
 
   if (!showBanner) return null;
 
@@ -35,8 +44,10 @@ const CookieBanner = () => {
       overlayClasses="hidden"
     >
       <div className="relative w-full h-auto min-h-[70px] sm:min-h-[45px] flex flex-col sm:flex-row sm:items-center justify-center sm:justify-between gap-0 sm:gap-2 mobile-cookie-banner pr-0 sm:pr-8">
+        
+        {/* Close Button (X) */}
         <button
-          onClick={handleAccept}
+          onClick={handleReject}
           className="
             mobile-cookie-close
             absolute top-1 right-1 sm:top-[-20px] sm:right-[-20px]
@@ -51,6 +62,7 @@ const CookieBanner = () => {
           <X className="w-4 h-4 sm:w-4 sm:h-4" />
         </button>
         
+        {/* Cookie Text */}
         <div className="flex-1 flex items-center justify-center sm:justify-start order-2 sm:order-1 mobile-cookie-text w-full sm:w-auto px-1 sm:px-0">
           <p className="text-center tracking-normal fontFamily-Content sm:text-left m-0 leading-tight sm:leading-normal break-words max-w-full">
             We use cookies to enhance your experience. By continuing to visit this site, you agree to our use of cookies.{" "}
@@ -63,7 +75,24 @@ const CookieBanner = () => {
           </p>
         </div>
         
-        <div className="flex justify-center sm:justify-end order-1 sm:order-2 pb-1 sm:pb-0 px-1 sm:px-0 w-full sm:w-auto">
+        {/* Buttons */}
+        <div className="flex justify-center sm:justify-end order-1 sm:order-2 pb-1 sm:pb-0 px-1 sm:px-0 w-full sm:w-auto gap-2">
+          
+          <button
+            onClick={handleReject}
+            className="
+              bg-gray-600 hover:bg-gray-700
+              text-white font-semibold 
+              text-xs sm:text-sm
+              px-3 sm:px-4 py-1.5 sm:py-2
+              rounded-sm transition-all duration-300
+              whitespace-nowrap
+              shadow-md fontFamily-Content
+            "
+          >
+            Reject
+          </button>
+
           <button
             onClick={handleAccept}
             className="
@@ -78,6 +107,7 @@ const CookieBanner = () => {
           >
             I Understand
           </button>
+
         </div>
       </div>
     </CookieConsent>

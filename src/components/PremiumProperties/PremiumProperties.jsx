@@ -385,7 +385,7 @@ function PremiumProperties() {
                     <div className="flex justify-end details-mobile">
                       <CustomButton
                         onClick={() => openDetails(property)}
-                        className="px-4 py-1 font-semibold rounded-xl cursor-pointer bg-[#333] text-[#c2c6cb] hover:bg-[#444] border border-[#ffffff38]"
+                        className="px-4 py-1 font-semibold  cursor-pointer bg-[#333] text-[#c2c6cb] hover:bg-[#444] border border-[#ffffff38]"
                         style={{
                           borderImage: "linear-gradient(to right, #333, #474236, #c99913) 1",
                           borderWidth: "2px",

@@ -180,7 +180,7 @@ header img {
 
 /* Updated dark mode dropdown styles */
 .custom-dropdown .ant-dropdown-menu {
-  background: #000;
+  background: #222;
   border: 1px solid #3333;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   border-radius: 4px;
