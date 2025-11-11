@@ -60,18 +60,26 @@ const ViewPopularLocation = ({ isOpen, onClose, location }) => {
                             <div className="info-grid details-options-grid">
                                 <div className="info-card">
                                     <div className="section-header">Details</div>
-                                    <div className="stats-grid">
-                                        <div className="stat-item">
-                                            <span className="stat-label">Type</span>
-                                            <span className="stat-value">{location.type}</span>
+                                    <div className="flex flex-wrap gap-3 mt-4">
+                                        <div className="flex flex-col justify-center bg-[#222] border border-[#333] rounded-lg p-2  flex-1">
+                                            <span className="text-sm text-gray-400">Type</span>
+                                            <span className="text-sm font-semibold text-[#c2c6cb]">
+                                                {location.type}
+                                            </span>
                                         </div>
-                                        <div className="stat-item">
-                                            <span className="stat-label">Size</span>
-                                            <span className="stat-value">{location.size}</span>
+
+                                        <div className="flex flex-col justify-center bg-[#222] border border-[#333] rounded-lg p-2 flex-1">
+                                            <span className="text-sm text-gray-400">Size</span>
+                                            <span className="text-sm font-semibold text-[#c2c6cb]">
+                                                {location.size}
+                                            </span>
                                         </div>
-                                        <div className="stat-item">
-                                            <span className="stat-label">Views</span>
-                                            <span className="stat-value">{location.views}</span>
+
+                                        <div className="flex flex-col justify-center bg-[#222] border border-[#333] rounded-lg p-2 flex-1">
+                                            <span className="text-sm text-gray-400">Views</span>
+                                            <span className="text-sm font-semibold text-[#c2c6cb]">
+                                                {location.views}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -85,20 +93,25 @@ const ViewPopularLocation = ({ isOpen, onClose, location }) => {
                                             ))}
                                         </div>
 
-                                        <div className="facilities-header">Facilities</div>
-                                        <div className="facilities-grid">
-                                            {location.facilities && location.facilities.length > 0 ? (
-                                                <ul className="facilities-list">
-                                                    {location.facilities.map((facility, idx) => (
-                                                        <li key={idx} className="facility-item">{facility}</li>
-                                                    ))}
-                                                </ul>
-                                            ) : (
-                                                <p>No facilities available</p>
-                                            )}
-                                        </div>
+
                                     </div>
+
                                 )}
+
+                                <div className='info-card '>
+                                    <div className="facilities-header">Facilities</div>
+                                    <div className="facilities-grid">
+                                        {location.facilities && location.facilities.length > 0 ? (
+                                            <ul className="facilities-list">
+                                                {location.facilities.map((facility, idx) => (
+                                                    <li key={idx} className="facility-item bg-[#333] border-1 shadow-sm p-2 rounded-md ">{facility}</li>
+                                                ))}
+                                            </ul>
+                                        ) : (
+                                            <p>No facilities available</p>
+                                        )}
+                                    </div>
+                                </div>
                             </div>
 
                             {location.addressMap && (

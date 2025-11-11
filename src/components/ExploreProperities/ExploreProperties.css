@@ -125,3 +125,7 @@
     flex-flow: wrap;
   }
 }
+.close-modal-icons:hover{
+  border-color: #ff0000 !important;
+  color: #ff0000 !important;
+}

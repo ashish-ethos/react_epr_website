@@ -4,6 +4,7 @@ import { MapPin, Heart, Bed, Ruler } from 'lucide-react';
 import { Select, Input, Form, Button, ConfigProvider, Empty } from 'antd';
 import { theme } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import { ArrowLeft } from 'lucide-react';
 import "./PopularLocation.css";
 import ContactForm from "../../pages/Contact/ContactForm";
 import CustomButton from "../ui/Button";
@@ -290,6 +291,11 @@ const PopularLocation = () => {
         <ConfigProvider theme={{ algorithm: theme.darkAlgorithm }}>
             <section className="properties-section py-8 px-4 bg-[#181A1B]">
                 <div className="max-w-7xl mx-auto">
+
+                    <CustomButton type="text" onClick={() => navigate(-1)} className=" flex items-center text-[#c2c6cb] hover:text-white">
+                        <ArrowLeft className="w-4 h-4 inline-block" /> Back
+                    </CustomButton>
+
                     {/* Header */}
                     <div className="mb-6">
                         <h1 className="text-3xl font-bold text-[#c2c6cb] mb-2">

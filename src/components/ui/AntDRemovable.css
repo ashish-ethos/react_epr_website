@@ -249,3 +249,11 @@
 .ant-space-gap-row-middle{
   row-gap: 10px !important;
 }
+.ant-btn-variant-text:not(:disabled):not(.ant-btn-disabled):hover {
+   border-color: #c08830 !important;
+   color: #c08830;
+}
+.ant-drawer .ant-drawer-close:hover{
+  border-color: #ff0000 !important;
+  color: #ff0000 !important;
+}

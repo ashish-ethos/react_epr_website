@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Heart, MapPin, Ruler, Eye, Star, X, Share2, Printer, ExternalLink } from 'lucide-react';
+import { Heart, MapPin, Ruler, Eye, Star, X, Share2, Printer, ExternalLink, ArrowLeft } from 'lucide-react';
 import { FiPhone } from "react-icons/fi";
 import { Pagination, Empty } from 'antd';
 import { MdOutlineEmail, MdOutlineWhatsapp } from "react-icons/md";
@@ -15,7 +15,7 @@ import {
     LinkedinIcon,
     WhatsappIcon,
     EmailIcon,
-    
+
 } from 'react-share';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -302,7 +302,7 @@ const ExploreProperties = ({ filters = {} }) => {
                 >
                     <button
                         onClick={onClose}
-                        className="absolute cursor-pointer top-4 right-4 z-10 bg-[#333]/90 backdrop-blur-sm hover:border-red-500 hover:border-1 text-[#c2c6cb] hover:text-red-500 p-2 rounded-full transition-all duration-200 hover:scale-110 shadow-lg"
+                        className="absolute cursor-pointer close-modal-icons top-4 right-4 z-10 bg-[#333]/90 backdrop-blur-sm hover:border-red-500 hover:border-1 text-[#c2c6cb] hover:text-red-500 p-2 rounded-full transition-all duration-200 hover:scale-110 shadow-lg"
                         style={{ zIndex: 1000 }}
                     >
                         <X size={24} />
@@ -661,7 +661,17 @@ const ExploreProperties = ({ filters = {} }) => {
 
     return (
         <div className="min-h-screen bg-[#2d2d2d] py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+
             <div className="max-w-full sm:max-w-7xl mx-auto mb-8 sm:mb-12 text-center">
+                {page > 1 && (
+                    <CustomButton
+                        type="text"
+                        onClick={() => navigate(-1)}
+                        className=" flex items-center text-[#c2c6cb] hover:text-white transition-colors duration-200"
+                    >
+                        <ArrowLeft className="w-4 h-4 mr-2" /> Back
+                    </CustomButton>
+                )}
                 <h1 className="mobile-title-text text-3xl font-[Montserrat] sm:text-4xl md:text-5xl font-black mb-3 sm:mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent animate-pulse">
                     Explore Premium Properties
                 </h1>
@@ -674,7 +684,7 @@ const ExploreProperties = ({ filters = {} }) => {
             </div>
 
             <div className="max-w-full sm:max-w-7xl mx-auto mb-8 sm:mb-12">
-                <div className="flex bg-[#333] mobile-tab-container overflow-x-auto sm:flex-wrap justify-start sm:justify-center gap-2 sm:gap-4 p-2 bg-[#333]/80 backdrop-blur-sm rounded-2xl shadow-lg scrollbar-hidden border border-[#ffffff38]">
+                <div className="flex bg-[#333] mobile-tab-container overflow-x-auto sm:flex-wrap justify-start sm:justify-center gap-2 sm:gap-3 p-2 bg-[#333]/80 backdrop-blur-sm rounded-2xl shadow-lg scrollbar-hidden border border-[#ffffff38]">
                     {tabs.map((tab) => (
                         <CustomButton
                             key={tab.key}

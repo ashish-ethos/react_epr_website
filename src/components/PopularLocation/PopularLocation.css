@@ -130,7 +130,6 @@
 .advanced-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
@@ -190,8 +189,8 @@
 
 .modal-close-btn:hover {
   background: rgba(192, 136, 48, 0.1);
-  border-color: #c08830;
-  color: #c08830;
+  border-color: #ff0000;
+  color: #ff0000;
   transform: rotate(90deg);
 }
 
@@ -306,7 +305,7 @@
 .info-card {
   background: rgba(35, 39, 42, 0.6);
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 1rem;
   border: 1px solid rgba(192, 136, 48, 0.15);
   transition: all 0.2s ease;
   position: relative;
@@ -356,7 +355,6 @@
   color: #c08830;
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-top: 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -384,11 +382,7 @@
   margin: 0;
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-}
+
 
 .stat-item {
   display: flex;
@@ -542,7 +536,6 @@
 .contact-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
@@ -587,13 +580,13 @@
 
 .contact-modal-close:hover {
   background: rgba(192, 136, 48, 0.1);
-  border-color: #c08830;
-  color: #c08830;
+  border-color: #ff0000 ;
+  color: #ff0000 ;
   transform: rotate(90deg);
 }
 
 .contact-modal-header {
-  padding: 1.5rem;
+  padding: 1rem;
   text-align: center;
   border-bottom: 1px solid rgba(192, 136, 48, 0.15);
 }
@@ -602,7 +595,6 @@
   font-size: 1.5rem;
   font-weight: 700;
   color: #d1d5db;
-  margin: 0 0 0.5rem 0;
 }
 
 .contact-modal-subtitle {
@@ -612,7 +604,7 @@
 }
 
 .contact-modal-body {
-  padding: 1.5rem;
+  padding: 1rem;
   max-height: 60vh;
   overflow-y: auto;
 }
@@ -637,7 +629,7 @@
 .facilities-list {
   display: flex;
   flex-flow: wrap;
-  gap: 0 1rem;
+  gap: 0.5rem 1rem;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -646,7 +638,7 @@
 .facility-item {
   font-size: 0.9rem;
   color: #c2c6cb;
-  padding: 0.5rem 0;
+  /* padding: 0.5rem 0; */
   line-height: 1.5;
 }
 
@@ -655,3 +647,4 @@
     grid-template-columns: 1fr;
   }
 }
+
