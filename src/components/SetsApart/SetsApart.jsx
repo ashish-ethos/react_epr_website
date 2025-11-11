@@ -117,7 +117,7 @@ const SetsApart = () => {
 
       {/* Header Section */}
       <div className="relative z-10 max-w-6xl mx-auto text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-black mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent">
+        <h2 className="mobile-title-text text-4xl md:text-5xl font-black mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent">
           What Sets Us Apart
         </h2>
         <div className="h-1 bg-gradient-to-r from-transparent via-[#c99913] to-transparent rounded-full max-w-md mx-auto"></div>

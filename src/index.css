@@ -306,6 +306,22 @@ body {
   .mobile-cookie-text {
     padding: 10px !important;
   }
+  .mobile-mission-vision{
+    margin-bottom: 30px !important;
+  }
+  .mobile-we-help{
+    line-height: 1.5rem !important;
+  }
+  .mobile-we-help-section{
+    margin-bottom: 10px !important;
+  }
+  .mobile-disclaimer-main{
+    padding: 15px !important; 
+  }
+  .mobile-faq-answer{
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
 }
 .cookie-banner-container{
   background: #000 !important;

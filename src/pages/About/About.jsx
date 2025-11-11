@@ -157,7 +157,7 @@ const About = () => {
                     </div>
 
                     {/* Mission & Vision */}
-                    <div className="grid lg:grid-cols-2 gap-12 mb-20">
+                    <div className="grid lg:grid-cols-2 gap-12 mb-20 mobile-mission-vision">
                         <div className="bg-[#444]/70 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-[#ffffff38] hover:shadow-2xl transition-all duration-300 mobile-our-vision">
                             <div
                                 className="w-12 h-12 flex items-center justify-center rounded-xl"
@@ -198,7 +198,7 @@ const About = () => {
 
                     {/* Values Section */}
                     <div className="mb-20">
-                        <div className="text-center mb-12">
+                        <div className="text-center mb-12 mobile-we-help-section">
                             <div className="flex items-center justify-center gap-3 mb-4">
                                 <span className="text-md font-bold text-transparent text-gradient tracking-wider uppercase">
                                     Buy
@@ -210,8 +210,8 @@ const About = () => {
                                     Sell
                                 </span>
                             </div>
-                            <h3 className="text-4xl md:text-5xl font-bold text-[#c2c6cb] mobile-subtitle-text fontFamily-bebas">We help people Buy, Rent and Sell properties</h3>
-                            <p className="text-[#c2c6cb] p-4 text-xl fontFamily-Content mobile-subtitle-text fontFamily-Content">Home buying can be a stressful process, but we take the guess work out of finding a real estate agent. We’ll help you find the perfect match to purchase your ideal home.</p>
+                            <h3 className="text-4xl md:text-5xl font-bold text-[#c2c6cb] mobile-subtitle-text fontFamily-bebas mobile-we-help">We help people Buy, Rent and Sell properties</h3>
+                            <p className="text-[#c2c6cb] p-4 text-xl fontFamily-Content mobile-subtitle-text fontFamily-Content mobile-we-help">Home buying can be a stressful process, but we take the guess work out of finding a real estate agent. We’ll help you find the perfect match to purchase your ideal home.</p>
                         </div>
 
                         <div className="grid md:grid-cols-3 gap-8">

@@ -605,7 +605,7 @@ const Commercial = () => {
 
   return (
     <div className="min-h-screen bg-[#333]">
-      <div className="bg-[#444] border-b border-t border-[#ffffff38] top-0 z-50">
+      <div className="bg-[#333] border-b border-t border-[#ffffff38] top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between mb-4 mobile-project-title">
             <div>

@@ -323,7 +323,7 @@ function PremiumProperties() {
 
         {/* Carousel */}
         <div
-          className="overflow-hidden py-4"
+          className="overflow-hidden py-4 mobile-premium-carousel"
           ref={carouselRef}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}

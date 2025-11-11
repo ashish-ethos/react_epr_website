@@ -3,7 +3,7 @@ import { Row, Col, Card, Tag } from "antd";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { DownOutlined } from "@ant-design/icons";
 // import video
-import backgroundVideo from "../../assets/images/home/banner_video.mp4";
+import backgroundVideo from "../../assets/images/home/main_banner.mp4";
 import posterImage from "../../assets/images/home/main_background.jpg"; 
 import "./Hero.css";
 import CustomInput from "../ui/Input";

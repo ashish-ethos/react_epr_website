@@ -81,9 +81,12 @@
 }
 
 @media (max-width: 425px) {
-  .carousel-card {
+  /* .carousel-card {
     height: 100% !important;
     width: 96% !important;
+  } */
+  .mobile-premium-carousel {
+    padding-bottom: 0px !important;
   }
   .mobile-cardporperties-name {
     font-size: 16px !important;
@@ -186,10 +189,10 @@ div:hover {
     align-items: flex-start;
     justify-content: unset !important;
   }
-  .mobile-main-content-premium{
+  .mobile-main-content-premium {
     padding: 12px !important;
   }
-  .mobile-header-premium{
+  .mobile-header-premium {
     padding: 5px 10px !important;
   }
 }
