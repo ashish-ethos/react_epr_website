@@ -260,5 +260,8 @@
 .ant-switch.ant-switch-checked{
   background:#c08830 !important;
 }
+.ant-switch.ant-switch-small{
+  min-width: 36px !important;
+}
 
  

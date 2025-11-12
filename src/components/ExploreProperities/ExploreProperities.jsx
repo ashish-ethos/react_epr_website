@@ -660,7 +660,7 @@ const ExploreProperties = ({ filters = {} }) => {
     };
 
     return (
-        <div className="min-h-screen bg-[#2d2d2d] py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-[#2d2d2d] py-8 sm:py-8 px-4 sm:px-6 lg:px-8">
 
             <div className="max-w-full sm:max-w-7xl mx-auto mb-8 sm:mb-12 text-center">
                 {page > 1 && (

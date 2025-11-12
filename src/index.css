@@ -493,6 +493,10 @@ body {
   .tablet-screen-column {
     gap: 10px !important;
   }
+  .cookies-main-section{
+    flex-direction: column !important;
+    align-items: center !important;
+  }
 }
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
@@ -510,4 +514,8 @@ body {
 .custom-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: #c08830 #1f2937;
+}
+.mobile-cookie-close:hover {
+  color: #ff0000 !important;
+  border-color: #ff0000 !important;
 }
