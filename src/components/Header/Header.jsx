@@ -68,6 +68,12 @@ function Header() {
             className="h-12 p-1 w-auto cursor-pointer block md:hidden"
           />
         </Link>
+        <a
+          href="tel:+918744964496"
+          className="block md:hidden px-4 py-1 text-[#c08830] font-semibold text-sm rounded-full  transition-colors shadow-lg border border-[#c08830] hover:shadow-xl hover:border-[#e6b800]"
+        >
+          +91 8744964496
+        </a>
 
         <nav className="hidden md:flex items-center space-x-8">
           {navItems.map((item) =>
@@ -167,13 +173,13 @@ function Header() {
             )
           )}
           <li>
-            <Link
-              to="/contact"
+            <a
+              href="tel:+918744964496"
               onClick={() => setMobileOpen(false)}
               className="block text-center bg-[#c08830] text-gray-900 font-semibold py-2 px-6 rounded-full hover:bg-[#e6b800]"
             >
               +91 8744964496
-            </Link>
+            </a>
           </li>
         </ul>
       </div>

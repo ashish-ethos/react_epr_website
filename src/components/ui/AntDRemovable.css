@@ -257,3 +257,8 @@
   border-color: #ff0000 !important;
   color: #ff0000 !important;
 }
+.ant-switch.ant-switch-checked{
+  background:#c08830 !important;
+}
+
+ 
