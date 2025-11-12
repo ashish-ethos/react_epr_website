@@ -296,6 +296,7 @@ function PremiumProperties() {
           <h1 className="mobile-title-text text-5xl md:text-6xl font-[Montserrat] font-black mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent animate-pulse">
             Top Handpicked Deals
           </h1>
+          <div className="h-1 bg-gradient-to-r from-transparent via-[#c99913] to-transparent rounded-full animate-pulse"></div>
           <p className="mobile-subtitle-text text-xl font-bebas text-[#c2c6cb] font-medium mt-6 font-light max-w-2xl mx-auto">
             Premium Properties at the Best Prices!
           </p>

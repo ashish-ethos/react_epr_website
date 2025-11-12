@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react"; 
 import { Row, Col, Card, Tag } from "antd";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import { DownOutlined } from "@ant-design/icons";
-// import video
 import backgroundVideo from "../../assets/images/home/main_banner.mp4";
-import posterImage from "../../assets/images/home/main_background.jpg"; 
+import posterImage from "../../assets/images/home/main_background.jpg";
 import "./Hero.css";
 import CustomInput from "../ui/Input";
 import CustomSelect from "../ui/Select";
@@ -14,30 +13,53 @@ const Hero = ({ onSearchChange }) => {
   const [searchText, setSearchText] = useState("");
   const [propertyType, setPropertyType] = useState([]);
   const [selectedCity, setSelectedCity] = useState([]);
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false); // lazy load video
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
+  const videoRef = useRef(null);
+  const heroRef = useRef(null);
   const screens = useBreakpoint();
 
+
   useEffect(() => {
-    // Load video after first paint
-    const timer = setTimeout(() => setIsVideoLoaded(true), 500); // delay 0.5s
-    return () => clearTimeout(timer);
-  }, []);
+    const timer = setTimeout(() => setIsVideoLoaded(true), 500);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        const video = videoRef.current;
+
+        if (!video) return;
+        if (entry.isIntersecting) {
+          video.play().catch(() => {}); 
+        } else {
+          video.pause(); 
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (heroRef.current) observer.observe(heroRef.current);
+
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+    };
+  }, []); 
 
   const handleSearch = (e) => {
     const value = e.target.value;
     setSearchText(value);
-    onSearchChange({ search: value });
+    onSearchChange?.({ search: value });
   };
 
   const handleTypeSelect = (value) => {
     setPropertyType(value);
-    onSearchChange({ type: value });
+    onSearchChange?.({ type: value });
   };
 
   const handleCitySelect = (value) => {
     setSelectedCity(value);
-    onSearchChange({ city: value });
+    onSearchChange?.({ city: value });
   };
 
   const propertyTypeOptions = [
@@ -63,14 +85,11 @@ const Hero = ({ onSearchChange }) => {
     "pune",
   ];
 
-  const tagRender = (props) => {
-    const { label, closable, onClose } = props;
-    return (
-      <Tag closable={closable} onClose={onClose} className="hero-tag">
-        {label}
-      </Tag>
-    );
-  };
+  const tagRender = ({ label, closable, onClose }) => (
+    <Tag closable={closable} onClose={onClose} className="hero-tag">
+      {label}
+    </Tag>
+  );
 
   const propertyMinWidth =
     propertyType.length > 0 ? Math.min(propertyType.length * 70 + 60, 400) : 150;
@@ -79,23 +98,22 @@ const Hero = ({ onSearchChange }) => {
 
   return (
     <section
+      ref={heroRef}
       className="relative w-full h-[60vh] overflow-hidden parallax hero-section"
       id="home"
     >
       <div className="absolute inset-0 h-full">
-        {/* Always show poster image for faster LCP */}
         <img
           src={posterImage}
           alt="Hero background"
           className="w-full h-full object-cover brightness-90"
         />
 
-        {/* Lazy load video */}
         {isVideoLoaded && (
           <video
+            ref={videoRef}
             src={backgroundVideo}
             className="w-full h-full object-cover brightness-90 absolute top-0 left-0"
-            autoPlay
             loop
             muted
             playsInline
@@ -154,7 +172,6 @@ const Hero = ({ onSearchChange }) => {
                 placeholder="Property Type"
                 suffixIcon={<DownOutlined />}
                 onChange={handleTypeSelect}
-                styles={{ popup: { root: { width: 200 } } }}
                 optionFilterProp="label"
                 showSearch
                 mode="multiple"
@@ -201,7 +218,6 @@ const Hero = ({ onSearchChange }) => {
                 }}
                 placeholder="Select City"
                 onChange={handleCitySelect}
-                styles={{ popup: { root: { width: 200 } } }}
                 options={cityOptions.map((city) => ({
                   value: city,
                   label: city.charAt(0).toUpperCase() + city.slice(1),

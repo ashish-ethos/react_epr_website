@@ -669,7 +669,7 @@ const ExploreProperties = ({ filters = {} }) => {
                         onClick={() => navigate(-1)}
                         className=" flex items-center text-[#c2c6cb] hover:text-white transition-colors duration-200"
                     >
-                        <ArrowLeft className="w-4 h-4 mr-2" /> Back
+                        <ArrowLeft className="w-4 h-4 " /> Back
                     </CustomButton>
                 )}
                 <h1 className="mobile-title-text text-3xl font-[Montserrat] sm:text-4xl md:text-5xl font-black mb-3 sm:mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent animate-pulse">

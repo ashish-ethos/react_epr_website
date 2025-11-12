@@ -113,12 +113,13 @@ const Testimonial = () => {
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-16 mobile-testimonial-section">
-          <div className="inline-flex flex-col items-center justify-center space-x-2 mb-6">
+          <div className="inline-flex flex-col items-center justify-center space-x-2 mb-6 w-full">
             <p className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-[Montserrat] font-black mb-3 sm:mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent animate-pulse mobile-title-text">
               Testimonials
             </p>
+            <div className='h-1 bg-gradient-to-r from-transparent via-[#c99913] to-transparent rounded-full w-full animate-pulse'></div>
             
-            <div className="h-1 w-full bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] rounded-full animate-pulse"></div>
+            {/* <div className="h-1 w-full bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] rounded-full animate-pulse"></div> */}
           </div>
 
           <div className="flex justify-center mb-6">

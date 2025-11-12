@@ -286,12 +286,12 @@ function DifferentCities() {
           <div className={`transition-all duration-1000 delay-800 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <button
               onClick={showDrawer}
-              className="explore-properties-mobile group relative inline-flex items-center cursor-pointer gap-3 sm:gap-4 px-8 sm:px-12 py-3 sm:py-4 bg-transparent border-2 border-yellow-300 text-gray-300 font-bold text-sm sm:text-lg rounded-2xl shadow-2xl overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-[inset_0_0_12px_rgba(255,255,255,0.1),0_0_20px_rgba(234,179,8,0.4)] hover:border-yellow-400"
+              className="explore-properties-mobile group relative inline-flex items-center cursor-pointer gap-3 sm:gap-4 px-8 sm:px-12 py-3 sm:py-4 bg-transparent border-2 border-[#c08830] text-gray-300 font-bold text-sm sm:text-lg rounded-2xl shadow-2xl overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-[inset_0_0_12px_rgba(255,255,255,0.1),0_0_20px_rgba(234,179,8,0.4)] hover:border-[#c08830] hover:text-[#c08830]"
             >
               <span className="absolute left-[-75%] top-0 w-[50%] h-full bg-gradient-to-r from-transparent via-white/30 to-transparent rotate-12 group-hover:animate-[shine_1.2s_ease-in-out_forwards] pointer-events-none"></span>
               <div className="relative z-10 flex items-center gap-3 sm:gap-4 text-gray-100 group-hover:text-yellow-100 transition-colors duration-300">
                 <RiMapPin2Line className="group-hover:scale-125 group-hover:text-yellow-300 transition-transform duration-300" size={16} />
-                <span className="tracking-wide cursor-pointer group-hover:text-yellow-200 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)] transition-all duration-300">
+                <span className="tracking-wide cursor-pointer group-hover:text-[#c08830] group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)] transition-all duration-300">
                   Explore Properties by Cities
                 </span>
                 <RiArrowRightLine className="group-hover:translate-x-2 group-hover:rotate-12 text-yellow-300 transition-all duration-300" size={16} />

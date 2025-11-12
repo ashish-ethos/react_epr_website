@@ -258,7 +258,8 @@ const PopularLocation = () => {
                 <h2 className="mobile-title-text text-3xl font-[Montserrat] sm:text-4xl md:text-5xl font-black mb-3 sm:mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent">
                     Popular Location
                 </h2>
-                <p className="popular-location-description mobile-subtitle-text text-[#c2c6cb] text-md">
+                <div className="h-1 bg-gradient-to-r from-transparent via-[#c99913] to-transparent rounded-full animate-pulse w-full"> </div>
+                <p className="popular-location-description mobile-subtitle-text text-[#c2c6cb] text-md mt-1">
                     Explore prime locations and key real estate destinations in Gurgaon
                 </p>
                 <div className="locations-grid">
