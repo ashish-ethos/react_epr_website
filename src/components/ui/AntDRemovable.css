@@ -261,7 +261,14 @@
   background:#c08830 !important;
 }
 .ant-switch.ant-switch-small{
-  min-width: 36px !important;
+  min-width: 40px !important;
+  height: 22px !important;
 }
-
+.ant-switch.ant-switch-small.ant-switch-checked .ant-switch-handle{
+  inset-inline-start: calc(100% - 20px) !important;
+}
+.ant-switch.ant-switch-small .ant-switch-handle{
+  width: 18px !important;
+  height: 18px !important;
+}
  

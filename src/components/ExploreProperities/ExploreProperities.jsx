@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Heart, MapPin, Ruler, Eye, Star, X, Share2, Printer, ExternalLink, ArrowLeft } from 'lucide-react';
+import { Heart, MapPin, Ruler, Eye, Star, X, Share2, Printer, ExternalLink, ArrowLeft, Search } from 'lucide-react';
 import { FiPhone } from "react-icons/fi";
 import { Pagination, Empty } from 'antd';
+import { Input } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 import { MdOutlineEmail, MdOutlineWhatsapp } from "react-icons/md";
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import {
@@ -15,7 +17,6 @@ import {
     LinkedinIcon,
     WhatsappIcon,
     EmailIcon,
-
 } from 'react-share';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -35,6 +36,8 @@ const ExploreProperties = ({ filters = {} }) => {
         const saved = localStorage.getItem('shareCounts');
         return saved ? JSON.parse(saved) : {};
     });
+    const [searchTerm, setSearchTerm] = useState(() => searchParams.get('search') || '');
+    const [debouncedSearch, setDebouncedSearch] = useState(() => searchParams.get('search') || '');
     const navigate = useNavigate();
     const { propertyName } = useParams();
 
@@ -47,22 +50,84 @@ const ExploreProperties = ({ filters = {} }) => {
         { key: 'villa', label: 'Villa', count: properties.filter(p => p.type.toLowerCase().includes('villa')).length },
         { key: 'office', label: 'Office', count: properties.filter(p => p.type.toLowerCase().includes('office')).length },
         { key: 'studio', label: 'Studio', count: properties.filter(p => p.type.toLowerCase().includes('studio')).length },
-        { key: 'plot', label: 'Plot', count: properties.filter(p => p.type.toLowerCase().includes('plot')).length },
+        // { key: 'plot', label: 'Plot', count: properties.filter(p => p.type.toLowerCase().includes('plot')).length },
+        { key: 'shop', label: 'Shop', count: properties.filter(p => p.type.toLowerCase().includes('shop')).length },
     ];
 
     const normalizedFilters = useMemo(() => {
         const f = filters || {};
         return {
-            search: f.search ? String(f.search).trim().toLowerCase() : '',
+            search: debouncedSearch || f.search ? String(debouncedSearch || f.search).trim().toLowerCase() : '',
             type: f.type ? String(f.type).trim().toLowerCase() : '',
             city: f.city ? String(f.city).trim().toLowerCase() : '',
         };
-    }, [filters]);
+    }, [filters, debouncedSearch]);
 
+    // Improved handleTabChange: preserve existing search & page params, set tab param
     const handleTabChange = (tabKey) => {
         setActiveTab(tabKey);
-        navigate(`/explore-properties?tab=${tabKey}`);
+        // preserve other params (search, page, etc.)
+        const params = new URLSearchParams(searchParams);
+        params.set('tab', tabKey);
+        // navigate with current params
+        const queryString = params.toString();
+        const url = queryString ? `/explore-properties?${queryString}` : '/explore-properties';
+        navigate(url);
     };
+
+    const handleSearchChange = (e) => {
+        const value = e.target.value;
+        setSearchTerm(value);
+    };
+
+    // Flush search immediately on Enter
+    const handleSearchKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            // prevent default form submission if any
+            e.preventDefault();
+            // apply immediately
+            const trimmed = (searchTerm || '').trim();
+            setDebouncedSearch(trimmed);
+            const params = new URLSearchParams(searchParams);
+            if (trimmed) {
+                params.set('search', trimmed);
+            } else {
+                params.delete('search');
+            }
+            // reset to first page when applying a new search
+            if (params.has('page')) params.delete('page');
+            setSearchParams(params);
+        }
+    };
+
+    // Debounced update of search param (500ms) — keeps existing behavior but also removes page on new search
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedSearch(searchTerm);
+            const currentSearch = searchParams.get('search') || '';
+            if (searchTerm.trim() !== currentSearch) {
+                const params = new URLSearchParams(searchParams);
+                if (searchTerm.trim()) {
+                    params.set('search', searchTerm.trim());
+                } else {
+                    params.delete('search');
+                }
+                // reset to page 1 when search changes
+                if (params.has('page')) params.delete('page');
+                setSearchParams(params);
+            }
+        }, 500);
+
+        return () => clearTimeout(timer);
+        // Note: intentionally depend on searchTerm and searchParams so we keep sync
+    }, [searchTerm, searchParams, setSearchParams]);
+
+    // When URL changes (e.g., user navigates or link opened), sync input states
+    useEffect(() => {
+        const search = searchParams.get('search') || '';
+        setSearchTerm(search);
+        setDebouncedSearch(search);
+    }, [searchParams]);
 
     const getCombinedFiltered = () => {
         let list = properties.slice();
@@ -345,11 +410,11 @@ const ExploreProperties = ({ filters = {} }) => {
                                         <Share2 className="text-[#c2c6cb] w-4 h-4" />
                                     </div>
                                     <div className={`
-                    flex items-center gap-1 px-3 py-0.5 rounded-full
-                    ${(shareCounts[property.id] || 0) > 0 ? 'bg-gradient-to-r from-amber-700/50 to-amber-600/50 text-amber-200' : 'bg-[#333] text-[#c2c6cb]'}
-                    text-sm font-medium fontFamily-Content
-                    transition-all duration-300 hover:shadow-sm border border-[#ffffff38]
-                  `}>
+                                        flex items-center gap-1 px-3 py-0.5 rounded-full
+                                        ${(shareCounts[property.id] || 0) > 0 ? 'bg-gradient-to-r from-amber-700/50 to-amber-600/50 text-amber-200' : 'bg-[#333] text-[#c2c6cb]'}
+                                        text-sm font-medium fontFamily-Content
+                                        transition-all duration-300 hover:shadow-sm border border-[#ffffff38]
+                                    `}>
                                         <span>{shareCounts[property.id] || 0} {(shareCounts[property.id] || 0) === 1 ? 'Shares' : 'Share'}</span>
                                     </div>
                                     <div onClick={handlePrint} className="cursor-pointer flex items-center space-x-1 bg-[#333]/80 backdrop-blur-md rounded-full px-3 py-1 hover:bg-[#444]/80 transition-all">
@@ -544,7 +609,7 @@ const ExploreProperties = ({ filters = {} }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="p-4 sm:p-6">
+                    <div className="p-4">
                         <div className="mb-2 sm:mb-3">
                             <h3 className="text-base sm:text-lg font-[Montserrat] font-bold text-amber-400 mb-1 group-hover:text-amber-400 transition-colors duration-300 line-clamp-1">
                                 {property.name}
@@ -659,18 +724,39 @@ const ExploreProperties = ({ filters = {} }) => {
         navigate(-1, { replace: true });
     };
 
+    const showBackAndSearch = page > 1 || activeTab !== 'all';
+
     return (
         <div className="min-h-screen bg-[#2d2d2d] py-8 sm:py-8 px-4 sm:px-6 lg:px-8">
 
             <div className="max-w-full sm:max-w-7xl mx-auto mb-8 sm:mb-12 text-center">
-                {page > 1 && (
-                    <CustomButton
-                        type="text"
-                        onClick={() => navigate(-1)}
-                        className=" flex items-center text-[#c2c6cb] hover:text-white transition-colors duration-200"
-                    >
-                        <ArrowLeft className="w-4 h-4 " /> Back
-                    </CustomButton>
+                {showBackAndSearch && (
+                    <div className="flex justify-between items-center mb-4">
+                        <CustomButton
+                            type="text"
+                            onClick={() => navigate(-1)}
+                            className=" flex items-center text-[#c2c6cb] hover:text-white transition-colors duration-200"
+                        >
+                            <ArrowLeft className="w-4 h-4 " /> Back
+                        </CustomButton>
+                        <div className="relative w-full max-w-md">
+                            <Input
+                                placeholder="Search properties by name..."
+                                value={searchTerm}
+                                onChange={handleSearchChange}
+                                onKeyDown={handleSearchKeyDown} // ← Enter flush handler
+                                prefix={null}
+                                suffix={<SearchOutlined className="text-gray-400" />}
+                                className="bg-[#333] text-[#c2c6cb] border border-[#ffffff38] rounded-lg py-2"
+                                style={{
+                                    backgroundColor: "#333",
+                                    color: "#c2c6cb",
+                                    borderColor: "#ffffff38",
+                                    height: "40px",
+                                }}
+                            />
+                        </div>
+                    </div>
                 )}
                 <h1 className="mobile-title-text text-3xl font-[Montserrat] sm:text-4xl md:text-5xl font-black mb-3 sm:mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent animate-pulse">
                     Explore Premium Properties
