@@ -113,7 +113,7 @@ const Hero = ({ onSearchChange }) => {
           <video
             ref={videoRef}
             src={backgroundVideo}
-            className="w-full h-full object-cover brightness-90 absolute top-0 left-0"
+            className="w-full h-full object-cover absolute top-0 left-0"
             loop
             muted
             playsInline

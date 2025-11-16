@@ -13,6 +13,7 @@ import {
 import ContactImg from '../../assets/images/about/contact_background.png';
 import ContactMobileImg from '../../assets/images/about/contact_mobile.png'
 import ContactForm from './ContactForm';
+import { FaXTwitter } from "react-icons/fa6";
 
 const Contact = () => {
     const handleSubmitSuccess = () => {
@@ -145,12 +146,12 @@ const Contact = () => {
                                     <Linkedin className="w-5 h-5" />
                                 </a>
                                 <a
-                                    href="https://twitter.com/ethosprorealtors"
+                                    href="https://x.com/ethosprorealtor"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="w-12 h-12 bg-[#c2c6cb]/20 hover:bg-[#c2c6cb]/40 text-[#c2c6cb] rounded-full flex items-center justify-center transition transform hover:scale-110 border border-[#ffffff38]"
                                 >
-                                    <Twitter className="w-5 h-5" />
+                                    <FaXTwitter className="w-5 h-5" />
                                 </a>
                                 <a
                                     href="https://www.youtube.com/@ethosprorealtors"
