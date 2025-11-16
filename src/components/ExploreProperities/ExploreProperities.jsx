@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Heart, MapPin, Ruler, Eye, Star, X, Share2, Printer, ExternalLink, ArrowLeft, Search } from 'lucide-react';
+import { Heart, MapPin, Ruler, Eye, Star, X, Share2, Printer, ExternalLink, ArrowLeft } from 'lucide-react';
 import { FiPhone } from "react-icons/fi";
-import { Pagination, Empty } from 'antd';
-import { Input } from "antd";
+import { Pagination, Empty, Select, Tag } from 'antd';
 import { SearchOutlined } from "@ant-design/icons";
 import { MdOutlineEmail, MdOutlineWhatsapp } from "react-icons/md";
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
@@ -36,7 +35,10 @@ const ExploreProperties = ({ filters = {} }) => {
         const saved = localStorage.getItem('shareCounts');
         return saved ? JSON.parse(saved) : {};
     });
-    const [searchTerm, setSearchTerm] = useState(() => searchParams.get('search') || '');
+    const [searchTerms, setSearchTerms] = useState(() => {
+        const search = searchParams.get('search') || '';
+        return search ? search.split(' ').filter(term => term.trim().length > 0) : [];
+    });
     const [debouncedSearch, setDebouncedSearch] = useState(() => searchParams.get('search') || '');
     const navigate = useNavigate();
     const { propertyName } = useParams();
@@ -75,40 +77,20 @@ const ExploreProperties = ({ filters = {} }) => {
         navigate(url);
     };
 
-    const handleSearchChange = (e) => {
-        const value = e.target.value;
-        setSearchTerm(value);
-    };
-
-    // Flush search immediately on Enter
-    const handleSearchKeyDown = (e) => {
-        if (e.key === 'Enter') {
-            // prevent default form submission if any
-            e.preventDefault();
-            // apply immediately
-            const trimmed = (searchTerm || '').trim();
-            setDebouncedSearch(trimmed);
-            const params = new URLSearchParams(searchParams);
-            if (trimmed) {
-                params.set('search', trimmed);
-            } else {
-                params.delete('search');
-            }
-            // reset to first page when applying a new search
-            if (params.has('page')) params.delete('page');
-            setSearchParams(params);
-        }
+    const handleTagsChange = (tags) => {
+        setSearchTerms(tags);
     };
 
     // Debounced update of search param (500ms) — keeps existing behavior but also removes page on new search
     useEffect(() => {
         const timer = setTimeout(() => {
-            setDebouncedSearch(searchTerm);
+            const searchString = searchTerms.join(' ').trim();
+            setDebouncedSearch(searchString);
             const currentSearch = searchParams.get('search') || '';
-            if (searchTerm.trim() !== currentSearch) {
+            if (searchString !== currentSearch) {
                 const params = new URLSearchParams(searchParams);
-                if (searchTerm.trim()) {
-                    params.set('search', searchTerm.trim());
+                if (searchString) {
+                    params.set('search', searchString);
                 } else {
                     params.delete('search');
                 }
@@ -119,13 +101,14 @@ const ExploreProperties = ({ filters = {} }) => {
         }, 500);
 
         return () => clearTimeout(timer);
-        // Note: intentionally depend on searchTerm and searchParams so we keep sync
-    }, [searchTerm, searchParams, setSearchParams]);
+        // Depend on searchTerms to trigger debounce
+    }, [searchTerms, searchParams, setSearchParams]);
 
     // When URL changes (e.g., user navigates or link opened), sync input states
     useEffect(() => {
         const search = searchParams.get('search') || '';
-        setSearchTerm(search);
+        const terms = search ? search.split(' ').filter(term => term.trim().length > 0) : [];
+        setSearchTerms(terms);
         setDebouncedSearch(search);
     }, [searchParams]);
 
@@ -154,13 +137,16 @@ const ExploreProperties = ({ filters = {} }) => {
             list = list.filter(p => p._location.toLowerCase().includes(c));
         }
         if (search) {
-            const s = search.toLowerCase();
-            list = list.filter(p =>
-                p._name.includes(s) ||
-                p._location.includes(s) ||
-                p._type.includes(s) ||
-                p._price.includes(s)
-            );
+            // Support multiple search terms (space-separated) - match any term
+            const searchTerms = search.split(' ').filter(term => term.length > 0);
+            list = list.filter(p => {
+                return searchTerms.some(term => 
+                    p._name.includes(term) ||
+                    p._location.includes(term) ||
+                    p._type.includes(term) ||
+                    p._price.includes(term)
+                );
+            });
         }
         return list;
     };
@@ -242,6 +228,21 @@ const ExploreProperties = ({ filters = {} }) => {
         const end = start + PAGE_SIZE;
         return filteredProperties.slice(start, end);
     }, [filteredProperties, effectivePage, PAGE_SIZE]);
+
+    const tagRender = (props) => (
+        <Tag
+            closable
+            onClose={props.onClose}
+            style={{
+                backgroundColor: '#444',
+                color: '#c2c6cb',
+                borderColor: '#ffffff38',
+                marginRight: 3,
+            }}
+        >
+            {props.label}
+        </Tag>
+    );
 
     const PropertyModal = ({ property, onClose }) => {
         const [contactForm, setContactForm] = useState({
@@ -726,12 +727,14 @@ const ExploreProperties = ({ filters = {} }) => {
 
     const showBackAndSearch = page > 1 || activeTab !== 'all';
 
+  
+
     return (
         <div className="min-h-screen bg-[#2d2d2d] py-8 sm:py-8 px-4 sm:px-6 lg:px-8">
 
             <div className="max-w-full sm:max-w-7xl mx-auto mb-8 sm:mb-12 text-center">
                 {showBackAndSearch && (
-                    <div className="flex justify-between items-center mb-4">
+                    <div className="flex justify-between items-center mb-4 mobile-back-search-section">
                         <CustomButton
                             type="text"
                             onClick={() => navigate(-1)}
@@ -740,19 +743,18 @@ const ExploreProperties = ({ filters = {} }) => {
                             <ArrowLeft className="w-4 h-4 " /> Back
                         </CustomButton>
                         <div className="relative w-full max-w-md">
-                            <Input
+                            <Select
+                                mode="tags"
+                                // style={selectStyle}
                                 placeholder="Search properties by name..."
-                                value={searchTerm}
-                                onChange={handleSearchChange}
-                                onKeyDown={handleSearchKeyDown} // ← Enter flush handler
-                                prefix={null}
-                                suffix={<SearchOutlined className="text-gray-400" />}
-                                className="bg-[#333] text-[#c2c6cb] border border-[#ffffff38] rounded-lg py-2"
-                                style={{
-                                    backgroundColor: "#333",
-                                    color: "#c2c6cb",
-                                    borderColor: "#ffffff38",
-                                    height: "40px",
+                                value={searchTerms}
+                                onChange={handleTagsChange}
+                                tagRender={tagRender}
+                                tokenSeparators={[',']}
+                                prefix={<SearchOutlined className="text-gray-400 mr-1" />}
+                                dropdownStyle={{
+                                    backgroundColor: '#333',
+                                    color: '#c2c6cb',
                                 }}
                             />
                         </div>

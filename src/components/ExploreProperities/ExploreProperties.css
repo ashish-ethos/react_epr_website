@@ -114,6 +114,11 @@
   .explore-properties-maincontent{
     font-size: 12px !important;
   }
+  .mobile-back-search-section{
+    flex-direction: column;
+    align-items: start;
+    gap: 5px;
+  }
 }
 @media(max-width: 400px){
   .mobile-text-price{

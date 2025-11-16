@@ -271,4 +271,15 @@
   width: 18px !important;
   height: 18px !important;
 }
- 
+.ant-select-multiple .ant-select-selection-wrap{
+  align-self: auto !important;
+}
+.ant-select-multiple{
+  width: 100% !important;
+}
+.ant-select-multiple .ant-select-prefix+.ant-select-selection-wrap .ant-select-selection-placeholder{
+  text-align: start !important;
+}
+.ant-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled) .ant-select-item-option-state{
+  color: #c08830 !important;
+}
