@@ -20,7 +20,7 @@ const BlogExploreArticles = ({ blogPosts, contentMap }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedPost, setSelectedPost] = useState(null);
   const [hoveredPost, setHoveredPost] = useState(null);
-  const [viewMode, setViewMode] = useState("list");
+  const [viewMode, setViewMode] = useState("grid");
   const [filterCategory, setFilterCategory] = useState("all");
   const { Search } = Input;
   const { Option } = Select;

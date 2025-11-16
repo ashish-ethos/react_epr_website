@@ -251,6 +251,7 @@ body {
   background: #333 !important;
   border: 1px solid #ffffff38 !important;
   width: 100% !important;
+  height: auto !important;
 }
 .react-tel-input .flag-dropdown {
   background: #333 !important;

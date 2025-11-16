@@ -19,53 +19,68 @@ const locations = [
     { name: "Southern Peripheral Road", slug: "southern-peripheral-road" },
 ];
 
-const propertyTypeOptions = [
-    { value: 'all', label: 'All' },
-    { value: 'apartments', label: 'Apartments' },
-    { value: 'villas', label: 'Villas' },
-];
+const locationKeywords = {
+    "dwarka-expressway": ["dwarka", "expressway", "sector 102", "sector 103", "sector 106", "sector 109", "sector 113", "bajghera", "panwala khusropur", "chauma"],
+    "golf-course-extension-road": ["golf course extension", "golf course", "sector 65", "sector 66", "badshahpur"],
+    "new-gurgaon": ["new gurgaon", "sector 80", "sector 81", "sector 82", "sector 83", "sector 84", "sector 85", "sector 86", "sector 87", "sector 88", "sector 89", "sector 90", "sector 91", "sector 92", "sector 93", "sector 94", "sector 95", "naurangpur", "wazirpur", "gopalpur", "harsaru", "dhunela", "sikandarpur badha"],
+    "sohna-road": ["sohna", "sohna road", "sector 48", "sector 49", "sector 33", "sector 35", "revenue estate sohn", "dhunela"],
+    "southern-peripheral-road": ["southern peripheral", "spr", "peripheral road", "sector 70", "sector 71", "sector 72", "sector 73", "sector 74", "sector 75", "sector 76", "sector 77", "sector 78", "sector 79", "ghata"],
+};
 
-const bhkOptions = [
+// Derive unique options from data
+const getPropertyTypeOptions = () => {
+    const types = [...new Set(properties.map(p => p.type))].filter(t => t && t.trim());
+    return [
+        { value: 'all', label: 'All' },
+        ...types.map(t => ({ value: t.toLowerCase(), label: t }))
+    ];
+};
+
+const getBHKOptions = () => [
     { value: 'all', label: 'All' },
     { value: '2bhk', label: '2 BHK' },
     { value: '3bhk', label: '3 BHK' },
     { value: '4bhk', label: '4 BHK' },
+    { value: '5bhk', label: '5+ BHK' }, // Extended based on data
 ];
 
-const constructionOptions = [
-    { value: 'all', label: 'All' },
-    { value: 'under', label: 'Under Construction' },
-    { value: 'ready', label: 'Ready to Move' },
-];
+const getConstructionOptions = () => {
+    const statuses = [...new Set(properties.flatMap(p => Array.isArray(p.status) ? p.status : [p.status]).filter(s => s))];
+    const uniqueStatuses = [...new Set(statuses.map(s => s.toLowerCase()))];
+    return [
+        { value: 'all', label: 'All' },
+        { value: 'under-construction', label: 'Under Construction' }, // Map to new launch/hot offer
+        { value: 'ready-to-move', label: 'Ready to Move' }, // Map to sold out/for sale ready
+        ...uniqueStatuses.slice(0, 5).map(s => ({ value: s, label: s.toUpperCase() })) // Top unique
+    ];
+};
 
-const featuresOptions = [
-    { value: 'all', label: 'All' },
-    { value: 'pool', label: 'Pool' },
-    { value: 'gym', label: 'Gym' },
-    { value: 'parking', label: 'Parking' },
-];
+const getFeaturesOptions = () => {
+    const allFacilities = [...new Set(properties.flatMap(p => p.facilities || []))].filter(f => f && f.trim());
+    return [
+        { value: 'all', label: 'All' },
+        ...allFacilities.slice(0, 10).map(f => ({ value: f.toLowerCase(), label: f })) // Top 10
+    ];
+};
 
-const priceOptions = [
+const getPriceOptions = () => [
     { value: 'all', label: 'All' },
+    { value: 'below-50l', label: 'Below ₹50L' },
     { value: '50l-1cr', label: '₹50L - ₹1Cr' },
     { value: '1cr-2cr', label: '₹1Cr - ₹2Cr' },
-    { value: '2crplus', label: '₹2Cr+' },
-];
-
-const interestPropertyOptions = [
-    { value: 'apartments', label: 'Apartments' },
-    { value: 'villas', label: 'Villas' },
-    { value: 'penthouses', label: 'Penthouses' },
-];
-
-const sortOptions = [
-    { value: 'relevance', label: 'Relevance' },
+    { value: '2cr-5cr', label: '₹2Cr - ₹5Cr' },
+    { value: '5crplus', label: '₹5Cr+' },
 ];
 
 const PropertyCard = ({ property, onPropertyClick }) => {
-    // Derive BHK from type or size, fallback to '3' as example
-    const bhk = property.type.toLowerCase().includes('3bhk') ? '3' : '3';
-    const possession = 'Jul 2029';
+    // Improved BHK derivation: check type or size
+    const getBHK = (type, size) => {
+        if (type.toLowerCase().includes('2bhk') || (size && parseInt(size.match(/(\d+)/)?.[1] || 0) < 1500)) return '2';
+        if (type.toLowerCase().includes('3bhk') || (size && parseInt(size.match(/(\d+)/)?.[1] || 0) < 2500)) return '3';
+        return '4+';
+    };
+    const bhk = getBHK(property.type, property.size);
+    const possession = property.status?.includes('Ready') ? 'Ready to Move' : 'Jul 2029'; // Improved
     const address = property.location.split(',')[0];
 
     const handleClick = () => {
@@ -76,7 +91,7 @@ const PropertyCard = ({ property, onPropertyClick }) => {
         <div className="property-card bg-gray-900 rounded-lg overflow-hidden shadow-lg border border-gray-700 cursor-pointer" onClick={handleClick}>
             <div className="relative">
                 <span className="type-tag absolute top-2 left-2 bg-[#c08830] text-white px-2 py-1 rounded text-sm font-medium">
-                    {property.type.includes('Residential') ? 'Apartments' : property.type}
+                    {property.type.includes('Residential') ? 'Residential' : property.type}
                 </span>
                 <Heart className="absolute top-2 right-2 text-gray-400 hover:text-red-500 cursor-pointer w-5 h-5" fill="none" stroke="currentColor" />
                 <h3 className="project-name absolute bottom-2 left-2 right-2 text-white font-bold text-lg bg-black bg-opacity-50 px-2 py-1 rounded">
@@ -110,7 +125,7 @@ const PropertyCard = ({ property, onPropertyClick }) => {
                         <span className="font-bold text-lg">{property.price}</span>
                     </div>
                     <div>
-                        <label className="block text-gray-400 text-xs mb-1">Possession</label>
+                        <label className="block text-gray-400 text-xs mb-1">Status</label>
                         <span className="text-[#c08830] font-medium">{possession}</span>
                     </div>
                 </div>
@@ -129,8 +144,18 @@ const PopularLocation = () => {
     const [filteredProperties, setFilteredProperties] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProperty, setSelectedProperty] = useState(null);
+    const [propertyTypeOptions, setPropertyTypeOptions] = useState([]);
+    const [constructionOptions, setConstructionOptions] = useState([]);
+    const [featuresOptions, setFeaturesOptions] = useState([]);
 
     const formValues = Form.useWatch([], form);
+
+    useEffect(() => {
+        // Derive dynamic options from data
+        setPropertyTypeOptions(getPropertyTypeOptions());
+        setConstructionOptions(getConstructionOptions());
+        setFeaturesOptions(getFeaturesOptions());
+    }, []);
 
     useEffect(() => {
         if (locationName) {
@@ -147,14 +172,17 @@ const PopularLocation = () => {
         const currentLoc = locations.find(l => l.slug === locationName);
         if (!currentLoc) return;
 
-        let filtered = properties.filter(prop =>
-            prop.location.toLowerCase().includes(currentLoc.name.toLowerCase())
-        );
+        let filtered = properties.filter(prop => {
+            const locLower = prop.location.toLowerCase();
+            const keywords = locationKeywords[currentLoc.slug] || [currentLoc.name.toLowerCase()];
+            return keywords.some(kw => locLower.includes(kw.toLowerCase()));
+        });
 
         // Apply search filter if present
         if (searchTerm.trim()) {
             filtered = filtered.filter(prop =>
-                prop.name.toLowerCase().includes(searchTerm.toLowerCase().trim())
+                prop.name.toLowerCase().includes(searchTerm.toLowerCase().trim()) ||
+                prop.location.toLowerCase().includes(searchTerm.toLowerCase().trim())
             );
         }
 
@@ -165,47 +193,72 @@ const PopularLocation = () => {
             );
         }
 
-        // Apply BHK filter
+        // Apply BHK filter (using size approximation)
         if (formValues?.bhk && formValues.bhk !== 'all') {
-            filtered = filtered.filter(p =>
-                p.type.toLowerCase().includes(formValues.bhk)
-            );
-        }
-
-        // Apply construction filter (assuming prop.status is 'under' or 'ready')
-        if (formValues?.construction && formValues.construction !== 'all') {
-            filtered = filtered.filter(p =>
-                p.status === formValues.construction
-            );
-        }
-
-        // Apply features filter (assuming prop.features is an array)
-        if (formValues?.features && formValues.features !== 'all') {
-            filtered = filtered.filter(p =>
-                p.features?.includes(formValues.features)
-            );
-        }
-
-        // Apply price filter
-        if (formValues?.price && formValues.price !== 'all') {
             filtered = filtered.filter(p => {
-                const priceStr = p.price.replace(/[^\d.]/g, '');
-                const priceNum = parseFloat(priceStr);
-                const unitMultiplier = p.price.toLowerCase().includes('cr') ? 100 : 1;
-                const priceInLakhs = priceNum * unitMultiplier;
-
-                switch (formValues.price) {
-                    case '50l-1cr':
-                        return priceInLakhs >= 50 && priceInLakhs <= 100;
-                    case '1cr-2cr':
-                        return priceInLakhs >= 100 && priceInLakhs <= 200;
-                    case '2crplus':
-                        return priceInLakhs > 200;
-                    default:
-                        return true;
+                const sizeMatch = p.size.match(/(\d+(?:\.\d+)?)/);
+                const sizeNum = sizeMatch ? parseFloat(sizeMatch[1]) : 0;
+                const bhkNum = formValues.bhk.replace('bhk', '');
+                switch (bhkNum) {
+                    case '2': return sizeNum >= 800 && sizeNum < 1400;
+                    case '3': return sizeNum >= 1400 && sizeNum < 2200;
+                    case '4': return sizeNum >= 2200 && sizeNum < 3000;
+                    case '5': return sizeNum >= 3000;
+                    default: return true;
                 }
             });
         }
+
+        // Apply construction filter
+        if (formValues?.construction && formValues.construction !== 'all') {
+            filtered = filtered.filter(p => {
+                if (Array.isArray(p.status)) {
+                    const statusLower = p.status.map(s => s.toLowerCase());
+                    if (formValues.construction === 'under-construction') {
+                        return statusLower.some(s => s.includes('new launch') || s.includes('hot offer'));
+                    } else if (formValues.construction === 'ready-to-move') {
+                        return statusLower.some(s => s.includes('sold out') || s.includes('for sale'));
+                    } else {
+                        return statusLower.includes(formValues.construction);
+                    }
+                }
+                return p.status?.toLowerCase() === formValues.construction;
+            });
+        }
+
+        // Apply features filter
+        if (formValues?.features && formValues.features !== 'all') {
+            filtered = filtered.filter(p =>
+                p.facilities?.some(fac => fac.toLowerCase().includes(formValues.features))
+            );
+        }
+
+        // Apply price filter (improved parsing)
+        if (formValues?.price && formValues.price !== 'all') {
+            filtered = filtered.filter(p => {
+                const priceMatch = p.price.match(/₹\s*([\d.]+)\s*(L|Cr)/i);
+                if (!priceMatch) return false;
+                const priceNum = parseFloat(priceMatch[1]);
+                const unit = priceMatch[2].toLowerCase();
+                const priceInCr = unit === 'cr' ? priceNum : priceNum / 100;
+
+                switch (formValues.price) {
+                    case 'below-50l': return priceInCr < 0.5;
+                    case '50l-1cr': return priceInCr >= 0.5 && priceInCr <= 1;
+                    case '1cr-2cr': return priceInCr > 1 && priceInCr <= 2;
+                    case '2cr-5cr': return priceInCr > 2 && priceInCr <= 5;
+                    case '5crplus': return priceInCr > 5;
+                    default: return true;
+                }
+            });
+        }
+
+        // Sort by relevance (e.g., price low to high if no sort specified)
+        filtered.sort((a, b) => {
+            const priceA = parseFloat(a.price.match(/₹\s*([\d.]+)/)?.[1] || 0);
+            const priceB = parseFloat(b.price.match(/₹\s*([\d.]+)/)?.[1] || 0);
+            return priceA - priceB;
+        });
 
         setFilteredProperties(filtered);
     }, [locationName, searchTerm, formValues]);
@@ -293,27 +346,27 @@ const PopularLocation = () => {
             <section className="properties-section py-8 px-4 bg-[#181A1B]">
                 <div className="max-w-7xl mx-auto">
 
-                    <CustomButton type="text" onClick={() => navigate(-1)} className=" flex items-center text-[#c2c6cb] hover:text-white">
+                    <CustomButton type="text" onClick={() => navigate("/popular-location")} className=" flex items-center text-[#c2c6cb] hover:text-white">
                         <ArrowLeft className="w-4 h-4 inline-block" /> Back
                     </CustomButton>
 
                     {/* Header */}
-                    <div className="mb-6">
-                        <h1 className="text-3xl font-bold text-[#c2c6cb] mb-2">
+                    <div className="mb-6 mobile-header-section">
+                        <h1 className="text-3xl font-bold text-[#c2c6cb] mb-2 mobile-popular-location-title">
                             Properties for Sale in {currentLocation.name}, Gurgaon
                         </h1>
-                        <p className="text-[#c2c6cb]">
+                        <p className="text-[#c2c6cb] mobile-popular-location-subtitle">
                             Explore premium properties for sale in {currentLocation.name}, Gurgaon with excellent amenities and excellent connectivity.
                         </p>
                     </div>
 
                     {/* Stats and Actions */}
-                    <div className="flex justify-between items-center mb-8">
+                    <div className="flex justify-between items-center mb-8 mobile-stats-actions-section">
                         <div className="flex items-center space-x-4">
                             <span className="text-sm text-[#c2c6cb]">Showing {filteredProperties.length} properties in {currentLocation.name}</span>
                         </div>
                         <div className="flex items-center space-x-2">
-                            <Button type="text" size="small" icon="⋮" />
+                            <Button type="text" size="small" icon={<span>⋮</span>} />
                         </div>
                     </div>
 
@@ -326,7 +379,7 @@ const PopularLocation = () => {
                                 <Input
                                     prefix={<SearchOutlined className="text-gray-500" />}
                                     allowClear
-                                    placeholder="Search projects..."
+                                    placeholder="Search projects or locations..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                 />
@@ -346,27 +399,27 @@ const PopularLocation = () => {
                             >
                                 {/* Property Types */}
                                 <Form.Item name="propertyType" label={<label className="block text-sm font-medium text-gray-300 mb-2">Property Types</label>}>
-                                    <Select options={propertyTypeOptions} placeholder="Select Property" style={{ width: '100%' }} />
+                                    <Select options={propertyTypeOptions} placeholder="Select Type" style={{ width: '100%' }} />
                                 </Form.Item>
 
                                 {/* BHK */}
-                                <Form.Item name="bhk" label={<label className="block text-sm font-medium text-gray-300 mb-2">BHK</label>}>
-                                    <Select options={bhkOptions} placeholder="Select BHK" style={{ width: '100%' }} />
+                                <Form.Item name="bhk" label={<label className="block text-sm font-medium text-gray-300 mb-2">BHK Configuration</label>}>
+                                    <Select options={getBHKOptions()} placeholder="Select BHK" style={{ width: '100%' }} />
                                 </Form.Item>
 
                                 {/* Stages of Construction */}
-                                <Form.Item name="construction" label={<label className="block text-sm font-medium text-gray-300 mb-2">Stages of Construction</label>}>
-                                    <Select options={constructionOptions} placeholder="Select Construction" style={{ width: '100%' }} />
+                                <Form.Item name="construction" label={<label className="block text-sm font-medium text-gray-300 mb-2">Construction Status</label>}>
+                                    <Select options={constructionOptions} placeholder="Select Status" style={{ width: '100%' }} />
                                 </Form.Item>
 
                                 {/* Features */}
-                                <Form.Item name="features" label={<label className="block text-sm font-medium text-gray-300 mb-2">Features</label>}>
-                                    <Select options={featuresOptions} placeholder="Select Features" style={{ width: '100%' }} />
+                                <Form.Item name="features" label={<label className="block text-sm font-medium text-gray-300 mb-2">Amenities</label>}>
+                                    <Select options={featuresOptions} placeholder="Select Amenity" style={{ width: '100%' }} />
                                 </Form.Item>
 
                                 {/* Price Range */}
                                 <Form.Item name="price" label={<label className="block text-sm font-medium text-gray-300 mb-2">Price Range</label>}>
-                                    <Select options={priceOptions} placeholder="Select Price" style={{ width: '100%' }} />
+                                    <Select options={getPriceOptions()} placeholder="Select Price" style={{ width: '100%' }} />
                                 </Form.Item>
 
                                 {/* Buttons */}
@@ -385,7 +438,7 @@ const PopularLocation = () => {
                         </div>
 
                         {/* Center: Results Area */}
-                        <div className="bg-black rounded-lg p-6 col-span-1 lg:col-span-1 space-y-6 overflow-y-auto max-h-[80vh] custom-scrollbar">
+                        <div className="bg-black rounded-lg p-6 col-span-1 lg:col-span-1 space-y-6 overflow-y-auto max-h-[80vh] custom-scrollbar mobile-results-area">
                             {filteredProperties.length > 0 ? (
                                 filteredProperties.map((property) => (
                                     <PropertyCard key={property.id} property={property} onPropertyClick={handlePropertyClick} />
@@ -403,8 +456,8 @@ const PopularLocation = () => {
                         </div>
 
                         {/* Right: Interest Form */}
-                        <div className="bg-black rounded-lg shadow-md p-6 col-span-1">
-                            <div className="px-4 py-2">
+                        <div className="bg-black rounded-lg shadow-md p-6 col-span-1 mobile-results-area">
+                            <div className="px-4 py-2 mobile-results-area">
                                 <h3 className="text-lg font-semibold text-[#c2c6cb] m-2 text-center">
                                     Interested in {currentLocation.name} Properties?
                                 </h3>

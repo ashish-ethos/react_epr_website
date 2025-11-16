@@ -129,6 +129,15 @@
   .tablet-contact-buttons{
     flex-flow: wrap;
   }
+  .ant-form{
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0 10px;
+    align-items: center;
+  }
+  .ant-select-selector{
+    min-width: 200px !important;
+  }
 }
 .close-modal-icons:hover{
   border-color: #ff0000 !important;

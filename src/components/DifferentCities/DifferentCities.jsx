@@ -224,7 +224,7 @@ function DifferentCities() {
         ))}
       </div>
       <div className="relative z-10 h-auto py-4 sm:py-0 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="max-w-full sm:max-w-5xl mx-auto text-center">
+        <div className="max-w-full w-full mx-auto text-center">
           <div className={`inline-flex items-center gap-2 mb-6 sm:mb-8 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
             <div className="w-8 sm:w-12 h-0.5 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>
             <RiBuilding2Line className="text-yellow-400 animate-pulse" size={16} />

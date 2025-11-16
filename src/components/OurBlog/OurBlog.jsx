@@ -710,7 +710,7 @@ const OurBlog = () => {
                 {/* Article Content Drawer */}
                 <Drawer
                     title={
-                        <p className="text-xs md:text-xl font-bold text-[#c2c6cb]">
+                        <p className="text-xs md:text-sm font-bold text-[#c2c6cb]">
                             {selectedPost?.title}
                         </p>
                     }
