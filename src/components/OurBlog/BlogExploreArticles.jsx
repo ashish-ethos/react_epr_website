@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Search,
   Calendar,
   Clock,
   Eye,
@@ -134,7 +133,6 @@ const BlogExploreArticles = ({ blogPosts, contentMap }) => {
                   onChange={(value) => setFilterCategory(value)}
                   size="middle"
                   className="!rounded-xl !h-10 shadow-sm p-1 bg-[#555] text-[#c2c6cb] border-[#ffffff38] hover:border-[#c08830]"
-                  dropdownStyle={{ borderRadius: "10px", backgroundColor: "#555", color: "#c2c6cb" }}
                 >
                   <Option value="all">All Categories</Option>
                   <Option value="investment">Investment</Option>

@@ -11,7 +11,8 @@ import {
     Home,
     Clock,
     Eye,
-    X
+    X,
+    ExternalLink
 } from 'lucide-react';
 import { Drawer, Grid } from 'antd';
 import BlogExploreArticles from './BlogExploreArticles';
@@ -557,7 +558,7 @@ const OurBlog = () => {
                         >
                             <div className="relative flex items-center gap-3">
                                 <span className="text-lg">Explore All Articles</span>
-                                <ArrowRight className="w-5 h-5 text-[#c2c6cb] group-hover:translate-x-2 transition-transform duration-300" />
+                                <ExternalLink className="w-5 h-5 text-[#c2c6cb] group-hover:translate-x-2 transition-transform duration-300" />
                             </div>
                         </CustomButton>
                     </div>

@@ -437,31 +437,31 @@ const ExploreProperties = ({ filters = {} }) => {
                                         <FacebookShareButton url={shareUrl} quote={shareText} title={shareTitle} onClick={incrementShareCount}>
                                             <div className="flex items-center space-x-2 text-[#c2c6cb] hover:text-blue-400 cursor-pointer">
                                                 <FacebookIcon size={24} round />
-                                                <span className="text-xs font-[Montserrat] ml-2">Facebook</span>
+                                                <span className="text-xs font-[Montserrat] ml-4">Facebook</span>
                                             </div>
                                         </FacebookShareButton>
                                         <TwitterShareButton url={shareUrl} title={shareText} onClick={incrementShareCount}>
                                             <div className="flex items-center space-x-1 text-[#c2c6cb] hover:text-blue-300 cursor-pointer">
                                                 <TwitterIcon size={24} round />
-                                                <span className="text-xs font-[Montserrat] ml-2">X</span>
+                                                <span className="text-xs font-[Montserrat] ml-4">X</span>
                                             </div>
                                         </TwitterShareButton>
                                         <LinkedinShareButton url={shareUrl} title={shareTitle} summary={shareText} onClick={incrementShareCount}>
                                             <div className="flex items-center space-x-1 text-[#c2c6cb] hover:text-blue-500 cursor-pointer">
                                                 <LinkedinIcon size={24} round />
-                                                <span className="text-xs font-[Montserrat] ml-2">LinkedIn</span>
+                                                <span className="text-xs font-[Montserrat] ml-4">LinkedIn</span>
                                             </div>
                                         </LinkedinShareButton>
                                         <WhatsappShareButton url={shareUrl} title={shareText} onClick={incrementShareCount}>
                                             <div className="flex items-center space-x-1 text-[#c2c6cb] hover:text-green-400 cursor-pointer">
                                                 <WhatsappIcon size={24} round />
-                                                <span className="text-xs font-[Montserrat] ml-2">WhatsApp</span>
+                                                <span className="text-xs font-[Montserrat] ml-4">WhatsApp</span>
                                             </div>
                                         </WhatsappShareButton>
                                         <EmailShareButton url={shareUrl} subject={shareTitle} body={shareText} onClick={incrementShareCount}>
                                             <div className="flex items-center space-x-1 text-[#c2c6cb] hover:text-gray-300 cursor-pointer">
                                                 <EmailIcon size={24} round />
-                                                <span className="text-xs font-[Montserrat] ml-2">Email</span>
+                                                <span className="text-xs font-[Montserrat] ml-4">Email</span>
                                             </div>
                                         </EmailShareButton>
                                     </div>
@@ -725,7 +725,8 @@ const ExploreProperties = ({ filters = {} }) => {
         navigate(-1, { replace: true });
     };
 
-    const showBackAndSearch = page > 1 || activeTab !== 'all';
+    // const showBackAndSearch = page > 1 || activeTab !== 'all';
+    const showBackAndSearch = searchParams.toString() !== '';
 
   
 
@@ -737,7 +738,7 @@ const ExploreProperties = ({ filters = {} }) => {
                     <div className="flex justify-between items-center mb-4 mobile-back-search-section">
                         <CustomButton
                             type="text"
-                            onClick={() => navigate(-1)}
+                            onClick={() => navigate("/")}
                             className=" flex items-center text-[#c2c6cb] hover:text-white transition-colors duration-200"
                         >
                             <ArrowLeft className="w-4 h-4 " /> Back
@@ -752,10 +753,7 @@ const ExploreProperties = ({ filters = {} }) => {
                                 tagRender={tagRender}
                                 tokenSeparators={[',']}
                                 prefix={<SearchOutlined className="text-gray-400 mr-1" />}
-                                dropdownStyle={{
-                                    backgroundColor: '#333',
-                                    color: '#c2c6cb',
-                                }}
+                               
                             />
                         </div>
                     </div>

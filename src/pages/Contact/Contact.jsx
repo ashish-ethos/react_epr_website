@@ -6,12 +6,11 @@ import {
     Facebook,
     Instagram,
     Linkedin,
-    Twitter,
     Youtube,
     MapPin,
 } from 'lucide-react';
 import ContactImg from '../../assets/images/about/contact_background.png';
-import ContactMobileImg from '../../assets/images/about/contact_mobile.png'
+import ContactMobileImg from '../../assets/images/about/contact_mobile.jpg'
 import ContactForm from './ContactForm';
 import { FaXTwitter } from "react-icons/fa6";
 
@@ -101,7 +100,7 @@ const Contact = () => {
                         </div>
 
                         {/* Office Location */}
-                        <div className="bg-[#444]/70 rounded-3xl shadow-xl p-8 border border-[#ffffff38] contact-info-cards">
+                        <div className="bg-gradient-to-r from-[#333]/50 to-[#444]/50 rounded-3xl shadow-xl p-6 border border-[#ffffff38] contact-info-cards">
                             <h2 className="text-2xl font-bold text-[#c2c6cb] mb-6">Visit Our Office</h2>
                             <div className="bg-gradient-to-r from-[#333]/50 to-[#444]/50 p-6 rounded-2xl border border-[#ffffff38]">
                                 <div className="flex items-start">
@@ -118,14 +117,14 @@ const Contact = () => {
                         </div>
 
                         {/* Social Media */}
-                        <div className="bg-[#444]/70 rounded-3xl shadow-xl p-8 border border-[#ffffff38] contact-info-cards">
+                        <div className="bg-gradient-to-r from-[#333]/50 to-[#444]/50 rounded-3xl shadow-xl p-6 border border-[#ffffff38] contact-info-cards">
                             <h2 className="text-2xl font-bold text-[#c2c6cb] mb-6">Follow Us On</h2>
                             <div className="flex space-x-4 ">
                                 <a
                                     href="https://www.facebook.com/ethosprorealtors/"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-12 h-12 bg-[#c2c6cb]/20 hover:bg-[#c2c6cb]/40 text-[#c2c6cb] rounded-full flex items-center justify-center transition transform hover:scale-110 border border-[#ffffff38]"
+                                    className="w-12 h-12 bg-black hover:bg-[#c2c6cb]/40 text-[#c2c6cb] rounded-full flex items-center justify-center transition transform hover:scale-110 border border-[#ffffff38]"
                                 >
                                     <Facebook className="w-5 h-5" />
                                 </a>
@@ -133,7 +132,7 @@ const Contact = () => {
                                     href="https://www.instagram.com/ethosprorealtors/"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-12 h-12 bg-[#c2c6cb]/20 hover:bg-[#c2c6cb]/40 text-[#c2c6cb] rounded-full flex items-center justify-center transition transform hover:scale-110 border border-[#ffffff38]"
+                                    className="w-12 h-12 bg-black hover:bg-[#c2c6cb]/40 text-[#c2c6cb] rounded-full flex items-center justify-center transition transform hover:scale-110 border border-[#ffffff38]"
                                 >
                                     <Instagram className="w-5 h-5" />
                                 </a>
@@ -141,7 +140,7 @@ const Contact = () => {
                                     href="https://in.linkedin.com/company/ethos-pro-realtors"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-12 h-12 bg-[#c2c6cb]/20 hover:bg-[#c2c6cb]/40 text-[#c2c6cb] rounded-full flex items-center justify-center transition transform hover:scale-110 border border-[#ffffff38]"
+                                    className="w-12 h-12 bg-black hover:bg-[#c2c6cb]/40 text-[#c2c6cb] rounded-full flex items-center justify-center transition transform hover:scale-110 border border-[#ffffff38]"
                                 >
                                     <Linkedin className="w-5 h-5" />
                                 </a>
@@ -149,7 +148,7 @@ const Contact = () => {
                                     href="https://x.com/ethosprorealtor"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-12 h-12 bg-[#c2c6cb]/20 hover:bg-[#c2c6cb]/40 text-[#c2c6cb] rounded-full flex items-center justify-center transition transform hover:scale-110 border border-[#ffffff38]"
+                                    className="w-12 h-12 bg-black hover:bg-[#c2c6cb]/40 text-[#c2c6cb] rounded-full flex items-center justify-center transition transform hover:scale-110 border border-[#ffffff38]"
                                 >
                                     <FaXTwitter className="w-5 h-5" />
                                 </a>
@@ -157,7 +156,7 @@ const Contact = () => {
                                     href="https://www.youtube.com/@ethosprorealtors"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-12 h-12 bg-[#c2c6cb]/20 hover:bg-[#c2c6cb]/40 text-[#c2c6cb] rounded-full flex items-center justify-center transition transform hover:scale-110 border border-[#ffffff38]"
+                                    className="w-12 h-12 bg-black hover:bg-[#c2c6cb]/40 text-[#c2c6cb] rounded-full flex items-center justify-center transition transform hover:scale-110 border border-[#ffffff38]"
                                 >
                                     <Youtube className="w-5 h-5" />
                                 </a>

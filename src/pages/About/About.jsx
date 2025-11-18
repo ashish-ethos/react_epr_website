@@ -6,7 +6,7 @@ import { TbHomeBitcoin } from "react-icons/tb";
 import OurTeam from '../../components/OurTeam/OurTeam';
 import AboutImg from '../../assets/images/about/office.jpg';
 import backgroundImg from '../../assets/images/about/about_background.png';
-import backgroundMobileImg from '../../assets/images/about/about_mobile.png';
+import backgroundMobileImg from '../../assets/images/about/about_mobile.jpg';
 import SetsApart from '../../components/SetsApart/SetsApart';
 import Testimonial from '../../components/Testimonials/Testimonials';
 import OurBlog from '../../components/OurBlog/OurBlog';
@@ -72,7 +72,7 @@ const About = () => {
                     className="about-image w-full h-[500px] border-2 border-[#ffffff38] bg-cover bg-center bg-no-repeat laptop-about-banner"
                     style={{ backgroundImage: `url(${window.innerWidth < 640 ? backgroundMobileImg : backgroundImg})` }}
                 >
-                    <div className="absolute inset-0 bg-[#333]/40"></div> {/* Dark overlay for contrast */}
+                    
                 </div>
 
                 {/* Centered Chevron Icon */}

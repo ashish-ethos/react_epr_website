@@ -8,6 +8,7 @@ import DeepakBhati from "../../assets/images/home/Deepak-Bhati-150x150.png";
 import Prerna from "../../assets/images/home/Prerna-150x150.jpg";
 import Avantika from "../../assets/images/home/Avantika-150x150.jpg";
 import { FaArrowRightArrowLeft } from "react-icons/fa6";
+import { ExternalLink } from 'lucide-react';
 import { Modal } from "antd";
 import {
   FaFacebookF,
@@ -69,7 +70,7 @@ const teamMembers = [
   {
     id: 3,
     name: "Satya Mandal",
-    position: "Sr. Sales Manager",
+    position: "Vice President",
     image: Satya,
     bio: "Visionary leader with 8+ Years in real estate industry, driving innovation and growth. Leading the company towards new heights with strategic vision and exceptional leadership skills.",
     skills: ["Leadership", "Strategic Planning", "Business Development", "Team Management", "Market Expansion"],
@@ -90,30 +91,8 @@ const teamMembers = [
   },
   {
     id: 4,
-    name: "Deepak Bhati",
-    position: "Sr. Sales Expert",
-    image: DeepakBhati,
-    bio: "Expert in luxury property sales with 7+ years of experience in premium real estate markets. Specializes in high-end residential and commercial properties with a focus on client satisfaction and long-term relationships.",
-    skills: ["Luxury Sales", "Client Relations", "Market Analysis", "Property Valuation", "Negotiation"],
-    experience: "7+ Years",
-    projects: "250+ Properties",
-    phone: "+91 8744964496",
-    email: "deepak.bhati@ethosprorealtors.com",
-    rating: 4.9,
-    achievements: ["Top Performer 2023", "Client Choice Award", "Luxury Sales Expert"],
-    specializations: ["Residential", "Commercial", "Luxury Properties"],
-    socialIcons: [
-      { icon: "FaFacebookF", link: "https://www.facebook.com/ethosprorealtors/" },
-      { icon: "FaXTwitter", link: "https://x.com/ethosprorealtor" },
-      { icon: "FaLinkedinIn", link: "https://www.linkedin.com/company/ethos-pro-realtors/" },
-      { icon: "FaWhatsapp", link: "https://wa.me/918744964496" },
-      { icon: "FaInstagram", link: "https://www.instagram.com/ethosprorealtors/" }
-    ]
-  },
-  {
-    id: 5,
     name: "Prerna Kapuria",
-    position: "Sr. Sales Expert",
+    position: "General Manager",
     image: Prerna,
     bio: "Specialized in residential properties and investment consulting with exceptional client satisfaction. Known for her analytical approach and ability to match clients with their perfect properties.",
     skills: ["Residential Sales", "Investment Advice", "Negotiation", "Market Research", "Client Management"],
@@ -133,9 +112,9 @@ const teamMembers = [
     ]
   },
   {
-    id: 6,
+    id: 5,
     name: "Avantika Kapuria",
-    position: "Sr. Sales Expert",
+    position: "General Manager",
     image: Avantika,
     bio: "Commercial real estate specialist with proven track record in corporate deals. Expert in analyzing market trends and providing strategic advice for commercial investments.",
     skills: ["Commercial Sales", "Property Valuation", "Market Research", "Corporate Deals", "Strategic Planning"],
@@ -146,6 +125,28 @@ const teamMembers = [
     rating: 4.9,
     achievements: ["Commercial Expert 2023", "Deal Maker Award", "Market Analyst"],
     specializations: ["Commercial", "Office Spaces", "Retail Properties"],
+    socialIcons: [
+      { icon: "FaFacebookF", link: "https://www.facebook.com/ethosprorealtors/" },
+      { icon: "FaXTwitter", link: "https://x.com/ethosprorealtor" },
+      { icon: "FaLinkedinIn", link: "https://www.linkedin.com/company/ethos-pro-realtors/" },
+      { icon: "FaWhatsapp", link: "https://wa.me/918744964496" },
+      { icon: "FaInstagram", link: "https://www.instagram.com/ethosprorealtors/" }
+    ]
+  },
+  {
+    id: 6,
+    name: "Deepak Bhati",
+    position: "Sr. Sales Expert",
+    image: DeepakBhati,
+    bio: "Expert in luxury property sales with 7+ years of experience in premium real estate markets. Specializes in high-end residential and commercial properties with a focus on client satisfaction and long-term relationships.",
+    skills: ["Luxury Sales", "Client Relations", "Market Analysis", "Property Valuation", "Negotiation"],
+    experience: "7+ Years",
+    projects: "250+ Properties",
+    phone: "+91 8744964496",
+    email: "deepak.bhati@ethosprorealtors.com",
+    rating: 4.9,
+    achievements: ["Top Performer 2023", "Client Choice Award", "Luxury Sales Expert"],
+    specializations: ["Residential", "Commercial", "Luxury Properties"],
     socialIcons: [
       { icon: "FaFacebookF", link: "https://www.facebook.com/ethosprorealtors/" },
       { icon: "FaXTwitter", link: "https://x.com/ethosprorealtor" },
@@ -212,10 +213,8 @@ const TeamCard = ({ member, index, isVisible, onViewProfile }) => {
               >
                 <span className="flex items-center justify-center gap-2 text-sm">
                   <UserOutlined />
-                  View Full Profile
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
+                  View Profile
+                 <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
                 </span>
               </CustomButton>
             </div>
