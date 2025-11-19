@@ -379,7 +379,7 @@ const ExploreProperties = ({ filters = {} }) => {
                             <img
                                 src={property.image}
                                 alt={property.name}
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-contain"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-gray-900/40" />
 
