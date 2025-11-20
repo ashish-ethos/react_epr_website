@@ -783,8 +783,8 @@ const ExploreProperties = ({ filters = {} }) => {
                         >
                             {tab.label}
                             <span
-                                className={`ml-1 sm:ml-2 px-1 sm:px-2 py-0.5 sm:py-1 rounded-full text-[10px]  sm:text-xs ${activeTab === tab.key
-                                    ? 'bg-[#c99913]/50 text-[#c99913] font-medium'
+                                className={`ml-1 sm:ml-2 px-1 sm:px-2 py-0.5 sm:py-1 rounded-full text-[10px] border  sm:text-xs ${activeTab === tab.key
+                                    ? 'bg-[#c99913]/80 text-black font-medium'
                                     : 'bg-[#444] text-[#c2c6cb] border-1'
                                     }`}
                             >
