@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Input, Typography, Pagination, Empty } from 'antd';
 import { FilterOutlined, DownOutlined, SearchOutlined as SearchIcon } from '@ant-design/icons';
-import { Grid, List, MapPinHouse, LandPlot, Heart, Share2, Eye, Star, X, Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
+import { Grid, List, MapPinHouse, LandPlot, Heart, Share2,  Star, X, Facebook, Instagram, Linkedin, Twitter, ExternalLink } from 'lucide-react';
 import ViewDetailsDrawer from './ViewDetailsDrawer';
 import { properties } from '../../data/propertiesData';
 import { BsWhatsapp } from "react-icons/bs";
@@ -407,8 +407,8 @@ const Residentials = () => {
                 onClick={() => handleViewDetails(property)}
                 className="bg-[#444] text-[#c2c6cb] px-5 py-2 rounded-[10px] cursor-pointer font-semibold flex items-center justify-center gap-2 hover:shadow-md transition-all duration-200"
               >
-                <Eye size={18} />
-                View Details
+               
+                View Details <ExternalLink size={18} />
               </CustomButton>
             </div>
           </div>
@@ -591,8 +591,8 @@ const Residentials = () => {
                 onClick={() => handleViewDetails(property)}
                 className="bg-[#444] text-[#c2c6cb] px-5 py-2 rounded-[10px] cursor-pointer font-semibold flex items-center justify-center gap-2 hover:shadow-md transition-all duration-200"
               >
-                <Eye size={18} />
-                View Details
+                
+                View Details <ExternalLink size={18} />
               </CustomButton>
             </div>
           </div>

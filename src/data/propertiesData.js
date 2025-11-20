@@ -117,7 +117,7 @@ export const properties = [
     description:
       "Airia Mall offers premium commercial spaces in the heart of Gurgaon, ideal for retail and business ventures.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3510.1948247691957!2d77.05033447600975!3d28.38318299535935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d22fecb57f373%3A0xcc4398c9599fcdd7!2sAiria%20Mall!5e0!3m2!1sen!2sin!4v1757830312167!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3510.1948247691957!2d77.05033447600975!3d28.38318299535935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d22fecb57f373%3A0xcc4398c9599fcdd7!2sAiria%20Mall!5e0!3m2!1sen!2sin!4v1757830312167!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "2",
@@ -147,7 +147,7 @@ export const properties = [
     description:
       "M3M Golf Estate offers luxurious apartments with golf course views in Sector 65.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.5916321176837!2d77.0613437260102!3d28.401399694538387!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d22613759d2ef%3A0x33c234317fc5ea64!2sM3M%20Golfestate!5e0!3m2!1sen!2sin!4v1754211334893!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.5916321176837!2d77.0613437260102!3d28.401399694538387!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d22613759d2ef%3A0x33c234317fc5ea64!2sM3M%20Golfestate!5e0!3m2!1sen!2sin!4v1754211334893!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "3",
@@ -171,7 +171,7 @@ export const properties = [
     description:
       "The Omaxe State is a vibrant commercial hub in Dwarka, offering diverse retail and office spaces.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d112266.49041577676!2d77.06526584797331!3d28.439532557291592!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sThe%20Omaxe%20State!5e0!3m2!1sen!2sin!4v1757831051702!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d112266.49041577676!2d77.06526584797331!3d28.439532557291592!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sThe%20Omaxe%20State!5e0!3m2!1sen!2sin!4v1757831051702!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "4",
@@ -201,7 +201,7 @@ export const properties = [
     description:
       "M3M Antalya Hills offers luxurious residential living with scenic views and modern amenities.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3511.0514500484305!2d76.97008157549077!3d28.357294075816153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d08fd4687b7%3A0x74bc7b179b80852!2sM3M%20Antalya%20Hills!5e0!3m2!1sen!2sin!4v1754210958417!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3511.0514500484305!2d76.97008157549077!3d28.357294075816153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d08fd4687b7%3A0x74bc7b179b80852!2sM3M%20Antalya%20Hills!5e0!3m2!1sen!2sin!4v1754210958417!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "5",
@@ -227,7 +227,7 @@ export const properties = [
     description:
       "Emerald Hills Villas provide exclusive, spacious living with premium facilities in Gurgaon.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "6",
@@ -252,7 +252,7 @@ export const properties = [
     description:
       "World Trade Center in Noida offers premium office spaces with global business connectivity.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "7",
@@ -282,7 +282,7 @@ export const properties = [
     description:
       "Ganga Green Valley offers plots in a green environment. Developer: Ganga Realty. ",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "8",
@@ -312,7 +312,7 @@ export const properties = [
     description:
       "Central Park Flower Valley offers elegant residential spaces with lush surroundings.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508.863360441167!2d77.03493257549314!3d28.42337957577965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d191ab1c1c09b%3A0xe8981596d5b56301!2sThe%20Room!5e0!3m2!1sen!2sin!4v1754210749929!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508.863360441167!2d77.03493257549314!3d28.42337957577965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d191ab1c1c09b%3A0xe8981596d5b56301!2sThe%20Room!5e0!3m2!1sen!2sin!4v1754210749929!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "9",
@@ -342,7 +342,7 @@ export const properties = [
     description:
       "M3M Mansion offers ultra-luxury residences with top-tier amenities in Sector 113.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14021.337444733965!2d77.01855426399176!3d28.529668041185936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1b89af3e9f25%3A0x933e8ef98fc61271!2sM3M%20MANSION!5e0!3m2!1sen!2sin!4v1757834670154!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14021.337444733965!2d77.01855426399176!3d28.529668041185936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1b89af3e9f25%3A0x933e8ef98fc61271!2sM3M%20MANSION!5e0!3m2!1sen!2sin!4v1757834670154!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "10",
@@ -373,7 +373,7 @@ export const properties = [
     description:
       "Krisumi Waterfall Residences blend Japanese design with modern luxury in Gurugram.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.042404124467!2d76.97323727530869!3d28.417977324206685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3daba8918f95%3A0x5c81fa76593240e6!2sKrisumi%20Waterfall%20Residences%20Gurgaon!5e0!3m2!1sen!2sin!4v1757834271844!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.042404124467!2d76.97323727530869!3d28.417977324206685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3daba8918f95%3A0x5c81fa76593240e6!2sKrisumi%20Waterfall%20Residences%20Gurgaon!5e0!3m2!1sen!2sin!4v1757834271844!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "11",
@@ -403,7 +403,7 @@ export const properties = [
     description:
       "Tulip Monsella offers premium residences with sophisticated design in Sector 53.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8344.828122566823!2d77.10560955762789!3d28.43228855790621!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d18b2ad16cb25%3A0x53a7417010e02f99!2sTulip%20Monsella%20Luxury%20Residences!5e0!3m2!1sen!2sin!4v1757832397897!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8344.828122566823!2d77.10560955762789!3d28.43228855790621!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d18b2ad16cb25%3A0x53a7417010e02f99!2sTulip%20Monsella%20Luxury%20Residences!5e0!3m2!1sen!2sin!4v1757832397897!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "12",
@@ -432,7 +432,7 @@ export const properties = [
     description:
       "Smartworld One DXP provides modern residential living with smart home features.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.335131206927!2d77.02627907601368!3d28.52964488874452!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1b003439c981%3A0x483544ed2c5ee6f1!2sSmartworld%20One%20DXP!5e0!3m2!1sen!2sin!4v1757834459163!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.335131206927!2d77.02627907601368!3d28.52964488874452!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1b003439c981%3A0x483544ed2c5ee6f1!2sSmartworld%20One%20DXP!5e0!3m2!1sen!2sin!4v1757834459163!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "13",
@@ -456,7 +456,7 @@ export const properties = [
     description:
       "Reach Airia Mall is a prime commercial destination with versatile retail spaces.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3510.1949801965334!2d77.05290939999999!3d28.3831783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d22fecb57f373%3A0xcc4398c9599fcdd7!2sAiria%20Mall!5e0!3m2!1sen!2sin!4v1757056790627!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3510.1949801965334!2d77.05290939999999!3d28.3831783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d22fecb57f373%3A0xcc4398c9599fcdd7!2sAiria%20Mall!5e0!3m2!1sen!2sin!4v1757056790627!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "14",
@@ -481,7 +481,7 @@ export const properties = [
     description:
       "AIPL Business Club offers premium office spaces with cutting-edge facilities.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.609709841506!2d77.08291657601029!3d28.400853894562918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d23d5f6b9dbd3%3A0x92e14f418c1c63a3!2sAIPL%20Business%20Club%20%7C%20AIPL%20Corporate%20Office!5e0!3m2!1sen!2sin!4v1757056995761!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.609709841506!2d77.08291657601029!3d28.400853894562918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d23d5f6b9dbd3%3A0x92e14f418c1c63a3!2sAIPL%20Business%20Club%20%7C%20AIPL%20Corporate%20Office!5e0!3m2!1sen!2sin!4v1757056995761!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "15",
@@ -512,7 +512,7 @@ export const properties = [
     description:
       "M3M Duo High is a sold-out high-rise project. Developer: M3M Gurgaon.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3510.1948247691957!2d77.05033447600975!3d28.38318299535935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d22fecb57f373%3A0xcc4398c9599fcdd7!2sAiria%20Mall!5e0!3m2!1sen!2sin!4v1757830312167!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3510.1948247691957!2d77.05033447600975!3d28.38318299535935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d22fecb57f373%3A0xcc4398c9599fcdd7!2sAiria%20Mall!5e0!3m2!1sen!2sin!4v1757830312167!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "16",
@@ -537,7 +537,7 @@ export const properties = [
     description:
       "AIPL Joy Street combines retail and leisure in a vibrant commercial setting.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3510.1948247691957!2d77.05033447600975!3d28.38318299535935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d22fecb57f373%3A0xcc4398c9599fcdd7!2sAiria%20Mall!5e0!3m2!1sen!2sin!4v1757830312167!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3510.1948247691957!2d77.05033447600975!3d28.38318299535935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d22fecb57f373%3A0xcc4398c9599fcdd7!2sAiria%20Mall!5e0!3m2!1sen!2sin!4v1757830312167!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "17",
@@ -563,7 +563,7 @@ export const properties = [
     description:
       "Cygnett Retreat offers unique commercial spaces in the serene hills of Uttarakhand.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3475.493112242733!2d79.39137807603782!3d29.414380948146913!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39a0a1003e30499f%3A0xbb9f40126bddcab0!2sCygnett%20Retreat%20Pangot%20bagar%20road%20smanro%20range%20nanital!5e0!3m2!1sen!2sin!4v1754211389578!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3475.493112242733!2d79.39137807603782!3d29.414380948146913!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39a0a1003e30499f%3A0xbb9f40126bddcab0!2sCygnett%20Retreat%20Pangot%20bagar%20road%20smanro%20range%20nanital!5e0!3m2!1sen!2sin!4v1754211389578!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "18",
@@ -588,7 +588,7 @@ export const properties = [
     description:
       "M3M IFC is a prestigious commercial complex with world-class office spaces.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.457433649124!2d77.0559285260104!3d28.405451094355417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d232feac73921%3A0xf89506df3431ebf!2sM3M%20IFC!5e0!3m2!1sen!2sin!4v1757831862243!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.457433649124!2d77.0559285260104!3d28.405451094355417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d232feac73921%3A0xf89506df3431ebf!2sM3M%20IFC!5e0!3m2!1sen!2sin!4v1757831862243!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "19",
@@ -618,7 +618,7 @@ export const properties = [
     description:
       "Ashiana Amarah is a family-oriented residential project. Developer: Ashiana Housing Ltd.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "20",
@@ -643,7 +643,7 @@ export const properties = [
     description:
       "Sobha International City offers luxurious villas with global design standards.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.8648188526845!2d76.99439727601327!3d28.51371458946548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d10ad1732bb97%3A0xb3229fb8929e6a8d!2sSobha%20International%20City!5e0!3m2!1sen!2sin!4v1754211291277!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.8648188526845!2d76.99439727601327!3d28.51371458946548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d10ad1732bb97%3A0xb3229fb8929e6a8d!2sSobha%20International%20City!5e0!3m2!1sen!2sin!4v1754211291277!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "21",
@@ -671,7 +671,7 @@ export const properties = [
     description:
       "Sobha Aranya offers spacious 3-4 BHK flats in Sector 80. Developer: Sobha Limited.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.8648188526845!2d76.99439727601327!3d28.51371458946548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d10ad1732bb97%3A0xb3229fb8929e6a8d!2sSobha%20International%20City!5e0!3m2!1sen!2sin!4v1754211291277!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.8648188526845!2d76.99439727601327!3d28.51371458946548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d10ad1732bb97%3A0xb3229fb8929e6a8d!2sSobha%20International%20City!5e0!3m2!1sen!2sin!4v1754211291277!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "22",
@@ -696,7 +696,7 @@ export const properties = [
     description:
       "M3M IFC offers modern office spaces with premium amenities in Gurgaon.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.457433649124!2d77.0559285260104!3d28.405451094355417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d232feac73921%3A0xf89506df3431ebf!2sM3M%20IFC!5e0!3m2!1sen!2sin!4v1757831862243!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.457433649124!2d77.0559285260104!3d28.405451094355417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d232feac73921%3A0xf89506df3431ebf!2sM3M%20IFC!5e0!3m2!1sen!2sin!4v1757831862243!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "23",
@@ -721,7 +721,7 @@ export const properties = [
     description:
       "AIPL Autograph provides sophisticated corporate office spaces in Sector 66.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.72070962259!2d77.06025357601011!3d28.397502394713946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d23b8092a653b%3A0x8de37e83207cd640!2sAIPL%20Autograph%20Sec%2066%7C%20Corporate%20office%20Space%20Gurugram%20%7C%20Professional%20Business%20Center%20Gurgaon!5e0!3m2!1sen!2sin!4v1754211120972!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.72070962259!2d77.06025357601011!3d28.397502394713946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d23b8092a653b%3A0x8de37e83207cd640!2sAIPL%20Autograph%20Sec%2066%7C%20Corporate%20office%20Space%20Gurugram%20%7C%20Professional%20Business%20Center%20Gurgaon!5e0!3m2!1sen!2sin!4v1754211120972!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "24",
@@ -746,7 +746,7 @@ export const properties = [
     description:
       "Elan The Mark provides vibrant commercial spaces in Sector 106.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.289921418064!2d77.00450517549602!3d28.500923775736812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1700b8332841%3A0x1a820bf6925742bd!2sElan%20The%20Mark!5e0!3m2!1sen!2sin!4v1757056842576!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.289921418064!2d77.00450517549602!3d28.500923775736812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1700b8332841%3A0x1a820bf6925742bd!2sElan%20The%20Mark!5e0!3m2!1sen!2sin!4v1757056842576!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "25",
@@ -778,7 +778,7 @@ export const properties = [
     description:
       "Elan The Presidential offers luxurious residential apartments in Sector 106.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.289921418064!2d77.00450517549602!3d28.500923775736812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1700b8332841%3A0x1a820bf6925742bd!2sElan%20The%20Mark!5e0!3m2!1sen!2sin!4v1757056323726!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.289921418064!2d77.00450517549602!3d28.500923775736812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1700b8332841%3A0x1a820bf6925742bd!2sElan%20The%20Mark!5e0!3m2!1sen!2sin!4v1757056323726!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "26",
@@ -802,7 +802,7 @@ export const properties = [
     description:
       "Elan Epic is a premium commercial mall with retail shops in Sector 70.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.89563185905!2d77.0304376!3d28.392220100000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d23007483c609%3A0x4bf398ae7e61c375!2sElan%20Epic!5e0!3m2!1sen!2sin!4v1757830225488!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.89563185905!2d77.0304376!3d28.392220100000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d23007483c609%3A0x4bf398ae7e61c375!2sElan%20Epic!5e0!3m2!1sen!2sin!4v1757830225488!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "27",
@@ -833,7 +833,7 @@ export const properties = [
     description:
       "Pioneer Urban Presidia provides premium residential living in Sector 62.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1754.6121159845757!2d77.08775338883909!3d28.412490103071157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2210efcc50d7%3A0x711f24390ec4fd5d!2sPioneer%20Presidia%2C%20Sector%2062%2C%20Ghata%2C%20Gurugram%2C%20Haryana%20122098!5e0!3m2!1sen!2sin!4v1754211246279!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1754.6121159845757!2d77.08775338883909!3d28.412490103071157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2210efcc50d7%3A0x711f24390ec4fd5d!2sPioneer%20Presidia%2C%20Sector%2062%2C%20Ghata%2C%20Gurugram%2C%20Haryana%20122098!5e0!3m2!1sen!2sin!4v1754211246279!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "28",
@@ -864,7 +864,7 @@ export const properties = [
     description:
       "Godrej Aristocrat offers premium 3 BHK luxury apartments in Sector 49, Gurugram. Developer: Godrej Properties.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "29",
@@ -896,7 +896,7 @@ export const properties = [
     description:
       "DLF The Camellias is an ultra-luxury residential project on Golf Course Road. Developer: DLF Residential Builders. ",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.731731114595!2d77.07934317601016!3d28.39716959472888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2376bf488c31%3A0xb4a7d53c84ccdc16!2sDLF%20Arbour!5e0!3m2!1sen!2sin!4v1754211014525!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.731731114595!2d77.07934317601016!3d28.39716959472888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2376bf488c31%3A0xb4a7d53c84ccdc16!2sDLF%20Arbour!5e0!3m2!1sen!2sin!4v1754211014525!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "30",
@@ -927,7 +927,7 @@ export const properties = [
     description:
       "DLF Privana West offers luxurious living in Sector 76. Developer: DLF Limited.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "31",
@@ -959,7 +959,7 @@ export const properties = [
     description:
       "Signature Global Titanium SPR is a premium residential development in Sector 71. Developer: Signature Global.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "32",
@@ -991,7 +991,7 @@ export const properties = [
     description:
       "M3M Altitude provides high-end apartments on GCRE. Developer: M3M Group. ",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "33",
@@ -1022,7 +1022,7 @@ export const properties = [
     description:
       "The Dahlias offers spacious luxury units in DLF 5. Developer: DLF Ltd. ",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.731731114595!2d77.07934317601016!3d28.39716959472888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2376bf488c31%3A0xb4a7d53c84ccdc16!2sDLF%20Arbour!5e0!3m2!1sen!2sin!4v1754211014525!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.731731114595!2d77.07934317601016!3d28.39716959472888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2376bf488c31%3A0xb4a7d53c84ccdc16!2sDLF%20Arbour!5e0!3m2!1sen!2sin!4v1754211014525!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "34",
@@ -1053,7 +1053,7 @@ export const properties = [
     description:
       "M3M Golf Estate SCDA features premium residences in Sector 113. Developer: M3M Properties.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3511.0514500484305!2d76.97008157549077!3d28.357294075816153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d08fd4687b7%3A0x74bc7b179b80852!2sM3M%20Antalya%20Hills!5e0!3m2!1sen!2sin!4v1754210958417!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3511.0514500484305!2d76.97008157549077!3d28.357294075816153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d08fd4687b7%3A0x74bc7b179b80852!2sM3M%20Antalya%20Hills!5e0!3m2!1sen!2sin!4v1754210958417!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "35",
@@ -1084,7 +1084,7 @@ export const properties = [
     description:
       "Conscient Hines Elevate is a modern residential project in Sector 59. Developer: Conscient + Hines. ",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "36",
@@ -1116,7 +1116,7 @@ export const properties = [
     description:
       "M3M Polo Suites offers luxurious suites on Golf Course Extension. Developer: M3M India.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "37",
@@ -1148,7 +1148,7 @@ export const properties = [
     description:
       "Godrej Meridien provides contemporary homes on Dwarka Expressway. Developer: Godrej Properties. ",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "38",
@@ -1179,7 +1179,7 @@ export const properties = [
     description:
       "DLF The Ultima provides modern apartments in Sector 81. Developer: DLF. ",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "39",
@@ -1210,7 +1210,7 @@ export const properties = [
     description:
       "Trump Towers offer ultra-premium living in partnership with Trump. Developer: Trump / developer partnership. ",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "40",
@@ -1241,7 +1241,7 @@ export const properties = [
     description:
       "M3M Golf Estate 2 is a golf-themed residential project. Developer: M3M India.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3511.0514500484305!2d76.97008157549077!3d28.357294075816153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d08fd4687b7%3A0x74bc7b179b80852!2sM3M%20Antalya%20Hills!5e0!3m2!1sen!2sin!4v1754210958417!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3511.0514500484305!2d76.97008157549077!3d28.357294075816153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d08fd4687b7%3A0x74bc7b179b80852!2sM3M%20Antalya%20Hills!5e0!3m2!1sen!2sin!4v1754210958417!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "41",
@@ -1272,7 +1272,7 @@ export const properties = [
     description:
       "M3M Golf Hills offers premium homes with golf views. Developer: M3M India. ",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3511.0514500484305!2d76.97008157549077!3d28.357294075816153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d08fd4687b7%3A0x74bc7b179b80852!2sM3M%20Antalya%20Hills!5e0!3m2!1sen!2sin!4v1754210958417!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3511.0514500484305!2d76.97008157549077!3d28.357294075816153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d08fd4687b7%3A0x74bc7b179b80852!2sM3M%20Antalya%20Hills!5e0!3m2!1sen!2sin!4v1754210958417!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "42",
@@ -1304,7 +1304,7 @@ export const properties = [
     description:
       "M3M Woodshire provides affordable luxury on Dwarka Expressway. Developer: M3M Gurgaon. ",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.8648188526845!2d76.99439727601327!3d28.51371458946548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d10ad1732bb97%3A0xb3229fb8929e6a8d!2sSobha%20International%20City!5e0!3m2!1sen!2sin!4v1754211291277!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.8648188526845!2d76.99439727601327!3d28.51371458946548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d10ad1732bb97%3A0xb3229fb8929e6a8d!2sSobha%20International%20City!5e0!3m2!1sen!2sin!4v1754211291277!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "43",
@@ -1335,7 +1335,7 @@ export const properties = [
     description:
       "DLF The Arbour offers ultra-luxury apartments with premium amenities in Sector 63.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.731731114595!2d77.07934317601016!3d28.39716959472888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2376bf488c31%3A0xb4a7d53c84ccdc16!2sDLF%20Arbour!5e0!3m2!1sen!2sin!4v1754211014525!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.731731114595!2d77.07934317601016!3d28.39716959472888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2376bf488c31%3A0xb4a7d53c84ccdc16!2sDLF%20Arbour!5e0!3m2!1sen!2sin!4v1754211014525!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "44",
@@ -1366,7 +1366,7 @@ export const properties = [
     description:
       "Pioneer Araya provides ultra-luxury residences with exclusive features.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.213483651477!2d77.0861129760106!3d28.412814494023355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d237a6358d52d%3A0x85137a3710a6197!2sPioneer%20Araya%2C%20Tower%20D!5e0!3m2!1sen!2sin!4v1754211151159!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.213483651477!2d77.0861129760106!3d28.412814494023355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d237a6358d52d%3A0x85137a3710a6197!2sPioneer%20Araya%2C%20Tower%20D!5e0!3m2!1sen!2sin!4v1754211151159!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "45",
@@ -1397,7 +1397,7 @@ export const properties = [
     description:
       "Elan The Emperor offers luxurious apartments and commercial spaces in Sector 66.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.289921418064!2d77.00450517549602!3d28.500923775736812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1700b8332841%3A0x1a820bf6925742bd!2sElan%20The%20Mark!5e0!3m2!1sen!2sin!4v1757056323726!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.289921418064!2d77.00450517549602!3d28.500923775736812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1700b8332841%3A0x1a820bf6925742bd!2sElan%20The%20Mark!5e0!3m2!1sen!2sin!4v1757056323726!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "46",
@@ -1428,7 +1428,7 @@ export const properties = [
     description:
       "Vatika India Next is a premium residential township spread across multiple sectors.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14039.09440898772!2d76.95374509440316!3d28.395905240369025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d72fc1effaf%3A0xa453365c5424d877!2sVATIKA%20INDIA%20NEXT%2C%202c%2C%20K%20Block%20Rd%2C%20Sector%2083%2C%20Gurugram%2C%20Haryana%20122012!5e0!3m2!1sen!2sin!4v1760682896689!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14039.09440898772!2d76.95374509440316!3d28.395905240369025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d72fc1effaf%3A0xa453365c5424d877!2sVATIKA%20INDIA%20NEXT%2C%202c%2C%20K%20Block%20Rd%2C%20Sector%2083%2C%20Gurugram%2C%20Haryana%20122012!5e0!3m2!1sen!2sin!4v1760682896689!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "47",
@@ -1459,7 +1459,7 @@ export const properties = [
     description:
       "Emaar Emerald Floors offers luxurious villas and floors in Sector 65 and 62.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14036.69659392762!2d77.06795844678942!3d28.41400162510635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2243437f83ff%3A0x880b9f8f011c1709!2sEmaar%20Emerald%20Floors%20Premier!5e0!3m2!1sen!2sin!4v1760683454862!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14036.69659392762!2d77.06795844678942!3d28.41400162510635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2243437f83ff%3A0x880b9f8f011c1709!2sEmaar%20Emerald%20Floors%20Premier!5e0!3m2!1sen!2sin!4v1760683454862!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "48",
@@ -1490,7 +1490,7 @@ export const properties = [
     description:
       "Emaar Palm Heights is a premium residential project in Sector 77, part of the larger Palm Hills development.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3510.072479934819!2d76.97570288722638!3d28.386878732808764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3de1def7d675%3A0x4787339a25cbbb3d!2sEmaar%20Palm%20Heights!5e0!3m2!1sen!2sin!4v1760683798934!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3510.072479934819!2d76.97570288722638!3d28.386878732808764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3de1def7d675%3A0x4787339a25cbbb3d!2sEmaar%20Palm%20Heights!5e0!3m2!1sen!2sin!4v1760683798934!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "49",
@@ -1521,7 +1521,7 @@ export const properties = [
     description:
       "SmartWorld The Edition offers luxurious apartments with modern amenities in Sector 66.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.624955428109!2d77.05504507613124!3d28.400393594583285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d231adfe736c1%3A0x42c03a570f0c3503!2sSmartworld%20The%20Edition!5e0!3m2!1sen!2sin!4v1760684023142!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.624955428109!2d77.05504507613124!3d28.400393594583285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d231adfe736c1%3A0x42c03a570f0c3503!2sSmartworld%20The%20Edition!5e0!3m2!1sen!2sin!4v1760684023142!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "50",
@@ -1553,7 +1553,7 @@ export const properties = [
     description:
       " Bestech Park View offers premium residential options in Sectors 48 and 92.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14037.729638680361!2d77.02496073955078!3d28.40620650000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d22918f5aedaf%3A0x92adc9c511ceeb9d!2sBestech-Park%20View%20City%201!5e0!3m2!1sen!2sin!4v1760684267712!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14037.729638680361!2d77.02496073955078!3d28.40620650000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d22918f5aedaf%3A0x92adc9c511ceeb9d!2sBestech-Park%20View%20City%201!5e0!3m2!1sen!2sin!4v1760684267712!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "51",
@@ -1584,7 +1584,7 @@ export const properties = [
     description:
       "Ireo Skyon and Ireo City offer premium residential options with modern amenities in Sector 60.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6490577257646!2d77.0939091754923!3d28.399665875792802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2223f6a5ddcb%3A0xe90f9c27944803c3!2sIreo%20Skyon!5e0!3m2!1sen!2sin!4v1760685856772!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6490577257646!2d77.0939091754923!3d28.399665875792802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2223f6a5ddcb%3A0xe90f9c27944803c3!2sIreo%20Skyon!5e0!3m2!1sen!2sin!4v1760685856772!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "52",
@@ -1615,7 +1615,7 @@ export const properties = [
     description:
       "DLF Arcade and Arcade 68 offer premium commercial and residential plots in Sector 68.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56163.351132989046!2d76.98245085820308!3d28.38274130000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2323a22a7f6b%3A0x7cd86b6d352ea159!2sDLF%20Sco%20Gurgaon!5e0!3m2!1sen!2sin!4v1760686014910!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56163.351132989046!2d76.98245085820308!3d28.38274130000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2323a22a7f6b%3A0x7cd86b6d352ea159!2sDLF%20Sco%20Gurgaon!5e0!3m2!1sen!2sin!4v1760686014910!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "53",
@@ -1646,7 +1646,7 @@ export const properties = [
     description:
       "BPTP Park Spacio offers premium residential options in Sector 37D near Village Basai.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507.8509859371215!2d76.97204377549424!3d28.453908075762723!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17af75b9f88d%3A0xd297ced809474178!2sBPTP%20Park%20Serene%20%26%20Spacio%2C%20Sector%2037D%2C%20Gurugram%2C%20Haryana%20122006!5e0!3m2!1sen!2sin!4v1760686640910!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507.8509859371215!2d76.97204377549424!3d28.453908075762723!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17af75b9f88d%3A0xd297ced809474178!2sBPTP%20Park%20Serene%20%26%20Spacio%2C%20Sector%2037D%2C%20Gurugram%2C%20Haryana%20122006!5e0!3m2!1sen!2sin!4v1760686640910!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "54",
@@ -1677,7 +1677,7 @@ export const properties = [
     description:
       "Arden 45 offers premium residential options in Sector 45 by Uday Buildwell.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d56146.789456987695!2d77.03705847314804!3d28.41399581317916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sArden%2045%20is%20a%20residential%20and%20commercial%20project%20in%20Sector%2045%2C%20Gurgaon%2C!5e0!3m2!1sen!2sin!4v1760687618962!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d56146.789456987695!2d77.03705847314804!3d28.41399581317916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sArden%2045%20is%20a%20residential%20and%20commercial%20project%20in%20Sector%2045%2C%20Gurgaon%2C!5e0!3m2!1sen!2sin!4v1760687618962!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "55",
@@ -1708,7 +1708,7 @@ export const properties = [
     description:
       "Adani Oyster Grande offers luxurious residential options in Sector 102 and 102A by Adani Realty.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.9380426883617!2d76.97023387549524!3d28.48141247574752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2264093d7205%3A0xcfbbe7575e1d09e7!2sAdani%20Oyster%20Grande!5e0!3m2!1sen!2sin!4v1760688050505!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.9380426883617!2d76.97023387549524!3d28.48141247574752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2264093d7205%3A0xcfbbe7575e1d09e7!2sAdani%20Oyster%20Grande!5e0!3m2!1sen!2sin!4v1760688050505!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "56",
@@ -1740,7 +1740,7 @@ export const properties = [
     description:
       "AIPL Lake City offers premium residential options on Dwarka Expressway in Sector 103.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.197228973505!2d76.97926627549606!3d28.503713225735417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1725b5aace4d%3A0x10f9e2542a3d99ea!2sAIPL%20Lake%20City!5e0!3m2!1sen!2sin!4v1760691112351!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.197228973505!2d76.97926627549606!3d28.503713225735417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1725b5aace4d%3A0x10f9e2542a3d99ea!2sAIPL%20Lake%20City!5e0!3m2!1sen!2sin!4v1760691112351!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "57",
@@ -1771,7 +1771,7 @@ export const properties = [
     description:
       "Mapsko The ICON 79 offers premium residential options in Sector 79 by Mapsko.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3510.974988527903!2d76.96847437549077!3d28.359605775814895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d7cf56f4ad7%3A0x12cc6704eada1f42!2sMapsko%20The%20Icon%2079!5e0!3m2!1sen!2sin!4v1760691167374!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3510.974988527903!2d76.96847437549077!3d28.359605775814895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d7cf56f4ad7%3A0x12cc6704eada1f42!2sMapsko%20The%20Icon%2079!5e0!3m2!1sen!2sin!4v1760691167374!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "58",
@@ -1802,7 +1802,7 @@ export const properties = [
     description:
       "Mapsko Casa Bella offers premium residential options in Sector 82 by Mapsko.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.8443309622835!2d76.96039927549208!3d28.39376937579598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d9f95285b77%3A0xd2a215b5d9ca1df!2sMapsko%20Casa%20Bella!5e0!3m2!1sen!2sin!4v1760691296385!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.8443309622835!2d76.96039927549208!3d28.39376937579598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d9f95285b77%3A0xd2a215b5d9ca1df!2sMapsko%20Casa%20Bella!5e0!3m2!1sen!2sin!4v1760691296385!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "59",
@@ -1833,7 +1833,7 @@ export const properties = [
     description:
       "Mapsko Mount Ville offers premium residential options in Sector 78-79 by Mapsko.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3510.918689720647!2d76.96827797549093!3d28.361307775813934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d685962d5b5%3A0x159207b1788d890c!2sMapsko%20Mountville!5e0!3m2!1sen!2sin!4v1760691752767!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3510.918689720647!2d76.96827797549093!3d28.361307775813934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d685962d5b5%3A0x159207b1788d890c!2sMapsko%20Mountville!5e0!3m2!1sen!2sin!4v1760691752767!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "60",
@@ -1864,7 +1864,7 @@ export const properties = [
     description:
       "Birla Arika offers premium residential options in Sector 31 by Birla Estates.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507.95000735063!2d77.04286017549421!3d28.450923375764376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d19007ded23df%3A0xbe8cd0a6d2a0870e!2sBirla%20Arika%20Sector%2031%20Gurgaon%20-%20Birla%20Arika!5e0!3m2!1sen!2sin!4v1760691874690!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507.95000735063!2d77.04286017549421!3d28.450923375764376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d19007ded23df%3A0xbe8cd0a6d2a0870e!2sBirla%20Arika%20Sector%2031%20Gurgaon%20-%20Birla%20Arika!5e0!3m2!1sen!2sin!4v1760691874690!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "61",
@@ -1895,7 +1895,7 @@ export const properties = [
     description:
       "Joyville Gurugram offers premium residential options in Sector 102 by Joyville Homes.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620557.6227155793!2d69.8673830179101!3d27.60280418957341!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17169beaf023%3A0x5bb82d03b83cb66b!2sJoyville%20Gurugram!5e0!3m2!1sen!2sin!4v1760693523721!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620557.6227155793!2d69.8673830179101!3d27.60280418957341!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17169beaf023%3A0x5bb82d03b83cb66b!2sJoyville%20Gurugram!5e0!3m2!1sen!2sin!4v1760693523721!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "62",
@@ -1927,7 +1927,7 @@ export const properties = [
     description:
       "ATS Tourmaline offers premium residential options on Dwarka Expressway in Sector 109 by ATS Infrastructure.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.8117374094036!2d77.00051252549648!3d28.515311375728945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d19f62d3fc23b%3A0xd1ad77914f19f43e!2sATS%20TOURMALINE!5e0!3m2!1sen!2sin!4v1760693965555!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.8117374094036!2d77.00051252549648!3d28.515311375728945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d19f62d3fc23b%3A0xd1ad77914f19f43e!2sATS%20TOURMALINE!5e0!3m2!1sen!2sin!4v1760693965555!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "63",
@@ -1958,7 +1958,7 @@ export const properties = [
     description:
       "Godrej Miraya offers premium residential options in Sector 43 by Godrej Properties.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507.9717166732985!2d77.08605152549409!3d28.45026897576474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d190049b21291%3A0xae19a98a85dc4ed8!2sGodrej%20Miraya%20Sector%2043%20Gurgaon!5e0!3m2!1sen!2sin!4v1760694162357!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507.9717166732985!2d77.08605152549409!3d28.45026897576474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d190049b21291%3A0xae19a98a85dc4ed8!2sGodrej%20Miraya%20Sector%2043%20Gurgaon!5e0!3m2!1sen!2sin!4v1760694162357!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "64",
@@ -1989,7 +1989,7 @@ export const properties = [
     description:
       "Godrej Astra offers premium residential options in Sector 54 by Godrej Properties.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508.5614883421467!2d77.10366397549353!3d28.432485775774552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1fa274aea11f%3A0x6929c9fc99d0c866!2sGodrej%20Astra%20Gurugram!5e0!3m2!1sen!2sin!4v1760694375712!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508.5614883421467!2d77.10366397549353!3d28.432485775774552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1fa274aea11f%3A0x6929c9fc99d0c866!2sGodrej%20Astra%20Gurugram!5e0!3m2!1sen!2sin!4v1760694375712!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "65",
@@ -2020,7 +2020,7 @@ export const properties = [
     description:
       "Godrej Vrikshya offers premium residential options in Sector 103 by Godrej Properties.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.484892512652!2d76.97197627549575!3d28.495055575740004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17005bc7e1d3%3A0x39946b316896aa42!2sGodrej%20Vrikshya%2C%20Sector%20103%2C%20Gurgaon!5e0!3m2!1sen!2sin!4v1760694850063!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.484892512652!2d76.97197627549575!3d28.495055575740004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17005bc7e1d3%3A0x39946b316896aa42!2sGodrej%20Vrikshya%2C%20Sector%20103%2C%20Gurgaon!5e0!3m2!1sen!2sin!4v1760694850063!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "66",
@@ -2051,7 +2051,7 @@ export const properties = [
     description:
       "M3M Soulitude offers premium residential options in Sector 89 by M3M India.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508.968084328291!2d76.94843037549305!3d28.420219875781402!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1712a8ebb32f%3A0xb61a3349e27d589d!2sM3M%20Soulitude!5e0!3m2!1sen!2sin!4v1760696185642!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508.968084328291!2d76.94843037549305!3d28.420219875781402!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1712a8ebb32f%3A0xb61a3349e27d589d!2sM3M%20Soulitude!5e0!3m2!1sen!2sin!4v1760696185642!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "67",
@@ -2083,7 +2083,7 @@ export const properties = [
     description:
       "Conscient Elaira Residences offers premium residential options in Sector 80 by Conscient Group.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3510.852374220095!2d76.960737575491!3d28.363312475812833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d91cd759c63%3A0x2a9b7a23b55f8fa2!2sElaira%20Residences%20by%20Conscient!5e0!3m2!1sen!2sin!4v1760696476786!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3510.852374220095!2d76.960737575491!3d28.363312475812833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d91cd759c63%3A0x2a9b7a23b55f8fa2!2sElaira%20Residences%20by%20Conscient!5e0!3m2!1sen!2sin!4v1760696476786!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "68",
@@ -2114,7 +2114,7 @@ export const properties = [
     description:
       "The Olive Residency offers premium residential options in Sector 108 by SYS Developers.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508.7334425199115!2d77.06983587549324!3d28.427298975777504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d19794cdea493%3A0x4f3c65536897e097!2sThe%20Olive%20Residency!5e0!3m2!1sen!2sin!4v1760696794926!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508.7334425199115!2d77.06983587549324!3d28.427298975777504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d19794cdea493%3A0x4f3c65536897e097!2sThe%20Olive%20Residency!5e0!3m2!1sen!2sin!4v1760696794926!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "69",
@@ -2145,7 +2145,7 @@ export const properties = [
     description:
       "GLS Avenue 51 offers premium residential options in Sector 92 by GLS Developers.",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.2075930114356!2d76.91478997549278!3d28.4129922757852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d15feee26e7f1%3A0x71c9cef3d7b08a1b!2sGLS%20Avenue!5e0!3m2!1sen!2sin!4v1760698343412!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.2075930114356!2d76.91478997549278!3d28.4129922757852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d15feee26e7f1%3A0x71c9cef3d7b08a1b!2sGLS%20Avenue!5e0!3m2!1sen!2sin!4v1760698343412!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
   },
   {
     id: "70",
@@ -2169,7 +2169,7 @@ export const properties = [
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17261.932510257906!2d76.96082445575786!3d28.473935962024044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17a3b410e84d%3A0xfcaff0018a0e66f6!2sBPTP%20Amstoria%20-%20Sector%20102%2C%20Dwarka%20Expressway!5e1!3m2!1sen!2sin!4v1763448541202!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17261.932510257906!2d76.96082445575786!3d28.473935962024044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17a3b410e84d%3A0xfcaff0018a0e66f6!2sBPTP%20Amstoria%20-%20Sector%20102%2C%20Dwarka%20Expressway!5e1!3m2!1sen!2sin!4v1763448541202!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description:
@@ -2197,7 +2197,7 @@ export const properties = [
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4315.582284214362!2d76.97062997549492!3d28.47150857575301!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d175834c9de41%3A0x3998a147fb38994f!2sBPTP%20Amstoria%20Verti%20Greens!5e1!3m2!1sen!2sin!4v1763449543760!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4315.582284214362!2d76.97062997549492!3d28.47150857575301!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d175834c9de41%3A0x3998a147fb38994f!2sBPTP%20Amstoria%20Verti%20Greens!5e1!3m2!1sen!2sin!4v1763449543760!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description:
@@ -2225,7 +2225,7 @@ export const properties = [
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4323.185750752937!2d77.06338847548813!3d28.284804775856447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d25159e74f6af%3A0xcbb79922a1f24fae!2sATS%20HOMEKRAFT%20BONHEUR%20AVENUE!5e1!3m2!1sen!2sin!4v1763449619600!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4323.185750752937!2d77.06338847548813!3d28.284804775856447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d25159e74f6af%3A0xcbb79922a1f24fae!2sATS%20HOMEKRAFT%20BONHEUR%20AVENUE!5e1!3m2!1sen!2sin!4v1763449619600!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description:
@@ -2253,7 +2253,7 @@ export const properties = [
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
     addressMap:
-      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4323.185750752937!2d77.06338847548813!3d28.284804775856447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d25159e74f6af%3A0xcbb79922a1f24fae!2sATS%20HOMEKRAFT%20BONHEUR%20AVENUE!5e1!3m2!1sen!2sin!4v1763450059579!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4323.185750752937!2d77.06338847548813!3d28.284804775856447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d25159e74f6af%3A0xcbb79922a1f24fae!2sATS%20HOMEKRAFT%20BONHEUR%20AVENUE!5e1!3m2!1sen!2sin!4v1763450059579!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description:
@@ -2280,7 +2280,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4318.784720449331!2d77.05719397549204!3d28.39300967579644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d23b176e3e909%3A0xac37f77c456cbe3f!2sBPTP%20Downtown%2066%20Gurgaon!5e1!3m2!1sen!2sin!4v1763450538362!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4318.784720449331!2d77.05719397549204!3d28.39300967579644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d23b176e3e909%3A0xac37f77c456cbe3f!2sBPTP%20Downtown%2066%20Gurgaon!5e1!3m2!1sen!2sin!4v1763450538362!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "BPTP Downtown Sector 66 Gurgaon is an upcoming ultra-luxury residential project by BPTP Limited, strategically located on Golf Course Extension Road.",
@@ -2306,7 +2306,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d551756.7686630383!2d76.7635779492461!3d28.593248836416503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d19ed13b9f2b5%3A0x8a5f511c284064e4!2sM3M%20Jewel!5e1!3m2!1sen!2sin!4v1763451472713!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d551756.7686630383!2d76.7635779492461!3d28.593248836416503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d19ed13b9f2b5%3A0x8a5f511c284064e4!2sM3M%20Jewel!5e1!3m2!1sen!2sin!4v1763451472713!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "M3M Jewel is an commercial project located in Sector 25, MG Road, Gurgaon. Built in 1.32 Acres, this project offers premium retails, food court and office space near the most visited location of Gurgaon. With 1 tower and 4 floors, this project has 200 multiple size units",
@@ -2332,7 +2332,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4317.004798453849!2d76.94432697549362!3d28.436664075772285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17c0e527f67d%3A0x4194d20c28037fe4!2sATS%20Marigold!5e1!3m2!1sen!2sin!4v1763451948572!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4317.004798453849!2d76.94432697549362!3d28.436664075772285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17c0e527f67d%3A0x4194d20c28037fe4!2sATS%20Marigold!5e1!3m2!1sen!2sin!4v1763451948572!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "Spanish architecture with premium one level down club house. Low density project with 65 percent open space. Corner project which is connected by 2 sector roads (75 meter and 60 meter roads).",
@@ -2358,7 +2358,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4318.601626664262!2d76.96159367549222!3d28.397503075793846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d9e21749c09%3A0x2d45cd588bf4a555!2sOodles%20Skywalk!5e1!3m2!1sen!2sin!4v1763452368405!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4318.601626664262!2d76.96159367549222!3d28.397503075793846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d9e21749c09%3A0x2d45cd588bf4a555!2sOodles%20Skywalk!5e1!3m2!1sen!2sin!4v1763452368405!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "Oodles Skywalk Gurgaon is being built on approximately 3.0326 acres of area abutting a 60 metre wide sector road. The project unites with superb expertise of renowned consultants and designers and will be a masterpiece of its own kind.",
@@ -2384,7 +2384,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4314.924263979775!2d76.9866850754956!3d28.487613575744163!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17461cd5af53%3A0xd3d1e48c3e7e3e52!2sHCBS%20Auroville!5e1!3m2!1sen!2sin!4v1763452977567!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4314.924263979775!2d76.9866850754956!3d28.487613575744163!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17461cd5af53%3A0xd3d1e48c3e7e3e52!2sHCBS%20Auroville!5e1!3m2!1sen!2sin!4v1763452977567!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "Auroville Plaza is a thoughtfully designed mixed-use development nestled just off the Dwarka Expressway, offering a seamless blend of premium retail outlets and exclusive SCO (Shop-Cum-Office) spaces",
@@ -2410,7 +2410,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4324.435234324524!2d77.07925627548701!3d28.25401537587369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2590b8cccae1%3A0xdf787f8c9d7ba4c!2sMeffier%20Garden%20Avenue%20Floors!5e1!3m2!1sen!2sin!4v1763456439482!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4324.435234324524!2d77.07925627548701!3d28.25401537587369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2590b8cccae1%3A0xdf787f8c9d7ba4c!2sMeffier%20Garden%20Avenue%20Floors!5e1!3m2!1sen!2sin!4v1763456439482!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "Garden Avenue in Sector 5, Sohna, Gurgaon is fast becoming one of the most desirable residential destinations for those seeking premium yet affordable plots in the heart of South Gurgaon",
@@ -2436,7 +2436,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4318.360926772512!2d76.9099680254924!3d28.403409225790615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3f000021e9af%3A0xbf880ac9bc2173e9!2sGARDEN%20CITY%20ARCADE%20DLF%20SEC92!5e1!3m2!1sen!2sin!4v1763456703541!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4318.360926772512!2d76.9099680254924!3d28.403409225790615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3f000021e9af%3A0xbf880ac9bc2173e9!2sGARDEN%20CITY%20ARCADE%20DLF%20SEC92!5e1!3m2!1sen!2sin!4v1763456703541!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "DLF Gardencity Arcade is Gurgaon's most desirable commercial project, where property options are available in varied budget range. DLF Gardencity Arcade Sector 92 has commercial properties, offering maximum visibility and high footfalls. ",
@@ -2462,7 +2462,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4316.877547772439!2d76.95862887549374!3d28.439782675770545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17bf0a9aea39%3A0xb23c00dd39cab166!2sCourtyard%20Market%2037D%20Place!5e1!3m2!1sen!2sin!4v1763458674572!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4316.877547772439!2d76.95862887549374!3d28.439782675770545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17bf0a9aea39%3A0xb23c00dd39cab166!2sCourtyard%20Market%2037D%20Place!5e1!3m2!1sen!2sin!4v1763458674572!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "Royal Green Realty’s Courtyard 37d presents an unrivalled opportunity to experience true independence and accelerate your growth. COURTYARD37D offers exclusive SCO (shop-cum-office) plots in Gurugram.",
@@ -2514,7 +2514,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4318.284350366855!2d76.94977157549249!3d28.405287975789562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d8f9c8be4fb%3A0xf74296a0234a8356!2sAster%20Court%20Premier%2C%20Naharpur%20Rd%2C%20Sector%2085%2C%20Gurugram%2C%20Haryana%20122012!5e1!3m2!1sen!2sin!4v1763462237303!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4318.284350366855!2d76.94977157549249!3d28.405287975789562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d8f9c8be4fb%3A0xf74296a0234a8356!2sAster%20Court%20Premier%2C%20Naharpur%20Rd%2C%20Sector%2085%2C%20Gurugram%2C%20Haryana%20122012!5e1!3m2!1sen!2sin!4v1763462237303!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "Orris Infrastructures Pvt Ltd presents Aster Court premier in the heart location of Sector 85, Gurgaon. This residential property is the epitome of excellence as it scripts a dream lifestyle by laying out comfy & elegant spaces and the beauty of contemporary architecture.",
@@ -2540,7 +2540,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4322.834580423229!2d77.06354647548844!3d28.2934526758516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d250055cff283%3A0xfe45267bf327ed28!2s4S%20ASTER%20AVENUE%2036!5e1!3m2!1sen!2sin!4v1763462531608!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4322.834580423229!2d77.06354647548844!3d28.2934526758516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d250055cff283%3A0xfe45267bf327ed28!2s4S%20ASTER%20AVENUE%2036!5e1!3m2!1sen!2sin!4v1763462531608!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "Aster Avenue 36 Sprawled over 9.8 acres of land with lush green lawns.",
@@ -2566,7 +2566,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4317.064689901949!2d76.9562515754936!3d28.4351961757731!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d177600c67753%3A0x9d1201278cf22e37!2sIndia%20Worldmart!5e1!3m2!1sen!2sin!4v1763462828575!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4317.064689901949!2d76.9562515754936!3d28.4351961757731!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d177600c67753%3A0x9d1201278cf22e37!2sIndia%20Worldmart!5e1!3m2!1sen!2sin!4v1763462828575!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "India Worldmart is an exclusive SCO (Shop-Cum-Office) project located right on Dwarka Expressway, Sector 88A, Gurgaon. Positioned as a premier commercial hub, it offers a perfect blend of retail, office, and entertainment spaces designed to cater to modern business needs.",
@@ -2592,7 +2592,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4317.076538109387!2d76.95183997549357!3d28.43490577577325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d171cad40060d%3A0x5bcaf17f51499829!2sIndia%20Rashtra%2C%20Sector%2088A!5e1!3m2!1sen!2sin!4v1763462981812!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4317.076538109387!2d76.95183997549357!3d28.43490577577325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d171cad40060d%3A0x5bcaf17f51499829!2sIndia%20Rashtra%2C%20Sector%2088A!5e1!3m2!1sen!2sin!4v1763462981812!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "India Rashtra By Raheja Developers consists of commercial plots for shop cum offices, located in Sec 88A facing the largest commercial belt in Gurugram. It is located in close proximity to NH-8 and Dwarka Expressway.",
@@ -2618,7 +2618,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4318.263427845896!2d77.01470547549256!3d28.405801275789372!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d23f2dca95c89%3A0x3ea77ce0c5fcb655!2sWal%20Street%2073%20%7C%20Luxury%20SCO%20Plots%20on%20SPR!5e1!3m2!1sen!2sin!4v1763463495535!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4318.263427845896!2d77.01470547549256!3d28.405801275789372!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d23f2dca95c89%3A0x3ea77ce0c5fcb655!2sWal%20Street%2073%20%7C%20Luxury%20SCO%20Plots%20on%20SPR!5e1!3m2!1sen!2sin!4v1763463495535!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "Experience a New Era of Luxury SCOs at Wal Street 73 World-class workspaces, luxury emporiums, and gourmet restaurants for an unparalleled work and leisure experience. Premium SCO plots by WAL Developments in Gurgaon. Spread over 2.825 acres, WAL Street 73 is a premium SCO development located in Sector 73, on SPR in Gurgaon",
@@ -2644,7 +2644,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4313.980136316132!2d76.98729897549637!3d28.51070647573153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1775f2b0b987%3A0x6ffc8ee585bfd962!2sMRG%20Crown!5e1!3m2!1sen!2sin!4v1763463809785!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4313.980136316132!2d76.98729897549637!3d28.51070647573153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1775f2b0b987%3A0x6ffc8ee585bfd962!2sMRG%20Crown!5e1!3m2!1sen!2sin!4v1763463809785!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "Elevating the charm of Dwarka Expressway, MRG Crown stands in all its glory to stir your senses and marvel your mind. Adorned with the grace of beautiful architecture, each suite is a haven of bespoke joy.",
@@ -2670,7 +2670,7 @@ export const properties = [
     yearBuilt: [  "2022", "2023", "2024", "2025","2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d138148.63240018013!2d76.88752298525905!3d28.433233540420524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3de19c24ab5b%3A0x635d2a7516b81cf4!2sM3M%20Gurgaon%20International%20City!5e1!3m2!1sen!2sin!4v1763464733052!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d138148.63240018013!2d76.88752298525905!3d28.433233540420524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3de19c24ab5b%3A0x635d2a7516b81cf4!2sM3M%20Gurgaon%20International%20City!5e1!3m2!1sen!2sin!4v1763464733052!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "M3M Gurgaon International City redefines modern urban living with a blend of elegance, comfort, and convenience. Developed by the renowned M3M Group, a trusted name in the Indian real estate sector, this project is strategically located in Manesar, Gurgaon.",
@@ -2696,7 +2696,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4313.737557194304!2d77.00998927549658!3d28.516637075728156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1100127a2393%3A0xd72ad9fad4f56d3c!2s3X%20Crossing!5e1!3m2!1sen!2sin!4v1763465175647!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4313.737557194304!2d77.00998927549658!3d28.516637075728156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1100127a2393%3A0xd72ad9fad4f56d3c!2s3X%20Crossing!5e1!3m2!1sen!2sin!4v1763465175647!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "Experience the allure of 3X Crossing Sector 109 Gurgaon, where a world of exclusive opportunities awaits. Embrace ownership of strategically paved SCO plots in proximity to upscale residential neighborhoods. Benefit from seamless connectivity to the renowned Northern Peripheral Road, also known as Dwarka Expressway, seamlessly connecting Delhi, Dwarka, and Gurgaon. ",
@@ -2722,7 +2722,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4317.887737686148!2d76.92272467549284!3d28.41501677578416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17a3d3e8cf19%3A0xa9f53a0cfad64f9c!2sStreet%20Drive%2093!5e1!3m2!1sen!2sin!4v1763465744376!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4317.887737686148!2d76.92272467549284!3d28.41501677578416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17a3d3e8cf19%3A0xa9f53a0cfad64f9c!2sStreet%20Drive%2093!5e1!3m2!1sen!2sin!4v1763465744376!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "Premium Retail Shops at Gurgaon’s Thriving Hub. Multiple entryways with connectivity to wide roads.A landmark destination in the world of retail, entertainment and leisure. Embodying convenience, style, and inclusivity, the complex is set to elevate the everyday shopping and leisure experience.",
@@ -2748,7 +2748,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d69039.17204319149!2d76.92466455820315!3d28.487026599999993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17001f094a99%3A0xc6e12a7ab9924e63!2sThe%20Palatial%20Sales%20Gallery!5e1!3m2!1sen!2sin!4v1763466402650!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d69039.17204319149!2d76.92466455820315!3d28.487026599999993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17001f094a99%3A0xc6e12a7ab9924e63!2sThe%20Palatial%20Sales%20Gallery!5e1!3m2!1sen!2sin!4v1763466402650!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "Welcome to Hero Homes The Palatial, a luxurious residential project situated in Sector 104, Gurgaon, bang on the Dwarka Expressway. Spanning 7.13 acres, this project is designed for modern families seeking comfort, elegance, and a 5-star lifestyle all in one place. The Palatial By Hero Homes is truly a home for today's heroes.",
@@ -2774,7 +2774,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4316.059032573589!2d76.94873007549445!3d28.45983497575952!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17455e0a13d9%3A0x8db9fe89b79a8836!2sYashika%20Green%20Square%20Sector%2099A%20Gurugram!5e1!3m2!1sen!2sin!4v1763466865203!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4316.059032573589!2d76.94873007549445!3d28.45983497575952!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17455e0a13d9%3A0x8db9fe89b79a8836!2sYashika%20Green%20Square%20Sector%2099A%20Gurugram!5e1!3m2!1sen!2sin!4v1763466865203!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "Yashika Group is a well-known name in the affordable housing sector. Now, Yashika Green Square is the most awaited affordable housing project to be launched in the most sought excellent location of Sector 99A Gurgaon, Dwarka expressway. ",
@@ -2800,7 +2800,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8640.365620594219!2d76.96599529327064!3d28.35867690326124!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3cfa78608875%3A0xcf9f0472321d14f1!2sGodrej%20Aria%2C%20Sector%2079%2C%20Gurugram%2C%20Haryana%20122012!5e1!3m2!1sen!2sin!4v1763467718720!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8640.365620594219!2d76.96599529327064!3d28.35867690326124!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3cfa78608875%3A0xcf9f0472321d14f1!2sGodrej%20Aria%2C%20Sector%2079%2C%20Gurugram%2C%20Haryana%20122012!5e1!3m2!1sen!2sin!4v1763467718720!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "Godrej Properties brings the Godrej Group’s legacy of trust and innovation to the real estate industry. Committed to sustainability, excellence, and customer satisfaction, the company aims to deliver top-quality projects across India.",
@@ -2826,7 +2826,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4318.583702550067!2d76.95383682549225!3d28.39794292579355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d6f5b250a99%3A0x71dad8f305b8a373!2sHero%20earth%20the%20ark%20plotted%20sector%2085!5e1!3m2!1sen!2sin!4v1763531685519!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4318.583702550067!2d76.95383682549225!3d28.39794292579355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d6f5b250a99%3A0x71dad8f305b8a373!2sHero%20earth%20the%20ark%20plotted%20sector%2085!5e1!3m2!1sen!2sin!4v1763531685519!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "Hero Homes aims to redefine the real estate industry by developing and delivering state of the art projects.",
@@ -2852,7 +2852,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4317.084616369053!2d77.1328376754935!3d28.434707775773393!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1fbea6ec2235%3A0xb804a466702651f5!2sLushlands%20by%20Adani%20Realty!5e1!3m2!1sen!2sin!4v1763532666831!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4317.084616369053!2d77.1328376754935!3d28.434707775773393!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1fbea6ec2235%3A0xb804a466702651f5!2sLushlands%20by%20Adani%20Realty!5e1!3m2!1sen!2sin!4v1763532666831!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "Veris redefines luxury living with its vertical masterpiece, seamlessly blending nature and modernity. This exclusive tower, with just one expansive apartment per floor, offers unmatched privacy and exclusivity.",
@@ -2878,7 +2878,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4316.948617300182!2d76.94976977549365!3d28.438040975771536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d175addb2dcf1%3A0xfaa93d567c3d8537!2sWAL%20Street%2088A%20%7C%20Premium%20SCO%20Plots%20in%20Gurgaon%20by%20WAL%20Developments!5e1!3m2!1sen!2sin!4v1763532939860!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4316.948617300182!2d76.94976977549365!3d28.438040975771536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d175addb2dcf1%3A0xfaa93d567c3d8537!2sWAL%20Street%2088A%20%7C%20Premium%20SCO%20Plots%20in%20Gurgaon%20by%20WAL%20Developments!5e1!3m2!1sen!2sin!4v1763532939860!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: " Wal Street 88A can be the right bet for you. It is a new launch project in Sector 88A, Gurgaon, offering investment options within your budget",
@@ -2904,7 +2904,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4315.511311658105!2d77.04218847549498!3d28.473246025752104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1960f9769309%3A0x2ad892c1e55cef8d!2sSPJ%20Vedatam%20Gurgaon%20Sector%2014!5e1!3m2!1sen!2sin!4v1763533538410!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4315.511311658105!2d77.04218847549498!3d28.473246025752104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1960f9769309%3A0x2ad892c1e55cef8d!2sSPJ%20Vedatam%20Gurgaon%20Sector%2014!5e1!3m2!1sen!2sin!4v1763533538410!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "Explore SPJ Vedatam Sector 14, Gurugram – Premium Commercial Project with Modern Amenities, Prime Location, and Excellent Connectivity.",
@@ -2930,7 +2930,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4320.003673613325!2d76.969529675491!3d28.36307807581291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d6b446093f5%3A0x3d0707296eb89c87!2sGrace%20Resilviaa!5e1!3m2!1sen!2sin!4v1763533647097!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4320.003673613325!2d76.969529675491!3d28.36307807581291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d6b446093f5%3A0x3d0707296eb89c87!2sGrace%20Resilviaa!5e1!3m2!1sen!2sin!4v1763533647097!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "Grace Resilvia is an exceptional residential project located in Sector 78, Gurgaon, offering a harmonious blend of modern living and serene surroundings.",
@@ -2956,7 +2956,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4319.561601533068!2d76.95899207549138!3d28.37393657580695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d000922fa59%3A0xc3c6dde7e911b425!2sPARQ%20by%20Conscient!5e1!3m2!1sen!2sin!4v1763534431441!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4319.561601533068!2d76.95899207549138!3d28.37393657580695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d000922fa59%3A0xc3c6dde7e911b425!2sPARQ%20by%20Conscient!5e1!3m2!1sen!2sin!4v1763534431441!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "Coming Soon",
@@ -2982,7 +2982,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d551418.3355892957!2d76.89696969164773!3d28.65765865143375!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d15178b19fdc5%3A0x11344e44a6ddbf28!2sJMS%20THE%20NATION!5e1!3m2!1sen!2sin!4v1763534874663!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d551418.3355892957!2d76.89696969164773!3d28.65765865143375!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d15178b19fdc5%3A0x11344e44a6ddbf28!2sJMS%20THE%20NATION!5e1!3m2!1sen!2sin!4v1763534874663!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "JMS Capital Square 95 a recently launched commercial venture of the world-renowned JMS Group, is set to transform the business scene of Sector 95 in Gurugram.",
@@ -3008,7 +3008,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14515.180860018618!2d76.96149637255458!3d28.47623789126169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17a3b410e84d%3A0xfcaff0018a0e66f6!2sBPTP%20Amstoria%20-%20Sector%20102%2C%20Dwarka%20Expressway!5e1!3m2!1sen!2sin!4v1763535343921!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14515.180860018618!2d76.96149637255458!3d28.47623789126169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d17a3b410e84d%3A0xfcaff0018a0e66f6!2sBPTP%20Amstoria%20-%20Sector%20102%2C%20Dwarka%20Expressway!5e1!3m2!1sen!2sin!4v1763535343921!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "There's a world beyond four walls waiting for those who wish to make a statement. It's called 102 Eden Estate – strategically located on the Dwarka Expressway.",
@@ -3034,7 +3034,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4318.136943765687!2d77.09903127549264!3d28.408904175787544!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2356034f0a6d%3A0x192f729c0d34bca!2sSmartWorld%20Orchard%20Street%20Sector%2061!5e1!3m2!1sen!2sin!4v1763535943965!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4318.136943765687!2d77.09903127549264!3d28.408904175787544!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d2356034f0a6d%3A0x192f729c0d34bca!2sSmartWorld%20Orchard%20Street%20Sector%2061!5e1!3m2!1sen!2sin!4v1763535943965!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "At Smartworld Orchard Street, you'll find the finest in retail therapy. With a prime location in Gurugram, this high street offers maximum visibility and is sure to be a favorite destination for shoppers.",
@@ -3060,7 +3060,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d275708.38056711876!2d77.0618123594815!3d28.65795798847899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1f00267151c5%3A0xecf28632b98f8b96!2sThe%20Billionaire%20Residences!5e1!3m2!1sen!2sin!4v1763536328725!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d275708.38056711876!2d77.0618123594815!3d28.65795798847899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1f00267151c5%3A0xecf28632b98f8b96!2sThe%20Billionaire%20Residences!5e1!3m2!1sen!2sin!4v1763536328725!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "The Billionaire Residences in Gwal Pahari, Gurugram bring a new benchmark for high-rise living. Spread across 4.59 acres, this landmark project has two towers that rise 41 floors high, offering only 86 exclusive homes. Designed by Kvell Infrastructure LLP, the development blends Art Deco-inspired design with modern luxury.",
@@ -3086,7 +3086,7 @@ export const properties = [
     yearBuilt:["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
     status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
     category: "ULTRA_LUXURY, LUXURY",
-    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4316.1396695232115!2d77.09066647549443!3d28.457860075760482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1962ea454913%3A0xa2b26b1143a9ed87!2sThe%20Empire%20Centre!5e1!3m2!1sen!2sin!4v1763536702460!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4316.1396695232115!2d77.09066647549443!3d28.457860075760482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1962ea454913%3A0xa2b26b1143a9ed87!2sThe%20Empire%20Centre!5e1!3m2!1sen!2sin!4v1763536702460!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "The Empire Centre located in the heart of Sector 43 Gurgaon is an innovative and sophisticated commercial project launched by the renowned Suncity Builders.",
