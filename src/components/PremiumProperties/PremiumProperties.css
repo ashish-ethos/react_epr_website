@@ -93,7 +93,7 @@
   }
   .main-carousel {
     gap: 3rem !important;
-    width: 100% !important;
+    /* width: 100% !important; */ /* Commented out to allow inline style width for proper sliding */
   }
   .content-mobile-price {
     flex-direction: column;
@@ -201,5 +201,3 @@ div:hover {
     grid-template-columns: repeat(4, 1fr);
   }
 }
-
-/* global.css or index.css */

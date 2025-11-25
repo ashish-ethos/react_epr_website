@@ -193,7 +193,7 @@ const TeamCard = ({ member, index, isVisible, onViewProfile }) => {
               </div>
               <button
                 onClick={() => setIsFlipped(!isFlipped)}
-                className={`absolute cursor-pointer bottom-4 right-4 w-10 h-10 bg-[#333]/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg transform transition-all duration-500 hover:scale-110 hover:bg-[#444] hover:text-[#c2c6cb] ${isHovered ? 'scale-100 rotate-0' : 'scale-0 rotate-180'}`}
+                className={`absolute cursor-pointer bottom-4 right-4 w-10 h-10 bg-[#333]/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg transform transition-all duration-500 hover:scale-110 hover:bg-[#444] hover:text-[#c2c6cb] scale-100 rotate-0`}
               >
                 <FaArrowRightArrowLeft />
               </button>
@@ -214,7 +214,7 @@ const TeamCard = ({ member, index, isVisible, onViewProfile }) => {
                 <span className="flex items-center justify-center gap-2 text-sm">
                   <UserOutlined />
                   View Profile
-                 <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
                 </span>
               </CustomButton>
             </div>

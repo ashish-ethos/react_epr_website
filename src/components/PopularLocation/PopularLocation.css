@@ -101,6 +101,9 @@
   .mobile-results-area{
     padding: 5px !important;
   }
+  .location-button{
+    width: 100%;
+  }
 }
 
 @media (max-width: 768px) {

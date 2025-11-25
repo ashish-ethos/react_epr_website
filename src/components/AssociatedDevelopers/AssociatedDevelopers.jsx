@@ -116,17 +116,17 @@ const AssociatedDevelopers = () => {
           <div className="text-center ">
             <div className="inline-flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 bg-[#333]/80 backdrop-blur-sm rounded-lg sm:rounded-full px-6 sm:px-8 py-4 border border-[#ffffff38] shadow-lg hover:border-[#c99913] transition-all duration-300">
               <div className="flex flex-col sm:flex-row sm:space-x-8 text-[#c2c6cb] bottom-stats-content">
-                <div className="text-center group cursor-pointer">
+                <div className="text-center group ">
                   <div className="text-lg sm:text-xl font-bold text-[#c2c6cb] group-hover:text-[#c99913] transition-colors duration-300">15+</div>
                   <div className="text-xs sm:text-sm uppercase tracking-wider font-medium font-[Inter] text-[#c2c6cb]/70">Partners</div>
                 </div>
                 <div className="w-full sm:w-px h-px sm:h-12 bg-[#ffffff38] my-4 sm:my-0"></div>
-                <div className="text-center group cursor-pointer">
+                <div className="text-center group ">
                   <div className="text-lg sm:text-xl font-bold text-[#c2c6cb] group-hover:text-[#c99913] transition-colors duration-300">500+</div>
                   <div className="text-xs sm:text-sm uppercase tracking-wider font-medium font-[Inter] text-[#c2c6cb]/70">Projects</div>
                 </div>
                 <div className="w-full sm:w-px h-px sm:h-12 bg-[#ffffff38] my-4 sm:my-0"></div>
-                <div className="text-center group cursor-pointer">
+                <div className="text-center group ">
                   <div className="text-lg sm:text-xl font-bold text-[#c2c6cb] group-hover:text-[#c99913] transition-colors duration-300">25+</div>
                   <div className="text-xs sm:text-sm uppercase tracking-wider font-medium font-[Inter] text-[#c2c6cb]/70">Years</div>
                 </div>

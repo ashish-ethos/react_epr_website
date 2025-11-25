@@ -158,16 +158,12 @@ const About = () => {
 
                     {/* Mission & Vision */}
                     <div className="grid lg:grid-cols-2 gap-12 mb-20 mobile-mission-vision">
-                        <div className="bg-[#444]/70 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-[#ffffff38] hover:shadow-2xl transition-all duration-300 mobile-our-vision">
+                        <div className="bg-[#444]/70 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-[#ffffff38] hover:shadow-xl  hover:border-[#c08830] hover:shadow-[0_0_35px_rgba(192,136,48,0.35)] hover:ring-1 hover:ring-[#c08830]/20   transition-all duration-300 mobile-our-vision">
                             <div
-                                className="w-12 h-12 flex items-center justify-center rounded-xl"
-                                style={{
-                                    border: "3px solid transparent",
-                                    background:
-                                        "linear-gradient(#444, #444) padding-box, linear-gradient(to bottom right, #c2c6cb, #333) border-box",
-                                }}
+                                className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-[#c2c6cb] to-[#333] "
+                                
                             >
-                                <Award className="w-6 h-6 text-[#c2c6cb] " />
+                                <Award className="w-6 h-6 text-[#333] " />
                             </div>
                             <h3 className="mobile-title-text text-3xl font-bold text-[#c2c6cb] mt-2 mb-4 fontFamily-bebas">Our Mission</h3>
                             <p className="mobile-subtitle-text text-[#c2c6cb] leading-relaxed fontFamily-Content">
@@ -177,15 +173,12 @@ const About = () => {
                             </p>
                         </div>
 
-                        <div className="bg-[#444]/70 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-[#ffffff38] hover:shadow-2xl transition-all duration-300 mobile-our-vision">
+                        <div className="bg-[#444]/70 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-[#ffffff38] hover:shadow-xl  hover:border-[#c08830] hover:shadow-[0_0_35px_rgba(192,136,48,0.35)] hover:ring-1 hover:ring-[#c08830]/20   transition-all duration-300 mobile-our-vision">
                             <div
-                                className="w-12 h-12 flex items-center justify-center rounded-xl"
-                                style={{
-                                    border: "3px solid transparent",
-                                    background: "linear-gradient(#444, #444) padding-box, linear-gradient(to bottom right, #c2c6cb, #333) border-box",
-                                }}
+                                className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-[#c2c6cb] to-[#333] "
+                                
                             >
-                                <TrendingUp className="w-6 h-6 text-[#c2c6cb]" />
+                                <TrendingUp className="w-6 h-6 text-[#333]" />
                             </div>
                             <h3 className="mobile-title-text text-3xl font-bold text-[#c2c6cb] mb-4 fontFamily-bebas mt-2">Our Vision</h3>
                             <p className="mobile-subtitle-text text-[#c2c6cb] leading-relaxed fontFamily-Content">
@@ -220,9 +213,8 @@ const About = () => {
                                     key={index}
                                     className="
                                         bg-[#444]/70 backdrop-blur-sm rounded-3xl p-8 sm:p-4 shadow-xl border border-[#ffffff38]
-                                        transition-all duration-500 
-                                        hover:-translate-y-2 hover:scale-105 
-                                        hover:shadow-[0_0_30px_rgba(194,198,203,0.25)] hover:ring-2 hover:ring-[#c2c6cb]/30 mobile-value-section laptop-value-section
+                                        transition-all duration-500  hover:border-[#c08830] hover:shadow-[0_0_35px_rgba(192,136,48,0.35)] hover:ring-1 hover:ring-[#c08830]/20  
+                                         mobile-value-section laptop-value-section
                                     "
                                 >
                                     <div className="bg-gradient-to-br from-[#c2c6cb] to-[#333] w-12 h-12 rounded-xl flex items-center justify-center mb-4">

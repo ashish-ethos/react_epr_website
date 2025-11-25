@@ -9,7 +9,7 @@ const pathnamesToScroll = [
   "/projects/commercial",
   "/premiumproperties/",
   "/explore-properties",
-  // "/about",
+  "/about",
   "/blog",
   "/contact",
   "/privacy-policy",

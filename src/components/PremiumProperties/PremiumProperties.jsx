@@ -18,15 +18,13 @@ function PremiumProperties() {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [visibleCards, setVisibleCards] = useState(1);
   const [cardWidth, setCardWidth] = useState(0);
+  const [gap, setGap] = useState(32);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState(null);
   const navigate = useNavigate();
   const { propertyName } = useParams();
   const touchStartX = useRef(null);
-  const touchEndX = useRef(null);
   const carouselRef = useRef(null);
-
-  const gapPx = 32; // Equivalent to Tailwind gap-8 (2rem assuming 16px root font)
 
   const properties = [
     {
@@ -190,30 +188,31 @@ function PremiumProperties() {
   };
 
   useEffect(() => {
-    const handleVcResize = () => setVisibleCards(getVisibleCards());
-    window.addEventListener("resize", handleVcResize);
-    handleVcResize();
-    return () => window.removeEventListener("resize", handleVcResize);
-  }, []);
+    const handleResize = () => {
+      const newVisible = getVisibleCards();
+      setVisibleCards(newVisible);
 
-  useEffect(() => {
-    const handleDimResize = () => {
       if (carouselRef.current) {
         const cw = carouselRef.current.offsetWidth;
-        const effectiveVisible = Math.min(visibleCards, properties.length);
+        const isSmallMobile = window.innerWidth <= 425;
+        const currentGap = isSmallMobile ? 48 : 32;
+        setGap(currentGap);
+
+        const effectiveVisible = Math.min(newVisible, properties.length);
         if (effectiveVisible > 0) {
           const numGapsInView = Math.max(0, effectiveVisible - 1);
-          const adjust = gapPx * numGapsInView;
+          const adjust = currentGap * numGapsInView;
           const newCardW = (cw - adjust) / effectiveVisible;
           setCardWidth(newCardW);
-          setCurrentIndex(0);
         }
       }
+      setCurrentIndex(0);
     };
-    handleDimResize();
-    window.addEventListener("resize", handleDimResize);
-    return () => window.removeEventListener("resize", handleDimResize);
-  }, [visibleCards]);
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (propertyName) {
@@ -238,8 +237,8 @@ function PremiumProperties() {
 
   const effectiveVisible = Math.min(visibleCards, properties.length);
   const maxIndexValue = Math.max(0, properties.length - effectiveVisible);
-  const slideWidth = cardWidth + gapPx;
-  const totalInnerWidth = properties.length * cardWidth + (properties.length - 1) * gapPx;
+  const slideWidth = cardWidth + gap;
+  const totalInnerWidth = properties.length * cardWidth + (properties.length - 1) * gap;
   const translateX = -currentIndex * slideWidth;
   const isFullView = maxIndexValue === 0;
 
@@ -255,19 +254,16 @@ function PremiumProperties() {
     }
   };
 
-  // Touch event handlers for swipe
+  // Touch event handlers for simple smooth swipe on mobile
   const handleTouchStart = (e) => {
-    touchStartX.current = e.targetTouches[0].clientX;
+    touchStartX.current = e.touches[0].clientX;
   };
 
-  const handleTouchMove = (e) => {
-    touchEndX.current = e.targetTouches[0].clientX;
-  };
-
-  const handleTouchEnd = () => {
-    if (!touchStartX.current || !touchEndX.current) return;
-    const diff = touchStartX.current - touchEndX.current;
-    if (Math.abs(diff) > 50) { 
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX;
+    if (Math.abs(diff) > 50) {
       if (diff > 0) {
         nextProperty();
       } else {
@@ -275,7 +271,6 @@ function PremiumProperties() {
       }
     }
     touchStartX.current = null;
-    touchEndX.current = null;
   };
 
   return (
@@ -302,32 +297,31 @@ function PremiumProperties() {
           </p>
         </div>
 
-        {/* Navigation Buttons - Only show if not full view */}
+        {/* Navigation Buttons - Only show if not full view; adjusted positioning for mobile */}
         {!isFullView && (
           <>
             <button
               onClick={prevProperty}
               disabled={currentIndex === 0}
-              className="absolute cursor-pointer left-4 top-1/2 transform -translate-y-1/2 z-30 p-4 rounded-full bg-[#333]/90 text-[#c2c6cb] shadow-xl hover:scale-110 hover:bg-[#444] transition-all border border-[#ffffff38] permium-properties-right disabled:opacity-50 disabled:cursor-not-allowed"
+              className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-full bg-[#333]/90 text-[#c2c6cb] shadow-xl hover:scale-110 hover:bg-[#444] transition-all border border-[#ffffff38] permium-properties-right disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <ChevronLeft size={24} />
+              <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
             </button>
             <button
               onClick={nextProperty}
               disabled={currentIndex >= maxIndexValue}
-              className="absolute cursor-pointer right-4 top-1/2 transform -translate-y-1/2 z-30 p-4 rounded-full bg-[#333]/90 text-[#c2c6cb] shadow-xl hover:scale-110 hover:bg-[#444] transition-all border border-[#ffffff38] permium-properties-right disabled:opacity-50 disabled:cursor-not-allowed"
+              className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-full bg-[#333]/90 text-[#c2c6cb] shadow-xl hover:scale-110 hover:bg-[#444] transition-all border border-[#ffffff38] permium-properties-right disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <ChevronRight size={24} />
+              <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
             </button>
           </>
         )}
 
         {/* Carousel */}
         <div
-          className="overflow-hidden py-4 mobile-premium-carousel"
+          className="overflow-hidden py-4 mobile-premium-carousel relative z-20"
           ref={carouselRef}
           onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
           <div
@@ -386,12 +380,7 @@ function PremiumProperties() {
                     <div className="flex justify-end details-mobile">
                       <CustomButton
                         onClick={() => openDetails(property)}
-                        className="px-4 py-1 font-semibold  cursor-pointer bg-[#333] text-[#c2c6cb] hover:bg-[#444] border border-[#ffffff38]"
-                        style={{
-                          borderImage: "linear-gradient(to right, #333, #474236, #c99913) 1",
-                          borderWidth: "2px",
-                          borderStyle: "solid",
-                        }}
+                        className="px-4 py-1 font-semibold cursor-pointer bg-[#333] text-[#c2c6cb] hover:bg-[#444] border border-[#ffffff38] details-btn"
                       >
                         Details <ExternalLink className="w-4 h-4" />
                       </CustomButton>
