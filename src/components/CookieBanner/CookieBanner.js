@@ -1,148 +1,133 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import CookieConsent from "react-cookie-consent";
 import { X, Plus, Minus } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Switch } from "antd";
 
+// Constants
+const GA_ID = "G-4H7354HQ3Z"; 
+const ADSENSE_ID = "ca-pub-4057278569652193"; 
+
+const CONSENT_COOKIE_NAME = "userConsent";
+const ANALYTICS_KEY = "analyticsConsent";
+
+// Small helpers
+const isBrowser = typeof window !== "undefined" && typeof document !== "undefined";
 const CookieBanner = () => {
+  // State
   const [showBanner, setShowBanner] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
   const [consentPreferences, setConsentPreferences] = useState({
     analytics: false,
-    youtube: false,
   });
+
   const [expandedSections, setExpandedSections] = useState({
     essential: false,
     analytics: false,
-    youtube: false,
   });
+
   const adsEnabled = consentPreferences.analytics;
-
-  // First: Load preferences on mount only
+  // Initialization: read cookie + localStorage on first mount
   useEffect(() => {
-    console.log("[DEBUG] Initial load: Checking consent and loading prefs"); // Debug
-    const consent = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("userConsent="));
-    if (!consent) {
-      setShowBanner(true);
-      console.log("[DEBUG] No userConsent cookie - showing banner"); // Debug
-    }
+    if (!isBrowser) return;
 
-    // Load saved preferences from localStorage
-    const savedAnalytics = localStorage.getItem("analyticsConsent");
-    const savedYoutube = localStorage.getItem("youtubeConsent");
+    console.log("[COOKIE] Initializing cookie banner");
+    // Check if user has already made a choice
+    const consentCookie = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith(`${CONSENT_COOKIE_NAME}=`));
+
+    if (!consentCookie) {
+      // First visit: show banner
+      setShowBanner(true);
+      console.log("[COOKIE] No consent cookie found, showing banner");
+    }
+    // Restore analytics preference from localStorage
+    const savedAnalytics = window.localStorage.getItem(ANALYTICS_KEY);
     if (savedAnalytics !== null) {
       const parsed = JSON.parse(savedAnalytics);
-      setConsentPreferences((prev) => ({
-        ...prev,
-        analytics: parsed,
-      }));
-      console.log("[DEBUG] Loaded analytics from localStorage:", parsed); // Debug
+      setConsentPreferences({ analytics: parsed });
+      console.log("[COOKIE] Restored analytics from localStorage:", parsed);
     }
-    if (savedYoutube !== null) {
-      const parsed = JSON.parse(savedYoutube);
-      setConsentPreferences((prev) => ({
-        ...prev,
-        youtube: parsed,
-      }));
-      console.log("[DEBUG] Loaded youtube from localStorage:", parsed); // Debug
-    }
-  }, []); // Empty deps: Runs once
+  }, []);
 
-  // Second: Apply consent when adsEnabled changes (e.g., on toggle)
+  // React to analytics preference changes (load/unload GA + AdSense)
   useEffect(() => {
-    console.log("[DEBUG] adsEnabled changed to:", adsEnabled); // Debug
-    applyAdConsent(adsEnabled);
-  }, [adsEnabled]); // Deps: Only re-runs on toggle/load
+    if (!isBrowser) return;
 
-  const setConsentCookie = (value) => {
+    console.log("[COOKIE] Analytics preference changed:", adsEnabled);
+    applyAdConsent(adsEnabled);
+  }, [adsEnabled]);
+
+  // Cookie + localStorage helpers
+  const setConsentCookie = useCallback((value) => {
+    if (!isBrowser) return;
+
     const expires = new Date();
     expires.setFullYear(expires.getFullYear() + 1);
-    document.cookie = `userConsent=${value}; expires=${expires.toUTCString()}; path=/`;
+
+    document.cookie = `${CONSENT_COOKIE_NAME}=${value}; expires=${expires.toUTCString()}; path=/`;
+    console.log("[COOKIE] Set userConsent cookie to:", value);
+
+    // Once user has decided, we can hide the banner
     setShowBanner(false);
-    console.log("[DEBUG] Set userConsent cookie to:", value); // Debug
-  };
+  }, []);
+
+  const persistAnalyticsPreference = useCallback((value) => {
+    if (!isBrowser) return;
+
+    window.localStorage.setItem(ANALYTICS_KEY, JSON.stringify(value));
+    console.log("[COOKIE] Saved analytics preference to localStorage:", value);
+  }, []);
+
+  // High-level handlers (Accept / Reject)
+  const applyPreferencesAndClose = useCallback(
+    (prefs) => {
+      setConsentPreferences(prefs);
+      persistAnalyticsPreference(prefs.analytics);
+      setConsentCookie(prefs.analytics ? "true" : "false");
+      setShowModal(false);
+    },
+    [persistAnalyticsPreference, setConsentCookie]
+  );
 
   const handleAccept = () => {
-    console.log("[DEBUG] handleAccept called"); // Debug
-    setConsentCookie("true");
-    const allTrue = { analytics: true, youtube: true };
-    setConsentPreferences(allTrue);
-    localStorage.setItem("analyticsConsent", JSON.stringify(true));
-    localStorage.setItem("youtubeConsent", JSON.stringify(true));
-    console.log("[DEBUG] Accept: Set all prefs to true, saved to localStorage"); // Debug
+    console.log("[COOKIE] handleAccept (banner) called");
+    applyPreferencesAndClose({ analytics: true });
   };
 
   const handleReject = () => {
-    console.log("[DEBUG] handleReject called"); // Debug
-    setConsentCookie("false");
-    const allFalse = { analytics: false, youtube: false };
-    setConsentPreferences(allFalse);
-    localStorage.setItem("analyticsConsent", JSON.stringify(false));
-    localStorage.setItem("youtubeConsent", JSON.stringify(false));
-    console.log(
-      "[DEBUG] Reject: Set all prefs to false, saved to localStorage"
-    ); // Debug
+    console.log("[COOKIE] handleReject (banner) called");
+    applyPreferencesAndClose({ analytics: false });
   };
 
+  // Modal handlers
   const handleConfirmChoices = () => {
-    console.log(
-      "[DEBUG] handleConfirmChoices called, prefs:",
-      consentPreferences
-    ); // Debug
-    // Save preferences
-    localStorage.setItem(
-      "analyticsConsent",
-      JSON.stringify(consentPreferences.analytics)
-    );
-    localStorage.setItem(
-      "youtubeConsent",
-      JSON.stringify(consentPreferences.youtube)
-    );
-    setShowModal(false);
-    // Optionally set overall consent based on choices
-    setConsentCookie(
-      consentPreferences.analytics || consentPreferences.youtube
-        ? "true"
-        : "false"
-    );
+    console.log("[COOKIE] handleConfirmChoices called with:", consentPreferences);
+    applyPreferencesAndClose(consentPreferences);
   };
 
   const handleAcceptAllInModal = () => {
-    console.log("[DEBUG] handleAcceptAllInModal called"); // Debug
-    const allTrue = { analytics: true, youtube: true };
-    setConsentPreferences(allTrue);
-    handleConfirmChoices();
+    console.log("[COOKIE] handleAcceptAllInModal called");
+    applyPreferencesAndClose({ analytics: true });
   };
 
   const handleRejectAllInModal = () => {
-    console.log("[DEBUG] handleRejectAllInModal called"); // Debug
-    const allFalse = { analytics: false, youtube: false };
-    setConsentPreferences(allFalse);
-    handleConfirmChoices();
+    console.log("[COOKIE] handleRejectAllInModal called");
+    applyPreferencesAndClose({ analytics: false });
   };
 
   const togglePreference = (key, checked) => {
-    console.log(`[DEBUG] togglePreference called: ${key}=${checked}`); // Debug
+    console.log(`[COOKIE] togglePreference: ${key} =`, checked);
+
     const newPrefs = { ...consentPreferences, [key]: checked };
     setConsentPreferences(newPrefs);
-    localStorage.setItem(`${key}Consent`, JSON.stringify(checked)); // Save immediately
-    console.log(
-      `[DEBUG] Updated state to:`,
-      newPrefs,
-      `and saved to localStorage`
-    ); // Debug
-    if (key === "analytics") {
-      applyAdConsent(checked);
-    }
-    if (key === "youtube") {
-      applyYouTubeConsent(checked);
-    }
+    persistAnalyticsPreference(newPrefs.analytics);
   };
 
   const toggleSection = (key) => {
-    console.log(`[DEBUG] toggleSection: ${key}`); // Debug
+    console.log("[COOKIE] toggleSection:", key);
     setExpandedSections((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
@@ -151,11 +136,14 @@ const CookieBanner = () => {
     toggleSection(key);
   };
 
-  // Helper: Apply consent to ads (load/unload based on enabled)
+  // Consent → load / unload scripts
   const applyAdConsent = (enabled) => {
     console.log(
-      `[DEBUG] applyAdConsent called with: ${enabled ? "enabled" : "disabled"}`
-    ); // Debug
+      "[COOKIE] applyAdConsent:",
+      enabled ? "ENABLED (load GA + AdSense)" : "DISABLED (unload)"
+    );
+
+    if (!isBrowser) return;
 
     if (enabled) {
       loadMarketingAds();
@@ -163,27 +151,27 @@ const CookieBanner = () => {
       unloadMarketingAds();
     }
 
-    // Optional: Dispatch event for other components to listen
+    // Optional event for other components
     window.dispatchEvent(
       new CustomEvent("adConsentChange", { detail: { enabled } })
     );
-    console.log("[DEBUG] Dispatched adConsentChange event"); // Debug
   };
 
-  // Load ad scripts and trackers
   const loadMarketingAds = () => {
-    console.log("[DEBUG] loadMarketingAds called"); // Debug
-    // Prevent duplicates
+    if (!isBrowser) return;
+
+    console.log("[COOKIE] loadMarketingAds called");
+
+    // Avoid re-loading if already done
     if (document.getElementById("marketing-ads-loaded")) {
-      console.log("[DEBUG] Ads already loaded - skipping"); // Debug
+      console.log("[COOKIE] Marketing scripts already loaded, skipping");
       return;
     }
 
-    // 1. Google Analytics (for analytics + ad targeting)
-    // Replace 'G-XXXXXXXXXX' with your actual GA Measurement ID
-    const GA_ID = "G-XXXXXXXXXX"; // TODO: Replace with your GA ID
-    if (!window.gtag && GA_ID !== "G-XXXXXXXXXX") {
-      console.log("[DEBUG] Loading GA script with ID:", GA_ID); // Debug
+    // ---- 1. Google Analytics 4 ------------------------------------------------
+    if (!window.gtag && GA_ID) {
+      console.log("[COOKIE] Loading GA4 script with ID:", GA_ID);
+
       const script = document.createElement("script");
       script.id = "gtag-script";
       script.async = true;
@@ -199,141 +187,94 @@ const CookieBanner = () => {
         gtag('config', '${GA_ID}');
       `;
       document.head.appendChild(configScript);
-      console.log("[DEBUG] GA script and config appended"); // Debug
+
+      console.log("[COOKIE] GA4 script + config appended");
     } else {
-      console.log("[DEBUG] Skipping GA: window.gtag exists or ID not set"); // Debug
+      console.log("[COOKIE] Skipping GA4 load: gtag already defined or GA_ID missing");
     }
 
-    // 2. Facebook Pixel (for ad retargeting)
-    // Replace 'XXXXXXXXXX' with your actual FB Pixel ID
-    const FB_PIXEL_ID = "XXXXXXXXXX"; // TODO: Replace with your FB Pixel ID
-    if (!window.fbq && FB_PIXEL_ID !== "XXXXXXXXXX") {
-      console.log("[DEBUG] Loading FB Pixel with ID:", FB_PIXEL_ID); // Debug
-      /* global fbq */
-      /* eslint-disable-next-line */
-      !(function (f, b, e, v, n, t, s) {
-        if (f.fbq) return;
-        n = f.fbq = function () {
-          n.callMethod
-            ? n.callMethod.apply(n, arguments)
-            : n.queue.push(arguments);
-        };
-        if (!f._fbq) f._fbq = n;
-        n.push = n;
-        n.loaded = !0;
-        n.version = "2.0";
-        n.queue = [];
-        t = b.createElement(e);
-        t.async = !0;
-        t.src = v;
-        s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
-      })(
-        window,
-        document,
-        "script",
-        "https://connect.facebook.net/en_US/fbevents.js"
-      );
-      fbq("init", FB_PIXEL_ID);
-      fbq("track", "PageView");
-      console.log("[DEBUG] FB Pixel loaded and tracked PageView"); // Debug
-    } else {
-      console.log("[DEBUG] Skipping FB: window.fbq exists or ID not set"); // Debug
-    }
+    // ---- 2. Google AdSense ----------------------------------------------------
+    const adSlots = document.querySelectorAll(".ad-placeholder");
+    console.log("[COOKIE] Found ad slots:", adSlots.length);
 
-    // 3. Custom Ad Slots (e.g., Google AdSense banners)
-    // Replace 'ca-pub-XXXXXXXXXXXXXXXX' with your actual AdSense Publisher ID
-    const ADSENSE_ID = "ca-pub-XXXXXXXXXXXXXXXX"; // TODO: Replace with your AdSense ID
-    const adSlots = document.querySelectorAll(".ad-placeholder"); // Assume your ad divs have this class
-    console.log(`[DEBUG] Found ${adSlots.length} ad slots`); // Debug
-    adSlots.forEach((slot, index) => {
-      if (
-        !document.getElementById("adsense-script") &&
-        ADSENSE_ID !== "ca-pub-XXXXXXXXXXXXXXXX"
-      ) {
-        console.log(`[DEBUG] Loading AdSense script with ID:`, ADSENSE_ID); // Debug
+    if (ADSENSE_ID && adSlots.length > 0) {
+      if (!document.getElementById("adsense-script")) {
+        console.log("[COOKIE] Loading AdSense script with ID:", ADSENSE_ID);
+
         const adsenseScript = document.createElement("script");
         adsenseScript.id = "adsense-script";
         adsenseScript.async = true;
         adsenseScript.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_ID}`;
+        adsenseScript.crossOrigin = "anonymous";
         document.head.appendChild(adsenseScript);
       }
-      // eslint-disable-next-line no-unused-expressions
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-      console.log(`[DEBUG] Pushed AdSense for slot ${index}`); // Debug
-    });
 
-    // Mark as loaded (hidden script flag)
+      adSlots.forEach((slot, index) => {
+        // Let AdSense populate the slot
+        // eslint-disable-next-line no-unused-expressions
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        console.log(`[COOKIE] Requested AdSense fill for slot ${index}`);
+      });
+    } else {
+      console.log(
+        "[COOKIE] Skipping AdSense: no ADSENSE_ID or no .ad-placeholder found"
+      );
+    }
+
+    // Mark that we already loaded marketing scripts once
     const flag = document.createElement("script");
     flag.id = "marketing-ads-loaded";
     flag.type = "text/plain";
     document.head.appendChild(flag);
-    console.log("[DEBUG] Marked ads as loaded"); // Debug
+    console.log("[COOKIE] Marked marketing scripts as loaded");
   };
 
-  // Unload ads (remove trackers)
   const unloadMarketingAds = () => {
-    console.log("[DEBUG] unloadMarketingAds called"); // Debug
-    // Remove scripts
-    ["gtag-script", "gtag-config", "fb-pixel-script", "adsense-script"].forEach(
-      (id) => {
-        const el = document.getElementById(id);
-        if (el) {
-          el.remove();
-          console.log(`[DEBUG] Removed script: ${id}`); // Debug
-        }
-      }
-    );
+    if (!isBrowser) return;
 
-    // Reset globals
+    console.log("[COOKIE] unloadMarketingAds called");
+
+    // Remove injected scripts
+    ["gtag-script", "gtag-config", "adsense-script"].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.remove();
+        console.log("[COOKIE] Removed script:", id);
+      }
+    });
+
+    // Reset GA globals
     window.gtag = undefined;
-    window.fbq = undefined;
     if (window.dataLayer) window.dataLayer.length = 0;
-    console.log("[DEBUG] Reset globals (gtag, fbq, dataLayer)"); // Debug
+    console.log("[COOKIE] Reset gtag + dataLayer");
+
+    // Optionally reset adsbygoogle
+    // window.adsbygoogle = [];
 
     // Hide ad slots
     document.querySelectorAll(".ad-placeholder").forEach((slot) => {
-      slot.innerHTML = ""; // Or add a "disabled" message
+      slot.innerHTML = "";
       slot.style.display = "none";
-      console.log("[DEBUG] Hid ad slot"); // Debug
+      console.log("[COOKIE] Hid ad slot");
     });
 
-    // Clear related cookies (e.g., Google opt-out)
-    document.cookie = "_ga=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    console.log("[DEBUG] Cleared _ga cookie"); // Debug
-    // Add more for FB, etc., if needed
+    // Basic GA cookie cleanup
+    document.cookie =
+      "_ga=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    console.log("[COOKIE] Cleared _ga cookie");
   };
 
-  // Optional: YouTube consent helper
-  const applyYouTubeConsent = (enabled) => {
-    console.log(
-      `[DEBUG] applyYouTubeConsent called with: ${
-        enabled ? "enabled" : "disabled"
-      }`
-    ); // Debug
-    const embeds = document.querySelectorAll(".youtube-placeholder");
-    console.log(`[DEBUG] Found ${embeds.length} YouTube placeholders`); // Debug
-    embeds.forEach((el) => {
-      if (enabled) {
-        const videoId = el.dataset.videoId;
-        el.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
-        console.log(`[DEBUG] Loaded YouTube iframe for ID: ${videoId}`); // Debug
-      } else {
-        el.innerHTML = "<p>Enable cookies to load video.</p>";
-        console.log("[DEBUG] Unloaded YouTube placeholder"); // Debug
-      }
-    });
-  };
-
+  // Render
   if (!showBanner && !showModal) return null;
 
   return (
     <>
+      {/* Bottom banner */}
       {showBanner && (
         <CookieConsent
           location="bottom"
           buttonText=""
-          cookieName="userConsent"
+          cookieName={CONSENT_COOKIE_NAME}
           containerClasses="
             cookie-banner-container
             bg-black text-[#c2c6cb] text-[12px] sm:text-sm
@@ -348,7 +289,7 @@ const CookieBanner = () => {
           overlayClasses="hidden"
         >
           <div className="relative w-full cookies-main-section h-auto min-h-[70px] sm:min-h-[45px] flex flex-col sm:flex-row sm:items-center justify-center sm:justify-between gap-0 sm:gap-2 mobile-cookie-banner pr-0 sm:pr-8">
-            {/* Close Button (X) */}
+            {/* Close Button (Reject) */}
             <button
               onClick={handleReject}
               className="
@@ -357,7 +298,7 @@ const CookieBanner = () => {
                 text-[#c2c6cb] hover:text-white 
                 text-lg sm:text-xl 
                 w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center
-                rounded-full  hover:border-[#ff000] hover:text-[#ff000] transition-all duration-300
+                rounded-full hover:text-[#ff000] transition-all duration-300
                 z-10
               "
               aria-label="Close cookie banner"
@@ -365,21 +306,15 @@ const CookieBanner = () => {
               <X className="w-4 h-4 sm:w-4 sm:h-4" />
             </button>
 
-            {/* Cookie Text */}
+            {/* Text */}
             <div className="flex-1 flex items-center justify-center sm:justify-start order-2 sm:order-1 mobile-cookie-text w-full sm:w-auto px-1 sm:px-0">
               <p className="text-center tracking-normal fontFamily-Content sm:text-left m-0 leading-tight sm:leading-normal break-words max-w-full">
                 Ethos Pro Realtors and its affiliated entities use cookies and
                 similar technologies to perform essential online functions, such
-                as authentication and security. You may disable these by
-                changing your cookie settings through your browser, but this may
-                affect how this website functions. Also, Ethos Pro Realtors uses
-                some analytics, targeting/advertising, and video-embedded
-                cookies provided by Ethos Pro Realtors or third parties. Please
-                click a button here to choose your preference for these types of
-                cookies. You can also configure cookie settings by clicking
-                “Cookie Settings” at the footer of Ethos Pro Realtors websites
-                or accessing your browser settings at any time. For detailed
-                information, please visit the Ethos Pro Realtors Privacy Policy.{" "}
+                as authentication and security. We also use analytics and
+                targeting / advertising cookies. Please choose your
+                preferences. For detailed information, please visit our Privacy
+                Policy{" "}
                 <Link
                   to="/privacy-policy"
                   className="text-[#c08830] hover:text-[#e0a84f] fontFamily-Content underline underline-offset-1 sm:underline-offset-2"
@@ -391,7 +326,7 @@ const CookieBanner = () => {
             </div>
 
             {/* Buttons */}
-            <div className="flex  sm:flex-row justify-center sm:justify-end order-1 sm:order-2 pb-1 sm:pb-0 px-1 sm:px-0 w-full sm:w-auto gap-2 sm:gap-2">
+            <div className="flex sm:flex-row justify-center sm:justify-end order-1 sm:order-2 pb-1 sm:pb-0 px-1 sm:px-0 w-full sm:w-auto gap-2 sm:gap-2">
               <button
                 onClick={() => {
                   setShowBanner(false);
@@ -437,6 +372,7 @@ const CookieBanner = () => {
         </CookieConsent>
       )}
 
+      {/* Settings modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black bg-opacity-50">
           <div className="bg-black rounded-lg w-full max-w-sm sm:max-w-md md:max-w-xl h-[90vh] max-h-[90vh] overflow-y-auto custom-scrollbar border border-gray-700">
@@ -451,19 +387,18 @@ const CookieBanner = () => {
                     setShowModal(false);
                     setShowBanner(true);
                   }}
-                  className="text-gray-400 hover:text-gray-300 hover:border-red-500 hover:text-red-500 transition-all duration-300"
+                  className="text-gray-400 hover:text-gray-300 hover:text-red-500 transition-all duration-300"
                   aria-label="Close modal"
                 >
                   <X className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
               </div>
               <p className="text-xs sm:text-sm text-[#c2c6cb] leading-relaxed">
-                Ethos Pro Realtors and third-party services use small text files
-                called cookies and similar technologies to store or retrieve
-                information from your device. Essential cookies maintain website
-                core functionality, while Non-Essential cookies personalize your
-                experience. You can choose to block some types for privacy
-                reasons, but this may impact your website experience.
+                Ethos Pro Realtors and third-party services use cookies to store
+                or retrieve information from your device. Essential cookies
+                maintain website core functionality, while analytics and
+                advertising cookies help us improve our services and show
+                relevant ads. You can change your preferences at any time.
               </p>
               <p className="text-xs sm:text-sm text-[#c2c6cb] mt-2">
                 For more information, please visit{" "}
@@ -471,20 +406,20 @@ const CookieBanner = () => {
                   to="/privacy-policy"
                   className="text-[#c08830] hover:underline"
                 >
-                  Ethos Pro Realtors Privacy Policy - Section 5 in “Cookies and
+                  Ethos Pro Realtors Privacy Policy - Section 5 “Cookies and
                   similar technologies”
                 </Link>
                 .
               </p>
             </div>
 
-            {/* Consent Preferences */}
+            {/* Preferences body */}
             <div className="p-2 sm:p-4">
               <h3 className="text-base sm:text-lg font-medium text-[#c2c6cb] mb-4">
                 Manage Consent Preferences
               </h3>
 
-              {/* Essential Cookies */}
+              {/* Essential cookies */}
               <div className="border border-gray-600 rounded-md mb-3 overflow-hidden">
                 <div
                   className="flex items-center justify-between p-3 sm:p-4 cursor-pointer bg-gray-800 hover:bg-gray-700"
@@ -506,22 +441,17 @@ const CookieBanner = () => {
                     </h4>
                   </div>
                   <span className="flex items-center text-green-400 font-medium text-xs sm:text-sm ml-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                    <div className="w-2 h-2 bg-green-500 rounded-full mr-2" />
                     Always Active
                   </span>
                 </div>
                 {expandedSections.essential && (
                   <div className="p-3 sm:p-4 bg-gray-900">
                     <p className="text-xs sm:text-sm text-[#c2c6cb] leading-relaxed">
-                      Essential cookies are needed to ensure our websites and
-                      services work correctly, so they are enabled in the Cookie
-                      Settings. They can store things like your language
-                      preferences, sign-up and authentication data, and remember
-                      your choices in forms. They also help us to enhance your
-                      security when purchasing online, and allow us to provide a
-                      more stable browsing experience. You may disable essential
-                      cookies via your browser's cookie settings, but this might
-                      affect how the website works.{" "}
+                      Essential cookies are required for core site features
+                      (security, network management, accessibility). You may
+                      disable these via your browser settings, but some parts of
+                      the site may not work properly.{" "}
                       <Link
                         to="/privacy-policy"
                         className="text-[#c08830] hover:underline text-xs"
@@ -533,7 +463,7 @@ const CookieBanner = () => {
                 )}
               </div>
 
-              {/* Analytics / Targeting and Advertising Cookies */}
+              {/* Analytics / Ads cookies */}
               <div className="border border-gray-600 rounded-md mb-3 overflow-hidden">
                 <div
                   className="flex items-center justify-between p-3 sm:p-4 cursor-pointer bg-gray-800 hover:bg-gray-700"
@@ -568,73 +498,11 @@ const CookieBanner = () => {
                 {expandedSections.analytics && (
                   <div className="p-3 sm:p-4 bg-gray-900">
                     <p className="text-xs sm:text-sm text-[#c2c6cb] leading-relaxed">
-                      We use analytics cookies to count the number and length of
-                      your visit in Ethos Pro Realtors products and services as
-                      well as which part or features you visit the most as well.
-                      This data helps us analyze the performance and operation
-                      of Ethos Pro Realtors products and services to improve
-                      performance and develop new features, functions and
-                      services. Besides, we adopt targeting and advertising
-                      cookies to collect data about your use in Ethos Pro
-                      Realtors products and services and identify your
-                      interests, such as the advertisings you have viewed. Such
-                      cookies are also used to limit the number of times you see
-                      an advertisement as well as help measure the effectiveness
-                      of the advertising campaigns. For more information on
-                      cookies adopted by Ethos Pro Realtors, please visit{" "}
-                      <Link
-                        to="/privacy-policy"
-                        className="text-[#c08830] hover:underline text-xs"
-                      >
-                        Ethos Pro Realtors Privacy Policy - Chapter 5.1.2 in
-                        “Cookies and similar technologies”
-                      </Link>
-                      .
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              {/* YouTube Cookies */}
-              <div className="border border-gray-600 rounded-md mb-3 overflow-hidden">
-                <div
-                  className="flex items-center justify-between p-3 sm:p-4 cursor-pointer bg-gray-800 hover:bg-gray-700"
-                  onClick={() => toggleSection("youtube")}
-                >
-                  <div className="flex items-center flex-1">
-                    <button
-                      onClick={(e) => handlePlusClick(e, "youtube")}
-                      className="p-0 border-none bg-transparent cursor-pointer mr-2"
-                    >
-                      {expandedSections.youtube ? (
-                        <Minus className="w-4 h-4 text-[#c2c6cb]" />
-                      ) : (
-                        <Plus className="w-4 h-4 text-[#c2c6cb]" />
-                      )}
-                    </button>
-                    <h4 className="font-medium text-[#c2c6cb] text-sm sm:text-base">
-                      YouTube Cookies
-                    </h4>
-                  </div>
-                  <div onClick={(e) => e.stopPropagation()} className="ml-2">
-                    <Switch
-                      checked={consentPreferences.youtube}
-                      onChange={(checked) =>
-                        togglePreference("youtube", checked)
-                      }
-                      size="small"
-                      className="ml-0"
-                    />
-                  </div>
-                </div>
-                {expandedSections.youtube && (
-                  <div className="p-3 sm:p-4 bg-gray-900">
-                    <p className="text-xs sm:text-sm text-[#c2c6cb] leading-relaxed">
-                      We embed videos from YouTube channels into our websites.
-                      In embedded videos, Google Inc. may set YouTube cookies to
-                      track your views and personalize the YouTube browsing
-                      experience. For more information on cookies adopted by
-                      Ethos Pro Realtors, please visit{" "}
+                      Analytics cookies allow us to measure visits and user
+                      flows (Google Analytics). Targeting and advertising
+                      cookies (such as Google AdSense) help us show more
+                      relevant ads and measure campaign performance. For more
+                      information, please visit{" "}
                       <Link
                         to="/privacy-policy"
                         className="text-[#c08830] hover:underline text-xs"
@@ -649,7 +517,7 @@ const CookieBanner = () => {
               </div>
             </div>
 
-            {/* Footer Buttons */}
+            {/* Modal footer buttons */}
             <div className="p-4 sm:p-6 bg-gray-800 flex flex-col sm:flex-row justify-end gap-2 sm:space-x-3 sm:gap-0">
               <button
                 onClick={handleRejectAllInModal}

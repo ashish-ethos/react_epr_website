@@ -318,6 +318,8 @@ body {
   }
   .mobile-disclaimer-main {
     padding: 15px !important;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
   }
   .mobile-faq-answer {
     padding-left: 10px !important;

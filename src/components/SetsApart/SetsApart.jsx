@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./SetsApart.css";
 
 const stats = [
-  { value: "2+", label: "Years of Experience", numericValue: 2 },
+  { value: "3+", label: "Years of Experience", numericValue: 2 },
   { value: "2,000+", label: "Happy Clients", numericValue: 2000 },
   { value: "40+", label: "Affiliate Partners", numericValue: 40 },
   { value: "1,200+", label: "Properties Sold", numericValue: 1200 },
