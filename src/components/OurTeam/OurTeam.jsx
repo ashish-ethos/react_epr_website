@@ -22,6 +22,7 @@ import './OurTeam.css';
 import CustomButton from '../ui/Button';
 import ContactForm from '../../pages/Contact/ContactForm';
 
+
 const teamMembers = [
   {
     id: 1,
@@ -458,6 +459,11 @@ const OurTeam = () => {
   const { name } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setIsLoading(false), 1500);
+  }, []);
 
   useEffect(() => {
     const updateVisibleCards = () => {
@@ -522,7 +528,51 @@ const OurTeam = () => {
     }
   };
 
-  return (
+  const LoadingSkeleton = () => (
+    <div className="main-bg py-10 px-4 relative overflow-hidden animate-pulse" id="our-team">
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header Skeleton */}
+        <div className="text-center mb-6">
+          <div className="h-8 w-48 bg-[#444] rounded mx-auto mb-3"></div> 
+          <div className="h-1 w-32 bg-gradient-to-r from-transparent via-[#c99913] to-transparent rounded-full mx-auto"></div> 
+          <div className="h-5 w-80 bg-[#444] rounded mx-auto mt-2"></div> 
+        </div>
+
+        {/* Carousel Skeleton */}
+        <div className="overflow-hidden py-4">
+          <div className="flex">
+            {Array.from({ length: teamMembers.length }).map((_, index) => (
+              <div key={index} className="w-full md:w-1/2 lg:w-1/4 flex-shrink-0 px-4">
+                <div className="relative w-full h-[420px] bg-[#444] rounded-3xl shadow-xl overflow-hidden border border-[#ffffff38]">
+                  {/* Image Placeholder */}
+                  <div className="relative h-56 bg-[#555] rounded-t-3xl"></div> 
+
+                  {/* Content Placeholder */}
+                  <div className="p-6 space-y-4">
+                    <div className="space-y-2">
+                      <div className="h-5 w-32 bg-[#555] rounded mx-auto"></div> 
+                      <div className="h-4 w-24 bg-[#555] rounded mx-auto"></div> 
+                    </div>
+                    <div className="h-10 w-full bg-[#555] rounded-xl"></div> 
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Navigation Buttons Skeleton */}
+        <div className="mt-4 flex justify-center gap-4">
+          <div className="h-10 w-20 bg-[#444] rounded-xl"></div> 
+          <div className="h-10 w-20 bg-[#444] rounded-xl"></div> 
+        </div>
+      </div>
+    </div>
+  );
+
+  return isLoading ? (
+    <LoadingSkeleton />
+  ) : (
     <div className="main-bg py-10 px-4 relative overflow-hidden" id="our-team">
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-6 our-team-text">

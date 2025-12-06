@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import M3M from "../../assets/images/premiumproperties/M3M.png";
 import Elan from "../../assets/images/premiumproperties/Elan.png";
 import DLF from "../../assets/images/premiumproperties/DLF.png";
@@ -39,8 +39,63 @@ const AssociatedDevelopers = () => {
     { id: 17, name: 'Sobha', src: Sobha, shadow: 'shadow-md' },
     { id: 18, name: 'AtsEstate', src: AtsEstate, shadow: 'shadow-md' },
   ];
+  const [isLoading, setIsLoading] = useState(true);
 
-  return (
+  useEffect(() => {
+    setTimeout(() => setIsLoading(false), 1500);
+  }, []);
+
+  const LoadingSkeleton = () => (
+    <div className="relative py-4 sm:py-10 bg-gradient-to-br from-gray-900 via-[#333] to-gray-800 overflow-hidden animate-pulse" id='associated-developers'>
+      <div className="relative mx-auto px-4 sm:px-6 lg:px-8 mobile-associate-section">
+        {/* Header Skeleton */}
+        <div className="text-center">
+          <div className="inline-block relative mb-4 sm:mb-6">
+            <div className="h-8 w-64 bg-[#444] rounded mx-auto"></div> 
+            <div className="absolute -bottom-2 left-0 right-0 h-1 mt-1 bg-gradient-to-r from-transparent via-[#c99913] to-transparent rounded-full"></div>
+          </div>
+        </div>
+
+        {/* Marquee Skeleton */}
+        <div className="relative sm:h-50 overflow-hidden continuous-marquee">
+          <div className="absolute inset-0 flex items-center">
+            <div className="flex space-x-8 sm:space-x-12 w-[200vw]">
+              {Array.from({ length: developerLogos.length * 2 }).map((_, index) => (
+                <div key={index} className="flex-shrink-0 group relative">
+                  <div className="relative w-32 sm:w-40 h-20 sm:h-24 bg-[#444] rounded-xl border border-[#ffffff38] shadow-lg flex items-center justify-center overflow-hidden">
+                    <div className="w-20 h-12 bg-[#555] rounded"></div> 
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Edge Gradients */}
+          <div className="absolute left-0 top-0 w-16 sm:w-32 h-full bg-gradient-to-r from-gray-900 to-transparent z-20"></div>
+          <div className="absolute right-0 top-0 w-16 sm:w-32 h-full bg-gradient-to-l from-gray-800 to-transparent z-20"></div>
+        </div>
+
+        {/* Bottom Stats Skeleton */}
+        <div className="bottom-stats">
+          <div className="text-center">
+            <div className="inline-flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 bg-[#333]/80 backdrop-blur-sm rounded-lg sm:rounded-full px-6 sm:px-8 py-4 border border-[#ffffff38] shadow-lg h-16 w-full sm:w-auto">
+              <div className="flex flex-col sm:flex-row sm:space-x-8 text-[#c2c6cb] bottom-stats-content">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <div key={i} className="text-center">
+                    <div className="h-6 w-12 bg-[#555] rounded mx-auto mb-1"></div>
+                    <div className="h-4 w-16 bg-[#555] rounded mx-auto"></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  return isLoading ? (
+    <LoadingSkeleton />
+  ) : (
     <div className="relative py-4 sm:py-10 bg-gradient-to-br from-gray-900 via-[#333] to-gray-800 overflow-hidden" id='associated-developers'>
       {/* Inline marquee animation */}
       <style>{`
@@ -64,11 +119,7 @@ const AssociatedDevelopers = () => {
             </h2>
             <div className="absolute -bottom-2 left-0 right-0 h-1 mt-1 bg-gradient-to-r from-transparent via-[#c99913] to-transparent rounded-full"></div>
           </div>
-          {/* <div className="mt-1 flex justify-center space-x-2">
-            <div className="w-2 h-2 rounded-full bg-[#c99913] animate-bounce"></div>
-            <div className="w-2 h-2 rounded-full bg-[#c99913]/70 animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-            <div className="w-2 h-2 rounded-full bg-[#c99913]/50 animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-          </div> */}
+         
         </div>
 
         {/* Continuous Marquee Logos */}
@@ -79,10 +130,10 @@ const AssociatedDevelopers = () => {
               {developerLogos.map((logo) => (
                 <div key={`set1-${logo.id}`} className="flex-shrink-0 group relative">
                   <div className={`relative w-32 sm:w-40 h-20 sm:h-24 bg-[#333] rounded-xl border border-[#ffffff38] hover:border-[#c99913] transition-all duration-300 group-hover:scale-105 shadow-lg hover:shadow-xl hover:shadow-black/30 flex items-center justify-center overflow-hidden`}>
-                    <img 
-                      src={logo.src} 
-                      alt={logo.name} 
-                      className="max-w-full max-h-full object-contain transition-all duration-300 group-hover:scale-105 filter brightness-90 group-hover:brightness-100" 
+                    <img
+                      src={logo.src}
+                      alt={logo.name}
+                      className="max-w-full max-h-full object-contain transition-all duration-300 group-hover:scale-105 filter brightness-90 group-hover:brightness-100"
                     />
                     {/* Shine effect on hover */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#c99913]/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
@@ -93,10 +144,10 @@ const AssociatedDevelopers = () => {
               {developerLogos.map((logo) => (
                 <div key={`set2-${logo.id}`} className="flex-shrink-0 group relative">
                   <div className={`relative w-32 sm:w-40 h-20 sm:h-24 bg-[#333] rounded-xl border border-[#ffffff38] hover:border-[#c99913] transition-all duration-300 group-hover:scale-105 shadow-lg hover:shadow-xl hover:shadow-black/30 flex items-center justify-center overflow-hidden`}>
-                    <img 
-                      src={logo.src} 
-                      alt={logo.name} 
-                      className="max-w-full max-h-full object-contain transition-all duration-300 group-hover:scale-105 filter brightness-90 group-hover:brightness-100" 
+                    <img
+                      src={logo.src}
+                      alt={logo.name}
+                      className="max-w-full max-h-full object-contain transition-all duration-300 group-hover:scale-105 filter brightness-90 group-hover:brightness-100"
                     />
                     {/* Shine effect on hover */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#c99913]/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>

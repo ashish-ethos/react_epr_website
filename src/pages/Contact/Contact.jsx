@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Phone,
     Mail,
@@ -15,10 +15,91 @@ import ContactForm from './ContactForm';
 import { FaXTwitter } from "react-icons/fa6";
 
 const Contact = () => {
+    const [isLoading, setIsLoading] = useState(true);
+    useEffect(() => {
+        setTimeout(() => setIsLoading(false), 1500);
+    }, []);
+
     const handleSubmitSuccess = () => {
     };
 
-    return (
+    const LoadingSkeleton = () => (
+        <div className="bg-[#333] animate-pulse">
+            {/* Hero Section Skeleton */}
+            <div className="relative h-[400px] w-full bg-[#444]"></div>
+
+            {/* Main Section Skeleton */}
+            <div className="container mx-auto px-4 py-10 main-contact-section laptop-mode-screen">
+                <div className="grid lg:grid-cols-2 gap-8 max-w-7xl mx-auto main-section-contact-grid">
+                    {/* Left Column: Form + Map Skeleton */}
+                    <div className="space-y-8 mobile-conatiner-width">
+                        {/* Form Skeleton */}
+                        <div className="space-y-4">
+                            <div className="h-8 w-32 bg-[#444] rounded"></div>
+                            <div className="space-y-3">
+                                {Array.from({ length: 5 }).map((_, i) => (
+                                    <div key={i} className="h-10 w-full bg-[#444] rounded"></div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Map Card Skeleton */}
+                        <div className="bg-[#444]/70 rounded-xl shadow-xl overflow-hidden max-w-4xl mx-auto mt-12 border border-[#ffffff38]">
+                            <div className="bg-transparent flex items-center gap-1 p-2 px-4">
+                                <div className="w-4 h-4 bg-[#555] rounded mr-2"></div>
+                                <div className="h-6 w-24 bg-[#555] rounded"></div>
+                            </div>
+                            <div className="h-[400px] w-full bg-[#555]"></div>
+                        </div>
+                    </div>
+
+                    {/* Right Column: Contact Cards, Office, Social Skeleton */}
+                    <div className="space-y-8 right-column-contact">
+                        {/* Contact Info Cards Skeleton */}
+                        <div className="bg-[#333] rounded-3xl shadow-xl p-8 relative overflow-hidden contact-info-cards border border-[#ffffff38]">
+                            <div className="h-8 w-32 bg-[#555] rounded mb-6"></div>
+                            <div className="space-y-6">
+                                {Array.from({ length: 2 }).map((_, index) => (
+                                    <div key={index} className="bg-gradient-to-r from-[#333]/50 to-[#444]/50 p-6 rounded-2xl border border-[#ffffff38] space-y-3">
+                                        <div className="h-5 w-24 bg-[#555] rounded"></div>
+                                        <div className="h-4 w-32 bg-[#555] rounded"></div>
+                                        <div className="space-y-2">
+                                            <div className="h-4 w-40 bg-[#555] rounded flex items-center gap-3"></div>
+                                            <div className="h-4 w-48 bg-[#555] rounded flex items-center gap-3"></div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Office Location Skeleton */}
+                        <div className="bg-gradient-to-r from-[#333]/50 to-[#444]/50 rounded-3xl shadow-xl p-6 border border-[#ffffff38] contact-info-cards">
+                            <div className="h-8 w-32 bg-[#555] rounded mb-6"></div>
+                            <div className="bg-gradient-to-r from-[#333]/50 to-[#444]/50 p-6 rounded-2xl border border-[#ffffff38] space-y-3">
+                                <div className="h-4 w-40 bg-[#555] rounded flex items-start gap-3"></div>
+                                <div className="h-4 w-48 bg-[#555] rounded flex items-start gap-3"></div>
+                            </div>
+                        </div>
+
+                        {/* Social Media Skeleton */}
+                        <div className="bg-gradient-to-r from-[#333]/50 to-[#444]/50 rounded-3xl shadow-xl p-6 border border-[#ffffff38] contact-info-cards">
+                            <div className="h-8 w-24 bg-[#555] rounded mb-6"></div>
+                            <div className="flex space-x-4">
+                                {Array.from({ length: 5 }).map((_, i) => (
+                                    <div key={i} className="w-12 h-12 bg-[#555] rounded-full"></div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+
+    return isLoading ? (
+        <LoadingSkeleton />
+    ) : (
         <div className="bg-[#333]">
             {/* Hero Section */}
             <div
@@ -66,7 +147,7 @@ const Contact = () => {
                         {/* Contact Info Cards */}
                         <div className="bg-[#333] rounded-3xl shadow-xl p-8 relative overflow-hidden contact-info-cards border border-[#ffffff38]">
                             <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-[#c2c6cb]/20 to-transparent rounded-full -mr-10 -mt-10"></div>
-                            <h2 className="text-2xl font-bold text-[#c2c6cb] mb-6">For Inquiries Contact:</h2>
+                            <h2 className="text-2xl font-bold text-[#c2c6cb] mb-6">For Contact :</h2>
                             <div className="space-y-6">
                                 <div className="bg-gradient-to-r from-[#333]/50 to-[#444]/50 p-6 rounded-2xl border border-[#ffffff38]">
                                     <h3 className="font-semibold text-[#c2c6cb] text-lg mb-1">Satya Mandal</h3>

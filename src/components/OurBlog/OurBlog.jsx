@@ -412,12 +412,13 @@ const OurBlog = () => {
     const location = useLocation();
     const { useBreakpoint } = Grid;
     const screens = useBreakpoint();
+    const [isLoading, setIsLoading] = useState(true);
 
 
     const getVisibleCards = () => {
-        if (window.innerWidth < 640) return 1; 
-        if (window.innerWidth < 1024) return 2; 
-        return 4; 
+        if (window.innerWidth < 640) return 1;
+        if (window.innerWidth < 1024) return 2;
+        return 4;
     };
 
     const [visibleCards, setVisibleCards] = useState(getVisibleCards());
@@ -425,7 +426,7 @@ const OurBlog = () => {
     useEffect(() => {
         const handleResize = () => {
             setVisibleCards(getVisibleCards());
-            setCurrentSlide(0); 
+            setCurrentSlide(0);
         };
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
@@ -456,11 +457,11 @@ const OurBlog = () => {
     const handleTouchEnd = () => {
         if (!touchStartX.current || !touchEndX.current) return;
         const diff = touchStartX.current - touchEndX.current;
-        if (Math.abs(diff) > 50) { 
+        if (Math.abs(diff) > 50) {
             if (diff > 0) {
                 nextSlide();
             } else {
-                prevSlide(); 
+                prevSlide();
             }
         }
         touchStartX.current = null;
@@ -493,6 +494,10 @@ const OurBlog = () => {
             }
         }
     }, [location.pathname]);
+
+    useEffect(() => {
+        setTimeout(() => setIsLoading(false), 1500);
+    }, []);
 
     const openExploreDrawer = () => {
         setIsDrawerOpen(false);
@@ -535,7 +540,93 @@ const OurBlog = () => {
         });
     };
 
-    return (
+    const LoadingSkeleton = () => (
+        <div className="min-h-screen bg-[#00000047] py-10 px-4 relative overflow-hidden premium-properties-main laptop-mode-screen animate-pulse" id='our-blog'>
+            <div className="max-w-7xl mx-auto relative z-10">
+                {/* Header Skeleton */}
+                <div className="w-full flex flex-col gap-12 header-ourblog">
+                    {/* Row 1 Skeleton */}
+                    <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
+                        <div className="inline-flex items-center gap-3 p-3 bg-[#444]/80 backdrop-blur-sm rounded-2xl shadow-lg border border-[#ffffff38] h-12 w-80"></div> {/* Insights bar */}
+                        <div className="h-12 w-48 bg-[#444] rounded-2xl"></div> {/* Explore button */}
+                    </div>
+
+                    {/* Row 2 Skeleton */}
+                    <div className="flex flex-col lg:flex-row justify-between items-start gap-10 header-ourblog">
+                        <div className="flex-1 text-center lg:text-left">
+                            <div className="h-16 w-48 bg-[#444] rounded mb-4 mx-auto lg:mx-0"></div> {/* Title */}
+                            <div className="h-6 w-80 bg-[#444] rounded mx-auto lg:mx-0"></div> {/* Subtitle */}
+                        </div>
+                        <div className="flex justify-center lg:justify-end gap-6 w-full lg:w-auto">
+                            {Array.from({ length: 3 }).map((_, i) => (
+                                <div key={i} className="bg-[#444]/90 backdrop-blur-sm rounded-xl p-3 px-4 shadow-lg border border-[#ffffff38] text-center h-20 w-20">
+                                    <div className="h-6 w-12 bg-[#555] rounded mx-auto mb-1"></div>
+                                    <div className="h-4 w-16 bg-[#555] rounded mx-auto"></div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Blog Carousel Skeleton */}
+                <div className="relative">
+                    <div className="absolute -top-16 right-0 flex gap-4 z-20">
+                        <div className="h-14 w-14 bg-[#444] rounded-full"></div> 
+                        <div className="h-14 w-14 bg-[#444] rounded-full"></div> 
+                    </div>
+
+                    <div className="overflow-hidden py-4 ourblog-card-section">
+                        <div className="flex main-ourblogcard">
+                            {Array.from({ length: visibleCards }).map((_, index) => (
+                                <div key={index} className={`flex-shrink-0 px-4 all-ourblog-card cursor-pointer w-full sm:w-1/2 lg:w-1/4 ${visibleCards}`}>
+                                    <div className="relative bg-[#444] rounded-3xl overflow-hidden shadow-xl border border-[#ffffff38] h-96">
+                                        {/* Image Skeleton */}
+                                        <div className="relative h-64 bg-[#555] rounded-t-3xl"></div>
+                                        {/* Category Label */}
+                                        <div className="absolute top-6 left-6 h-8 w-24 bg-[#555] rounded"></div>
+
+                                        {/* Bottom Stats */}
+                                        <div className="absolute bottom-6 left-6 flex gap-4">
+                                            <div className="h-6 w-16 bg-[#555] rounded-full"></div>
+                                            <div className="h-6 w-20 bg-[#555] rounded-full"></div>
+                                        </div>
+
+                                        {/* Content Skeleton */}
+                                        <div className="p-8 sm:p-4 relative bg-[#444] ourblog-card-mobile space-y-4">
+                                            <div className="flex gap-2 mb-4">
+                                                {Array.from({ length: 2 }).map((_, i) => (
+                                                    <div key={i} className="h-6 w-16 bg-[#555] rounded-lg"></div>
+                                                ))}
+                                            </div>
+                                            <div className="h-4 w-48 bg-[#555] rounded mb-4"></div> 
+                                            <div className="h-8 w-full bg-[#555] rounded mb-4"></div> 
+                                            <div className="space-y-2">
+                                                {Array.from({ length: 3 }).map((_, i) => (
+                                                    <div key={i} className="h-4 w-full bg-[#555] rounded"></div>
+                                                ))}
+                                            </div>
+                                            <div className="flex items-center gap-4 mt-4">
+                                                <div className="h-12 w-12 bg-[#555] rounded-full"></div> 
+                                                <div className="space-y-1">
+                                                    <div className="h-4 w-20 bg-[#555] rounded"></div>
+                                                    <div className="h-3 w-16 bg-[#555] rounded"></div>
+                                                </div>
+                                            </div>
+                                            <div className="absolute bottom-4 right-8 h-12 w-12 bg-[#555] rounded-full"></div> 
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+    return isLoading ? (
+        <LoadingSkeleton />
+    ) : (
         <div className="min-h-screen bg-[#00000047] py-10 px-4 relative overflow-hidden premium-properties-main laptop-mode-screen" id='our-blog'>
             <div className="max-w-7xl mx-auto relative z-10">
                 {/* Header Section */}
@@ -633,7 +724,7 @@ const OurBlog = () => {
                                     onMouseEnter={() => setHoveredCard(post.id)}
                                     onMouseLeave={() => setHoveredCard(null)}
                                     onClick={() => openDrawer(post)}
-                                    
+
                                 >
                                     <div className={`relative bg-[#444] rounded-3xl overflow-hidden group transition-all duration-700 hover:scale-105 shadow-xl border border-[#ffffff38] ${hoveredCard === post.id
                                         ? 'shadow-2xl shadow-[#c2c6cb]/20'
@@ -695,9 +786,9 @@ const OurBlog = () => {
                                                     <p className="text-[#c2c6cb] text-sm">Author</p>
                                                 </div>
                                             </div>
-                                            <div 
-                                             className={`absolute cursor-pointer bottom-4 right-8 w-12 h-12 bg-gradient-to-r from-[#c2c6cb] to-[#444] rounded-full flex items-center justify-center transition-all duration-300 shadow-lg ${hoveredCard === post.id ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
-                                                }`}>
+                                            <div
+                                                className={`absolute cursor-pointer bottom-4 right-8 w-12 h-12 bg-gradient-to-r from-[#c2c6cb] to-[#444] rounded-full flex items-center justify-center transition-all duration-300 shadow-lg ${hoveredCard === post.id ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
+                                                    }`}>
                                                 <ArrowRight className="w-6 h-6 text-[#333]" />
                                             </div>
                                         </div>
@@ -721,7 +812,7 @@ const OurBlog = () => {
                     onClose={closeDrawer}
                     open={isDrawerOpen}
                     width={screens.xs ? "100%" : "50%"}
-                  
+
                     closeIcon={<X className="w-6 h-6 text-[#c2c6cb]" />}
                 >
                     {selectedPost && (
@@ -746,7 +837,7 @@ const OurBlog = () => {
                     onClose={closeExploreDrawer}
                     open={isExploreDrawerOpen}
                     width={screens.xs ? "100%" : "80%"}
-                   className='custom-scrollbar '
+                    className='custom-scrollbar '
                     closeIcon={<X className="w-6 h-6 text-[#c2c6cb]" />}
                 >
                     <BlogExploreArticles blogPosts={blogPosts} contentMap={contentMap} />

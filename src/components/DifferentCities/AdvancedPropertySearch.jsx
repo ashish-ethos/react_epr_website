@@ -225,6 +225,23 @@ const AdvancedPropertySearch = ({
     setFilteredProperties(newDisplay);
   }, [properties]);
 
+  useEffect(() => {
+    const savedViewMode = localStorage.getItem('advancedSearchViewMode');
+    if (savedViewMode) {
+      setViewMode(savedViewMode);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('advancedSearchViewMode', viewMode);
+  }, [viewMode]);
+
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem('advancedSearchViewMode');
+    };
+  }, []);
+
   // Optimized filter function using useCallback
   const applyFilters = useCallback((propsToFilter, currentFilters) => {
     const {

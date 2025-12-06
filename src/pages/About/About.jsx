@@ -14,9 +14,13 @@ import OurBlog from '../../components/OurBlog/OurBlog';
 const About = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [activeSection, setActiveSection] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        setIsVisible(true);
+        setTimeout(() => {
+            setIsLoading(false);
+            setIsVisible(true);
+        }, 1500);
         const interval = setInterval(() => {
             setActiveSection(prev => (prev + 1) % 3);
         }, 4000);
@@ -63,7 +67,119 @@ const About = () => {
         }
     ];
 
-    return (
+    const LoadingSkeleton = () => (
+        <div className="min-h-screen bg-[#333] animate-pulse">
+            {/* Hero Section Skeleton */}
+            <div className="relative w-full overflow-hidden">
+                <div className="about-image w-full h-[500px] border-2 border-[#ffffff38] bg-[#444]"></div>
+                <div className="flex justify-center -mt-8">
+                    <div className="w-8 h-8 bg-[#444] rounded-full"></div> 
+                </div>
+            </div>
+
+            {/* Stats Section Skeleton */}
+            <div className="py-10 bg-[#444]/50 backdrop-blur-sm">
+                <div className="container mx-auto px-6">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        {Array.from({ length: 4 }).map((_, index) => (
+                            <div key={index} className="text-center">
+                                <div className="w-16 h-16 bg-[#555] rounded-full mx-auto mb-4"></div> 
+                                <div className="h-8 w-20 bg-[#555] rounded mx-auto mb-2"></div> 
+                                <div className="h-4 w-24 bg-[#555] rounded mx-auto"></div> 
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {/* Main Content Skeleton */}
+            <div className="pt-10">
+                <div className="container mx-auto px-6 laptop-mode-screen">
+                    <div className="main-about grid lg:grid-cols-2 gap-16 items-center mb-20">
+                        <div className="space-y-4">
+                            <div className="h-5 w-20 bg-[#555] rounded"></div> 
+                            <div className="h-10 w-80 bg-[#555] rounded"></div> 
+                            <div className="space-y-3">
+                                {Array.from({ length: 4 }).map((_, i) => (
+                                    <div key={i} className="h-4 w-full bg-[#555] rounded"></div>
+                                ))}
+                            </div>
+                            <div className="space-y-3">
+                                {Array.from({ length: 4 }).map((_, i) => (
+                                    <div key={i} className="h-4 w-full bg-[#555] rounded"></div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="relative">
+                            <div className="h-96 w-full bg-[#555] rounded-md"></div> 
+                            <div className="absolute -bottom-6 -left-6 bg-[#444]/70 rounded-2xl p-2 shadow-2xl border border-[#ffffff38] w-48 h-20">
+                                <div className="flex items-center gap-2 mb-2">
+                                    {Array.from({ length: 5 }).map((_, i) => (
+                                        <div key={i} className="w-5 h-5 bg-[#555] rounded-full"></div>
+                                    ))}
+                                </div>
+                                <div className="h-4 w-32 bg-[#555] rounded"></div> 
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Mission & Vision Skeleton */}
+                    <div className="grid lg:grid-cols-2 gap-12 mb-20">
+                        {Array.from({ length: 2 }).map((_, index) => (
+                            <div key={index} className="bg-[#444]/70 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-[#ffffff38] space-y-4">
+                                <div className="w-12 h-12 bg-[#555] rounded-xl"></div> 
+                                <div className="h-8 w-40 bg-[#555] rounded"></div> 
+                                <div className="space-y-3">
+                                    {Array.from({ length: 4 }).map((_, i) => (
+                                        <div key={i} className="h-4 w-full bg-[#555] rounded"></div>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Values Section Skeleton */}
+                    <div className="mb-20">
+                        <div className="text-center mb-12">
+                            <div className="flex items-center justify-center gap-3 mb-4">
+                                {Array.from({ length: 3 }).map((_, i) => (
+                                    <div key={i} className="h-5 w-12 bg-[#555] rounded"></div>
+                                ))}
+                            </div>
+                            <div className="h-10 w-96 bg-[#555] rounded mx-auto mb-4"></div> 
+                            <div className="h-5 w-80 bg-[#555] rounded mx-auto"></div> 
+                        </div>
+                        <div className="grid md:grid-cols-3 gap-8">
+                            {Array.from({ length: 6 }).map((_, index) => (
+                                <div key={index} className="bg-[#444]/70 backdrop-blur-sm rounded-3xl p-8 sm:p-4 shadow-xl border border-[#ffffff38]">
+                                    <div className="w-12 h-12 bg-[#555] rounded-xl mx-auto mb-4"></div> 
+                                    <div className="h-6 w-48 bg-[#555] rounded mx-auto mb-4"></div> 
+                                    <div className="space-y-3">
+                                        {Array.from({ length: 3 }).map((_, i) => (
+                                            <div key={i} className="h-4 w-full bg-[#555] rounded"></div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+                {/* Placeholder for sub-components */}
+                <div className="py-20 bg-[#444]/50">
+                    <div className="container mx-auto px-6">
+                        <div className="h-64 bg-[#555] rounded-3xl mb-8"></div> 
+                        <div className="h-96 bg-[#555] rounded-3xl mb-8"></div> 
+                        <div className="h-96 bg-[#555] rounded-3xl mb-8"></div> 
+                        <div className="h-96 bg-[#555] rounded-3xl"></div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+    return isLoading ? (
+        <LoadingSkeleton />
+    ) : (
         <div className="min-h-screen bg-[#333]">
             {/* Hero Section */}
             <div className="relative w-full overflow-hidden">
@@ -72,7 +188,7 @@ const About = () => {
                     className="about-image w-full h-[500px] border-2 border-[#ffffff38] bg-cover bg-center bg-no-repeat laptop-about-banner"
                     style={{ backgroundImage: `url(${window.innerWidth < 640 ? backgroundMobileImg : backgroundImg})` }}
                 >
-                    
+
                 </div>
 
                 {/* Centered Chevron Icon */}
@@ -161,7 +277,7 @@ const About = () => {
                         <div className="bg-[#444]/70 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-[#ffffff38] hover:shadow-xl  hover:border-[#c08830] hover:shadow-[0_0_35px_rgba(192,136,48,0.35)] hover:ring-1 hover:ring-[#c08830]/20   transition-all duration-300 mobile-our-vision">
                             <div
                                 className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-[#c2c6cb] to-[#333] "
-                                
+
                             >
                                 <Award className="w-6 h-6 text-[#333] " />
                             </div>
@@ -176,7 +292,7 @@ const About = () => {
                         <div className="bg-[#444]/70 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-[#ffffff38] hover:shadow-xl  hover:border-[#c08830] hover:shadow-[0_0_35px_rgba(192,136,48,0.35)] hover:ring-1 hover:ring-[#c08830]/20   transition-all duration-300 mobile-our-vision">
                             <div
                                 className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-[#c2c6cb] to-[#333] "
-                                
+
                             >
                                 <TrendingUp className="w-6 h-6 text-[#333]" />
                             </div>

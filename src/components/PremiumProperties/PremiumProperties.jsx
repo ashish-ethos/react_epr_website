@@ -25,6 +25,11 @@ function PremiumProperties() {
   const { propertyName } = useParams();
   const touchStartX = useRef(null);
   const carouselRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setIsLoading(false), 1500);
+  }, []);
 
   const properties = [
     {
@@ -168,7 +173,7 @@ function PremiumProperties() {
         state: "Haryana",
         country: "India",
         area: "Golf Course Road",
-        
+
       },
       area: "2246 - 6221 Sq Ft",
       type: "APARTMENT, RESIDENTIAL",
@@ -186,6 +191,51 @@ function PremiumProperties() {
     if (window.innerWidth < 1024) return 2;
     return 3;
   };
+
+  const LoadingSkeleton = () => (
+    <div
+      className="carousel-card relative flex-shrink-0 transition-all duration-700"
+      style={{ width: `${cardWidth || 300}px` }}  // Fallback width if cardWidth not yet set
+    >
+      <div className="group relative bg-[#333] rounded-3xl shadow-xl overflow-hidden border border-[#ffffff38] animate-pulse">
+        {/* Image Skeleton */}
+        <div className="relative overflow-hidden">
+          <div className="w-full h-64 bg-[#444] rounded-t-3xl" />
+          {/* Fake badges on top-left */}
+          <div className="absolute top-4 left-4 flex flex-col gap-2">
+            <div className="w-16 h-5 bg-[#444] rounded-full" />
+            <div className="w-16 h-5 bg-[#444] rounded-full" />
+          </div>
+        </div>
+
+        {/* Content Skeleton */}
+        <div className="p-6">
+          {/* Price and Plot Size */}
+          <div className="flex items-center gap-3 mb-4">
+            <div className="h-8 w-24 bg-[#444] rounded" />
+            <div className="h-6 w-32 bg-[#444] rounded border border-[#ffffff38] border-dashed" />
+          </div>
+          {/* Name */}
+          <div className="h-6 w-3/4 bg-[#444] rounded mb-2" />
+          {/* Location */}
+          <div className="flex items-start gap-2 mb-3">
+            <div className="w-4 h-4 bg-[#444] rounded-full mt-1" />
+            <div className="h-4 w-full bg-[#444] rounded" />
+          </div>
+          {/* Amenities Badges */}
+          <div className="flex flex-wrap gap-2 mb-3">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="h-5 w-16 bg-[#444] rounded-full border border-[#ffffff38]" />
+            ))}
+          </div>
+          {/* Details Button */}
+          <div className="flex justify-end">
+            <div className="h-10 w-20 bg-[#444] rounded border border-[#ffffff38]" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -331,64 +381,70 @@ function PremiumProperties() {
               transform: `translateX(${translateX}px)`,
             }}
           >
-            {properties.map((property) => (
-              <div
-                key={property.id}
-                className={`carousel-card relative flex-shrink-0 transition-all duration-700 ${hoveredCard === property.id ? "scale-105 z-20" : "scale-100"}`}
-                style={{ width: `${cardWidth}px` }}
-                onMouseEnter={() => setHoveredCard(property.id)}
-                onMouseLeave={() => setHoveredCard(null)}
-              >
-                <div className={`group relative bg-[#333] rounded-3xl shadow-xl overflow-hidden border border-[#ffffff38] transition-all ${hoveredCard === property.id ? "-translate-y-4" : ""}`}>
-                  {/* Image */}
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={property.image}
-                      alt={property.name}
-                      className={`w-full h-64 object-cover transition-transform ${hoveredCard === property.id ? "scale-110" : "scale-100"}`}
-                    />
-                    <div className="absolute top-4 left-4 flex flex-col gap-2">
-                      {property.featured && (
-                        <span className="px-3 py-1 bg-[#333] text-[#c99913] text-xs font-bold rounded-full shadow-lg animate-pulse border border-[#ffffff38]">
-                          FEATURED
+            {isLoading
+              ? Array.from({ length: properties.length }).map((_, index) => (
+                <LoadingSkeleton key={index} />
+              ))
+              : properties.map((property) => (
+                <div
+                  key={property.id}
+                  className={`carousel-card relative flex-shrink-0 transition-all duration-700 ${hoveredCard === property.id ? "scale-105 z-20" : "scale-100"}`}
+                  style={{ width: `${cardWidth}px` }}
+                  onMouseEnter={() => setHoveredCard(property.id)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                >
+                  <div className={`group relative bg-[#333] rounded-3xl shadow-xl overflow-hidden border border-[#ffffff38] transition-all ${hoveredCard === property.id ? "-translate-y-4" : ""}`}>
+                    {/* Image */}
+                    <div className="relative overflow-hidden">
+                      <img
+                        src={property.image}
+                        alt={property.name}
+                        className={`w-full h-64 object-cover transition-transform ${hoveredCard === property.id ? "scale-110" : "scale-100"}`}
+                      />
+                      <div className="absolute top-4 left-4 flex flex-col gap-2">
+                        {property.featured && (
+                          <span className="px-3 py-1 bg-[#333] text-[#c99913] text-xs font-bold rounded-full shadow-lg animate-pulse border border-[#ffffff38]">
+                            FEATURED
+                          </span>
+                        )}
+                        <span className="px-3 text-center py-1 bg-[#333] text-[#c99913] text-xs font-bold rounded-full shadow-lg border border-[#ffffff38]">
+                          {property.category}
                         </span>
-                      )}
-                      <span className="px-3 text-center py-1 bg-[#333] text-[#c99913] text-xs font-bold rounded-full shadow-lg border border-[#ffffff38]">
-                        {property.category}
-                      </span>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Content */}
-                  <div className="p-6">
-                    <div className="flex items-center gap-3 mb-4 content-mobile-price">
-                      <span className="text-2xl font-bold fontFamily-bebas text-[#c99913]">{property.price}</span>
-                      <div className="text-sm text-[#c2c6cb] bg-[#444] px-2 py-1 rounded border border-[#ffffff38] border-dashed"> Plot Size : {property.size}</div>
-                    </div>
-                    <h3 className="text-xl font-medium fontFamily-bebas text-[#c2c6cb] mb-2">{property.name}</h3>
-                    <div className="flex items-start gap-2 mb-3">
-                      <MapPin size={16} className="text-[#c99913] mt-1" />
-                      <p className="text-sm text-[#c2c6cb]">{`${property.location.city}, ${property.location.area}, ${property.location.state}, ${property.location.country}`}</p>
-                    </div>
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      {property.amenities.slice(0, 3).map((a, i) => (
-                        <span key={i} className="px-2 py-1 bg-[#444] text-[#c2c6cb] text-xs rounded-full border border-[#ffffff38]">
-                          {a}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex justify-end details-mobile">
-                      <CustomButton
-                        onClick={() => openDetails(property)}
-                        className="px-4 py-1 font-semibold cursor-pointer bg-[#333] text-[#c2c6cb] hover:bg-[#444] border border-[#ffffff38] details-btn"
-                      >
-                        Details <ExternalLink className="w-4 h-4" />
-                      </CustomButton>
+                    {/* Content */}
+                    <div className="p-6">
+                      <div className="flex items-center gap-3 mb-4 content-mobile-price">
+                        <span className="text-2xl font-bold fontFamily-bebas text-[#c99913]">{property.price}</span>
+                        <div className="text-sm text-[#c2c6cb] bg-[#444] px-2 py-1 rounded border border-[#ffffff38] border-dashed"> Plot Size : {property.size}</div>
+                      </div>
+                      <h3 className="text-xl font-medium fontFamily-bebas text-[#c2c6cb] mb-2">{property.name}</h3>
+                      <div className="flex items-start gap-2 mb-3">
+                        <MapPin size={16} className="text-[#c99913] mt-1" />
+                        <p className="text-sm text-[#c2c6cb]">{`${property.location.city}, ${property.location.area}, ${property.location.state}, ${property.location.country}`}</p>
+                      </div>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {property.amenities.slice(0, 3).map((a, i) => (
+                          <span key={i} className="px-2 py-1 bg-[#444] text-[#c2c6cb] text-xs rounded-full border border-[#ffffff38]">
+                            {a}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="flex justify-end details-mobile">
+                        <CustomButton
+                          onClick={() => openDetails(property)}
+                          className="px-4 py-1 font-semibold cursor-pointer bg-[#333] text-[#c2c6cb] hover:bg-[#444] border border-[#ffffff38] details-btn"
+                        >
+                          Details <ExternalLink className="w-4 h-4" />
+                        </CustomButton>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            }
+
           </div>
         </div>
       </div>
@@ -406,11 +462,11 @@ function PremiumProperties() {
           mask: { background: "rgba(17, 24, 39, 0.5)" },
         }}
         className=" scrollbars-thin overflow-y-scroll "
-       
+
       >
         <CardPropertiesDetails property={selectedProperty} />
       </Drawer>
-    </div>
+    </div >
   );
 }
 

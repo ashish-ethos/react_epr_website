@@ -14,6 +14,7 @@ const Testimonial = () => {
   const [pause, setPause] = useState(false);
   const [visibleCount, setVisibleCount] = useState(3);
   const [offset, setOffset] = useState(320);
+  const [isLoading, setIsLoading] = useState(true);
 
   const testimonials = [
     {
@@ -97,6 +98,10 @@ const Testimonial = () => {
     return () => window.removeEventListener('resize', updateVisible);
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => setIsLoading(false), 1500);
+  }, []);
+
   const getVisibleTestimonials = () => {
     const visible = [];
     for (let i = 0; i < visibleCount; i++) {
@@ -108,7 +113,93 @@ const Testimonial = () => {
 
   const centerPos = (visibleCount - 1) / 2;
 
-  return (
+  const LoadingSkeleton = () => (
+    <div className=" bg-[#333] py-10 px-4 relative overflow-hidden animate-pulse laptop-mode-screen" id='testimonials'>
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header Skeleton */}
+        <div className="text-center mb-16">
+          <div className="inline-flex flex-col items-center justify-center space-x-2 mb-6 w-full">
+            <div className="h-8 w-32 bg-[#444] rounded mx-auto mb-3"></div> 
+            <div className='h-1 w-full bg-gradient-to-r from-transparent via-[#c99913] to-transparent rounded-full mx-auto'></div> 
+          </div>
+          <div className="flex justify-center mb-6">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div key={i} className="w-5 h-5 bg-[#444] rounded-full mx-0.5"></div>
+            ))}
+          </div>
+          <div className="h-10 w-96 bg-[#444] rounded mb-6 mx-auto"></div> 
+          <div className="h-5 w-80 bg-[#444] rounded mx-auto"></div> 
+        </div>
+
+        {/* Carousel Skeleton */}
+        <div className="relative">
+          <div className="flex justify-center items-start space-x-2 md:space-x-2 lg:space-x-8 mb-12">
+            {Array.from({ length: visibleCount }).map((_, index) => (
+              <div
+                key={index}
+                className={`transition-all duration-700 ease-in-out w-full max-w-xs ${
+                  visibleCount === 3 && index !== 1
+                    ? 'scale-90 opacity-70 z-10'
+                    : 'scale-100 opacity-100 z-20'
+                }`}
+                style={{
+                  transform: `translateX(${(index - centerPos) * offset}px)`
+                }}
+              >
+                <div className="relative group h-full flex flex-col">
+                  <div className="absolute inset-0 bg-[#444]/40 backdrop-blur-xl rounded-3xl shadow-2xl border border-[#ffffff38]"></div>
+                  <div className="relative z-10 p-4 md:p-6 lg:p-8 h-full flex flex-col space-y-4">
+                    <div className="w-6 h-6 bg-[#444] rounded"></div> 
+                    <div className="space-y-3 flex-grow">
+                      {Array.from({ length: 4 }).map((_, i) => (  
+                        <div key={i} className="h-4 w-full bg-[#555] rounded"></div>
+                      ))}
+                    </div>
+                    <div className="flex space-x-1 mb-4">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <div key={i} className="w-3 h-3 bg-[#555] rounded-full"></div>
+                      ))}
+                    </div>
+                    <div className="flex items-center space-x-4 mt-auto">
+                      <div className="w-10 h-10 bg-[#555] rounded-full"></div> 
+                      <div className="space-y-1">
+                        <div className="h-4 w-24 bg-[#555] rounded"></div> 
+                        <div className="h-3 w-20 bg-[#555] rounded"></div> 
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Navigation Buttons Skeleton */}
+          <div className="flex justify-center space-x-4">
+            <div className="h-10 w-10 bg-[#444] rounded-full"></div> {/* Prev */}
+            <div className="h-10 w-10 bg-[#444] rounded-full"></div> {/* Next */}
+          </div>
+
+          {/* Dots Skeleton */}
+          <div className="flex justify-center space-x-2 mt-8">
+            {Array.from({ length: testimonials.length }).map((_, index) => (
+              <div
+                key={index}
+                className={`w-2 h-2 rounded-full ${
+                  index === currentSlide
+                    ? 'bg-[#c2c6cb] w-6'
+                    : 'bg-[#444]'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  return isLoading ? (
+    <LoadingSkeleton />
+  ) : (
     <div className=" bg-[#333] py-10 px-4 relative overflow-hidden laptop-mode-screen" id='testimonials'>
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}

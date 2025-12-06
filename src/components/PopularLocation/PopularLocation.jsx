@@ -135,6 +135,7 @@ const PropertyCard = ({ property, onPropertyClick }) => {
 };
 
 const PopularLocation = () => {
+    const [isLoading, setIsLoading] = useState(true);
     const [selected, setSelected] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
@@ -151,11 +152,15 @@ const PopularLocation = () => {
     const formValues = Form.useWatch([], form);
 
     useEffect(() => {
+        setTimeout(() => setIsLoading(false), 1500);
+    }, []);
+
+    useEffect(() => {
         // Derive dynamic options from data
         setPropertyTypeOptions(getPropertyTypeOptions());
         setConstructionOptions(getConstructionOptions());
         setFeaturesOptions(getFeaturesOptions());
-    }, []);
+    }, [properties]);
 
     useEffect(() => {
         if (locationName) {
@@ -261,7 +266,7 @@ const PopularLocation = () => {
         });
 
         setFilteredProperties(filtered);
-    }, [locationName, searchTerm, formValues]);
+    }, [locationName, searchTerm, formValues, properties]);
 
     useEffect(() => {
         const propSlug = searchParams.get('property');
@@ -279,7 +284,7 @@ const PopularLocation = () => {
             setIsModalOpen(false);
             setSelectedProperty(null);
         }
-    }, [searchParams]);
+    }, [searchParams, properties]);
 
     const handleLocationClick = (loc) => {
         setSelected(loc.name);
@@ -304,9 +309,130 @@ const PopularLocation = () => {
         setSearchTerm('');
     };
 
+    const LoadingSkeleton = ({ locationName }) => (
+        <section className="popular-location-section animate-pulse">
+            {/* Common Header for Both Views */}
+            <div className="mb-6">
+                <div className="h-8 w-64 bg-[#444] rounded mb-2"></div> {/* Title */}
+                <div className="h-1 w-32 bg-gradient-to-r from-transparent via-[#c99913] to-transparent rounded-full"></div> {/* Underline */}
+                <div className="h-4 w-80 bg-[#444] rounded mt-2"></div> {/* Description */}
+            </div>
+
+            {locationName ? (
+                // Properties View Skeleton
+                <ConfigProvider theme={{ algorithm: theme.darkAlgorithm }}>
+                    <section className="properties-section py-8 px-4 bg-[#181A1B]">
+                        <div className="max-w-7xl mx-auto">
+                            {/* Back Button Placeholder */}
+                            <div className="h-8 w-20 bg-[#444] rounded mb-4"></div>
+
+                            {/* Header */}
+                            <div className="mb-6">
+                                <div className="h-6 w-96 bg-[#444] rounded mb-2"></div> {/* Subtitle */}
+                                <div className="h-4 w-80 bg-[#444] rounded"></div> {/* Description */}
+                            </div>
+
+                            {/* Stats and Actions */}
+                            <div className="flex justify-between items-center mb-8">
+                                <div className="h-4 w-48 bg-[#444] rounded"></div> {/* Showing X properties */}
+                                <div className="h-6 w-8 bg-[#444] rounded"></div> {/* Menu button */}
+                            </div>
+
+                            {/* Main Content: Three-column Layout */}
+                            <div className="custom-grid">
+                                {/* Left: Filters Sidebar */}
+                                <div className="bg-black rounded-lg shadow-md p-6">
+                                    {/* Search Bar */}
+                                    <div className="relative mb-3">
+                                        <div className="h-10 w-full bg-[#444] rounded flex items-center px-3"></div> {/* Input */}
+                                    </div>
+
+                                    {/* Form Filters */}
+                                    <div className="space-y-4">
+                                        {Array.from({ length: 5 }).map((_, i) => (  // 5 filters: type, bhk, construction, features, price
+                                            <div key={i}>
+                                                <div className="h-4 w-32 bg-[#444] rounded mb-2"></div> {/* Label */}
+                                                <div className="h-10 w-full bg-[#444] rounded"></div> {/* Select */}
+                                            </div>
+                                        ))}
+                                        {/* Clear Button */}
+                                        <div className="h-10 w-full bg-[#444] rounded border border-[#c2c6cb]"></div>
+                                    </div>
+                                </div>
+
+                                {/* Center: Results Area - 6 Property Cards */}
+                                <div className="bg-black rounded-lg p-6 col-span-1 lg:col-span-1 space-y-6 overflow-y-auto max-h-[80vh] custom-scrollbar">
+                                    {Array.from({ length: 6 }).map((_, index) => (
+                                        <div key={index} className="property-card bg-gray-900 rounded-lg overflow-hidden shadow-lg border border-gray-700">
+                                            {/* Image + Overlays */}
+                                            <div className="relative h-48 bg-[#444] rounded-t-lg">
+                                                <div className="absolute top-2 left-2 h-5 w-20 bg-[#444] rounded"></div> {/* Type tag */}
+                                                <div className="absolute top-2 right-2 h-5 w-5 bg-[#444] rounded-full"></div> {/* Heart */}
+                                                <div className="absolute bottom-2 left-2 right-2 h-6 w-3/4 bg-black bg-opacity-50 rounded px-2 py-1"></div> {/* Name */}
+                                                <div className="absolute bottom-2 right-2 h-6 w-24 bg-black bg-opacity-50 rounded flex items-center px-2 py-1"></div> {/* Location */}
+                                            </div>
+                                            {/* Content */}
+                                            <div className="p-4">
+                                                <div className="h-3 w-full bg-[#444] rounded mb-2"></div> {/* Address */}
+                                                <div className="flex justify-between mb-3">
+                                                    <div className="h-4 w-12 bg-[#444] rounded flex items-center"></div> {/* BHK */}
+                                                    <div className="h-4 w-16 bg-[#444] rounded flex items-center"></div> {/* Size */}
+                                                </div>
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <div>
+                                                        <div className="h-3 w-20 bg-[#444] rounded mb-1"></div> {/* Label */}
+                                                        <div className="h-5 w-16 bg-[#444] rounded"></div> {/* Price */}
+                                                    </div>
+                                                    <div>
+                                                        <div className="h-3 w-20 bg-[#444] rounded mb-1"></div> {/* Label */}
+                                                        <div className="h-4 w-20 bg-[#444] rounded"></div> {/* Status */}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Right: Interest Form */}
+                                <div className="bg-black rounded-lg shadow-md p-6 col-span-1">
+                                    <div className="px-4 py-2">
+                                        <div className="h-6 w-48 bg-[#444] rounded mb-4 mx-auto"></div> {/* Header */}
+                                        {/* Pulsing Contact Form Placeholders - Mimic form fields */}
+                                        <div className="space-y-3">
+                                            {Array.from({ length: 5 }).map((_, i) => (  // Typical form: name, email, phone, message, submit
+                                                <div key={i} className="h-10 w-full bg-[#444] rounded"></div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </ConfigProvider>
+            ) : (
+                // Locations List View Skeleton
+                <div className="locations-grid">
+                    {Array.from({ length: locations.length }).map((_, index) => (
+                        <div
+                            key={index}
+                            className="location-button bg-gray-900 rounded border border-gray-700 p-4 cursor-pointer"
+                        >
+                            <div className="location-icon-wrapper">
+                                <div className="location-icon h-6 w-6 bg-[#444] rounded-full mx-auto"></div> {/* Icon */}
+                            </div>
+                            <div className="location-name h-4 w-32 bg-[#444] rounded mt-2 mx-auto"></div> {/* Name */}
+                        </div>
+                    ))}
+                </div>
+            )}
+        </section>
+    );
+
     if (!locationName) {
         // Show the locations list
-        return (
+        return isLoading ? (
+            <LoadingSkeleton locationName={locationName} />
+        ) : (
             <section className="popular-location-section">
                 <h2 className="mobile-title-text text-3xl font-[Montserrat] sm:text-4xl md:text-5xl font-black mb-3 sm:mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent">
                     Popular Location
@@ -341,7 +467,9 @@ const PopularLocation = () => {
         return <div>Location not found</div>;
     }
 
-    return (
+    return isLoading ? (
+        <LoadingSkeleton locationName={locationName} />
+    ) : (
         <ConfigProvider theme={{ algorithm: theme.darkAlgorithm }}>
             <section className="properties-section py-8 px-4 bg-[#181A1B]">
                 <div className="max-w-7xl mx-auto">

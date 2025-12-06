@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BarChart3, Users, GitBranch, Clock, Calculator, FileText } from 'lucide-react';
 
 const WhyChooseUs = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const features = [
     {
@@ -49,7 +50,61 @@ const WhyChooseUs = () => {
     }
   ];
 
-  return (
+  useEffect(() => {
+    setTimeout(() => setIsLoading(false), 1500);
+  }, []);
+  const LoadingSkeleton = () => (
+    <div className="premium-properties-main min-h-screen bg-gradient-to-br from-gray-900 via-[#333] to-gray-800 py-10 px-4 laptop-mode-screen animate-pulse" id="why-choose-us">
+      <div className="max-w-7xl mx-auto">
+        {/* Header Skeleton */}
+        <div className="text-center mb-10">
+          <div className="h-8 w-48 bg-[#444] rounded mx-auto mb-3"></div> {/* Title */}
+          <div className="h-1 w-32 bg-gradient-to-r from-transparent via-[#c99913] to-transparent rounded-full mx-auto"></div> {/* Underline */}
+          <div className="h-5 w-80 bg-[#444] rounded mx-auto mt-2"></div> {/* Subtitle */}
+        </div>
+
+        {/* Cards Grid Skeleton */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {Array.from({ length: features.length }).map((_, index) => (
+            <div
+              key={index}
+              className="relative overflow-hidden rounded-3xl bg-[#333] shadow-lg p-8 h-full flex flex-col"
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              {/* Icon Placeholder */}
+              <div className="w-20 h-20 border border-[#ffffff38] rounded-2xl flex items-center justify-center mb-6 bg-[#444]"></div>
+
+              {/* Content Placeholders */}
+              <div className="flex-grow space-y-3">
+                <div className="h-6 w-64 bg-[#444] rounded"></div> 
+                <div className="h-4 w-full bg-[#444] rounded"></div> 
+                <div className="h-4 w-5/6 bg-[#444] rounded"></div> 
+                <div className="h-4 w-3/4 bg-[#444] rounded"></div> 
+              </div>
+
+              {/* Bottom accent line placeholder */}
+              <div className="h-1 w-full bg-[#444] rounded"></div>
+
+              {/* Corner dot placeholder */}
+              <div className="absolute top-4 right-4 w-2 h-2 bg-[#444] rounded-full"></div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom CTA Skeleton */}
+        <div className="text-center mt-20">
+          <div className="inline-flex items-center space-x-4 bg-[#333] border-2 border-[#ffffff38] px-8 py-3 shadow-lg rounded-lg mx-auto w-80">
+            <div className="w-3 h-3 bg-[#444] rounded-full"></div>
+            <div className="h-5 w-48 bg-[#444] rounded"></div> 
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  return isLoading ? (
+    <LoadingSkeleton />
+  ) : (
     <div className="premium-properties-main min-h-screen bg-gradient-to-br from-gray-900 via-[#333] to-gray-800 py-10 px-4 laptop-mode-screen " id="why-choose-us">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}

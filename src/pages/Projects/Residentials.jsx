@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Input, Typography, Pagination, Empty } from 'antd';
 import { FilterOutlined, DownOutlined, SearchOutlined as SearchIcon } from '@ant-design/icons';
-import { Grid, List, MapPinHouse, LandPlot, Heart, Share2,  Star, X, Facebook, Instagram, Linkedin, Twitter, ExternalLink } from 'lucide-react';
+import { Grid, List, MapPinHouse, LandPlot, Heart, Share2, Star, X, Facebook, Instagram, Linkedin, Twitter, ExternalLink } from 'lucide-react';
 import ViewDetailsDrawer from './ViewDetailsDrawer';
 import { properties } from '../../data/propertiesData';
 import { BsWhatsapp } from "react-icons/bs";
@@ -105,6 +105,11 @@ const Residentials = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { propertyName } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setIsLoading(false), 1500);
+  }, []);
 
   useEffect(() => {
     if (propertyName) {
@@ -138,6 +143,23 @@ const Residentials = () => {
   useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm, filters, sortBy, showLikedOnly]);
+
+  useEffect(() => {
+    const savedViewMode = localStorage.getItem('residentialViewMode');
+    if (savedViewMode) {
+      setViewMode(savedViewMode);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('residentialViewMode', viewMode);
+  }, [viewMode]);
+
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem('residentialViewMode');
+    };
+  }, []);
 
   const toggleLike = (propertyId) => {
     setLikedProperties((prev) =>
@@ -407,7 +429,7 @@ const Residentials = () => {
                 onClick={() => handleViewDetails(property)}
                 className="bg-[#444] text-[#c2c6cb] px-5 py-2 rounded-[10px] cursor-pointer font-semibold flex items-center justify-center gap-2 hover:shadow-md transition-all duration-200"
               >
-               
+
                 View Details <ExternalLink size={18} />
               </CustomButton>
             </div>
@@ -591,7 +613,7 @@ const Residentials = () => {
                 onClick={() => handleViewDetails(property)}
                 className="bg-[#444] text-[#c2c6cb] px-5 py-2 rounded-[10px] cursor-pointer font-semibold flex items-center justify-center gap-2 hover:shadow-md transition-all duration-200"
               >
-                
+
                 View Details <ExternalLink size={18} />
               </CustomButton>
             </div>
@@ -607,7 +629,102 @@ const Residentials = () => {
     return labelA.localeCompare(labelB);
   };
 
-  return (
+  const LoadingSkeleton = () => (
+    <div className="min-h-screen bg-[#333]">
+      {/* Top Bar Skeleton */}
+      <div className="bg-[#333] border-b border-t border-[#ffffff38] top-0 z-50 animate-pulse">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between mb-4">
+            <div className="space-y-2">
+              <div className="h-8 w-48 bg-[#444] rounded"></div>
+              <div className="h-4 w-32 bg-[#444] rounded"></div>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="flex bg-[#333]/50 rounded-lg border border-[#ffffff38]">
+                <div className="h-8 w-8 bg-[#444] rounded-l-lg"></div>
+                <div className="h-8 w-8 bg-[#444] rounded-r-lg"></div>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col lg:flex-row gap-4 w-full justify-between">
+            <div className="w-full h-12 bg-[#444] rounded-lg"></div>
+            <div className="flex flex-wrap gap-3 w-full justify-end">
+              <div className="h-12 w-24 bg-[#444] rounded-lg"></div>
+              <div className="h-12 w-32 bg-[#444] rounded-lg"></div>
+              <div className="h-12 w-28 bg-[#444] rounded-lg"></div>
+            </div>
+          </div>
+          <div className="mt-4 p-4 bg-[#333]/50 rounded-xl border border-[#ffffff38]">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} className="h-12 bg-[#444] rounded-lg"></div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content Skeleton */}
+      <div className="max-w-7xl mx-auto px-6 py-8 mobile-project-container laptop-mode-screen">
+        <div className="mb-6">
+          <div className="h-8 w-64 bg-[#444] rounded"></div>
+        </div>
+        <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div key={index} className="bg-[#444] rounded-xl shadow-sm h-96 border border-[#ffffff38] overflow-hidden">
+              {/* Image Placeholder */}
+              <div className="relative h-64 bg-[#555] rounded-t-xl"></div>
+              {/* Status Tags */}
+              <div className="absolute top-4 left-4 flex gap-2">
+                {Array.from({ length: 2 }).map((_, i) => (
+                  <div key={i} className="h-5 w-16 bg-[#555] rounded-full"></div>
+                ))}
+              </div>
+              {/* Right Icons */}
+              <div className="absolute top-4 right-4 flex gap-2">
+                <div className="h-8 w-8 bg-[#555] rounded-full"></div>
+                <div className="h-8 w-8 bg-[#555] rounded-full"></div>
+              </div>
+              {/* Content */}
+              <div className="p-4 space-y-3">
+                <div className="space-y-1">
+                  <div className="h-5 w-48 bg-[#555] rounded"></div>
+                  <div className="h-4 w-32 bg-[#555] rounded flex items-center gap-1"></div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="h-3 w-12 bg-[#555] rounded flex items-center gap-1"></div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <div className="h-6 w-20 bg-[#555] rounded"></div>
+                    <div className="h-3 w-24 bg-[#555] rounded"></div>
+                  </div>
+                  <div className="h-5 w-16 bg-[#555] rounded-full"></div>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <div key={i} className="h-5 w-12 bg-[#555] rounded-lg"></div>
+                  ))}
+                </div>
+                <div className="h-10 w-full bg-[#555] rounded-[10px]"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-8 flex justify-center">
+          <div className="flex items-center gap-2">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div key={i} className="h-2 w-2 bg-[#444] rounded-full"></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  return isLoading ? (
+    <LoadingSkeleton />
+  ) : (
     <div className="min-h-screen bg-[#333] ">
       <div className="bg-[#333] border-b border-t border-[#ffffff38] top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4">
