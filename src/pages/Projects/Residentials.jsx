@@ -9,6 +9,8 @@ import './Project.css';
 import CustomButton from '../../components/ui/Button';
 import CustomSelect from '../../components/ui/Select';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { Helmet } from "react-helmet-async";
+
 
 const { Search } = Input;
 const { Option } = CustomSelect;
@@ -727,6 +729,85 @@ const Residentials = () => {
   ) : (
     <div className="min-h-screen bg-[#333] ">
       <div className="bg-[#333] border-b border-t border-[#ffffff38] top-0 z-50">
+        <Helmet>
+          {/* Page Title */}
+          <title>
+            Residential Properties in Gurugram | Luxury Flats & Villas – Ethos Pro Realtors
+          </title>
+
+          {/* Meta Description */}
+          <meta
+            name="description"
+            content="Explore premium residential properties in Gurugram including luxury apartments, villas, and ultra-luxury homes. Verified projects by Ethos Pro Realtors."
+          />
+
+          {/* Keywords */}
+          <meta
+            name="keywords"
+            content="residential properties gurugram, luxury flats gurgaon, villas in gurugram, residential projects ncr, ethos pro realtors residential"
+          />
+
+          <meta name="robots" content="index, follow" />
+
+          {/* Canonical URL */}
+          <link
+            rel="canonical"
+            href="https://www.ethosprorealtors.com/projects/residential"
+          />
+
+          {/* Open Graph */}
+          <meta property="og:type" content="website" />
+          <meta
+            property="og:title"
+            content="Residential Properties in Gurugram | Ethos Pro Realtors"
+          />
+          <meta
+            property="og:description"
+            content="Discover luxury residential apartments, villas, and premium homes in Gurugram curated by Ethos Pro Realtors."
+          />
+          <meta
+            property="og:url"
+            content="https://www.ethosprorealtors.com/projects/residential"
+          />
+          <meta
+            property="og:image"
+            content="https://www.ethosprorealtors.com/assets/residential-og.jpg"
+          />
+
+          {/* Twitter Card */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta
+            name="twitter:title"
+            content="Residential Properties in Gurugram"
+          />
+          <meta
+            name="twitter:description"
+            content="Browse premium residential real estate projects in Gurugram with Ethos Pro Realtors."
+          />
+          <meta
+            name="twitter:image"
+            content="https://www.ethosprorealtors.com/assets/residential-og.jpg"
+          />
+
+          {/* Schema */}
+          <script type="application/ld+json">
+            {`
+              {
+                "@context": "https://schema.org",
+                "@type": "CollectionPage",
+                "name": "Residential Properties in Gurugram",
+                "url": "https://www.ethosprorealtors.com/projects/residential",
+                "description": "Luxury residential apartments, villas and homes in Gurugram by Ethos Pro Realtors.",
+                "publisher": {
+                  "@type": "Organization",
+                  "name": "Ethos Pro Realtors",
+                  "url": "https://www.ethosprorealtors.com"
+                }
+              }
+              `}
+          </script>
+        </Helmet>
+
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between mb-4  mobile-project-title">
             <div>

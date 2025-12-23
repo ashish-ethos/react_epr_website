@@ -84,7 +84,7 @@ const ExploreProperties = ({ filters = {} }) => {
     // Debounced update of search param (500ms) — keeps existing behavior but also removes page on new search
     useEffect(() => {
         const timer = setTimeout(() => {
-            const searchString = searchTerms.join(' ').trim();
+            const searchString = searchTerms.join(',').trim();
             setDebouncedSearch(searchString);
             const currentSearch = searchParams.get('search') || '';
             if (searchString !== currentSearch) {
@@ -107,8 +107,9 @@ const ExploreProperties = ({ filters = {} }) => {
     // When URL changes (e.g., user navigates or link opened), sync input states
     useEffect(() => {
         const search = searchParams.get('search') || '';
-        const terms = search ? search.split(' ').filter(term => term.trim().length > 0) : [];
+        const terms = search ? search.split(',').map(t => t.trim()).filter(Boolean) : [];
         setSearchTerms(terms);
+
         setDebouncedSearch(search);
     }, [searchParams]);
 
@@ -138,9 +139,9 @@ const ExploreProperties = ({ filters = {} }) => {
         }
         if (search) {
             // Support multiple search terms (space-separated) - match any term
-            const searchTerms = search.split(' ').filter(term => term.length > 0);
+            const searchTerms = search.split(',').map(t => t.trim()).filter(Boolean);
             list = list.filter(p => {
-                return searchTerms.some(term => 
+                return searchTerms.some(term =>
                     p._name.includes(term) ||
                     p._location.includes(term) ||
                     p._type.includes(term) ||
@@ -728,7 +729,7 @@ const ExploreProperties = ({ filters = {} }) => {
     // const showBackAndSearch = page > 1 || activeTab !== 'all';
     const showBackAndSearch = searchParams.toString() !== '';
 
-  
+
 
     return (
         <div className="min-h-screen bg-[#2d2d2d] py-8 sm:py-8 px-4 sm:px-6 lg:px-8">
@@ -753,7 +754,7 @@ const ExploreProperties = ({ filters = {} }) => {
                                 tagRender={tagRender}
                                 tokenSeparators={[',']}
                                 prefix={<SearchOutlined className="text-gray-400 mr-1" />}
-                               
+
                             />
                         </div>
                     </div>

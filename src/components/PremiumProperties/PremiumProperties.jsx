@@ -6,6 +6,7 @@ import KrisumiWaterfall from "../../assets/images/premiumproperties/krisumiwater
 import M3Mmansion from "../../assets/images/premiumproperties/m3mmansion.jpg";
 import DLFTheCrest from "../../assets/images/premiumproperties/dlfthecrest.jpg";
 import GodrejAristocrat from "../../assets/images/exploreproperties/godrej.webp";
+import M3MGICManesar from "../../assets/images/exploreproperties/m3m-gic.webp";
 
 import { Drawer } from "antd";
 import "./PremiumProperties.css";
@@ -34,26 +35,26 @@ function PremiumProperties() {
   const properties = [
     {
       id: 1,
-      name: "Godrej Aristocrat",
+      name: "M3M GIC Manesar",
       price: "₹ On Request",
       size: "On Request",
-      image: GodrejAristocrat,
+      image: M3MGICManesar,
       location: {
-        full: "Sector 49, Gurugram, Haryana, India",
-        googleMap: `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
+        full: "Sector M9 Manesar, Gurugram, Haryana, India",
+        googleMap: `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d112327.31197010487!2d76.73895581640623!3d28.382165700000012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3f94bfe92053%3A0xdb6fbed5dd4d76fd!2sM3M%20Gic%20Manesar%20-%20Sector%20M9!5e0!3m2!1sen!2sin!4v1766472202763!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
         city: "Gurugram",
         state: "Haryana",
-        area: "Sector 49",
+        area: "Sector M9",
         country: "India",
       },
-      area: "3200 - 4400 Sq Ft",
+      area: "1200 - 2400 Sq Ft",
       type: "APARTMENT, RESIDENTIAL",
       rating: 4.8,
       views: 1245,
       category: "Luxury",
       featured: true,
       amenities: ["Swimming Pool", "Gym", "Garden", "Security"],
-      updatedOn: "June 19, 2025",
+      updatedOn: "December 1, 2025",
     },
     {
       id: 2,
@@ -183,6 +184,29 @@ function PremiumProperties() {
       featured: true,
       amenities: ["Park View", "Yoga Studio", "Library", "Cafe"],
       updatedOn: "June 20, 2025",
+    },
+    {
+      id: 7,
+      name: "Godrej Aristocrat",
+      price: "₹ On Request",
+      size: "On Request",
+      image: GodrejAristocrat,
+      location: {
+        full: "Sector 49, Gurugram, Haryana, India",
+        googleMap: `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.6347789904416!2d77.06961287601024!3d28.400096994596865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d226f68d5844d%3A0xd0bf0c398f09d05e!2sTrump%20Tower!5e0!3m2!1sen!2sin!4v1754211194888!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
+        city: "Gurugram",
+        state: "Haryana",
+        area: "Sector 49",
+        country: "India",
+      },
+      area: "3200 - 4400 Sq Ft",
+      type: "APARTMENT, RESIDENTIAL",
+      rating: 4.8,
+      views: 1245,
+      category: "Luxury",
+      featured: true,
+      amenities: ["Swimming Pool", "Gym", "Garden", "Security"],
+      updatedOn: "June 19, 2025",
     },
   ];
 
@@ -414,7 +438,7 @@ function PremiumProperties() {
                     </div>
 
                     {/* Content */}
-                    <div className="p-6">
+                    <div className="p-6 laptop-mode-screen-content">
                       <div className="flex items-center gap-3 mb-4 content-mobile-price">
                         <span className="text-2xl font-bold fontFamily-bebas text-[#c99913]">{property.price}</span>
                         <div className="text-sm text-[#c2c6cb] bg-[#444] px-2 py-1 rounded border border-[#ffffff38] border-dashed"> Plot Size : {property.size}</div>

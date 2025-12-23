@@ -10,6 +10,8 @@ import OurBlog from '../../components/OurBlog/OurBlog';
 import AssociatedDevelopers from '../../components/AssociatedDevelopers/AssociatedDevelopers';
 import Hero from '../../components/Hero/Hero';
 import PopularLocation from "../../components/PopularLocation/PopularLocation";
+import { Helmet } from "react-helmet-async";
+
 
 const Home = () => {
   const [filters, setFilters] = useState({ search: "", type: "", city: "" });
@@ -19,7 +21,21 @@ const Home = () => {
   };
 
   return (
+
     <>
+      <Helmet>
+        <title>Ethos Pro Realtors | Buy Luxury Property in Gurgaon</title>
+        <meta
+          name="description"
+          content="Buy luxury residential & commercial properties in Gurgaon with Ethos Pro Realtors. Trusted channel partners for top builders."
+        />
+        <link rel="canonical" href="https://www.ethosprorealtors.com/" />
+
+        <meta property="og:title" content="Ethos Pro Realtors – Luxury Property Experts" />
+        <meta property="og:description" content="Premium residential & commercial real estate solutions in Gurgaon & NCR." />
+        <meta property="og:url" content="https://www.ethosprorealtors.com/" />
+      </Helmet>
+
       {/* Pass search change function to Hero */}
       <Hero onSearchChange={handleSearchChange} />
 

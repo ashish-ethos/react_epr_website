@@ -93,6 +93,9 @@ import JMSGroup from "../assets/images/exploreproperties/jms-group.jpg";
 import SmartWorldOrchard from "../assets/images/exploreproperties/smartworld-orchard.jpg";
 import BillionarieResidencey from "../assets/images/exploreproperties/billionarie-residency.jpg";
 import EmpireCenter from "../assets/images/exploreproperties/the-empire-centre.jpg";
+import M3MGICManesar from "../assets/images/exploreproperties/m3m-gic.webp";
+import SmartWorldGICManesar from "../assets/images/exploreproperties/smartworld-gic-manesar.webp";
+
 
 export const properties = [
   {
@@ -3090,6 +3093,58 @@ export const properties = [
     bedrooms: { min: 2, max: 4 },
     bathrooms: { min: 2, max: 3 },
     description: "The Empire Centre located in the heart of Sector 43 Gurgaon is an innovative and sophisticated commercial project launched by the renowned Suncity Builders.",
+  },
+  {
+    id: "106",
+    type: "Commercial/Residential",
+    name: "M3M GIC Manesar",
+    location: " Sector M9 Manesar, Gurugram, Haryana, India",
+    size: "On Request",
+    price: "₹ On Request",
+    image: M3MGICManesar,
+    options: ["FOR SALE", "HOT OFFER"],
+    rating: 4.7,
+    views: 2000,
+    facilities: [
+      "24/7 Security",
+      "Parking Facility",
+      "Wifi",
+      "CCTV",
+      "Power Backup",
+    ],
+    yearBuilt:[ "2025", "2026", "2027", "2028", "2029", "2030"],
+    status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
+    category: "ULTRA_LUXURY, LUXURY",
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4316.1396695232115!2d77.09066647549443!3d28.457860075760482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1962ea454913%3A0xa2b26b1143a9ed87!2sThe%20Empire%20Centre!5e1!3m2!1sen!2sin!4v1763536702460!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    bedrooms: { min: 2, max: 4 },
+    bathrooms: { min: 2, max: 3 },
+    description: "M3M GIC Manesar Sector M9 Gurugram – Ultra-luxury 2, 3, 4 BHK residences at SCDA near Dwarka Expressway. Gurugram introduces a lifestyle where contemporary architecture harmonizes with lush green landscapes and world-class amenities, setting a new benchmark for luxury living.",
+  },
+  {
+    id: "107",
+    type: "Commercial/Residential",
+    name: "Smart World GIC Manesar",
+    location: "Sector M9 Manesar, Gurugram, Haryana, India",
+    size: "On Request",
+    price: "₹ On Request",
+    image: SmartWorldGICManesar,
+    options: ["FOR SALE", "HOT OFFER"],
+    rating: 4.7,
+    views: 2000,
+    facilities: [
+      "24/7 Security",
+      "Parking Facility",
+      "Wifi",
+      "CCTV",
+      "Power Backup",
+    ],
+    yearBuilt:[ "2025", "2026", "2027", "2028", "2029", "2030"],
+    status: ["FOR SALE", "FOR RENT", "NEW LAUNCH", "HOT OFFER"],
+    category: "ULTRA_LUXURY, LUXURY",
+    addressMap: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d112252.54003604288!2d76.92099971790249!3d28.45267559988137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d524e73f447%3A0x390dc3ae8b64d7ff!2sSmart%20World%20Manesar!5e0!3m2!1sen!2sin!4v1766473091240!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+    bedrooms: { min: 2, max: 4 },
+    bathrooms: { min: 2, max: 3 },
+    description: "Smart World GIC Manesar is planned to offer a luxurious and smart living experience.",
   },
   
 ];

@@ -10,6 +10,8 @@ import backgroundMobileImg from '../../assets/images/about/about_mobile.jpg';
 import SetsApart from '../../components/SetsApart/SetsApart';
 import Testimonial from '../../components/Testimonials/Testimonials';
 import OurBlog from '../../components/OurBlog/OurBlog';
+import { Helmet } from "react-helmet-async";
+
 
 const About = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -73,7 +75,7 @@ const About = () => {
             <div className="relative w-full overflow-hidden">
                 <div className="about-image w-full h-[500px] border-2 border-[#ffffff38] bg-[#444]"></div>
                 <div className="flex justify-center -mt-8">
-                    <div className="w-8 h-8 bg-[#444] rounded-full"></div> 
+                    <div className="w-8 h-8 bg-[#444] rounded-full"></div>
                 </div>
             </div>
 
@@ -83,9 +85,9 @@ const About = () => {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                         {Array.from({ length: 4 }).map((_, index) => (
                             <div key={index} className="text-center">
-                                <div className="w-16 h-16 bg-[#555] rounded-full mx-auto mb-4"></div> 
-                                <div className="h-8 w-20 bg-[#555] rounded mx-auto mb-2"></div> 
-                                <div className="h-4 w-24 bg-[#555] rounded mx-auto"></div> 
+                                <div className="w-16 h-16 bg-[#555] rounded-full mx-auto mb-4"></div>
+                                <div className="h-8 w-20 bg-[#555] rounded mx-auto mb-2"></div>
+                                <div className="h-4 w-24 bg-[#555] rounded mx-auto"></div>
                             </div>
                         ))}
                     </div>
@@ -97,8 +99,8 @@ const About = () => {
                 <div className="container mx-auto px-6 laptop-mode-screen">
                     <div className="main-about grid lg:grid-cols-2 gap-16 items-center mb-20">
                         <div className="space-y-4">
-                            <div className="h-5 w-20 bg-[#555] rounded"></div> 
-                            <div className="h-10 w-80 bg-[#555] rounded"></div> 
+                            <div className="h-5 w-20 bg-[#555] rounded"></div>
+                            <div className="h-10 w-80 bg-[#555] rounded"></div>
                             <div className="space-y-3">
                                 {Array.from({ length: 4 }).map((_, i) => (
                                     <div key={i} className="h-4 w-full bg-[#555] rounded"></div>
@@ -111,14 +113,14 @@ const About = () => {
                             </div>
                         </div>
                         <div className="relative">
-                            <div className="h-96 w-full bg-[#555] rounded-md"></div> 
+                            <div className="h-96 w-full bg-[#555] rounded-md"></div>
                             <div className="absolute -bottom-6 -left-6 bg-[#444]/70 rounded-2xl p-2 shadow-2xl border border-[#ffffff38] w-48 h-20">
                                 <div className="flex items-center gap-2 mb-2">
                                     {Array.from({ length: 5 }).map((_, i) => (
                                         <div key={i} className="w-5 h-5 bg-[#555] rounded-full"></div>
                                     ))}
                                 </div>
-                                <div className="h-4 w-32 bg-[#555] rounded"></div> 
+                                <div className="h-4 w-32 bg-[#555] rounded"></div>
                             </div>
                         </div>
                     </div>
@@ -127,8 +129,8 @@ const About = () => {
                     <div className="grid lg:grid-cols-2 gap-12 mb-20">
                         {Array.from({ length: 2 }).map((_, index) => (
                             <div key={index} className="bg-[#444]/70 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-[#ffffff38] space-y-4">
-                                <div className="w-12 h-12 bg-[#555] rounded-xl"></div> 
-                                <div className="h-8 w-40 bg-[#555] rounded"></div> 
+                                <div className="w-12 h-12 bg-[#555] rounded-xl"></div>
+                                <div className="h-8 w-40 bg-[#555] rounded"></div>
                                 <div className="space-y-3">
                                     {Array.from({ length: 4 }).map((_, i) => (
                                         <div key={i} className="h-4 w-full bg-[#555] rounded"></div>
@@ -146,14 +148,14 @@ const About = () => {
                                     <div key={i} className="h-5 w-12 bg-[#555] rounded"></div>
                                 ))}
                             </div>
-                            <div className="h-10 w-96 bg-[#555] rounded mx-auto mb-4"></div> 
-                            <div className="h-5 w-80 bg-[#555] rounded mx-auto"></div> 
+                            <div className="h-10 w-96 bg-[#555] rounded mx-auto mb-4"></div>
+                            <div className="h-5 w-80 bg-[#555] rounded mx-auto"></div>
                         </div>
                         <div className="grid md:grid-cols-3 gap-8">
                             {Array.from({ length: 6 }).map((_, index) => (
                                 <div key={index} className="bg-[#444]/70 backdrop-blur-sm rounded-3xl p-8 sm:p-4 shadow-xl border border-[#ffffff38]">
-                                    <div className="w-12 h-12 bg-[#555] rounded-xl mx-auto mb-4"></div> 
-                                    <div className="h-6 w-48 bg-[#555] rounded mx-auto mb-4"></div> 
+                                    <div className="w-12 h-12 bg-[#555] rounded-xl mx-auto mb-4"></div>
+                                    <div className="h-6 w-48 bg-[#555] rounded mx-auto mb-4"></div>
                                     <div className="space-y-3">
                                         {Array.from({ length: 3 }).map((_, i) => (
                                             <div key={i} className="h-4 w-full bg-[#555] rounded"></div>
@@ -167,10 +169,10 @@ const About = () => {
                 {/* Placeholder for sub-components */}
                 <div className="py-20 bg-[#444]/50">
                     <div className="container mx-auto px-6">
-                        <div className="h-64 bg-[#555] rounded-3xl mb-8"></div> 
-                        <div className="h-96 bg-[#555] rounded-3xl mb-8"></div> 
-                        <div className="h-96 bg-[#555] rounded-3xl mb-8"></div> 
-                        <div className="h-96 bg-[#555] rounded-3xl"></div> 
+                        <div className="h-64 bg-[#555] rounded-3xl mb-8"></div>
+                        <div className="h-96 bg-[#555] rounded-3xl mb-8"></div>
+                        <div className="h-96 bg-[#555] rounded-3xl mb-8"></div>
+                        <div className="h-96 bg-[#555] rounded-3xl"></div>
                     </div>
                 </div>
             </div>
@@ -181,6 +183,74 @@ const About = () => {
         <LoadingSkeleton />
     ) : (
         <div className="min-h-screen bg-[#333]">
+            <Helmet>
+                {/* Primary SEO */}
+                <title>About Ethos Pro Realtors | Trusted Real Estate Consultants in Gurgaon</title>
+                <meta
+                    name="description"
+                    content="Ethos Pro Realtors is a leading real estate consultancy in Gurgaon offering expert guidance for residential, commercial and investment properties."
+                />
+                <meta
+                    name="keywords"
+                    content="Ethos Pro Realtors, about Ethos Pro Realtors, real estate consultants Gurgaon, property dealers Gurgaon, luxury real estate India"
+                />
+                <meta name="robots" content="index, follow" />
+
+                {/* Canonical URL */}
+                <link
+                    rel="canonical"
+                    href="https://www.ethosprorealtors.com/about"
+                />
+
+                {/* Open Graph */}
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="About Ethos Pro Realtors | Real Estate Experts" />
+                <meta
+                    property="og:description"
+                    content="Discover Ethos Pro Realtors – trusted real estate advisors delivering premium residential and commercial property solutions in Gurgaon."
+                />
+                <meta
+                    property="og:image"
+                    content="https://www.ethosprorealtors.com/assets/about-og.jpg"
+                />
+                <meta property="og:url" content="https://www.ethosprorealtors.com/about" />
+                <meta property="og:site_name" content="Ethos Pro Realtors" />
+
+                {/* Twitter Card */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="About Ethos Pro Realtors | Property Consultants" />
+                <meta
+                    name="twitter:description"
+                    content="Ethos Pro Realtors provides expert real estate consulting, premium property access and end-to-end transaction support in Gurgaon."
+                />
+                <meta
+                    name="twitter:image"
+                    content="https://www.ethosprorealtors.com/assets/about-og.jpg"
+                />
+
+                {/* Schema */}
+                <script type="application/ld+json">
+                    {`
+                        {
+                            "@context": "https://schema.org",
+                            "@type": "RealEstateAgent",
+                            "name": "Ethos Pro Realtors",
+                            "url": "https://www.ethosprorealtors.com",
+                            "logo": "https://www.ethosprorealtors.com/assets/logo.png",
+                            "image": "https://www.ethosprorealtors.com/assets/about-og.jpg",
+                            "description": "Ethos Pro Realtors is a trusted real estate consultancy offering residential, commercial and investment property solutions in Gurgaon and NCR.",
+                            "address": {
+                            "@type": "PostalAddress",
+                            "addressLocality": "Gurgaon",
+                            "addressRegion": "HR",
+                            "addressCountry": "IN"
+                            },
+                            "areaServed": ["Gurgaon", "Delhi NCR"]
+                        }
+                        `}
+                </script>
+            </Helmet>
+
             {/* Hero Section */}
             <div className="relative w-full overflow-hidden">
                 {/* Full-width Background Image Section */}
@@ -256,7 +326,7 @@ const About = () => {
                                 <div className="bg-gradient-to-br from-[#444] to-[#c2c6cb] rounded-md p-1">
                                     <img
                                         src={AboutImg}
-                                        alt="Modern home interior"
+                                        alt="Ethos Pro Realtors office – real estate consultants in Gurgaon"
                                         className="modern-home w-full h-96 object-cover rounded-2xl"
                                     />
                                 </div>

@@ -13,6 +13,7 @@ import ContactImg from '../../assets/images/about/contact_background.png';
 import ContactMobileImg from '../../assets/images/about/contact_mobile.jpg'
 import ContactForm from './ContactForm';
 import { FaXTwitter } from "react-icons/fa6";
+import { Helmet } from "react-helmet-async";
 
 const Contact = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -101,6 +102,89 @@ const Contact = () => {
         <LoadingSkeleton />
     ) : (
         <div className="bg-[#333]">
+            <Helmet>
+                <title>Contact Ethos Pro Realtors | Real Estate Consultants in Gurugram</title>
+
+                <meta
+                    name="description"
+                    content="Get in touch with Ethos Pro Realtors for premium residential and commercial property consultation in Gurugram. Call, email or visit our office today."
+                />
+
+                <meta
+                    name="keywords"
+                    content="contact Ethos Pro Realtors, real estate consultants Gurugram, property dealers Gurgaon, real estate office sector 65"
+                />
+
+                <meta name="robots" content="index, follow" />
+
+                {/* Canonical */}
+                <link
+                    rel="canonical"
+                    href="https://www.ethosprorealtors.com/contact"
+                />
+
+                {/* Open Graph */}
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Contact Ethos Pro Realtors | Property Experts in Gurugram" />
+                <meta
+                    property="og:description"
+                    content="Speak with Ethos Pro Realtors for expert property guidance, site visits, and investment consultation in Gurugram."
+                />
+                <meta
+                    property="og:image"
+                    content="https://www.ethosprorealtors.com/assets/contact-og.jpg"
+                />
+                <meta property="og:url" content="https://www.ethosprorealtors.com/contact" />
+                <meta property="og:site_name" content="Ethos Pro Realtors" />
+
+                {/* Twitter */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Contact Ethos Pro Realtors" />
+                <meta
+                    name="twitter:description"
+                    content="Call, email or visit Ethos Pro Realtors for trusted real estate services in Gurugram."
+                />
+                <meta
+                    name="twitter:image"
+                    content="https://www.ethosprorealtors.com/assets/contact-og.jpg"
+                />
+
+                {/* Local Business Schema */}
+                <script type="application/ld+json">
+                    {`
+                    {
+                        "@context": "https://schema.org",
+                        "@type": "RealEstateAgent",
+                        "name": "Ethos Pro Realtors",
+                        "url": "https://www.ethosprorealtors.com",
+                        "logo": "https://www.ethosprorealtors.com/assets/logo.png",
+                        "image": "https://www.ethosprorealtors.com/assets/contact-og.jpg",
+                        "telephone": "+91-9910318013",
+                        "email": "info@ethosprorealtors.com",
+                        "address": {
+                        "@type": "PostalAddress",
+                        "streetAddress": "Unit No 507, 5th Floor, Tower-A, Suncity Success Tower, Sector 65",
+                        "addressLocality": "Gurugram",
+                        "addressRegion": "Haryana",
+                        "postalCode": "122001",
+                        "addressCountry": "IN"
+                        },
+                        "sameAs": [
+                        "https://www.facebook.com/ethosprorealtors/",
+                        "https://www.instagram.com/ethosprorealtors/",
+                        "https://in.linkedin.com/company/ethos-pro-realtors",
+                        "https://x.com/ethosprorealtor",
+                        "https://www.youtube.com/@ethosprorealtors"
+                        ]
+                    }
+                    `}
+                </script>
+            </Helmet>
+            <h1 className="sr-only">
+                Contact Ethos Pro Realtors – Real Estate Consultants in Gurugram
+            </h1>
+
+
             {/* Hero Section */}
             <div
                 className="mobile-contact-image relative h-[400px] w-full bg-cover bg-center flex items-center justify-end pr-10"

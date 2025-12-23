@@ -522,3 +522,24 @@ body {
   color: #ff0000 !important;
   border-color: #ff0000 !important;
 }
+
+.react-tel-input .country-list{
+  background: #333 !important;
+  border: 1px solid #ffffff38 !important;
+  color: #c2c6cb !important;
+}
+.react-tel-input .country-list .country .dial-code{
+  color: #fff !important;
+}
+.react-tel-input .country-list .country.highlight{
+  background: #444 !important;
+}
+.react-tel-input .flag-dropdown.open .selected-flag{
+  background: #353535 !important;
+}
+.react-tel-input .country-list .country:hover{
+  background: #444 !important;
+}
+.react-tel-input .selected-flag:hover{
+background-color: #0c0c0c !important;
+}

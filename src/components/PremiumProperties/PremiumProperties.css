@@ -201,3 +201,9 @@ div:hover {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+@media (min-width: 801px) and (max-width: 1100px) {
+  .laptop-mode-screen-content{
+    padding: 10px !important;
+  }
+}

@@ -21,10 +21,22 @@ import NotFound from "./pages/NotFound/NotFound";
 import ExploreProperties from "./components/ExploreProperities/ExploreProperities";
 import PopularLocation from "./components/PopularLocation/PopularLocation";
 import CookieBanner from "./components/CookieBanner/CookieBanner";
+import { Helmet } from "react-helmet-async";
+
 
 function App() {
   return (
     <Router>
+      <Helmet>
+        <title>Ethos Pro Realtors | Trusted Real Estate Consultants in Gurgaon</title>
+        <meta
+          name="description"
+          content="Ethos Pro Realtors is a leading real estate consultancy in Gurgaon offering premium residential, commercial & investment property solutions."
+        />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://www.ethosprorealtors.com" />
+      </Helmet>
+
       <Header />
       <ScrollToTop />
       <main className="pt-20 main-app">
@@ -39,7 +51,7 @@ function App() {
           <Route path="/projects" element={<Project />} />
           <Route path="/projects/residential" element={<Residentials />} />
           <Route path="/projects/residential/:propertyName" element={<Residentials />} />
-          
+
           <Route path="/projects/commercial" element={<Commercial />} />
           <Route path="/projects/commercial/:propertyName" element={<Commercial />} />
 
@@ -58,9 +70,9 @@ function App() {
           <Route path="/team/:name" element={<Home />} />
           <Route path="/about/:name" element={<About />} />
           <Route path="/explore-properties" element={<ExploreProperties />} />
-          <Route path="/explore-properties/:propertyName" element={<ExploreProperties/>}/>
+          <Route path="/explore-properties/:propertyName" element={<ExploreProperties />} />
           <Route path="/blog/:id/:title" element={<Blog />} />
-          <Route path="/popular-location/:locationName?" element={<PopularLocation/>}/>
+          <Route path="/popular-location/:locationName?" element={<PopularLocation />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

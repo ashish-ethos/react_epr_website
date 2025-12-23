@@ -9,6 +9,8 @@ import './Project.css';
 import CustomButton from '../../components/ui/Button';
 import CustomSelect from '../../components/ui/Select';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { Helmet } from "react-helmet-async";
+
 
 const { Search } = Input;
 const { Option } = CustomSelect;
@@ -627,6 +629,85 @@ const Commercial = () => {
 
   const LoadingSkeleton = () => (
     <div className="min-h-screen bg-[#333]">
+      <Helmet>
+        {/* Page Title */}
+        <title>
+          Commercial Properties in Gurugram | Offices, Shops & Retail – Ethos Pro Realtors
+        </title>
+
+        {/* Meta Description */}
+        <meta
+          name="description"
+          content="Browse premium commercial properties in Gurugram including office spaces, retail shops, SCO plots, and investment opportunities. Verified listings by Ethos Pro Realtors."
+        />
+
+        {/* Keywords */}
+        <meta
+          name="keywords"
+          content="commercial properties gurugram, office space in gurgaon, retail shops gurgaon, sco plots gurugram, commercial real estate ncr, ethos pro realtors commercial"
+        />
+
+        <meta name="robots" content="index, follow" />
+
+        {/* Canonical */}
+        <link
+          rel="canonical"
+          href="https://www.ethosprorealtors.com/projects/commercial"
+        />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Commercial Properties in Gurugram | Ethos Pro Realtors"
+        />
+        <meta
+          property="og:description"
+          content="Explore premium office spaces, retail shops, and commercial investments in Gurugram with Ethos Pro Realtors."
+        />
+        <meta
+          property="og:url"
+          content="https://www.ethosprorealtors.com/projects/commercial"
+        />
+        <meta
+          property="og:image"
+          content="https://www.ethosprorealtors.com/assets/commercial-og.jpg"
+        />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Commercial Properties in Gurugram"
+        />
+        <meta
+          name="twitter:description"
+          content="Discover office spaces, retail shops & SCO plots in Gurugram curated by Ethos Pro Realtors."
+        />
+        <meta
+          name="twitter:image"
+          content="https://www.ethosprorealtors.com/assets/commercial-og.jpg"
+        />
+
+        {/* Schema */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "CollectionPage",
+              "name": "Commercial Properties in Gurugram",
+              "url": "https://www.ethosprorealtors.com/projects/commercial",
+              "description": "Premium commercial real estate projects including offices, retail shops and SCO plots in Gurugram.",
+              "publisher": {
+                "@type": "Organization",
+                "name": "Ethos Pro Realtors",
+                "url": "https://www.ethosprorealtors.com"
+              }
+            }
+            `}
+        </script>
+      </Helmet>
+
       {/* Top Bar Skeleton */}
       <div className="bg-[#333] border-b border-t border-[#ffffff38] top-0 z-50 animate-pulse">
         <div className="max-w-7xl mx-auto px-6 py-4">
