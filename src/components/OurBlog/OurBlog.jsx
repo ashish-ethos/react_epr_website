@@ -658,8 +658,8 @@ const OurBlog = () => {
                     <div className="flex flex-col lg:flex-row justify-between items-start gap-10 header-ourblog">
                         {/* Left Section - Blog Heading + Content */}
                         <div className="flex-1 text-center lg:text-left">
-                            <h1 className="text-5xl lg:text-7xl font-black mb-4 leading-none">
-                                <span className="block mobile-title-text mobile-title-text font-[Montserrat] sm:text-xl md:text-5xl font-black mb-3 sm:mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent">
+                            <h1 className="text-5xl lg:text-7xl font-medium mb-4 leading-none">
+                                <span className="block mobile-title-text mobile-title-text font-[Montserrat] sm:text-xl md:text-5xl font-medium mb-3 sm:mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent">
                                     Our Blog
                                 </span>
                             </h1>

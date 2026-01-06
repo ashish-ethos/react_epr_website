@@ -205,7 +205,7 @@ const Testimonial = () => {
         {/* Header */}
         <div className="text-center mb-16 mobile-testimonial-section">
           <div className="inline-flex flex-col items-center justify-center space-x-2 mb-6 w-full">
-            <p className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-[Montserrat] font-black mb-3 sm:mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent animate-pulse mobile-title-text">
+            <p className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-[Montserrat] font-medium mb-3 sm:mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent animate-pulse mobile-title-text">
               Testimonials
             </p>
             <div className='h-1 bg-gradient-to-r from-transparent via-[#c99913] to-transparent rounded-full w-full animate-pulse'></div>

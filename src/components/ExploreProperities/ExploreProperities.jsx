@@ -759,7 +759,7 @@ const ExploreProperties = ({ filters = {} }) => {
                         </div>
                     </div>
                 )}
-                <h1 className="mobile-title-text text-3xl font-[Montserrat] sm:text-4xl md:text-5xl font-black mb-3 sm:mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent animate-pulse">
+                <h1 className="mobile-title-text text-3xl font-[Montserrat] sm:text-4xl md:text-5xl font-medium mb-3 sm:mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent animate-pulse">
                     Explore Premium Properties
                 </h1>
                 <div className="h-1 bg-gradient-to-r from-transparent via-[#c99913] to-transparent rounded-full animate-pulse"></div>

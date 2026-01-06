@@ -577,7 +577,7 @@ const OurTeam = () => {
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-6 our-team-text">
           <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-            <h3 className="text-3xl mobile-title-text font-[Montserrat] sm:text-xl md:text-5xl font-black mb-3 sm:mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent animate-pulse">
+            <h3 className="text-3xl mobile-title-text font-[Montserrat] sm:text-xl md:text-5xl font-medium mb-3 sm:mb-4 bg-gradient-to-r from-[#c2c6cb] via-[#c99913] to-[#c2c6cb] bg-clip-text text-transparent animate-pulse">
               Meet Our Team
             </h3>
             <div className="h-1 bg-gradient-to-r from-transparent via-[#c99913] to-transparent rounded-full animate-pulse"></div>

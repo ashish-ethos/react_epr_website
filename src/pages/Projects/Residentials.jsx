@@ -1,16 +1,33 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { Input, Typography, Pagination, Empty } from 'antd';
-import { FilterOutlined, DownOutlined, SearchOutlined as SearchIcon } from '@ant-design/icons';
-import { Grid, List, MapPinHouse, LandPlot, Heart, Share2, Star, X, Facebook, Instagram, Linkedin, Twitter, ExternalLink } from 'lucide-react';
-import ViewDetailsDrawer from './ViewDetailsDrawer';
-import { properties } from '../../data/propertiesData';
+import React, { useState, useMemo, useEffect } from "react";
+import { Input, Typography, Pagination, Empty, Slider } from "antd";
+import {
+  FilterOutlined,
+  DownOutlined,
+  SearchOutlined as SearchIcon,
+} from "@ant-design/icons";
+import {
+  Grid,
+  List,
+  MapPinHouse,
+  LandPlot,
+  Heart,
+  Share2,
+  Star,
+  X,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Twitter,
+  ExternalLink,
+} from "lucide-react";
+import ViewDetailsDrawer from "./ViewDetailsDrawer";
+import { properties } from "../../data/propertiesData";
 import { BsWhatsapp } from "react-icons/bs";
-import './Project.css';
-import CustomButton from '../../components/ui/Button';
-import CustomSelect from '../../components/ui/Select';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import "./Project.css";
+import CustomButton from "../../components/ui/Button";
+import CustomSelect from "../../components/ui/Select";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-
 
 const { Search } = Input;
 const { Option } = CustomSelect;
@@ -27,25 +44,33 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error('Error in Residentials:', error, errorInfo);
+    console.error("Error in Residentials:", error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
-      return <div className="text-center py-8 text-red-500">Something went wrong. Refresh the page.</div>;
+      return (
+        <div className="text-center py-8 text-red-500">
+          Something went wrong. Refresh the page.
+        </div>
+      );
     }
     return this.props.children;
   }
 }
 
+const formatPrice = (val) => {
+  return val < 1 ? `${Math.round(val * 100)} L` : `${val} Cr`;
+};
+
 const parseSinglePrice = (str) => {
   if (!str) return null;
-  const clean = str.replace(/[₹*]/g, '').trim().toLowerCase();
+  const clean = str.replace(/[₹*]/g, "").trim().toLowerCase();
   const match = clean.match(/(\d+(?:\.\d+)?)\s*(cr|crore|l|lakh|lakhs)/i);
   if (match) {
     let num = parseFloat(match[1]);
     const unit = match[2].toLowerCase();
-    if (unit.startsWith('l') || unit.startsWith('lakh')) {
+    if (unit.startsWith("l") || unit.startsWith("lakh")) {
       num = num / 100; // Convert lakhs to crores
     }
     return num;
@@ -58,12 +83,19 @@ const parseSinglePrice = (str) => {
 };
 
 const parsePriceRange = (priceStr) => {
-  if (!priceStr || priceStr.includes('On Request') || priceStr.includes('Price on Request')) {
+  if (
+    !priceStr ||
+    priceStr.includes("On Request") ||
+    priceStr.includes("Price on Request")
+  ) {
     return { min: null, max: null };
   }
-  let clean = priceStr.replace(/[*]/g, '').trim();
-  clean = clean.replace(/[–—–—\-]/g, '-');
-  const parts = clean.split('-').map(p => p.trim()).filter(p => p);
+  let clean = priceStr.replace(/[*]/g, "").trim();
+  clean = clean.replace(/[–—–—\-]/g, "-");
+  const parts = clean
+    .split("-")
+    .map((p) => p.trim())
+    .filter((p) => p);
   if (parts.length === 1) {
     const val = parseSinglePrice(parts[0]);
     return { min: val, max: val };
@@ -76,11 +108,11 @@ const parsePriceRange = (priceStr) => {
 };
 
 const parseSizeRange = (sizeStr) => {
-  if (!sizeStr || sizeStr.includes('On Request')) {
+  if (!sizeStr || sizeStr.includes("On Request")) {
     return { min: null, max: null };
   }
-  const clean = sizeStr.replace(/[––—]/g, '-').replace(/[^\d-]/g, '');
-  const parts = clean.split('-').map(num => parseInt(num) || 0);
+  const clean = sizeStr.replace(/[––—]/g, "-").replace(/[^\d-]/g, "");
+  const parts = clean.split("-").map((num) => parseInt(num) || 0);
   if (parts.length === 1) {
     return { min: parts[0], max: parts[0] };
   }
@@ -88,15 +120,22 @@ const parseSizeRange = (sizeStr) => {
 };
 
 const Residentials = () => {
-  const [viewMode, setViewMode] = useState('grid');
-  const [sortBy, setSortBy] = useState('featured');
+  const [viewMode, setViewMode] = useState("grid");
+  const [sortBy, setSortBy] = useState("featured");
   const [filters, setFilters] = useState({
-    priceRange: '',
-    propertyType: '',
-    sizeRange: '',
-    category: '',
+    priceMin: null,
+    priceMax: null,
+    sizeMin: null,
+    sizeMax: null,
+    propertyType: "",
+    category: "",
+    status: "",
+    bedrooms: [],
+    bathrooms: [],
+    yearBuilt: [],
   });
-  const [searchTerm, setSearchTerm] = useState('');
+  const [pendingFilters, setPendingFilters] = useState(filters);
+  const [searchTerm, setSearchTerm] = useState("");
   const [showFilters, setShowFilters] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState(null);
@@ -116,7 +155,7 @@ const Residentials = () => {
   useEffect(() => {
     if (propertyName) {
       const property = properties.find(
-        (p) => p.name.toLowerCase().replace(/\s+/g, '-') === propertyName
+        (p) => p.name.toLowerCase().replace(/\s+/g, "-") === propertyName
       );
       if (property) {
         setSelectedProperty(property);
@@ -131,14 +170,14 @@ const Residentials = () => {
   useEffect(() => {
     if (!propertyName) {
       const params = new URLSearchParams(location.search);
-      const page = parseInt(params.get('page'), 10) || 1;
+      const page = parseInt(params.get("page"), 10) || 1;
       setCurrentPage(page);
     }
   }, [location.search, propertyName]);
 
   useEffect(() => {
     if (!propertyName) {
-      navigate(`/projects/residential?page=${currentPage}`, { replace: true });
+      navigate(`/properties-type/residential?page=${currentPage}`, { replace: true });
     }
   }, [currentPage, propertyName, navigate]);
 
@@ -147,21 +186,26 @@ const Residentials = () => {
   }, [searchTerm, filters, sortBy, showLikedOnly]);
 
   useEffect(() => {
-    const savedViewMode = localStorage.getItem('residentialViewMode');
+    const savedViewMode = localStorage.getItem("residentialViewMode");
     if (savedViewMode) {
       setViewMode(savedViewMode);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('residentialViewMode', viewMode);
+    localStorage.setItem("residentialViewMode", viewMode);
   }, [viewMode]);
 
   useEffect(() => {
     return () => {
-      localStorage.removeItem('residentialViewMode');
+      localStorage.removeItem("residentialViewMode");
     };
   }, []);
+  useEffect(() => {
+    if (showFilters) {
+      setPendingFilters(filters);
+    }
+  }, [showFilters, filters]);
 
   const toggleLike = (propertyId) => {
     setLikedProperties((prev) =>
@@ -173,60 +217,92 @@ const Residentials = () => {
 
   const filteredProperties = useMemo(() => {
     let filtered = properties.filter((property) => {
-      const typeLower = property.type?.toLowerCase() || '';
+      const typeLower = property.type?.toLowerCase() || "";
       const isResidential =
-        typeLower.includes('residential') ||
-        typeLower.includes('apartment') ||
-        typeLower.includes('villa') ||
-        typeLower.includes('studio');
+        typeLower.includes("residential") ||
+        typeLower.includes("apartment") ||
+        typeLower.includes("villa") ||
+        typeLower.includes("studio");
       const matchesSearch =
         property.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         property.location?.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesType =
         !filters.propertyType ||
-        property.type?.toLowerCase().includes(filters.propertyType.toLowerCase());
+        property.type
+          ?.toLowerCase()
+          .includes(filters.propertyType.toLowerCase());
       const priceRangeProp = parsePriceRange(property.price);
       const matchesPriceRange =
-        !filters.priceRange ||
-        (priceRangeProp.max !== null &&
-          (() => {
-            const [, rangeMaxStr] = filters.priceRange.split('-');
-            const filterMax = rangeMaxStr === '0' ? Infinity : parseFloat(rangeMaxStr) || Infinity;
-            return priceRangeProp.max <= filterMax;
-          })());
+        priceRangeProp.min === null ||
+        priceRangeProp.max === null ||
+        ((!filters.priceMin || priceRangeProp.max >= filters.priceMin) &&
+          (!filters.priceMax || priceRangeProp.min <= filters.priceMax));
       const sizeRangeProp = parseSizeRange(property.size);
       const matchesSizeRange =
-        !filters.sizeRange ||
-        (sizeRangeProp.max !== null &&
-          (() => {
-            const [, rangeMaxStr] = filters.sizeRange.split('-');
-            const filterMax = rangeMaxStr === '0' ? Infinity : parseInt(rangeMaxStr) || Infinity;
-            return sizeRangeProp.max <= filterMax;
-          })());
-      const matchesCategory = !filters.category || property.category === filters.category;
-      return isResidential && matchesSearch && matchesType && matchesPriceRange && matchesSizeRange && matchesCategory;
+        sizeRangeProp.min === null ||
+        sizeRangeProp.max === null ||
+        ((!filters.sizeMin || sizeRangeProp.max >= filters.sizeMin) &&
+          (!filters.sizeMax || sizeRangeProp.min <= filters.sizeMax));
+      const matchesCategory =
+        !filters.category || property.category === filters.category;
+      const matchesStatus =
+        !filters.status ||
+        (property.status || property.options || []).includes(filters.status);
+      const matchesBedrooms =
+        filters.bedrooms.length === 0 ||
+        filters.bedrooms.some(
+          (b) =>
+            property.bedrooms &&
+            Number(b) >= property.bedrooms.min &&
+            Number(b) <= property.bedrooms.max
+        );
+      const matchesBathrooms =
+        filters.bathrooms.length === 0 ||
+        filters.bathrooms.some(
+          (b) =>
+            property.bathrooms &&
+            Number(b) >= property.bathrooms.min &&
+            Number(b) <= property.bathrooms.max
+        );
+      const matchesYearBuilt =
+        filters.yearBuilt.length === 0 ||
+        filters.yearBuilt.some((y) => property.yearBuilt?.includes(y));
+      return (
+        isResidential &&
+        matchesSearch &&
+        matchesType &&
+        matchesPriceRange &&
+        matchesSizeRange &&
+        matchesCategory &&
+        matchesStatus &&
+        matchesBedrooms &&
+        matchesBathrooms &&
+        matchesYearBuilt
+      );
     });
 
     if (showLikedOnly) {
-      filtered = filtered.filter((property) => likedProperties.includes(property.id));
+      filtered = filtered.filter((property) =>
+        likedProperties.includes(property.id)
+      );
     }
 
     switch (sortBy) {
-      case 'price_low':
+      case "price_low":
         return filtered.sort((a, b) => {
           const priceA = parsePriceRange(a.price).min || Infinity;
           const priceB = parsePriceRange(b.price).min || Infinity;
           return priceA - priceB;
         });
-      case 'price_high':
+      case "price_high":
         return filtered.sort((a, b) => {
           const priceA = parsePriceRange(a.price).max || -Infinity;
           const priceB = parsePriceRange(b.price).max || -Infinity;
           return priceB - priceA;
         });
-      case 'rating':
+      case "rating":
         return filtered.sort((a, b) => b.rating - a.rating);
-      case 'sqft':
+      case "sqft":
         return filtered.sort((a, b) => {
           const sqftA = parseSizeRange(a.size).min || -Infinity;
           const sqftB = parseSizeRange(b.size).min || -Infinity;
@@ -245,8 +321,10 @@ const Residentials = () => {
   const handleViewDetails = (property) => {
     setSelectedProperty(property);
     setDrawerOpen(true);
-    const propertyNameSlug = property.name.toLowerCase().replace(/\s+/g, '-');
-    navigate(`/projects/residential/${propertyNameSlug}`, { state: { from: location.pathname + location.search } });
+    const propertyNameSlug = property.name.toLowerCase().replace(/\s+/g, "-");
+    navigate(`/properties-type/residential/${propertyNameSlug}`, {
+      state: { from: location.pathname + location.search },
+    });
   };
 
   const handleCloseDrawer = () => {
@@ -258,38 +336,43 @@ const Residentials = () => {
   const GridPropertyCard = ({ property, isLiked, onToggleLike }) => {
     const [isSharePopupOpen, setIsSharePopupOpen] = useState(false);
 
-    const shareUrl = encodeURIComponent(window.location.origin + `/projects/residential/${property.name.toLowerCase().replace(/\s+/g, '-')}`);
+    const shareUrl = encodeURIComponent(
+      window.location.origin +
+        `/properties-type/residential/${property.name
+          .toLowerCase()
+          .replace(/\s+/g, "-")}`
+    );
     const shareTitle = encodeURIComponent(property.name);
 
     const socialMediaLinks = [
       {
-        name: 'Facebook',
+        name: "Facebook",
         icon: Facebook,
-        color: 'text-[#1877F2]',
+        color: "text-[#1877F2]",
         url: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&display=popup&ref=plugin&src=share_button`,
       },
       {
-        name: 'Instagram',
+        name: "Instagram",
         icon: Instagram,
-        color: 'text-[#E4405F]',
+        color: "text-[#E4405F]",
         url: `https://www.instagram.com/ethosprorealtors/`,
       },
       {
-        name: 'LinkedIn',
+        name: "LinkedIn",
         icon: Linkedin,
-        color: 'text-[#0A66C2]',
+        color: "text-[#0A66C2]",
         url: `https://www.linkedin.com/shareArticle?mini=true&url=${shareUrl}&title=${shareTitle}&source=Ethos%20Pro%20Realtors`,
       },
       {
-        name: 'X',
+        name: "X",
         icon: Twitter,
-        color: 'text-[#000]',
+        color: "text-[#000]",
         url: `https://x.com/intent/post?url=${shareUrl}&text=${shareTitle}&via=ethosprorealtor`,
       },
       {
-        name: 'WhatsApp',
+        name: "WhatsApp",
         icon: BsWhatsapp,
-        color: 'text-[#25D366]',
+        color: "text-[#25D366]",
         url: `https://api.whatsapp.com/send?phone=918744964496&text=${shareTitle}%20${shareUrl}`,
       },
     ];
@@ -306,7 +389,7 @@ const Residentials = () => {
 
     const handleSocialShare = (e, url) => {
       e.stopPropagation();
-      window.open(url, '_blank', 'noopener,noreferrer');
+      window.open(url, "_blank", "noopener,noreferrer");
       setIsSharePopupOpen(false);
     };
 
@@ -321,7 +404,9 @@ const Residentials = () => {
             />
           ) : (
             <div className="w-full h-64 bg-[#333] flex items-center justify-center rounded-t-xl">
-              <Text type="secondary" className="text-[#c2c6cb]">No Image Available</Text>
+              <Text type="secondary" className="text-[#c2c6cb]">
+                No Image Available
+              </Text>
             </div>
           )}
           <div className="project-status-mobile absolute top-4 left-4 flex flex-wrap gap-2">
@@ -342,7 +427,14 @@ const Residentials = () => {
                 onToggleLike(property.id);
               }}
             >
-              <Heart size={16} className={isLiked ? 'text-red-500 fill-red-500' : 'text-[#c2c6cb] hover:text-red-500'} />
+              <Heart
+                size={16}
+                className={
+                  isLiked
+                    ? "text-red-500 fill-red-500"
+                    : "text-[#c2c6cb] hover:text-red-500"
+                }
+              />
             </button>
             <button
               onClick={handleShareClick}
@@ -354,8 +446,13 @@ const Residentials = () => {
           {isSharePopupOpen && (
             <div className="absolute top-12 right-4 bg-[#444] rounded-lg shadow-xl w-40 z-50 border border-[#ffffff38]">
               <div className="flex justify-between items-center px-2 py-1">
-                <h4 className="text-xs font-semibold text-[#c2c6cb]">Share Property</h4>
-                <button onClick={handleClosePopup} className="p-1 hover:bg-[#333] rounded-full cursor-pointer transition-colors">
+                <h4 className="text-xs font-semibold text-[#c2c6cb]">
+                  Share Property
+                </h4>
+                <button
+                  onClick={handleClosePopup}
+                  className="p-1 hover:bg-[#333] rounded-full cursor-pointer transition-colors"
+                >
                   <X size={16} className="text-[#c2c6cb] cursor-pointer" />
                 </button>
               </div>
@@ -367,7 +464,9 @@ const Residentials = () => {
                     className="flex items-center gap-2 p-1 px-2 hover:bg-[#333] rounded-lg transition-colors"
                   >
                     <platform.icon size={16} className={platform.color} />
-                    <span className="text-xs text-[#c2c6cb] font-[Inter] ml-2">{platform.name}</span>
+                    <span className="text-xs text-[#c2c6cb] font-[Inter] ml-2">
+                      {platform.name}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -385,7 +484,9 @@ const Residentials = () => {
         <div className="p-4">
           <div className="flex items-start justify-between mb-3">
             <div>
-              <h3 className="text-xl font-bold text-[#c2c6cb] mb-1">{property.name}</h3>
+              <h3 className="text-xl font-bold text-[#c2c6cb] mb-1">
+                {property.name}
+              </h3>
               <p className="text-[#c2c6cb]/80 flex items-center gap-1">
                 <MapPinHouse className="text-[#c2c6cb]" />
                 {property.location}
@@ -393,29 +494,38 @@ const Residentials = () => {
             </div>
             <div className="flex items-center gap-1">
               <Star size={14} className="text-[#c2c6cb] fill-current" />
-              <span className="text-sm font-semibold text-[#c2c6cb]">{property.rating}</span>
+              <span className="text-sm font-semibold text-[#c2c6cb]">
+                {property.rating}
+              </span>
             </div>
           </div>
           <div className="flex items-center gap-4 mb-4 text-sm text-[#c2c6cb]/80 mobile-project-type">
             <span className="flex items-center gap-1 text-[16px]">
               <LandPlot className="text-[#c2c6cb]" />
-              {property.size || 'N/A'}
+              {property.size || "N/A"}
             </span>
           </div>
           <div className="flex items-center justify-between mb-4  mobile-resdientail-title">
             <div>
-              <div className="text-2xl font-bold text-[#c2c6cb]">{property.price}</div>
-              <div className="text-sm text-[#c2c6cb]/80">{(property.pricePerSqft || 'On Request')}/sq ft</div>
+              <div className="text-2xl font-bold text-[#c2c6cb]">
+                {property.price}
+              </div>
+              <div className="text-sm text-[#c2c6cb]/80">
+                {property.pricePerSqft || "On Request"}/sq ft
+              </div>
             </div>
             <div
               className={`px-3 py-1 rounded-full text-xs font-semibold bg-[#333]/50 text-[#c2c6cb] border border-[#ffffff38] mobile-property-type `}
             >
-              {property.category ? property.category.replace('_', ' ') : 'N/A'}
+              {property.category ? property.category.replace("_", " ") : "N/A"}
             </div>
           </div>
           <div className="flex flex-wrap gap-2 mb-2">
-            {((property.amenities || []).slice(0, 3)).map((amenity) => (
-              <span key={amenity} className="px-2 py-1 bg-[#333]/50 text-[#c2c6cb]/80 rounded-lg text-xs border border-[#ffffff38]">
+            {(property.amenities || []).slice(0, 3).map((amenity) => (
+              <span
+                key={amenity}
+                className="px-2 py-1 bg-[#333]/50 text-[#c2c6cb]/80 rounded-lg text-xs border border-[#ffffff38]"
+              >
                 {amenity}
               </span>
             ))}
@@ -431,7 +541,6 @@ const Residentials = () => {
                 onClick={() => handleViewDetails(property)}
                 className="bg-[#444] text-[#c2c6cb] px-5 py-2 rounded-[10px] cursor-pointer font-semibold flex items-center justify-center gap-2 hover:shadow-md transition-all duration-200"
               >
-
                 View Details <ExternalLink size={18} />
               </CustomButton>
             </div>
@@ -444,38 +553,43 @@ const Residentials = () => {
   const ListPropertyCard = ({ property, isLiked, onToggleLike }) => {
     const [isSharePopupOpen, setIsSharePopupOpen] = useState(false);
 
-    const shareUrl = encodeURIComponent(window.location.origin + `/projects/residential/${property.name.toLowerCase().replace(/\s+/g, '-')}`);
+    const shareUrl = encodeURIComponent(
+      window.location.origin +
+        `/properties-type/residential/${property.name
+          .toLowerCase()
+          .replace(/\s+/g, "-")}`
+    );
     const shareTitle = encodeURIComponent(property.name);
 
     const socialMediaLinks = [
       {
-        name: 'Facebook',
+        name: "Facebook",
         icon: Facebook,
-        color: 'text-[#1877F2]',
+        color: "text-[#1877F2]",
         url: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&display=popup&ref=plugin&src=share_button`,
       },
       {
-        name: 'Instagram',
+        name: "Instagram",
         icon: Instagram,
-        color: 'text-[#E4405F]',
+        color: "text-[#E4405F]",
         url: `https://www.instagram.com/ethosprorealtors/`,
       },
       {
-        name: 'LinkedIn',
+        name: "LinkedIn",
         icon: Linkedin,
-        color: 'text-[#0A66C2]',
+        color: "text-[#0A66C2]",
         url: `https://www.linkedin.com/shareArticle?mini=true&url=${shareUrl}&title=${shareTitle}&source=Ethos%20Pro%20Realtors`,
       },
       {
-        name: 'X',
+        name: "X",
         icon: Twitter,
-        color: 'text-[#000]',
+        color: "text-[#000]",
         url: `https://x.com/intent/post?url=${shareUrl}&text=${shareTitle}&via=ethosprorealtor`,
       },
       {
-        name: 'WhatsApp',
+        name: "WhatsApp",
         icon: BsWhatsapp,
-        color: 'text-[#25D366]',
+        color: "text-[#25D366]",
         url: `https://api.whatsapp.com/send?phone=918744964496&text=${shareTitle}%20${shareUrl}`,
       },
     ];
@@ -492,7 +606,7 @@ const Residentials = () => {
 
     const handleSocialShare = (e, url) => {
       e.stopPropagation();
-      window.open(url, '_blank', 'noopener,noreferrer');
+      window.open(url, "_blank", "noopener,noreferrer");
       setIsSharePopupOpen(false);
     };
 
@@ -507,7 +621,9 @@ const Residentials = () => {
             />
           ) : (
             <div className="w-full h-full bg-[#333] flex items-center justify-center">
-              <Text type="secondary" className="text-[#c2c6cb]">No Image Available</Text>
+              <Text type="secondary" className="text-[#c2c6cb]">
+                No Image Available
+              </Text>
             </div>
           )}
           <div className="absolute top-2 left-2 flex flex-wrap gap-2">
@@ -534,7 +650,12 @@ const Residentials = () => {
                     onToggleLike(property.id);
                   }}
                 >
-                  <Heart size={16} className={isLiked ? 'text-red-500 fill-red-500' : 'text-[#c2c6cb]'} />
+                  <Heart
+                    size={16}
+                    className={
+                      isLiked ? "text-red-500 fill-red-500" : "text-[#c2c6cb]"
+                    }
+                  />
                 </button>
                 <button
                   onClick={handleShareClick}
@@ -545,9 +666,17 @@ const Residentials = () => {
                 {isSharePopupOpen && (
                   <div className="absolute right-0 bottom-full mt-2 bg-[#444] rounded-lg shadow-xl w-40 z-50 border border-[#ffffff38]">
                     <div className="flex justify-between items-center px-2 py-1">
-                      <h4 className="text-xs font-semibold text-[#c2c6cb]">Share Property</h4>
-                      <button onClick={handleClosePopup} className="p-1 hover:bg-[#333] rounded-full cursor-pointer transition-colors">
-                        <X size={16} className="text-[#c2c6cb] cursor-pointer" />
+                      <h4 className="text-xs font-semibold text-[#c2c6cb]">
+                        Share Property
+                      </h4>
+                      <button
+                        onClick={handleClosePopup}
+                        className="p-1 hover:bg-[#333] rounded-full cursor-pointer transition-colors"
+                      >
+                        <X
+                          size={16}
+                          className="text-[#c2c6cb] cursor-pointer"
+                        />
                       </button>
                     </div>
                     <div className="flex flex-col gap-1 p-2">
@@ -558,7 +687,9 @@ const Residentials = () => {
                           className="flex items-center gap-2 p-1 px-2 hover:bg-[#333] rounded-lg transition-colors"
                         >
                           <platform.icon size={16} className={platform.color} />
-                          <span className="text-xs text-[#c2c6cb]">{platform.name}</span>
+                          <span className="text-xs text-[#c2c6cb]">
+                            {platform.name}
+                          </span>
                         </button>
                       ))}
                     </div>
@@ -571,35 +702,44 @@ const Residentials = () => {
         <div className="p-4 md:p-6 w-full md:w-2/3">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-3">
             <div>
-              <h3 className="text-lg md:text-xl font-bold text-[#c2c6cb] mb-1">{property.name}</h3>
+              <h3 className="text-lg md:text-xl font-bold text-[#c2c6cb] mb-1">
+                {property.name}
+              </h3>
               <p className="text-[#c2c6cb]/80 text-sm flex items-center gap-1">
                 <MapPinHouse className="text-[#c2c6cb]" /> {property.location}
               </p>
             </div>
             <div className="flex items-center gap-1 mt-2 md:mt-0">
               <Star size={14} className="text-[#c2c6cb] fill-current" />
-              <span className="text-sm font-semibold text-[#c2c6cb]">{property.rating}</span>
+              <span className="text-sm font-semibold text-[#c2c6cb]">
+                {property.rating}
+              </span>
             </div>
           </div>
           <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mb-4 text-sm text-[#c2c6cb]/80 mobile-icons-bbl">
             <span className="flex items-center gap-1">
-              <LandPlot className="text-[#c2c6cb]" /> {property.size || 'N/A'}
+              <LandPlot className="text-[#c2c6cb]" /> {property.size || "N/A"}
             </span>
           </div>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 mobile-project-type">
             <div>
-              <div className="text-lg md:text-xl font-bold text-[#c2c6cb]">{property.price}</div>
-              <div className="text-sm text-[#c2c6cb]/80">{(property.pricePerSqft || 'On Request')}/sq ft</div>
+              <div className="text-lg md:text-xl font-bold text-[#c2c6cb]">
+                {property.price}
+              </div>
+              <div className="text-sm text-[#c2c6cb]/80">
+                {property.pricePerSqft || "On Request"}/sq ft
+              </div>
             </div>
-            <span
-              className="px-2 py-1 rounded-full text-xs font-semibold bg-[#333]/50 text-[#c2c6cb] border border-[#ffffff38]"
-            >
-              {property.category ? property.category.replace('_', ' ') : 'N/A'}
+            <span className="px-2 py-1 rounded-full text-xs font-semibold bg-[#333]/50 text-[#c2c6cb] border border-[#ffffff38]">
+              {property.category ? property.category.replace("_", " ") : "N/A"}
             </span>
           </div>
           <div className="flex flex-wrap gap-2 mb-4">
-            {((property.amenities || []).slice(0, 3)).map((amenity) => (
-              <span key={amenity} className="px-2 py-1 bg-[#333]/50 text-[#c2c6cb]/80 rounded-lg text-xs border border-[#ffffff38]">
+            {(property.amenities || []).slice(0, 3).map((amenity) => (
+              <span
+                key={amenity}
+                className="px-2 py-1 bg-[#333]/50 text-[#c2c6cb]/80 rounded-lg text-xs border border-[#ffffff38]"
+              >
                 {amenity}
               </span>
             ))}
@@ -615,7 +755,6 @@ const Residentials = () => {
                 onClick={() => handleViewDetails(property)}
                 className="bg-[#444] text-[#c2c6cb] px-5 py-2 rounded-[10px] cursor-pointer font-semibold flex items-center justify-center gap-2 hover:shadow-md transition-all duration-200"
               >
-
                 View Details <ExternalLink size={18} />
               </CustomButton>
             </div>
@@ -626,8 +765,8 @@ const Residentials = () => {
   };
 
   const filterSort = (optionA, optionB) => {
-    const labelA = optionA?.label?.toLowerCase() || '';
-    const labelB = optionB?.label?.toLowerCase() || '';
+    const labelA = optionA?.label?.toLowerCase() || "";
+    const labelB = optionB?.label?.toLowerCase() || "";
     return labelA.localeCompare(labelB);
   };
 
@@ -673,13 +812,19 @@ const Residentials = () => {
         </div>
         <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, index) => (
-            <div key={index} className="bg-[#444] rounded-xl shadow-sm h-96 border border-[#ffffff38] overflow-hidden">
+            <div
+              key={index}
+              className="bg-[#444] rounded-xl shadow-sm h-96 border border-[#ffffff38] overflow-hidden"
+            >
               {/* Image Placeholder */}
               <div className="relative h-64 bg-[#555] rounded-t-xl"></div>
               {/* Status Tags */}
               <div className="absolute top-4 left-4 flex gap-2">
                 {Array.from({ length: 2 }).map((_, i) => (
-                  <div key={i} className="h-5 w-16 bg-[#555] rounded-full"></div>
+                  <div
+                    key={i}
+                    className="h-5 w-16 bg-[#555] rounded-full"
+                  ></div>
                 ))}
               </div>
               {/* Right Icons */}
@@ -705,7 +850,10 @@ const Residentials = () => {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {Array.from({ length: 3 }).map((_, i) => (
-                    <div key={i} className="h-5 w-12 bg-[#555] rounded-lg"></div>
+                    <div
+                      key={i}
+                      className="h-5 w-12 bg-[#555] rounded-lg"
+                    ></div>
                   ))}
                 </div>
                 <div className="h-10 w-full bg-[#555] rounded-[10px]"></div>
@@ -732,7 +880,8 @@ const Residentials = () => {
         <Helmet>
           {/* Page Title */}
           <title>
-            Residential Properties in Gurugram | Luxury Flats & Villas – Ethos Pro Realtors
+            Residential Properties in Gurugram | Luxury Flats & Villas – Ethos
+            Pro Realtors
           </title>
 
           {/* Meta Description */}
@@ -752,7 +901,7 @@ const Residentials = () => {
           {/* Canonical URL */}
           <link
             rel="canonical"
-            href="https://www.ethosprorealtors.com/projects/residential"
+            href="https://www.ethosprorealtors.com/properties-type/residential"
           />
 
           {/* Open Graph */}
@@ -767,7 +916,7 @@ const Residentials = () => {
           />
           <meta
             property="og:url"
-            content="https://www.ethosprorealtors.com/projects/residential"
+            content="https://www.ethosprorealtors.com/properties-type/residential"
           />
           <meta
             property="og:image"
@@ -811,20 +960,32 @@ const Residentials = () => {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between mb-4  mobile-project-title">
             <div>
-              <h1 className="mobile-title-project-text text-3xl font-bold text-[#c2c6cb]">Residential Properties</h1>
-              <p className="text-[#c2c6cb]/80 mt-1">{filteredProperties.length} properties available</p>
+              <h1 className="mobile-title-project-text text-3xl font-bold text-[#c2c6cb]">
+                Residential Properties
+              </h1>
+              <p className="text-[#c2c6cb]/80 mt-1">
+                {filteredProperties.length} properties available
+              </p>
             </div>
             <div className="flex items-center gap-3 ">
               <div className="flex bg-[#333]/50 rounded-lg  border border-[#ffffff38]">
                 <button
-                  onClick={() => setViewMode('grid')}
-                  className={`p-2 rounded-lg cursor-pointer transition-colors ${viewMode === 'grid' ? 'bg-[#444] shadow-sm' : 'hover:bg-[#444]'}`}
+                  onClick={() => setViewMode("grid")}
+                  className={`p-2 rounded-lg cursor-pointer transition-colors ${
+                    viewMode === "grid"
+                      ? "bg-[#444] shadow-sm"
+                      : "hover:bg-[#444]"
+                  }`}
                 >
                   <Grid size={20} className="text-[#c2c6cb]" />
                 </button>
                 <button
-                  onClick={() => setViewMode('list')}
-                  className={`p-2 rounded-lg cursor-pointer transition-colors ${viewMode === 'list' ? 'bg-[#444] shadow-sm' : 'hover:bg-[#444]'}`}
+                  onClick={() => setViewMode("list")}
+                  className={`p-2 rounded-lg cursor-pointer transition-colors ${
+                    viewMode === "list"
+                      ? "bg-[#444] shadow-sm"
+                      : "hover:bg-[#444]"
+                  }`}
                 >
                   <List size={20} className="text-[#c2c6cb]" />
                 </button>
@@ -839,7 +1000,11 @@ const Residentials = () => {
                 size="large"
                 onSearch={(value) => setSearchTerm(value)}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                style={{ background: '#444', color: '#c2c6cb', borderColor: '#ffffff38' }}
+                style={{
+                  background: "#444",
+                  color: "#c2c6cb",
+                  borderColor: "#ffffff38",
+                }}
                 className="custom-search"
               />
             </div>
@@ -853,19 +1018,26 @@ const Residentials = () => {
                 Filters
                 <DownOutlined
                   style={{
-                    marginLeft: '8px',
-                    transition: 'transform 0.3s',
-                    transform: showFilters ? 'rotate(180deg)' : 'rotate(0deg)',
+                    marginLeft: "8px",
+                    transition: "transform 0.3s",
+                    transform: showFilters ? "rotate(180deg)" : "rotate(0deg)",
                   }}
                 />
               </CustomButton>
               <CustomSelect
                 popupMatchSelectWidth={true}
-                onOpenChange={(open) => { /* Handle if needed */ }}
+                onOpenChange={(open) => {
+                  /* Handle if needed */
+                }}
                 value={sortBy}
                 onChange={(value) => setSortBy(value)}
                 size="large"
-                style={{ width: 150, background: '#444', color: '#c2c6cb', borderColor: '#ffffff38' }}
+                style={{
+                  width: 150,
+                  background: "#444",
+                  color: "#c2c6cb",
+                  borderColor: "#ffffff38",
+                }}
                 className="custom-select"
               >
                 <Option value="featured">Featured First</Option>
@@ -878,95 +1050,295 @@ const Residentials = () => {
                 onClick={() => setShowLikedOnly(!showLikedOnly)}
                 size="large"
                 className="bg-[#444] text-[#c2c6cb] border-[#ffffff38] hover:bg-[#555]"
-                icon={<Heart size={16} className={showLikedOnly ? 'text-red-500' : 'text-[#c2c6cb]'} />}
+                icon={
+                  <Heart
+                    size={16}
+                    className={
+                      showLikedOnly ? "text-red-500" : "text-[#c2c6cb]"
+                    }
+                  />
+                }
               >
-                {showLikedOnly ? 'Show All' : 'Show Liked'} ({likedProperties.length})
+                {showLikedOnly ? "Show All" : "Show Liked"} (
+                {likedProperties.length})
               </CustomButton>
             </div>
           </div>
           {showFilters && (
-            <div className="mt-4 p-4 bg-[#333]/50 rounded-xl border border-[#ffffff38]">
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mobile-open-filter">
-                <CustomSelect
-                  showSearch
-                  popupMatchSelectWidth={true}
-                  onOpenChange={(open) => { /* Handle if needed */ }}
-                  value={filters.priceRange}
-                  onChange={(value) => setFilters({ ...filters, priceRange: value })}
-                  placeholder="Any Price"
-                  optionFilterProp="label"
-                  filterSort={filterSort}
-                  size="large"
-                  className="custom-select"
-                  options={[
-                    { value: '', label: 'Any Price' },
-                    { value: '0-1', label: '<1 Cr' },
-                    { value: '1-5', label: '1-5 Cr' },
-                    { value: '5-10', label: '5-10 Cr' },
-                    { value: '10-0', label: '>10 Cr' },
-                  ]}
-                />
-                <CustomSelect
-                  showSearch
-                  popupMatchSelectWidth={true}
-                  onOpenChange={(open) => { /* Handle if needed */ }}
-                  value={filters.propertyType}
-                  onChange={(value) => setFilters({ ...filters, propertyType: value })}
-                  placeholder="All Property Types"
-                  optionFilterProp="label"
-                  filterSort={filterSort}
-                  size="large"
-                  className="custom-select"
-                  options={[
-                    { value: '', label: 'All Property Types' },
-                    { value: 'APARTMENT', label: 'Apartment' },
-                    { value: 'VILLA', label: 'Villa' },
-                    { value: 'STUDIO', label: 'Studio' },
-                  ]}
-                />
-                <CustomSelect
-                  showSearch
-                  popupMatchSelectWidth={true}
-                  onOpenChange={(open) => { /* Handle if needed */ }}
-                  value={filters.sizeRange}
-                  onChange={(value) => setFilters({ ...filters, sizeRange: value })}
-                  placeholder="Any Size"
-                  optionFilterProp="label"
-                  filterSort={filterSort}
-                  size="large"
-                  className="custom-select"
-                  options={[
-                    { value: '', label: 'Any Size' },
-                    { value: '0-1000', label: '<1000 Sq Ft' },
-                    { value: '1000-2000', label: '1000-2000 Sq Ft' },
-                    { value: '2000-5000', label: '2000-5000 Sq Ft' },
-                    { value: '5000-0', label: '>5000 Sq Ft' },
-                  ]}
-                />
-                <CustomSelect
-                  showSearch
-                  popupMatchSelectWidth={true}
-                  onOpenChange={(open) => { /* Handle if needed */ }}
-                  value={filters.category}
-                  onChange={(value) => setFilters({ ...filters, category: value })}
-                  placeholder="All Categories"
-                  optionFilterProp="label"
-                  filterSort={filterSort}
-                  size="large"
-                  className="custom-select"
-                  options={[
-                    { value: '', label: 'All Categories' },
-                    { value: 'LUXURY', label: 'Luxury' },
-                    { value: 'ULTRA_LUXURY', label: 'Ultra Luxury' },
-                  ]}
-                />
+            <div className="mt-6 py-4 px-6 bg-gradient-to-br from-[#1e1e1e] to-[#2a2a2a] rounded-3xl border border-[#ffffff15] shadow-2xl mobile-filter-box">
+              <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                {/* PRICE RANGE */}
+                <div className="lg:col-span-1 ">
+                  <label className="text-sm font-semibold text-white/90 block">
+                    Price Range
+                  </label>
+
+                  <div className="relative py-2 ">
+                    {/* Slider Track */}
+                    <div className="relative h-1 bg-[#333] rounded-full">
+                      {/* Active Track */}
+                      <div
+                        className="absolute h-full bg-gradient-to-r from-[#f1cb63] to-[#ecf65c] rounded-full"
+                        style={{
+                          left: `${
+                            (((pendingFilters.priceMin ?? 0.1) - 0.1) /
+                              (50 - 0.1)) *
+                            100
+                          }%`,
+                          right: `${
+                            100 -
+                            (((pendingFilters.priceMax ?? 50) - 0.1) /
+                              (50 - 0.1)) *
+                              100
+                          }%`,
+                        }}
+                      />
+
+                      {/* Min Handle */}
+                      <input
+                        type="range"
+                        min={0.1}
+                        max={50}
+                        step={0.1}
+                        value={pendingFilters.priceMin ?? 0.1}
+                        onChange={(e) => {
+                          const value = parseFloat(e.target.value);
+                          if (value < (pendingFilters.priceMax ?? 50)) {
+                            setPendingFilters({
+                              ...pendingFilters,
+                              priceMin: value === 0.1 ? null : value,
+                            });
+                          }
+                        }}
+                        className="absolute w-full h-1 bg-transparent appearance-none pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-[#6366f1] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-xl [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:w-6 [&::-moz-range-thumb]:h-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-4 [&::-moz-range-thumb]:border-[#6366f1] [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:shadow-xl [&::-moz-range-thumb]:border-0"
+                        style={{ zIndex: 3 }}
+                      />
+
+                      {/* Max Handle */}
+                      <input
+                        type="range"
+                        min={0.1}
+                        max={50}
+                        step={0.1}
+                        value={pendingFilters.priceMax ?? 50}
+                        onChange={(e) => {
+                          const value = parseFloat(e.target.value);
+                          if (value > (pendingFilters.priceMin ?? 0.1)) {
+                            setPendingFilters({
+                              ...pendingFilters,
+                              priceMax: value === 50 ? null : value,
+                            });
+                          }
+                        }}
+                        className="absolute w-full h-1 bg-transparent appearance-none pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-[#8b5cf6] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-xl [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:w-6 [&::-moz-range-thumb]:h-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-4 [&::-moz-range-thumb]:border-[#8b5cf6] [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:shadow-xl [&::-moz-range-thumb]:border-0"
+                        style={{ zIndex: 4 }}
+                      />
+                    </div>
+
+                    {/* Marks */}
+                    <div className="flex justify-between mt-3 text-xs text-[#666] font-medium">
+                      <span>10L</span>
+                      <span>1Cr</span>
+                      <span>5Cr</span>
+                      <span>10Cr</span>
+                      <span>20Cr</span>
+                      <span>50Cr</span>
+                    </div>
+                  </div>
+
+                  {/* Price Display */}
+                  <div className="text-center text-base font-bold text-white bg-[#6366f1]/10 py-1 px-6 rounded-xl border border-[#6366f1]/30">
+                    {pendingFilters.priceMin == null
+                      ? "10L"
+                      : formatPrice(pendingFilters.priceMin)}{" "}
+                    -{" "}
+                    {pendingFilters.priceMax == null
+                      ? "50Cr"
+                      : formatPrice(pendingFilters.priceMax)}
+                  </div>
+                </div>
+
+                {/* SIZE RANGE */}
+                <div>
+                  <label className="text-sm font-semibold text-white/90 block mb-2">
+                    Size Range (Sq Ft)
+                  </label>
+                  <div className="flex gap-3">
+                    <Input
+                      type="number"
+                      placeholder="Min"
+                      value={pendingFilters.sizeMin || ""}
+                      onChange={(e) =>
+                        setPendingFilters({
+                          ...pendingFilters,
+                          sizeMin: e.target.value
+                            ? parseInt(e.target.value)
+                            : null,
+                        })
+                      }
+                      className="flex-1 bg-[#1a1a1a] text-white border-2 border-[#333] hover:border-[#6366f1] focus:border-[#6366f1] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6366f1]/20 transition-all text-sm"
+                    />
+                    <Input
+                      type="number"
+                      placeholder="Max"
+                      value={pendingFilters.sizeMax || ""}
+                      onChange={(e) =>
+                        setPendingFilters({
+                          ...pendingFilters,
+                          sizeMax: e.target.value
+                            ? parseInt(e.target.value)
+                            : null,
+                        })
+                      }
+                      className="flex-1 bg-[#1a1a1a] text-white border-2 border-[#333] hover:border-[#6366f1] focus:border-[#6366f1] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6366f1]/20 transition-all text-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* BEDROOMS */}
+                <div>
+                  <label className="text-sm font-semibold text-white/90 block mb-2">
+                    Bedrooms
+                  </label>
+                  <CustomSelect
+                    mode="multiple"
+                    allowClear
+                    placeholder="Any"
+                    value={pendingFilters.bedrooms}
+                    onChange={(value) =>
+                      setPendingFilters({ ...pendingFilters, bedrooms: value })
+                    }
+                    size="large"
+                    className="w-full custom-select"
+                    style={{ background: "#1a1a1a", color: "white" }}
+                    dropdownStyle={{
+                      background: "#1a1a1a",
+                      borderColor: "#333",
+                    }}
+                    options={Array.from({ length: 10 }, (_, i) => ({
+                      value: `${i + 1}`,
+                      label: `${i + 1}`,
+                    }))}
+                  />
+                </div>
+
+                {/* BATHROOMS */}
+                <div>
+                  <label className="text-sm font-semibold text-white/90 block mb-2">
+                    Bathrooms
+                  </label>
+                  <CustomSelect
+                    mode="multiple"
+                    allowClear
+                    placeholder="Any"
+                    value={pendingFilters.bathrooms}
+                    onChange={(value) =>
+                      setPendingFilters({ ...pendingFilters, bathrooms: value })
+                    }
+                    size="large"
+                    className="w-full custom-select"
+                    style={{ background: "#1a1a1a", color: "white" }}
+                    dropdownStyle={{
+                      background: "#1a1a1a",
+                      borderColor: "#333",
+                    }}
+                    options={Array.from({ length: 10 }, (_, i) => ({
+                      value: `${i + 1}`,
+                      label: `${i + 1}`,
+                    }))}
+                  />
+                </div>
+
+                {/* YEAR BUILT */}
+                <div>
+                  <label className="text-sm font-semibold text-white/90 block mb-2">
+                    Year Built
+                  </label>
+                  <CustomSelect
+                    mode="multiple"
+                    allowClear
+                    placeholder="Any"
+                    value={pendingFilters.yearBuilt}
+                    onChange={(value) =>
+                      setPendingFilters({ ...pendingFilters, yearBuilt: value })
+                    }
+                    size="large"
+                    className="w-full custom-select"
+                    style={{ background: "#1a1a1a", color: "white" }}
+                    dropdownStyle={{
+                      background: "#1a1a1a",
+                      borderColor: "#333",
+                    }}
+                    options={[
+                      { value: "2021", label: "2021" },
+                      { value: "2022", label: "2022" },
+                      { value: "2023", label: "2023" },
+                      { value: "2024", label: "2024" },
+                      { value: "2025", label: "2025" },
+                    ]}
+                  />
+                </div>
+
+                {/* STATUS */}
+                <div>
+                  <label className="text-sm font-semibold text-white/90 block mb-4">
+                    Status
+                  </label>
+                  <CustomSelect
+                    value={pendingFilters.status}
+                    onChange={(value) =>
+                      setPendingFilters({ ...pendingFilters, status: value })
+                    }
+                    placeholder="Any Status"
+                    size="large"
+                    className="w-full custom-select"
+                    style={{ background: "#1a1a1a", color: "white" }}
+                    dropdownStyle={{
+                      background: "#1a1a1a",
+                      borderColor: "#333",
+                    }}
+                    options={[
+                      { value: "", label: "Any Status" },
+                      { value: "FOR SALE", label: "For Sale" },
+                      { value: "FOR RENT", label: "For Rent" },
+                      { value: "NEW LAUNCH", label: "New Launch" },
+                      { value: "HOT OFFER", label: "Hot Offer" },
+                    ]}
+                  />
+                </div>
+              </div>
+
+              {/* ACTION BUTTONS */}
+              <div className="flex justify-end gap-4 mt-6 pt-4 border-t border-[#ffffff08] mobile-filter-buttons">
                 <button
-                  onClick={() => setFilters({ priceRange: '', propertyType: '', sizeRange: '', category: '' })}
-                  size="large"
-                  className="cancelButton rounded-md max-w-[200px]"
+                  onClick={() => {
+                    const reset = {
+                      priceMin: null,
+                      priceMax: null,
+                      sizeMin: null,
+                      sizeMax: null,
+                      status: "",
+                      bedrooms: [],
+                      bathrooms: [],
+                      yearBuilt: [],
+                    };
+                    setPendingFilters(reset);
+                    setFilters(reset);
+                  }}
+                  className="px-8 py-1 cancelButton rounded-md max-w-[200px] font-semibold text-sm transition-all"
                 >
                   Clear Filters
                 </button>
+                <CustomButton
+                  onClick={() => {
+                    setFilters(pendingFilters);
+                    setCurrentPage(1);
+                    setShowFilters(false);
+                  }}
+                  className="px-10 py-3 text-white font-bold rounded-xl shadow-lg transition-all"
+                >
+                  Apply Filters
+                </CustomButton>
               </div>
             </div>
           )}
@@ -978,23 +1350,35 @@ const Residentials = () => {
             <div className="text-[#c2c6cb]/80 mb-4">
               <SearchIcon size={64} className="mx-auto" />
             </div>
-            <Empty description={
-              <h3 className="text-xl font-semibold text-[#c2c6cb] mb-2">No properties found</h3>
-            } />
-            <p className="text-[#c2c6cb]/80">Try adjusting your search criteria or filters</p>
+            <Empty
+              description={
+                <h3 className="text-xl font-semibold text-[#c2c6cb] mb-2">
+                  No properties found
+                </h3>
+              }
+            />
+            <p className="text-[#c2c6cb]/80">
+              Try adjusting your search criteria or filters
+            </p>
           </div>
         ) : (
           <>
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-[#c2c6cb]">All Residential Properties</h2>
+              <h2 className="text-2xl font-bold text-[#c2c6cb]">
+                All Residential Properties
+              </h2>
             </div>
             <ErrorBoundary>
               <div
-                className={`grid gap-8 ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}
+                className={`grid gap-8 ${
+                  viewMode === "grid"
+                    ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                    : "grid-cols-1"
+                }`}
               >
                 {displayedProperties.map((property) => (
                   <div key={property.id}>
-                    {viewMode === 'grid' ? (
+                    {viewMode === "grid" ? (
                       <GridPropertyCard
                         property={property}
                         isLiked={likedProperties.includes(property.id)}
@@ -1028,7 +1412,11 @@ const Residentials = () => {
         open={drawerOpen}
         onClose={handleCloseDrawer}
         project={selectedProperty}
-        isLiked={selectedProperty ? likedProperties.includes(selectedProperty.id) : false}
+        isLiked={
+          selectedProperty
+            ? likedProperties.includes(selectedProperty.id)
+            : false
+        }
         onToggleLike={toggleLike}
       />
     </div>

@@ -29,7 +29,7 @@ function DifferentCities() {
   const [maxArea, setMaxArea] = useState(10000);
   const [label, setLabel] = useState([]);
   const [yearBuilt, setYearBuilt] = useState([]);
-  const [priceRange, setPriceRange] = useState([1000000, 1000000000]);
+  const [priceRange, setPriceRange] = useState([10, 5000]);  
   const [isLoading, setIsLoading] = useState(true);
 
   // Map properties to expected structure
@@ -251,7 +251,7 @@ function DifferentCities() {
 
   const onClose = () => {
     setOpen(false);
-    navigate(-1);
+    navigate("/");
   };
 
   useEffect(() => {
@@ -279,7 +279,8 @@ function DifferentCities() {
     setMaxArea(10000);
     setLabel([]);
     setYearBuilt([]);
-    setPriceRange([1000000, 1000000000]);
+    setPriceRange([10, 5000]);  
+    
   };
 
   return (
@@ -320,7 +321,7 @@ function DifferentCities() {
                 <RiBuilding2Line className="text-yellow-400 animate-pulse" size={16} />
                 <div className="w-8 sm:w-12 h-0.5 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>
               </div>
-              <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-black mb-6 sm:mb-8 transition-all duration-1200 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+              <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-medium mb-6 sm:mb-8 transition-all duration-1200 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
                 <span className="mobile-title-text bg-gradient-to-r font-[Montserrat] from-white via-yellow-200 to-yellow-400 bg-clip-text text-transparent animate-pulse">
                   Popular Places
                 </span>

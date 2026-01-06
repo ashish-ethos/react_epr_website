@@ -17,14 +17,19 @@ import {
   List,
   Empty,
 } from "antd";
+import { FaFilter, FaEye, FaHeart, FaTh, FaList } from "react-icons/fa";
 import {
-  FaFilter,
-  FaEye,
-  FaHeart,
-  FaTh,
-  FaList
-} from "react-icons/fa";
-import { Bed, Bath, Star, House, LandPlot, MapPinHouse, CalendarDays, Search, Ruler, ExternalLink } from 'lucide-react';
+  Bed,
+  Bath,
+  Star,
+  House,
+  LandPlot,
+  MapPinHouse,
+  CalendarDays,
+  Search,
+  Ruler,
+  ExternalLink,
+} from "lucide-react";
 import CustomInput from "../ui/Input";
 import CustomSelect from "../ui/Select";
 import CustomButton from "../ui/Button";
@@ -161,7 +166,7 @@ const AdvancedPropertySearch = ({
   setLabel,
   yearBuilt = [],
   setYearBuilt,
-  priceRange = [1000000, 1000000000],
+  priceRange = [10, 5000],
   handlePriceChange,
   properties = [],
 }) => {
@@ -173,8 +178,12 @@ const AdvancedPropertySearch = ({
   const [searchQuery, setSearchQuery] = useState("");
   const [favoriteProperties, setFavoriteProperties] = useState(new Set());
   const [debouncedQuery, setDebouncedQuery] = useState("");
-  const [filteredProperties, setFilteredProperties] = useState(properties.length > 0 ? properties : mockProperties);
-  const [displayProperties, setDisplayProperties] = useState(properties.length > 0 ? properties : mockProperties);
+  const [filteredProperties, setFilteredProperties] = useState(
+    properties.length > 0 ? properties : mockProperties
+  );
+  const [displayProperties, setDisplayProperties] = useState(
+    properties.length > 0 ? properties : mockProperties
+  );
   const pageSize = 9;
   const navigate = useNavigate();
   const routerLocation = useLocation();
@@ -183,13 +192,13 @@ const AdvancedPropertySearch = ({
 
   // Sync currentPage from URL params on mount or param change
   useEffect(() => {
-    const pageParam = searchParams.get('page');
+    const pageParam = searchParams.get("page");
     const page = pageParam ? parseInt(pageParam, 10) : 1;
     if (!isNaN(page) && page > 0) {
       setCurrentPage(page);
     } else if (pageParam !== null) {
       // Invalid page param, remove it and reset to 1
-      searchParams.delete('page');
+      searchParams.delete("page");
       setSearchParams(searchParams);
       setCurrentPage(1);
     }
@@ -213,8 +222,8 @@ const AdvancedPropertySearch = ({
     const handleResize = () => {
       setIsMobile(window.innerWidth < 800);
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Update displayProperties when props change
@@ -226,19 +235,19 @@ const AdvancedPropertySearch = ({
   }, [properties]);
 
   useEffect(() => {
-    const savedViewMode = localStorage.getItem('advancedSearchViewMode');
+    const savedViewMode = localStorage.getItem("advancedSearchViewMode");
     if (savedViewMode) {
       setViewMode(savedViewMode);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('advancedSearchViewMode', viewMode);
+    localStorage.setItem("advancedSearchViewMode", viewMode);
   }, [viewMode]);
 
   useEffect(() => {
     return () => {
-      localStorage.removeItem('advancedSearchViewMode');
+      localStorage.removeItem("advancedSearchViewMode");
     };
   }, []);
 
@@ -259,23 +268,29 @@ const AdvancedPropertySearch = ({
       minArea: minA,
       maxArea: maxA,
       priceRange: pr,
-      sortBy: sb
+      sortBy: sb,
     } = currentFilters;
 
     return propsToFilter
       .filter((property) => {
         // Search match
-        const matchesSearch = !query ||
+        const matchesSearch =
+          !query ||
           property.name?.toLowerCase().includes(query.toLowerCase()) ||
           property.location?.toLowerCase().includes(query.toLowerCase());
 
         // Location matches
-        const matchesCountry = cId.length === 0 || cId.includes(property.countryId?.toString());
-        const matchesState = sId.length === 0 || sId.includes(property.stateId?.toString());
-        const matchesCity = ctyId.length === 0 || ctyId.includes(property.cityId?.toString());
-        const matchesArea = a.length === 0 ||
+        const matchesCountry =
+          cId.length === 0 || cId.includes(property.countryId?.toString());
+        const matchesState =
+          sId.length === 0 || sId.includes(property.stateId?.toString());
+        const matchesCity =
+          ctyId.length === 0 || ctyId.includes(property.cityId?.toString());
+        const matchesArea =
+          a.length === 0 ||
           a.includes("All Areas") ||
-          (a.includes("Gurgaon") && gurgaonSectors.some(sector => property.area?.includes(sector))) ||
+          (a.includes("Gurgaon") &&
+            gurgaonSectors.some((sector) => property.area?.includes(sector))) ||
           a.includes(property.area);
 
         // Basic matches
@@ -285,49 +300,60 @@ const AdvancedPropertySearch = ({
         // Bedrooms match
         const propMinBeds = property.bedroomsMin || 0;
         const propMaxBeds = property.bedroomsMax || 0;
-        const matchesBedrooms = b.length === 0 ||
+        const matchesBedrooms =
+          b.length === 0 ||
           b.includes("Any") ||
           b.some((bed) => {
             if (bed === "4+") return propMaxBeds >= 4;
             const bedNum = Number(bed);
-            return !isNaN(bedNum) && propMinBeds <= bedNum && propMaxBeds >= bedNum;
+            return (
+              !isNaN(bedNum) && propMinBeds <= bedNum && propMaxBeds >= bedNum
+            );
           });
 
         // Bathrooms match
         const propMinBaths = property.bathroomsMin || 0;
         const propMaxBaths = property.bathroomsMax || 0;
-        const matchesBathrooms = ba.length === 0 ||
+        const matchesBathrooms =
+          ba.length === 0 ||
           ba.includes("Any") ||
           ba.some((bath) => {
             if (bath === "4+") return propMaxBaths >= 4;
             const bathNum = Number(bath);
-            return !isNaN(bathNum) && propMinBaths <= bathNum && propMaxBaths >= bathNum;
+            return (
+              !isNaN(bathNum) &&
+              propMinBaths <= bathNum &&
+              propMaxBaths >= bathNum
+            );
           });
 
         // Label match
-        const matchesLabel = l.length === 0 ||
-          l.includes("Any") ||
-          l.includes(property.label);
+        const matchesLabel =
+          l.length === 0 || l.includes("Any") || l.includes(property.label);
 
         // Year built match
         const propYears = Array.isArray(property.yearBuiltList)
-          ? property.yearBuiltList.map(y => y.toString())
-          : [property.yearBuilt?.toString() || '2020'];
-        const matchesYearBuilt = yb.length === 0 ||
-          yb.some((y) => propYears.includes(y));
+          ? property.yearBuiltList.map((y) => y.toString())
+          : [property.yearBuilt?.toString() || "2020"];
+        const matchesYearBuilt =
+          yb.length === 0 || yb.some((y) => propYears.includes(y));
 
         // Area range match (allow 0 for On Request)
         const effectiveMinArea = Math.min(minA, maxA);
         const effectiveMaxArea = Math.max(minA, maxA);
-        const matchesAreaRange = property.areaValue === 0 ||
-          (property.areaValue >= effectiveMinArea && property.areaValue <= effectiveMaxArea);
+        const matchesAreaRange =
+          property.areaValue === 0 ||
+          (property.areaValue >= effectiveMinArea &&
+            property.areaValue <= effectiveMaxArea);
 
         // Price range match (allow 0/null for On Request)
-        const matchesPriceRange = property.priceValue === null ||
+        const matchesPriceRange =
           property.priceValue === 0 ||
-          (property.priceValue >= pr[0] && property.priceValue <= pr[1]);
+          (property.priceValue >= priceRange[0] * 100000 &&
+            property.priceValue <= priceRange[1] * 100000);
 
-        return matchesSearch &&
+        return (
+          matchesSearch &&
           matchesCountry &&
           matchesState &&
           matchesCity &&
@@ -339,7 +365,8 @@ const AdvancedPropertySearch = ({
           matchesLabel &&
           matchesYearBuilt &&
           matchesAreaRange &&
-          matchesPriceRange;
+          matchesPriceRange
+        );
       })
       .sort((a, b) => {
         switch (sb) {
@@ -381,14 +408,54 @@ const AdvancedPropertySearch = ({
     const updatedProperties = applyFilters(displayProperties, currentFilters);
     setFilteredProperties(updatedProperties);
     setCurrentPage(1);
-  }, [debouncedQuery, countryId, stateId, cityId, area, status, type, bedrooms, bathrooms, label, yearBuilt, minArea, maxArea, priceRange, sortBy, displayProperties, applyFilters]);
+  }, [
+    debouncedQuery,
+    countryId,
+    stateId,
+    cityId,
+    area,
+    status,
+    type,
+    bedrooms,
+    bathrooms,
+    label,
+    yearBuilt,
+    minArea,
+    maxArea,
+    priceRange,
+    sortBy,
+    displayProperties,
+    applyFilters,
+  ]);
 
   // Handle sort change - apply immediately since it's UI
-  const handleSortChange = useCallback((value) => {
-    setSortBy(value);
-    // Re-apply filters with new sort
-    const currentFilters = {
-      searchQuery: debouncedQuery,
+  const handleSortChange = useCallback(
+    (value) => {
+      setSortBy(value);
+      // Re-apply filters with new sort
+      const currentFilters = {
+        searchQuery: debouncedQuery,
+        countryId,
+        stateId,
+        cityId,
+        area,
+        status,
+        type,
+        bedrooms,
+        bathrooms,
+        label,
+        yearBuilt,
+        minArea,
+        maxArea,
+        priceRange,
+        sortBy: value,
+      };
+      const updatedProperties = applyFilters(displayProperties, currentFilters);
+      setFilteredProperties(updatedProperties);
+      setCurrentPage(1);
+    },
+    [
+      debouncedQuery,
       countryId,
       stateId,
       cityId,
@@ -402,30 +469,33 @@ const AdvancedPropertySearch = ({
       minArea,
       maxArea,
       priceRange,
-      sortBy: value,
-    };
-    const updatedProperties = applyFilters(displayProperties, currentFilters);
-    setFilteredProperties(updatedProperties);
-    setCurrentPage(1);
-  }, [debouncedQuery, countryId, stateId, cityId, area, status, type, bedrooms, bathrooms, label, yearBuilt, minArea, maxArea, priceRange, displayProperties, applyFilters]);
+      displayProperties,
+      applyFilters,
+    ]
+  );
 
   // Paginated properties
-  const paginatedProperties = useMemo(() =>
-    filteredProperties.slice(
-      (currentPage - 1) * pageSize,
-      currentPage * pageSize
-    ),
-    [filteredProperties, currentPage, pageSize]);
+  const paginatedProperties = useMemo(
+    () =>
+      filteredProperties.slice(
+        (currentPage - 1) * pageSize,
+        currentPage * pageSize
+      ),
+    [filteredProperties, currentPage, pageSize]
+  );
 
-  const handlePageChange = useCallback((page) => {
-    setCurrentPage(page);
-    // Update URL only when user interacts with pagination
-    setSearchParams(prev => {
-      const newParams = new URLSearchParams(prev);
-      newParams.set('page', page.toString());
-      return newParams;
-    });
-  }, [setSearchParams]);
+  const handlePageChange = useCallback(
+    (page) => {
+      setCurrentPage(page);
+      // Update URL only when user interacts with pagination
+      setSearchParams((prev) => {
+        const newParams = new URLSearchParams(prev);
+        newParams.set("page", page.toString());
+        return newParams;
+      });
+    },
+    [setSearchParams]
+  );
 
   const toggleFavorite = (propertyId) => {
     const newFavorites = new Set(favoriteProperties);
@@ -450,7 +520,7 @@ const AdvancedPropertySearch = ({
     setYearBuilt([]);
     setMinArea(0);
     setMaxArea(10000);
-    handlePriceChange([1000000, 1000000000]);
+    handlePriceChange([10, 5000]);
     setSearchQuery("");
     setDebouncedQuery("");
     setSortBy("price-low");
@@ -484,34 +554,34 @@ const AdvancedPropertySearch = ({
   const removeFilterValue = useCallback((filterKey, value) => {
     switch (filterKey) {
       case "area":
-        setArea(prev => prev.filter((a) => a !== value));
+        setArea((prev) => prev.filter((a) => a !== value));
         break;
       case "type":
-        setType(prev => prev.filter((t) => t !== value));
+        setType((prev) => prev.filter((t) => t !== value));
         break;
       case "status":
-        setStatus(prev => prev.filter((s) => s !== value));
+        setStatus((prev) => prev.filter((s) => s !== value));
         break;
       case "bedrooms":
-        setBedrooms(prev => prev.filter((b) => b !== value));
+        setBedrooms((prev) => prev.filter((b) => b !== value));
         break;
       case "bathrooms":
-        setBathrooms(prev => prev.filter((b) => b !== value));
+        setBathrooms((prev) => prev.filter((b) => b !== value));
         break;
       case "label":
-        setLabel(prev => prev.filter((l) => l !== value));
+        setLabel((prev) => prev.filter((l) => l !== value));
         break;
       case "yearBuilt":
-        setYearBuilt(prev => prev.filter((y) => y !== value));
+        setYearBuilt((prev) => prev.filter((y) => y !== value));
         break;
       case "countryId":
-        setCountryId(prev => prev.filter((c) => c !== value));
+        setCountryId((prev) => prev.filter((c) => c !== value));
         break;
       case "stateId":
-        setStateId(prev => prev.filter((s) => s !== value));
+        setStateId((prev) => prev.filter((s) => s !== value));
         break;
       case "cityId":
-        setCityId(prev => prev.filter((c) => c !== value));
+        setCityId((prev) => prev.filter((c) => c !== value));
         break;
       default:
         break;
@@ -521,32 +591,94 @@ const AdvancedPropertySearch = ({
   // Active chips
   const activeChips = useMemo(() => {
     const chips = [];
-    area.forEach((a) => a && chips.push({ key: `area:${a}`, label: a, filterKey: "area" }));
-    type.forEach((t) => t && chips.push({ key: `type:${t}`, label: t, filterKey: "type" }));
-    status.forEach((s) => s && chips.push({ key: `status:${s}`, label: s, filterKey: "status" }));
-    bedrooms.forEach((b) => b && chips.push({ key: `bed:${b}`, label: b, filterKey: "bedrooms" }));
-    bathrooms.forEach((b) => b && chips.push({ key: `bath:${b}`, label: b, filterKey: "bathrooms" }));
-    label.forEach((l) => l && chips.push({ key: `label:${l}`, label: l, filterKey: "label" }));
-    yearBuilt.forEach((y) => y && chips.push({ key: `year:${y}`, label: y, filterKey: "yearBuilt" }));
-    countryId.forEach((c) => c && chips.push({ key: `country:${c}`, label: `Country:${c}`, filterKey: "countryId" }));
-    stateId.forEach((s) => s && chips.push({ key: `state:${s}`, label: `State:${s}`, filterKey: "stateId" }));
-    cityId.forEach((c) => c && chips.push({ key: `city:${c}`, label: `City:${c}`, filterKey: "cityId" }));
+    area.forEach(
+      (a) => a && chips.push({ key: `area:${a}`, label: a, filterKey: "area" })
+    );
+    type.forEach(
+      (t) => t && chips.push({ key: `type:${t}`, label: t, filterKey: "type" })
+    );
+    status.forEach(
+      (s) =>
+        s && chips.push({ key: `status:${s}`, label: s, filterKey: "status" })
+    );
+    bedrooms.forEach(
+      (b) =>
+        b && chips.push({ key: `bed:${b}`, label: b, filterKey: "bedrooms" })
+    );
+    bathrooms.forEach(
+      (b) =>
+        b && chips.push({ key: `bath:${b}`, label: b, filterKey: "bathrooms" })
+    );
+    label.forEach(
+      (l) =>
+        l && chips.push({ key: `label:${l}`, label: l, filterKey: "label" })
+    );
+    yearBuilt.forEach(
+      (y) =>
+        y && chips.push({ key: `year:${y}`, label: y, filterKey: "yearBuilt" })
+    );
+    countryId.forEach(
+      (c) =>
+        c &&
+        chips.push({
+          key: `country:${c}`,
+          label: `Country:${c}`,
+          filterKey: "countryId",
+        })
+    );
+    stateId.forEach(
+      (s) =>
+        s &&
+        chips.push({
+          key: `state:${s}`,
+          label: `State:${s}`,
+          filterKey: "stateId",
+        })
+    );
+    cityId.forEach(
+      (c) =>
+        c &&
+        chips.push({
+          key: `city:${c}`,
+          label: `City:${c}`,
+          filterKey: "cityId",
+        })
+    );
     return chips;
-  }, [area, type, status, bedrooms, bathrooms, label, yearBuilt, countryId, stateId, cityId]);
+  }, [
+    area,
+    type,
+    status,
+    bedrooms,
+    bathrooms,
+    label,
+    yearBuilt,
+    countryId,
+    stateId,
+    cityId,
+  ]);
 
-  const yearOptions = useMemo(() =>
-    Array.from({ length: 126 }, (_, i) => currentYear - i).map((year) => ({
-      value: year.toString(),
-      label: year.toString(),
-    })),
-    [currentYear]);
+  const yearOptions = useMemo(
+    () =>
+      Array.from({ length: 126 }, (_, i) => currentYear - i).map((year) => ({
+        value: year.toString(),
+        label: year.toString(),
+      })),
+    [currentYear]
+  );
 
   const getFormattedArea = useCallback((property) => {
     const sizeStr = property.size?.trim();
-    if (!sizeStr || sizeStr.includes("On Request") || sizeStr.includes("Request")) {
+    if (
+      !sizeStr ||
+      sizeStr.includes("On Request") ||
+      sizeStr.includes("Request")
+    ) {
       return "On Request";
     }
-    const rangeMatch = sizeStr.match(/(\d+(?:\.\d+)?)\s*[-–]\s*(\d+(?:\.\d+)?)\s*(Sq Ft|sqft|Sqft)/i);
+    const rangeMatch = sizeStr.match(
+      /(\d+(?:\.\d+)?)\s*[-–]\s*(\d+(?:\.\d+)?)\s*(Sq Ft|sqft|Sqft)/i
+    );
     if (rangeMatch) {
       const min = parseInt(rangeMatch[1]).toLocaleString();
       const max = parseInt(rangeMatch[2]).toLocaleString();
@@ -563,12 +695,19 @@ const AdvancedPropertySearch = ({
   }, []);
 
   const getFormattedPrice = useCallback((property) => {
-    let priceStr = property.price?.replace(/\*/g, '').trim();
+    let priceStr = property.price?.replace(/\*/g, "").trim();
     if (!priceStr) return "On Request";
-    const requestVariants = ["On Request", "₹On Request", "₹ On Request", "Price on Request", "₹ Price on Request"];
-    if (requestVariants.some(variant => priceStr.includes(variant))) return "On Request";
+    const requestVariants = [
+      "On Request",
+      "₹On Request",
+      "₹ On Request",
+      "Price on Request",
+      "₹ Price on Request",
+    ];
+    if (requestVariants.some((variant) => priceStr.includes(variant)))
+      return "On Request";
     if (priceStr.includes(" - ") || priceStr.includes("-")) {
-      priceStr = priceStr.replace(/\s*[-–]\s*/g, ' - ').replace(/₹\s*/g, '₹');
+      priceStr = priceStr.replace(/\s*[-–]\s*/g, " - ").replace(/₹\s*/g, "₹");
       return priceStr;
     }
     let rawPrice = property.priceValue;
@@ -576,9 +715,15 @@ const AdvancedPropertySearch = ({
       const numMatch = priceStr.match(/[\d.]+/);
       if (numMatch) {
         const num = parseFloat(numMatch[0]);
-        if (priceStr.toLowerCase().includes("cr") || priceStr.toLowerCase().includes("crore")) {
+        if (
+          priceStr.toLowerCase().includes("cr") ||
+          priceStr.toLowerCase().includes("crore")
+        ) {
           rawPrice = num * 10000000;
-        } else if (priceStr.toLowerCase().includes("l") || priceStr.toLowerCase().includes("lakh")) {
+        } else if (
+          priceStr.toLowerCase().includes("l") ||
+          priceStr.toLowerCase().includes("lakh")
+        ) {
           rawPrice = num * 100000;
         } else {
           rawPrice = num;
@@ -595,18 +740,22 @@ const AdvancedPropertySearch = ({
     }
   }, []);
 
-  const handleNavigate = useCallback((property) => {
-    const propertyName = property.name
-      .toLowerCase()
-      .replace(/\s+/g, "-");
-    const routeType = property.type.toLowerCase() === "commercial" ? "commercial" : "residential";
-    navigate(`/projects/${routeType}/${propertyName}`, {
-      state: {
-        from: routerLocation.pathname,
-        property: property
-      },
-    });
-  }, [routerLocation.pathname, navigate]);
+  const handleNavigate = useCallback(
+    (property) => {
+      const propertyName = property.name.toLowerCase().replace(/\s+/g, "-");
+      const routeType =
+        property.type.toLowerCase() === "commercial"
+          ? "commercial"
+          : "residential";
+      navigate(`/projects/${routeType}/${propertyName}`, {
+        state: {
+          from: routerLocation.pathname,
+          property: property,
+        },
+      });
+    },
+    [routerLocation.pathname, navigate]
+  );
 
   return (
     <Drawer
@@ -662,13 +811,17 @@ const AdvancedPropertySearch = ({
                 />
                 <div className="chips-container">
                   {activeChips.length === 0 ? (
-                    <Text type="secondary" className="text-[#c2c6cb]">No active filters</Text>
+                    <Text type="secondary" className="text-[#c2c6cb]">
+                      No active filters
+                    </Text>
                   ) : (
                     activeChips.slice(0, 6).map((chip) => (
                       <Tag
                         key={chip.key}
                         closable
-                        onClose={() => removeFilterValue(chip.filterKey, chip.label)}
+                        onClose={() =>
+                          removeFilterValue(chip.filterKey, chip.label)
+                        }
                         className="chip-tag"
                       >
                         {chip.label}
@@ -679,260 +832,296 @@ const AdvancedPropertySearch = ({
                 <Divider className="filters-divider" />
               </Space>
             </div>
-            <Collapse defaultActiveKey={isMobile ? [] : ["basic", "advanced"]} ghost items={[
-              {
-                key: "basic",
-                label: <b className="text-[#c2c6cb]">Basic Filters</b>,
-                children: (
-                  <Space direction="vertical" size="middle" className="filters-space">
-                    <div>
-                      <span className="filter-label flex items-center text-[#c2c6cb]">
-                        <MapPinHouse className="filter-icon text-[#c2c6cb]" />
-                        Location
-                      </span>
-                      <CustomSelect
-                        mode="multiple"
-                        placeholder="Select Areas"
-                        value={area}
-                        onChange={setArea}
-                        className="filter-select"
-                        allowClear
-                        showSearch
-                        options={areaOptions}
-                      />
-                    </div>
-                    <div>
-                      <span className="filter-label flex items-center text-[#c2c6cb]">
-                        <House className="filter-icon text-[#c2c6cb]" />
-                        Property Type
-                      </span>
-                      <CustomSelect
-                        mode="multiple"
-                        placeholder="Select Types"
-                        value={type}
-                        onChange={setType}
-                        className="filter-select"
-                        allowClear
-                        showSearch
-                        options={typeOptions}
-                      />
-                    </div>
-                    <div>
-                      <span className="filter-label flex items-center text-[#c2c6cb]">
-                        <Star className="filter-icon text-[#c2c6cb]" />
-                        Status
-                      </span>
-                      <CustomSelect
-                        mode="multiple"
-                        placeholder="Select Status"
-                        value={status}
-                        onChange={setStatus}
-                        className="filter-select"
-                        allowClear
-                        showSearch
-                        options={statusOptions}
-                      />
-                    </div>
-                    <div>
-                      <span className="filter-label flex items-center text-[#c2c6cb]">
-                        <Bed className="filter-icon text-[#c2c6cb]" />
-                        Bedrooms
-                      </span>
-                      <CustomSelect
-                        mode="multiple"
-                        placeholder="Select Bedrooms"
-                        value={bedrooms}
-                        onChange={setBedrooms}
-                        className="filter-select"
-                        allowClear
-                        showSearch
-                        options={bedroomOptions}
-                      />
-                    </div>
-                    <div>
-                      <span className="filter-label flex items-center text-[#c2c6cb]">
-                        <Bath className="filter-icon text-[#c2c6cb]" />
-                        Bathrooms
-                      </span>
-                      <CustomSelect
-                        mode="multiple"
-                        placeholder="Select Bathrooms"
-                        value={bathrooms}
-                        onChange={setBathrooms}
-                        className="filter-select"
-                        allowClear
-                        showSearch
-                        options={bathroomOptions}
-                      />
-                    </div>
-                  </Space>
-                ),
-                className: "fontFamily-bebas",
-              },
-              {
-                key: "advanced",
-                label: <b className="text-[#c2c6cb]">Advanced Filters</b>,
-                children: (
-                  <Space direction="vertical" size="middle" className="filters-space">
-                    <div>
-                      <Slider
-                        range
-                        min={1000000}
-                        max={1000000000}
-                        step={1000000}
-                        value={priceRange}
-                        onChange={handlePriceChangeWrapper}
-                        onAfterChange={handlePriceChangeWrapper}
-                        tooltip={{
-                          formatter: (value) => {
-                            const crores = value / 10000000;
-                            return Number.isInteger(crores)
-                              ? `₹${crores} Cr`
-                              : `₹${crores.toFixed(1)} Cr`;
-                          },
-                        }}
-                        className="price-slider"
-                      />
-                      <Space className="price-inputs">
-                        <InputNumber
-                          value={priceRange[0]}
-                          onChange={(value) =>
-                            handlePriceChange([value || 1000000, priceRange[1]])
-                          }
-                          formatter={(value) => {
-                            const crores = value / 10000000;
-                            return Number.isInteger(crores)
-                              ? `₹${crores} Cr`
-                              : `₹${crores.toFixed(1)} Cr`;
+            <Collapse
+              defaultActiveKey={isMobile ? [] : ["basic", "advanced"]}
+              ghost
+              items={[
+                {
+                  key: "basic",
+                  label: <b className="text-[#c2c6cb]">Basic Filters</b>,
+                  children: (
+                    <Space
+                      direction="vertical"
+                      size="middle"
+                      className="filters-space"
+                    >
+                      <div>
+                        <span className="filter-label flex items-center text-[#c2c6cb]">
+                          <MapPinHouse className="filter-icon text-[#c2c6cb]" />
+                          Location
+                        </span>
+                        <CustomSelect
+                          mode="multiple"
+                          placeholder="Select Areas"
+                          value={area}
+                          onChange={setArea}
+                          className="filter-select"
+                          allowClear
+                          showSearch
+                          options={areaOptions}
+                        />
+                      </div>
+                      <div>
+                        <span className="filter-label flex items-center text-[#c2c6cb]">
+                          <House className="filter-icon text-[#c2c6cb]" />
+                          Property Type
+                        </span>
+                        <CustomSelect
+                          mode="multiple"
+                          placeholder="Select Types"
+                          value={type}
+                          onChange={setType}
+                          className="filter-select"
+                          allowClear
+                          showSearch
+                          options={typeOptions}
+                        />
+                      </div>
+                      <div>
+                        <span className="filter-label flex items-center text-[#c2c6cb]">
+                          <Star className="filter-icon text-[#c2c6cb]" />
+                          Status
+                        </span>
+                        <CustomSelect
+                          mode="multiple"
+                          placeholder="Select Status"
+                          value={status}
+                          onChange={setStatus}
+                          className="filter-select"
+                          allowClear
+                          showSearch
+                          options={statusOptions}
+                        />
+                      </div>
+                      <div>
+                        <span className="filter-label flex items-center text-[#c2c6cb]">
+                          <Bed className="filter-icon text-[#c2c6cb]" />
+                          Bedrooms
+                        </span>
+                        <CustomSelect
+                          mode="multiple"
+                          placeholder="Select Bedrooms"
+                          value={bedrooms}
+                          onChange={setBedrooms}
+                          className="filter-select"
+                          allowClear
+                          showSearch
+                          options={bedroomOptions}
+                        />
+                      </div>
+                      <div>
+                        <span className="filter-label flex items-center text-[#c2c6cb]">
+                          <Bath className="filter-icon text-[#c2c6cb]" />
+                          Bathrooms
+                        </span>
+                        <CustomSelect
+                          mode="multiple"
+                          placeholder="Select Bathrooms"
+                          value={bathrooms}
+                          onChange={setBathrooms}
+                          className="filter-select"
+                          allowClear
+                          showSearch
+                          options={bathroomOptions}
+                        />
+                      </div>
+                    </Space>
+                  ),
+                  className: "fontFamily-bebas",
+                },
+                {
+                  key: "advanced",
+                  label: <b className="text-[#c2c6cb]">Advanced Filters</b>,
+                  children: (
+                    <Space
+                      direction="vertical"
+                      size="middle"
+                      className="filters-space"
+                    >
+                      <div>
+                        <Slider
+                          range
+                          min={10} 
+                          max={5000} 
+                          step={10} 
+                          value={priceRange}
+                          onChange={handlePriceChange}
+                          tooltip={{
+                            formatter: (value) => {
+                              const lakhs = value;
+                              if (lakhs < 100) {
+                                return `₹${lakhs} L`;
+                              } else {
+                                const crores = lakhs / 100;
+                                return crores % 1 === 0
+                                  ? `₹${crores} Cr`
+                                  : `₹${crores.toFixed(1)} Cr`;
+                              }
+                            },
                           }}
-                          parser={(value) =>
-                            parseFloat(value.replace(/[^0-9.]/g, "")) * 10000000
-                          }
-                          className="price-input"
+                          className="price-slider"
                         />
-                        <InputNumber
-                          value={priceRange[1]}
-                          onChange={(value) =>
-                            handlePriceChange([priceRange[0], value || 1000000000])
-                          }
-                          formatter={(value) => {
-                            const crores = value / 10000000;
-                            return Number.isInteger(crores)
-                              ? `₹${crores} Cr`
-                              : `₹${crores.toFixed(1)} Cr`;
-                          }}
-                          parser={(value) =>
-                            parseFloat(value.replace(/[^0-9.]/g, "")) * 10000000
-                          }
-                          className="price-input"
+
+                        <Space className="price-inputs mt-4">
+                          <InputNumber
+                            min={50}
+                            max={5000}
+                            step={50}
+                            value={priceRange[0]}
+                            onChange={(val) =>
+                              handlePriceChange([val ?? 50, priceRange[1]])
+                            }
+                            formatter={(value) => {
+                              if (value < 100) return `₹${value} L`;
+                              const crores = value / 100;
+                              return crores % 1 === 0
+                                ? `₹${crores} Cr`
+                                : `₹${crores.toFixed(1)} Cr`;
+                            }}
+                            parser={(value) => {
+                              const num = parseFloat(
+                                value.replace(/[^\d.]/g, "")
+                              );
+                              if (value.includes("Cr") || value.includes("cr"))
+                                return num * 100;
+                              return num || 50;
+                            }}
+                            className="price-input w-32"
+                          />
+                          <span className="text-[#c2c6cb]">to</span>
+                          <InputNumber
+                            min={50}
+                            max={5000}
+                            step={50}
+                            value={priceRange[1]}
+                            onChange={(val) =>
+                              handlePriceChange([priceRange[0], val ?? 5000])
+                            }
+                            formatter={(value) => {
+                              if (value < 100) return `₹${value} L`;
+                              const crores = value / 100;
+                              return crores % 1 === 0
+                                ? `₹${crores} Cr`
+                                : `₹${crores.toFixed(1)} Cr`;
+                            }}
+                            parser={(value) => {
+                              const num = parseFloat(
+                                value.replace(/[^\d.]/g, "")
+                              );
+                              if (value.includes("Cr") || value.includes("cr"))
+                                return num * 100;
+                              return num || 5000;
+                            }}
+                            className="price-input w-32"
+                          />
+                        </Space>
+                      </div>
+                      <div>
+                        <span className="filter-label flex items-center text-[#c2c6cb]">
+                          <LandPlot className="filter-icon text-[#c2c6cb]" />
+                          Area Range (Sq Ft)
+                        </span>
+                        <Space className="area-inputs">
+                          <InputNumber
+                            placeholder="Min"
+                            value={minArea}
+                            onChange={(value) => setMinArea(value || 0)}
+                            className="area-input"
+                          />
+                          <InputNumber
+                            placeholder="Max"
+                            value={maxArea}
+                            onChange={(value) => setMaxArea(value || 10000)}
+                            className="area-input"
+                          />
+                        </Space>
+                      </div>
+                      <div>
+                        <span className="filter-label flex items-center text-[#c2c6cb]">
+                          <CalendarDays className="filter-icon text-[#c2c6cb]" />
+                          Year Built
+                        </span>
+                        <CustomSelect
+                          mode="multiple"
+                          placeholder="Select Years"
+                          value={yearBuilt}
+                          onChange={setYearBuilt}
+                          className="filter-select"
+                          allowClear
+                          showSearch
+                          options={yearOptions}
                         />
-                      </Space>
-                    </div>
-                    <div>
-                      <span className="filter-label flex items-center text-[#c2c6cb]">
-                        <LandPlot className="filter-icon text-[#c2c6cb]" />
-                        Area Range (Sq Ft)
-                      </span>
-                      <Space className="area-inputs">
-                        <InputNumber
-                          placeholder="Min"
-                          value={minArea}
-                          onChange={(value) => setMinArea(value || 0)}
-                          className="area-input"
+                      </div>
+                      <div>
+                        <span className="filter-label flex items-center text-[#c2c6cb]">
+                          <Star className="filter-icon text-[#c2c6cb]" />
+                          Labels
+                        </span>
+                        <CustomSelect
+                          mode="multiple"
+                          placeholder="Select Labels"
+                          value={label}
+                          onChange={setLabel}
+                          className="filter-select"
+                          allowClear
+                          showSearch
+                          options={labelOptions}
                         />
-                        <InputNumber
-                          placeholder="Max"
-                          value={maxArea}
-                          onChange={(value) => setMaxArea(value || 10000)}
-                          className="area-input"
+                      </div>
+                      <div>
+                        <span className="filter-label flex items-center text-[#c2c6cb]">
+                          <MapPinHouse className="filter-icon text-[#c2c6cb]" />
+                          Country
+                        </span>
+                        <CustomSelect
+                          mode="multiple"
+                          placeholder="Select Countries"
+                          value={countryId}
+                          onChange={setCountryId}
+                          className="filter-select"
+                          allowClear
+                          showSearch
+                          options={countryOptions}
                         />
-                      </Space>
-                    </div>
-                    <div>
-                      <span className="filter-label flex items-center text-[#c2c6cb]">
-                        <CalendarDays className="filter-icon text-[#c2c6cb]" />
-                        Year Built
-                      </span>
-                      <CustomSelect
-                        mode="multiple"
-                        placeholder="Select Years"
-                        value={yearBuilt}
-                        onChange={setYearBuilt}
-                        className="filter-select"
-                        allowClear
-                        showSearch
-                        options={yearOptions}
-                      />
-                    </div>
-                    <div>
-                      <span className="filter-label flex items-center text-[#c2c6cb]">
-                        <Star className="filter-icon text-[#c2c6cb]" />
-                        Labels
-                      </span>
-                      <CustomSelect
-                        mode="multiple"
-                        placeholder="Select Labels"
-                        value={label}
-                        onChange={setLabel}
-                        className="filter-select"
-                        allowClear
-                        showSearch
-                        options={labelOptions}
-                      />
-                    </div>
-                    <div>
-                      <span className="filter-label flex items-center text-[#c2c6cb]">
-                        <MapPinHouse className="filter-icon text-[#c2c6cb]" />
-                        Country
-                      </span>
-                      <CustomSelect
-                        mode="multiple"
-                        placeholder="Select Countries"
-                        value={countryId}
-                        onChange={setCountryId}
-                        className="filter-select"
-                        allowClear
-                        showSearch
-                        options={countryOptions}
-                      />
-                    </div>
-                    <div>
-                      <span className="filter-label flex items-center text-[#c2c6cb]">
-                        <MapPinHouse className="filter-icon text-[#c2c6cb]" />
-                        State
-                      </span>
-                      <CustomSelect
-                        mode="multiple"
-                        placeholder="Select States"
-                        value={stateId}
-                        onChange={setStateId}
-                        className="filter-select"
-                        allowClear
-                        showSearch
-                        options={stateOptions}
-                      />
-                    </div>
-                    <div>
-                      <span className="filter-label flex items-center text-[#c2c6cb]">
-                        <MapPinHouse className="filter-icon text-[#c2c6cb]" />
-                        City
-                      </span>
-                      <CustomSelect
-                        mode="multiple"
-                        placeholder="Select Cities"
-                        value={cityId}
-                        onChange={setCityId}
-                        className="filter-select"
-                        allowClear
-                        showSearch
-                        options={cityOptions}
-                      />
-                    </div>
-                  </Space>
-                ),
-                className: "fontFamily-bebas",
-              },
-            ]} />
+                      </div>
+                      <div>
+                        <span className="filter-label flex items-center text-[#c2c6cb]">
+                          <MapPinHouse className="filter-icon text-[#c2c6cb]" />
+                          State
+                        </span>
+                        <CustomSelect
+                          mode="multiple"
+                          placeholder="Select States"
+                          value={stateId}
+                          onChange={setStateId}
+                          className="filter-select"
+                          allowClear
+                          showSearch
+                          options={stateOptions}
+                        />
+                      </div>
+                      <div>
+                        <span className="filter-label flex items-center text-[#c2c6cb]">
+                          <MapPinHouse className="filter-icon text-[#c2c6cb]" />
+                          City
+                        </span>
+                        <CustomSelect
+                          mode="multiple"
+                          placeholder="Select Cities"
+                          value={cityId}
+                          onChange={setCityId}
+                          className="filter-select"
+                          allowClear
+                          showSearch
+                          options={cityOptions}
+                        />
+                      </div>
+                    </Space>
+                  ),
+                  className: "fontFamily-bebas",
+                },
+              ]}
+            />
             <div className="filters-footer">
               <Space className="filters-footer-buttons">
                 <CustomButton
@@ -1003,7 +1192,8 @@ const AdvancedPropertySearch = ({
                               src={property.image}
                               className="card-image"
                               onMouseEnter={(e) =>
-                                (e.currentTarget.style.transform = "scale(1.08)")
+                                (e.currentTarget.style.transform =
+                                  "scale(1.08)")
                               }
                               onMouseLeave={(e) =>
                                 (e.currentTarget.style.transform = "scale(1)")
@@ -1037,15 +1227,26 @@ const AdvancedPropertySearch = ({
                                 </div>
                               </Tooltip>
                               <Tooltip title="View">
-                                <div className="action-button advanced-section-action" onClick={() => handleNavigate(property)}>
+                                <div
+                                  className="action-button advanced-section-action"
+                                  onClick={() => handleNavigate(property)}
+                                >
                                   <FaEye />
                                 </div>
                               </Tooltip>
                             </div>
                             <div className="card-footer">
                               <div className="card-footer-content">
-                                <div className="card-price"> {getFormattedPrice(property)} </div>
-                                <div className="card-area flex items-center justify-end "><span><Ruler className="mr-1 w-5 h-5" /> </span> {getFormattedArea(property)}</div>
+                                <div className="card-price">
+                                  {" "}
+                                  {getFormattedPrice(property)}{" "}
+                                </div>
+                                <div className="card-area flex items-center justify-end ">
+                                  <span>
+                                    <Ruler className="mr-1 w-5 h-5" />{" "}
+                                  </span>{" "}
+                                  {getFormattedArea(property)}
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -1066,12 +1267,19 @@ const AdvancedPropertySearch = ({
                               <div className="card-details">
                                 <div className="card-details-content">
                                   <Text className="card-detail-item rounded-md border border-[#c99913]/30 bg-gradient-to-r from-black/40 via-[#1a1a1a]/60 to-black/40 shadow-md shadow-black/60 text-[#e6e6e6] p-1">
-                                    <Bed className="text-[#c2c6cb]" /> {property.bedsRange || '0 Beds'}
+                                    <Bed className="text-[#c2c6cb]" />{" "}
+                                    {property.bedsRange || "0 Beds"}
                                   </Text>
                                   <Text className="card-detail-item rounded-md border border-[#c99913]/30 bg-gradient-to-r from-black/40 via-[#1a1a1a]/60 to-black/40 shadow-md shadow-black/60 text-[#e6e6e6] p-1">
-                                    <Bath className="text-[#c2c6cb]" /> {property.bathsRange || '0 Baths'}
+                                    <Bath className="text-[#c2c6cb]" />{" "}
+                                    {property.bathsRange || "0 Baths"}
                                   </Text>
-                                  <Tag color="default" className="capitalize bg-[#444] property-advanced">{property.type}</Tag>
+                                  <Tag
+                                    color="default"
+                                    className="capitalize bg-[#444] property-advanced"
+                                  >
+                                    {property.type}
+                                  </Tag>
                                 </div>
                                 <div className="grid-viewdetails">
                                   <CustomButton
@@ -1079,7 +1287,8 @@ const AdvancedPropertySearch = ({
                                     className="property-card-action-button"
                                     onClick={() => handleNavigate(property)}
                                   >
-                                    View Detail <ExternalLink className="w-4 h-4" />
+                                    View Detail{" "}
+                                    <ExternalLink className="w-4 h-4" />
                                   </CustomButton>
                                 </div>
                               </div>
@@ -1129,36 +1338,58 @@ const AdvancedPropertySearch = ({
                             <div className="list-details">
                               <div className="list-details-content flex items-center justify-center  rounded-md border border-[#c99913]/30 bg-gradient-to-r from-black/40 via-[#1a1a1a]/60 to-black/40 shadow-md shadow-black/60 text-[#e6e6e6] p-1">
                                 <Bed className="text-[#c2c6cb]" />
-                                <p className="mx-2">{property.bedsRange || property.bedrooms || '0 Beds'}</p>
+                                <p className="mx-2">
+                                  {property.bedsRange ||
+                                    property.bedrooms ||
+                                    "0 Beds"}
+                                </p>
                               </div>
                               <div className="list-details-content flex items-center justify-center  rounded-md border border-[#c99913]/30 bg-gradient-to-r from-black/40 via-[#1a1a1a]/60 to-black/40 shadow-md shadow-black/60 text-[#e6e6e6] p-1">
                                 <Bath className="text-[#c2c6cb]" />
-                                <p className="mx-2">{property.bathsRange || property.bathrooms || '0 Baths'}</p>
+                                <p className="mx-2">
+                                  {property.bathsRange ||
+                                    property.bathrooms ||
+                                    "0 Baths"}
+                                </p>
                               </div>
                               <div className="list-details-content flex items-center justify-center  rounded-md border border-[#c99913]/30 bg-gradient-to-r from-black/40 via-[#1a1a1a]/60 to-black/40 shadow-md shadow-black/60 text-[#e6e6e6] p-1">
                                 <LandPlot className="text-[#c2c6cb]" />
-                                <p className="mx-2">{getFormattedArea(property)}</p>
+                                <p className="mx-2">
+                                  {getFormattedArea(property)}
+                                </p>
                               </div>
                               <div className="list-details-content flex items-center justify-center  rounded-md border border-[#c99913]/30 bg-gradient-to-r from-black/40 via-[#1a1a1a]/60 to-black/40 shadow-md shadow-black/60 text-[#e6e6e6] p-1">
                                 <CalendarDays className="text-[#c2c6cb]" />
-                                <p className="mx-2">{property.yearBuilt || 2020} Year</p>
+                                <p className="mx-2">
+                                  {property.yearBuilt || 2020} Year
+                                </p>
                               </div>
                             </div>
                             <div className="list-tags">
-                              <Tag color="default" className="capitalize property-advanced">{property.type}</Tag>
-                              <Tag color={getStatusColor(property.status)} className="for-list-tag">
+                              <Tag
+                                color="default"
+                                className="capitalize property-advanced"
+                              >
+                                {property.type}
+                              </Tag>
+                              <Tag
+                                color={getStatusColor(property.status)}
+                                className="for-list-tag"
+                              >
                                 {property.status}
                               </Tag>
                             </div>
                             <div className="list-mode-footer flex items-center justify-between">
-                              <div className="listmode-price py-1"> {getFormattedPrice(property)} </div>
+                              <div className="listmode-price py-1">
+                                {" "}
+                                {getFormattedPrice(property)}{" "}
+                              </div>
 
                               <div className="listmode-area">
                                 <Ruler />
                                 <p>{getFormattedArea(property)}</p>
                               </div>
                             </div>
-
                           </div>
                         }
                       />
@@ -1177,9 +1408,13 @@ const AdvancedPropertySearch = ({
             </>
           ) : (
             <div className="no-properties">
-              <Empty description={
-                <Title level={3} className="text-[#c2c6cb]">No Properties Found</Title>
-              } />
+              <Empty
+                description={
+                  <Title level={3} className="text-[#c2c6cb]">
+                    No Properties Found
+                  </Title>
+                }
+              />
               <Text className="text-[#c2c6cb]">
                 We couldn't find any properties matching your search criteria.
                 Try adjusting your filters or search terms.

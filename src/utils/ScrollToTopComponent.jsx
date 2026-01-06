@@ -4,9 +4,9 @@ import { useLocation } from "react-router-dom";
 const pathnamesToScroll = [
   "/home",
   "/location",
-  "/projects",
-  "/projects/residential",
-  "/projects/commercial",
+  "/properties",
+  "/properties-type/residential",
+  "/properties-type/commercial",
   "/premiumproperties/",
   "/explore-properties",
   "/about",

@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Input, Typography, Pagination, Empty } from 'antd';
+import { Input, Typography, Pagination, Empty, Slider } from 'antd';
 import { FilterOutlined, DownOutlined, SearchOutlined as SearchIcon } from '@ant-design/icons';
 import { Grid, List, MapPinHouse, LandPlot, Heart, Share2, Star, X, Facebook, Instagram, Linkedin, Twitter, ExternalLink } from 'lucide-react';
 import ViewDetailsDrawer from './ViewDetailsDrawer';
@@ -37,6 +37,10 @@ class ErrorBoundary extends React.Component {
     return this.props.children;
   }
 }
+
+const formatPrice = (val) => {
+  return val < 1 ? `${Math.round(val * 100)} L` : `${val} Cr`;
+};
 
 const parseSinglePrice = (str) => {
   if (!str) return null;
@@ -91,11 +95,16 @@ const Commercial = () => {
   const [viewMode, setViewMode] = useState('grid');
   const [sortBy, setSortBy] = useState('featured');
   const [filters, setFilters] = useState({
-    priceRange: '',
-    propertyType: '',
-    sizeRange: '',
-    category: '',
+    priceMin: null,
+    priceMax: null,
+    sizeMin: null,
+    sizeMax: null,
+    status: "",
+    bedrooms: [],
+    bathrooms: [],
+    yearBuilt: [],
   });
+  const [pendingFilters, setPendingFilters] = useState(filters);
   const [searchTerm, setSearchTerm] = useState('');
   const [showFilters, setShowFilters] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -108,6 +117,10 @@ const Commercial = () => {
   const location = useLocation();
   const { propertyName } = useParams();
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setIsLoading(false), 1500);
+  }, []);
 
   useEffect(() => {
     if (propertyName) {
@@ -134,17 +147,13 @@ const Commercial = () => {
 
   useEffect(() => {
     if (!propertyName) {
-      navigate(`/projects/commercial?page=${currentPage}`, { replace: true });
+      navigate(`/properties-type/commercial?page=${currentPage}`, { replace: true });
     }
   }, [currentPage, propertyName, navigate]);
 
   useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm, filters, sortBy, showLikedOnly]);
-
-  useEffect(() => {
-    setTimeout(() => setIsLoading(false), 1500);
-  }, []);
 
   useEffect(() => {
     const savedViewMode = localStorage.getItem('commercialViewMode');
@@ -162,6 +171,12 @@ const Commercial = () => {
       localStorage.removeItem('commercialViewMode');
     };
   }, []);
+
+  useEffect(() => {
+    if (showFilters) {
+      setPendingFilters(filters);
+    }
+  }, [showFilters, filters]);
 
   const toggleLike = (propertyId) => {
     setLikedProperties((prev) =>
@@ -182,29 +197,50 @@ const Commercial = () => {
       const matchesSearch =
         property.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         property.location?.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesType =
-        !filters.propertyType ||
-        property.type?.toLowerCase().includes(filters.propertyType.toLowerCase().replace('/', '/'));
       const priceRangeProp = parsePriceRange(property.price);
       const matchesPriceRange =
-        !filters.priceRange ||
-        (priceRangeProp.max !== null &&
-          (() => {
-            const [, rangeMaxStr] = filters.priceRange.split('-');
-            const filterMax = rangeMaxStr === '+' ? Infinity : parseFloat(rangeMaxStr) || Infinity;
-            return priceRangeProp.max <= filterMax;
-          })());
+        priceRangeProp.min === null ||
+        priceRangeProp.max === null ||
+        ((!filters.priceMin || priceRangeProp.max >= filters.priceMin) &&
+          (!filters.priceMax || priceRangeProp.min <= filters.priceMax));
       const sizeRangeProp = parseSizeRange(property.size);
       const matchesSizeRange =
-        !filters.sizeRange ||
-        (sizeRangeProp.max !== null &&
-          (() => {
-            const [, rangeMaxStr] = filters.sizeRange.split('-');
-            const filterMax = rangeMaxStr === '+' ? Infinity : parseInt(rangeMaxStr) || Infinity;
-            return sizeRangeProp.max <= filterMax;
-          })());
-      const matchesCategory = !filters.category || property.category === filters.category;
-      return isCommercial && matchesSearch && matchesType && matchesPriceRange && matchesSizeRange && matchesCategory;
+        sizeRangeProp.min === null ||
+        sizeRangeProp.max === null ||
+        ((!filters.sizeMin || sizeRangeProp.max >= filters.sizeMin) &&
+          (!filters.sizeMax || sizeRangeProp.min <= filters.sizeMax));
+      const matchesStatus =
+        !filters.status ||
+        (property.status || property.options || []).includes(filters.status);
+      const matchesBedrooms =
+        filters.bedrooms.length === 0 ||
+        filters.bedrooms.some(
+          (b) =>
+            property.bedrooms &&
+            Number(b) >= property.bedrooms.min &&
+            Number(b) <= property.bedrooms.max
+        );
+      const matchesBathrooms =
+        filters.bathrooms.length === 0 ||
+        filters.bathrooms.some(
+          (b) =>
+            property.bathrooms &&
+            Number(b) >= property.bathrooms.min &&
+            Number(b) <= property.bathrooms.max
+        );
+      const matchesYearBuilt =
+        filters.yearBuilt.length === 0 ||
+        filters.yearBuilt.some((y) => property.yearBuilt?.includes(y));
+      return (
+        isCommercial &&
+        matchesSearch &&
+        matchesPriceRange &&
+        matchesSizeRange &&
+        matchesStatus &&
+        matchesBedrooms &&
+        matchesBathrooms &&
+        matchesYearBuilt
+      );
     });
 
     if (showLikedOnly) {
@@ -246,7 +282,7 @@ const Commercial = () => {
     setSelectedProperty(property);
     setDrawerOpen(true);
     const propertyNameSlug = property.name.toLowerCase().replace(/\s+/g, '-');
-    navigate(`/projects/commercial/${propertyNameSlug}`, { state: { from: location.pathname + location.search } });
+    navigate(`/properties-type/commercial/${propertyNameSlug}`, { state: { from: location.pathname + location.search } });
   };
 
   const handleCloseDrawer = () => {
@@ -258,7 +294,7 @@ const Commercial = () => {
   const GridPropertyCard = ({ property, isLiked, onToggleLike }) => {
     const [isSharePopupOpen, setIsSharePopupOpen] = useState(false);
 
-    const shareUrl = encodeURIComponent(window.location.origin + `/projects/commercial/${property.name.toLowerCase().replace(/\s+/g, '-')}`);
+    const shareUrl = encodeURIComponent(window.location.origin + `/properties-type/commercial/${property.name.toLowerCase().replace(/\s+/g, '-')}`);
     const shareTitle = encodeURIComponent(property.name);
 
     const socialMediaLinks = [
@@ -441,7 +477,7 @@ const Commercial = () => {
   const ListPropertyCard = ({ property, isLiked, onToggleLike }) => {
     const [isSharePopupOpen, setIsSharePopupOpen] = useState(false);
 
-    const shareUrl = encodeURIComponent(window.location.origin + `/projects/commercial/${property.name.toLowerCase().replace(/\s+/g, '-')}`);
+    const shareUrl = encodeURIComponent(window.location.origin + `/properties-type/commercial/${property.name.toLowerCase().replace(/\s+/g, '-')}`);
     const shareTitle = encodeURIComponent(property.name);
 
     const socialMediaLinks = [
@@ -652,7 +688,7 @@ const Commercial = () => {
         {/* Canonical */}
         <link
           rel="canonical"
-          href="https://www.ethosprorealtors.com/projects/commercial"
+          href="https://www.ethosprorealtors.com/properties-type/commercial"
         />
 
         {/* Open Graph */}
@@ -667,7 +703,7 @@ const Commercial = () => {
         />
         <meta
           property="og:url"
-          content="https://www.ethosprorealtors.com/projects/commercial"
+          content="https://www.ethosprorealtors.com/properties-type/commercial"
         />
         <meta
           property="og:image"
@@ -696,7 +732,7 @@ const Commercial = () => {
               "@context": "https://schema.org",
               "@type": "CollectionPage",
               "name": "Commercial Properties in Gurugram",
-              "url": "https://www.ethosprorealtors.com/projects/commercial",
+              "url": "https://www.ethosprorealtors.com/properties-type/commercial",
               "description": "Premium commercial real estate projects including offices, retail shops and SCO plots in Gurugram.",
               "publisher": {
                 "@type": "Organization",
@@ -880,88 +916,277 @@ const Commercial = () => {
             </div>
           </div>
           {showFilters && (
-            <div className="mt-4 p-4 bg-[#333]/50 rounded-xl border border-[#ffffff38]">
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mobile-open-filter">
-                <CustomSelect
-                  showSearch
-                  popupMatchSelectWidth={true}
-                  value={filters.priceRange}
-                  onChange={(value) => setFilters({ ...filters, priceRange: value })}
-                  placeholder="Any Price"
-                  optionFilterProp="label"
-                  filterSort={filterSort}
-                  size="large"
-                  className="custom-select"
-                  options={[
-                    { value: '', label: 'Any Price' },
-                    { value: '0-0.5', label: '0-50L' },
-                    { value: '0.5-3', label: '50L - 3 Cr' },
-                    { value: '1-5', label: '1Cr - 5Cr' },
-                    { value: '5-+', label: '5Cr+' },
-                  ]}
-                />
-                <CustomSelect
-                  showSearch
-                  popupMatchSelectWidth={true}
-                  value={filters.propertyType}
-                  onChange={(value) => setFilters({ ...filters, propertyType: value })}
-                  placeholder="All Property Types"
-                  optionFilterProp="label"
-                  filterSort={filterSort}
-                  size="large"
-                  className="custom-select"
-                  options={[
-                    { value: '', label: 'All Property Types' },
-                    { value: 'SHOP/COMMERCIAL', label: 'Shop/Commercial' },
-                    { value: 'OFFICE/COMMERCIAL', label: 'Office/Commercial' },
-                    { value: 'COMMERCIAL', label: 'Commercial' },
-                  ]}
-                />
-                <CustomSelect
-                  showSearch
-                  popupMatchSelectWidth={true}
-                  value={filters.sizeRange}
-                  onChange={(value) => setFilters({ ...filters, sizeRange: value })}
-                  placeholder="Any Size"
-                  optionFilterProp="label"
-                  filterSort={filterSort}
-                  size="large"
-                  className="custom-select"
-                  options={[
-                    { value: '', label: 'Any Size' },
-                    { value: '0-500', label: '0-500 Sq Ft' },
-                    { value: '500-4000', label: '500-4000 Sq Ft' },
-                    { value: '4000-10000', label: '4000-10000 Sq Ft' },
-                    { value: '10000-+', label: '10000+ Sq Ft' },
-                  ]}
-                />
-                <CustomSelect
-                  showSearch
-                  popupMatchSelectWidth={true}
-                  value={filters.category}
-                  onChange={(value) => setFilters({ ...filters, category: value })}
-                  placeholder="All Categories"
-                  optionFilterProp="label"
-                  filterSort={filterSort}
-                  size="large"
-                  className="custom-select"
-                  options={[
-                    { value: '', label: 'All Categories' },
-                    { value: 'AFFORDABLE', label: 'Affordable' },
-                    { value: 'COMPACT', label: 'Compact' },
-                    { value: 'PREMIUM', label: 'Premium' },
-                    { value: 'LUXURY', label: 'Luxury' },
-                    { value: 'ULTRA_LUXURY', label: 'Ultra Luxury' },
-                    { value: 'INVESTMENT', label: 'Investment' },
-                  ]}
-                />
+            <div className="mt-6 py-4 px-6 bg-gradient-to-br from-[#1e1e1e] to-[#2a2a2a] rounded-3xl border border-[#ffffff15] shadow-2xl mobile-filter-box">
+              <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                {/* PRICE RANGE */}
+                <div className="lg:col-span-1 ">
+                  <label className="text-sm font-semibold text-white/90 block">
+                    Price Range
+                  </label>
+
+                  <div className="relative py-2 ">
+                    {/* Slider Track */}
+                    <div className="relative h-1 bg-[#333] rounded-full">
+                      {/* Active Track */}
+                      <div
+                        className="absolute h-full bg-gradient-to-r from-[#f1cb63] to-[#ecf65c] rounded-full"
+                        style={{
+                          left: `${
+                            (((pendingFilters.priceMin ?? 0.1) - 0.1) /
+                              (50 - 0.1)) *
+                            100
+                          }%`,
+                          right: `${
+                            100 -
+                            (((pendingFilters.priceMax ?? 50) - 0.1) /
+                              (50 - 0.1)) *
+                              100
+                          }%`,
+                        }}
+                      />
+
+                      {/* Min Handle */}
+                      <input
+                        type="range"
+                        min={0.1}
+                        max={50}
+                        step={0.1}
+                        value={pendingFilters.priceMin ?? 0.1}
+                        onChange={(e) => {
+                          const value = parseFloat(e.target.value);
+                          if (value < (pendingFilters.priceMax ?? 50)) {
+                            setPendingFilters({
+                              ...pendingFilters,
+                              priceMin: value === 0.1 ? null : value,
+                            });
+                          }
+                        }}
+                        className="absolute w-full h-1 bg-transparent appearance-none pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-[#6366f1] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-xl [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:w-6 [&::-moz-range-thumb]:h-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-4 [&::-moz-range-thumb]:border-[#6366f1] [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:shadow-xl [&::-moz-range-thumb]:border-0"
+                        style={{ zIndex: 3 }}
+                      />
+
+                      {/* Max Handle */}
+                      <input
+                        type="range"
+                        min={0.1}
+                        max={50}
+                        step={0.1}
+                        value={pendingFilters.priceMax ?? 50}
+                        onChange={(e) => {
+                          const value = parseFloat(e.target.value);
+                          if (value > (pendingFilters.priceMin ?? 0.1)) {
+                            setPendingFilters({
+                              ...pendingFilters,
+                              priceMax: value === 50 ? null : value,
+                            });
+                          }
+                        }}
+                        className="absolute w-full h-1 bg-transparent appearance-none pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-[#8b5cf6] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-xl [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:w-6 [&::-moz-range-thumb]:h-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-4 [&::-moz-range-thumb]:border-[#8b5cf6] [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:shadow-xl [&::-moz-range-thumb]:border-0"
+                        style={{ zIndex: 4 }}
+                      />
+                    </div>
+
+                    {/* Marks */}
+                    <div className="flex justify-between mt-3 text-xs text-[#666] font-medium">
+                      <span>10L</span>
+                      <span>1Cr</span>
+                      <span>5Cr</span>
+                      <span>10Cr</span>
+                      <span>20Cr</span>
+                      <span>50Cr</span>
+                    </div>
+                  </div>
+
+                  {/* Price Display */}
+                  <div className="text-center text-base font-bold text-white bg-[#6366f1]/10 py-1 px-6 rounded-xl border border-[#6366f1]/30">
+                    {pendingFilters.priceMin == null
+                      ? "10L"
+                      : formatPrice(pendingFilters.priceMin)}{" "}
+                    -{" "}
+                    {pendingFilters.priceMax == null
+                      ? "50Cr"
+                      : formatPrice(pendingFilters.priceMax)}
+                  </div>
+                </div>
+
+                {/* SIZE RANGE */}
+                <div>
+                  <label className="text-sm font-semibold text-white/90 block mb-2">
+                    Size Range (Sq Ft)
+                  </label>
+                  <div className="flex gap-3">
+                    <Input
+                      type="number"
+                      placeholder="Min"
+                      value={pendingFilters.sizeMin || ""}
+                      onChange={(e) =>
+                        setPendingFilters({
+                          ...pendingFilters,
+                          sizeMin: e.target.value ? parseInt(e.target.value) : null,
+                        })
+                      }
+                      className="flex-1 bg-[#1a1a1a] text-white border-2 border-[#333] hover:border-[#6366f1] focus:border-[#6366f1] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6366f1]/20 transition-all text-sm"
+                    />
+                    <Input
+                      type="number"
+                      placeholder="Max"
+                      value={pendingFilters.sizeMax || ""}
+                      onChange={(e) =>
+                        setPendingFilters({
+                          ...pendingFilters,
+                          sizeMax: e.target.value ? parseInt(e.target.value) : null,
+                        })
+                      }
+                      className="flex-1 bg-[#1a1a1a] text-white border-2 border-[#333] hover:border-[#6366f1] focus:border-[#6366f1] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6366f1]/20 transition-all text-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* BEDROOMS */}
+                <div>
+                  <label className="text-sm font-semibold text-white/90 block mb-2">
+                    Bedrooms
+                  </label>
+                  <CustomSelect
+                    mode="multiple"
+                    allowClear
+                    placeholder="Any"
+                    value={pendingFilters.bedrooms}
+                    onChange={(value) =>
+                      setPendingFilters({ ...pendingFilters, bedrooms: value })
+                    }
+                    size="large"
+                    className="w-full custom-select"
+                    style={{ background: "#1a1a1a", color: "white" }}
+                    dropdownStyle={{
+                      background: "#1a1a1a",
+                      borderColor: "#333",
+                    }}
+                    options={Array.from({ length: 10 }, (_, i) => ({
+                      value: `${i + 1}`,
+                      label: `${i + 1}`,
+                    }))}
+                  />
+                </div>
+
+                {/* BATHROOMS */}
+                <div>
+                  <label className="text-sm font-semibold text-white/90 block mb-2">
+                    Bathrooms
+                  </label>
+                  <CustomSelect
+                    mode="multiple"
+                    allowClear
+                    placeholder="Any"
+                    value={pendingFilters.bathrooms}
+                    onChange={(value) =>
+                      setPendingFilters({ ...pendingFilters, bathrooms: value })
+                    }
+                    size="large"
+                    className="w-full custom-select"
+                    style={{ background: "#1a1a1a", color: "white" }}
+                    dropdownStyle={{
+                      background: "#1a1a1a",
+                      borderColor: "#333",
+                    }}
+                    options={Array.from({ length: 10 }, (_, i) => ({
+                      value: `${i + 1}`,
+                      label: `${i + 1}`,
+                    }))}
+                  />
+                </div>
+
+                {/* YEAR BUILT */}
+                <div>
+                  <label className="text-sm font-semibold text-white/90 block mb-2">
+                    Year Built
+                  </label>
+                  <CustomSelect
+                    mode="multiple"
+                    allowClear
+                    placeholder="Any"
+                    value={pendingFilters.yearBuilt}
+                    onChange={(value) =>
+                      setPendingFilters({ ...pendingFilters, yearBuilt: value })
+                    }
+                    size="large"
+                    className="w-full custom-select"
+                    style={{ background: "#1a1a1a", color: "white" }}
+                    dropdownStyle={{
+                      background: "#1a1a1a",
+                      borderColor: "#333",
+                    }}
+                    options={[
+                      { value: "2021", label: "2021" },
+                      { value: "2022", label: "2022" },
+                      { value: "2023", label: "2023" },
+                      { value: "2024", label: "2024" },
+                      { value: "2025", label: "2025" },
+                    ]}
+                  />
+                </div>
+
+                {/* STATUS */}
+                <div>
+                  <label className="text-sm font-semibold text-white/90 block mb-2">
+                    Status
+                  </label>
+                  <CustomSelect
+                    value={pendingFilters.status}
+                    onChange={(value) =>
+                      setPendingFilters({ ...pendingFilters, status: value })
+                    }
+                    placeholder="Any Status"
+                    size="large"
+                    className="w-full custom-select"
+                    style={{ background: "#1a1a1a", color: "white" }}
+                    dropdownStyle={{
+                      background: "#1a1a1a",
+                      borderColor: "#333",
+                    }}
+                    options={[
+                      { value: "", label: "Any Status" },
+                      { value: "FOR SALE", label: "For Sale" },
+                      { value: "FOR RENT", label: "For Rent" },
+                      { value: "NEW LAUNCH", label: "New Launch" },
+                      { value: "HOT OFFER", label: "Hot Offer" },
+                    ]}
+                  />
+                </div>
+              </div>
+
+              {/* ACTION BUTTONS */}
+              <div className="flex justify-end gap-4 mt-6 pt-4 border-t border-[#ffffff08] mobile-filter-buttons">
                 <button
-                  onClick={() => setFilters({ priceRange: '', propertyType: '', sizeRange: '', category: '' })}
-                  size="large"
-                  className="cancelButton rounded-md max-w-[200px]"
+                  onClick={() => {
+                    const reset = {
+                      priceMin: null,
+                      priceMax: null,
+                      sizeMin: null,
+                      sizeMax: null,
+                      status: "",
+                      bedrooms: [],
+                      bathrooms: [],
+                      yearBuilt: [],
+                    };
+                    setPendingFilters(reset);
+                    setFilters(reset);
+                  }}
+                  
+                  className="px-8 py-1 cancelButton rounded-md max-w-[200px] font-semibold text-sm transition-all"
                 >
                   Clear Filters
                 </button>
+                <CustomButton
+                  onClick={() => {
+                    setFilters(pendingFilters);
+                    setCurrentPage(1);
+                    setShowFilters(false);
+                  }}
+                  className="px-10 py-3 text-white font-bold rounded-xl shadow-lg transition-all"
+                >
+                  Apply Filters
+                </CustomButton>
               </div>
             </div>
           )}

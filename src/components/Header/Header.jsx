@@ -20,10 +20,10 @@ function Header() {
   const navItems = [
     { name: "Home", path: "/" },
     {
-      name: "Projects",
+      name: "Properties",
       dropdown: [
-        { name: "Residential", path: "/projects/residential", key: "1" },
-        { name: "Commercial", path: "/projects/commercial", key: "2" },
+        { name: "Residential", path: "/properties-type/residential", key: "1" },
+        { name: "Commercial", path: "/properties-type/commercial", key: "2" },
       ],
     },
     { name: "About", path: "/about" },

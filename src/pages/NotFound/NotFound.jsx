@@ -162,9 +162,7 @@ export default function NotFoundPage() {
                 <div className="absolute top-10 left-10 opacity-20">
                     <div className="w-20 h-20 border-4 border-[#c08830] rounded-full animate-spin" style={{ animationDuration: '15s' }} />
                 </div>
-                <div className="absolute bottom-10 right-10 opacity-20">
-                    <div className="w-16 h-16 border-4 border-[#c08830] rounded-square rotate-45 animate-bounce" />
-                </div>
+                
                 <div className="absolute top-1/2 left-4 opacity-10">
                     <Star className="w-12 h-12 text-[#c08830] animate-pulse" />
                 </div>

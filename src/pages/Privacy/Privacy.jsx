@@ -26,7 +26,7 @@ const Privacy = () => {
                         <div className="inline-flex items-center px-4 py-2 bg-[#444] text-[#c2c6cb] rounded-lg border border-[#676869] hover:bg-[#333] transition-colors duration-200">
                             <Calendar className="w-5 h-5 mr-2" />
                             <span className="text-base font-medium fontFamily-Content">
-                                Last updated: August, 2025
+                                Last updated: January, 2026
                             </span>
                         </div>
                     </div>

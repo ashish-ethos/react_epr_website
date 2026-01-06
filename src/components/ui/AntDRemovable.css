@@ -289,3 +289,7 @@
 .ant-slider .ant-slider-handle::after{
   box-shadow: #c08830b5 0 0 0 3px !important;
 }
+
+.ant-input, .ant-btn, .ant-input-number {
+  height: 40px !important;
+}

@@ -48,12 +48,12 @@ function App() {
 
 
           {/* Projects */}
-          <Route path="/projects" element={<Project />} />
-          <Route path="/projects/residential" element={<Residentials />} />
-          <Route path="/projects/residential/:propertyName" element={<Residentials />} />
+          <Route path="/properties" element={<Project />} />
+          <Route path="/properties-type/residential" element={<Residentials />} />
+          <Route path="/properties-type/residential/:propertyName" element={<Residentials />} />
 
-          <Route path="/projects/commercial" element={<Commercial />} />
-          <Route path="/projects/commercial/:propertyName" element={<Commercial />} />
+          <Route path="/properties-type/commercial" element={<Commercial />} />
+          <Route path="/properties-type/commercial/:propertyName" element={<Commercial />} />
 
           <Route
             path="/premiumproperties/:propertyName"

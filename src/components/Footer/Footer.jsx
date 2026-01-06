@@ -150,7 +150,7 @@ function Footer() {
               </span>
             </div>
 
-            <h2 className="text-5xl md:text-7xl font-black mb-6 relative">
+            <h2 className="text-5xl md:text-7xl font-medium mb-6 relative">
               <span className=" font-[Montserrat] text-gradient animate-gradient-x">
                 Ethos Pro Realtors
               </span>
@@ -370,9 +370,9 @@ function Footer() {
               <ul className="space-y-4 fontFamily-bebas">
                 {[
                   { to: "/", label: "Home" },
-                  { to: "/projects", label: "Projects" },
-                  { to: "/projects/residential", label: "Residential" },
-                  { to: "/projects/commercial", label: "Commercial" },
+                  { to: "/properties", label: "Properties" },
+                  { to: "/properties-type/residential", label: "Residential" },
+                  { to: "/properties-type/commercial", label: "Commercial" },
                   { to: "/about", label: "About" },
                   { to: "/blog", label: "Blog" },
                   { to: "/contact", label: "Contact" },
