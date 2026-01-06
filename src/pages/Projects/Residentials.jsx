@@ -945,7 +945,7 @@ const Residentials = () => {
                 "@context": "https://schema.org",
                 "@type": "CollectionPage",
                 "name": "Residential Properties in Gurugram",
-                "url": "https://www.ethosprorealtors.com/projects/residential",
+                "url": "https://www.ethosprorealtors.com/properties-type/residential",
                 "description": "Luxury residential apartments, villas and homes in Gurugram by Ethos Pro Realtors.",
                 "publisher": {
                   "@type": "Organization",

@@ -57,7 +57,7 @@ const ViewDetailsDrawer = ({ open, onClose, project, isLiked = false, onToggleLi
   useEffect(() => {
   }, [open, project, isLiked, onToggleLike]);
 
-  const shareUrl = project ? encodeURIComponent(window.location.origin + `/projects/${isCommercial ? 'commercial' : 'residential'}/${project.name?.toLowerCase().replace(/\s+/g, '-')}`) : '';
+  const shareUrl = project ? encodeURIComponent(window.location.origin + `/properties-type/${isCommercial ? 'commercial' : 'residential'}/${project.name?.toLowerCase().replace(/\s+/g, '-')}`) : '';
   const shareTitle = project ? encodeURIComponent(project.name || 'Property') : 'Property';
 
   const socialMediaLinks = [

@@ -27,7 +27,7 @@ const Project = () => {
 
         <link
           rel="canonical"
-          href="https://www.ethosprorealtors.com/projects"
+          href="https://www.ethosprorealtors.com/properties-type"
         />
 
         {/* Open Graph */}
@@ -42,11 +42,11 @@ const Project = () => {
         />
         <meta
           property="og:image"
-          content="https://www.ethosprorealtors.com/assets/projects-og.jpg"
+          content="https://www.ethosprorealtors.com/assets/properties-type-og.jpg"
         />
         <meta
           property="og:url"
-          content="https://www.ethosprorealtors.com/projects"
+          content="https://www.ethosprorealtors.com/properties-type"
         />
         <meta property="og:site_name" content="Ethos Pro Realtors" />
 
@@ -59,7 +59,7 @@ const Project = () => {
         />
         <meta
           name="twitter:image"
-          content="https://www.ethosprorealtors.com/assets/projects-og.jpg"
+          content="https://www.ethosprorealtors.com/assets/properties-type-og.jpg"
         />
 
         {/* Collection Page Schema */}
@@ -69,7 +69,7 @@ const Project = () => {
             "@context": "https://schema.org",
             "@type": "CollectionPage",
             "name": "Real Estate Projects by Ethos Pro Realtors",
-            "url": "https://www.ethosprorealtors.com/projects",
+            "url": "https://www.ethosprorealtors.com/properties-type",
             "description": "Collection of residential and commercial real estate projects in Gurugram and NCR.",
             "publisher": {
               "@type": "Organization",

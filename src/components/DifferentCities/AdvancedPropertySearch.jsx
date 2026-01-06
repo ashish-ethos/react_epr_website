@@ -747,7 +747,7 @@ const AdvancedPropertySearch = ({
         property.type.toLowerCase() === "commercial"
           ? "commercial"
           : "residential";
-      navigate(`/projects/${routeType}/${propertyName}`, {
+      navigate(`/properties-type/${routeType}/${propertyName}`, {
         state: {
           from: routerLocation.pathname,
           property: property,
